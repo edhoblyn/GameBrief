@@ -1,9 +1,10 @@
 class PatchesController < ApplicationController
   def index
-    @patches = Patch.all
+    @game = Game.find(params[:game_id])
+    @patches = @game.patches
   end
 
   def show
-    @patch = Patch.find(params[:id])
+    @patch = Patch.includes(:patch_summaries, :game).find(params[:id])
   end
 end

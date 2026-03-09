@@ -1,5 +1,16 @@
-<h1>Patches</h1>
+<h1>Patches for <%= @game.name %></h1>
 
-<% @patches.each do |patch| %>
-  <p><%= link_to patch.title, patch_path(patch) %></p>
+<% if @patches.any? %>
+  <% @patches.each do |patch| %>
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title"><%= link_to patch.title, patch_path(patch) %></h5>
+        <p class="card-text text-muted"><%= patch.content.truncate(120) %></p>
+      </div>
+    </div>
+  <% end %>
+<% else %>
+  <p>No patches yet for this game.</p>
 <% end %>
+
+<%= link_to "Back to #{@game.name}", game_path(@game) %>

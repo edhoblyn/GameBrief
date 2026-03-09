@@ -6,6 +6,10 @@ class User < ApplicationRecord
          # for Google OmniAuth
          :omniauthable, omniauth_providers: [:google_oauth2]
 
+  has_many :favourites, dependent: :destroy
+  has_many :favourite_games, through: :favourites, source: :game
+  has_many :reminders, dependent: :destroy
+
   def self.from_omniauth(auth)
     # Find or create a user based on the provider and uid
     where(provider: auth.provider, uid: auth.uid).first_or_initialize do |user|
