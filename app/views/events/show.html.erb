@@ -24,10 +24,25 @@
       <p class="event-show__description"><%= @event.description %></p>
     <% end %>
 
-    <h2 class="event-show__section-title">Add to Calendar</h2>
-    <%= link_to gcal_url, target: "_blank", rel: "noopener noreferrer", class: "btn-gcal" do %>
-      <i class="fa fa-calendar-plus-o"></i>
-      Add to Google Calendar
+    <% gcal_url = "https://calendar.google.com/calendar/render?" + {
+      action: "TEMPLATE",
+      text: @event.title,
+      dates: "#{@event.start_date.strftime('%Y%m%dT%H%M%SZ')}/#{(@event.start_date + 1.hour).strftime('%Y%m%dT%H%M%SZ')}",
+      details: @event.description
+    }.to_query %>
+    <%= link_to "Add to Google Calendar", gcal_url, target: "_blank", rel: "noopener noreferrer" %>
+
+    <% if @reminder %>
+      <%= button_to "Remove Reminder", reminder_path(@reminder), method: :delete, class: "btn btn-danger" %>
+    <% else %>
+      <%= button_to "Set Reminder", reminders_path(event_id: @event.id), method: :post, class: "btn btn-primary" %>
+    <% end %>
+
+    <%= link_to "Back to events", events_path %>
+        <h2 class="event-show__section-title">Add to Calendar</h2>
+        <%= link_to gcal_url, target: "_blank", rel: "noopener noreferrer", class: "btn-gcal" do %>
+          <i class="fa fa-calendar-plus-o"></i>
+          Add to Google Calendar
     <% end %>
   </div>
 </div>

@@ -73,8 +73,8 @@ devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
 
 Stored in `.env` (development) and Heroku Config Vars (production):
 ```
-GOOGLE_CLIENT_ID
-GOOGLE_CLIENT_SECRET
+GOOGLE_OAUTH_CLIENT_ID
+GOOGLE_OAUTH_CLIENT_SECRET
 TWITCH_CLIENT_ID       # For IGDB API access
 TWITCH_CLIENT_SECRET
 RAILS_MASTER_KEY
