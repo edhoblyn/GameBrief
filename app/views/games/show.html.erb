@@ -2,4 +2,24 @@
 
 <p>Slug: <%= @game.slug %></p>
 
+<%# Follow / Unfollow %>
+<% if @favourite %>
+  <%= button_to "Unfollow", favourite_path(@favourite), method: :delete %>
+<% else %>
+  <%= button_to "Follow", favourites_path, params: { game_id: @game.id } %>
+<% end %>
+
+<%# Upcoming events for this game %>
+<h2>Upcoming Events</h2>
+<% if @events.any? %>
+  <% @events.each do |event| %>
+    <p>
+      <%= link_to event.title, event_path(event) %> —
+      <%= event.start_date.strftime("%d %b %Y") %>
+    </p>
+  <% end %>
+<% else %>
+  <p>No upcoming events for this game.</p>
+<% end %>
+
 <%= link_to "Back to games", games_path %>
