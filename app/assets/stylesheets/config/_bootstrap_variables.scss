@@ -7,22 +7,50 @@
 // General style
 $font-family-sans-serif: $body-font;
 $headings-font-family:   $headers-font;
-$body-bg:                $light-gray;
+$body-bg:                $dark-bg;
 $font-size-base:         1rem;
 
 // Colors
-$body-color: $gray;
-$primary:    $blue;
+$body-color: $dark-text;
+$primary:    $accent-purple;
 $success:    $green;
-$info:       $yellow;
+$info:       $accent-blue;
 $danger:     $red;
 $warning:    $orange;
 
+// Cards
+$card-bg:                $dark-card;
+$card-border-color:      $dark-border;
+$card-cap-bg:            transparent;
+$card-border-radius:     .75rem;
+
+// Links
+$link-color:             $accent-purple;
+$link-hover-color:       lighten($accent-purple, 12%);
+$link-decoration:        none;
+$link-hover-decoration:  none;
+
+// Inputs
+$input-bg:               $dark-surface;
+$input-border-color:     $dark-border;
+$input-color:            $dark-text;
+$input-placeholder-color: $dark-muted;
+$input-focus-bg:         $dark-surface;
+$input-focus-border-color: $accent-purple;
+$input-focus-color:      $dark-text;
+
+// Dropdowns
+$dropdown-bg:            $dark-surface;
+$dropdown-border-color:  $dark-border;
+$dropdown-link-color:    $dark-text;
+$dropdown-link-hover-bg: $dark-card;
+$dropdown-link-hover-color: $dark-text;
+
 // Buttons & inputs' radius
-$border-radius-sm:            .0625rem;
-$border-radius:               .125rem;
-$border-radius-lg:            .25rem;
-$border-radius-xl:            .5rem;
-$border-radius-xxl:           1rem;
+$border-radius-sm:            .375rem;
+$border-radius:               .5rem;
+$border-radius-lg:            .75rem;
+$border-radius-xl:            1rem;
+$border-radius-xxl:           1.5rem;
 
 // Override other variables below!

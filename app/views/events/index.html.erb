@@ -1,9 +1,21 @@
-<h1>Upcoming Events</h1>
+<div class="events-index">
+  <div class="events-index__header container">
+    <h1>Upcoming Events</h1>
+  </div>
 
-<% @events.each do |event| %>
-  <p>
-    <%= link_to event.title, event_path(event) %> —
-    <%= event.start_date.strftime("%d %b %Y") %>
-    <em>(<%= event.game.name %>)</em>
-  </p>
-<% end %>
+  <div class="container">
+    <% @events.each do |event| %>
+      <%= link_to event_path(event), class: "event-list-card" do %>
+        <div class="event-list-card__date">
+          <div class="day"><%= event.start_date.strftime("%-d") %></div>
+          <div class="month"><%= event.start_date.strftime("%b") %></div>
+        </div>
+        <div>
+          <div class="event-list-card__title"><%= event.title %></div>
+          <div style="font-size: 0.78rem; color: #7a7a9a; margin-top: 2px;"><%= event.game.name %></div>
+        </div>
+        <span class="event-list-card__arrow"><i class="fa fa-chevron-right"></i></span>
+      <% end %>
+    <% end %>
+  </div>
+</div>

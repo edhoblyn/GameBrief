@@ -13,21 +13,21 @@
 - Root route → games#index
 - Seed file with demo user, real game data, patches, summaries and events
 
-### Person 1 — Authentication
+### Person 1 - Bianca — Authentication
 - Devise installed and configured
 - Email/password login and signup working
 - `authenticate_user!` applied globally in ApplicationController
 - Google OAuth wired up: `OmniauthCallbacksController` created, routes updated, `from_omniauth` on User model, `provider`/`uid` migration added
 - `:omniauthable` added to User model
 
-### Person 2 — Games + IGDB
+### Person 2 — Ed - Games + IGDB
 - `IgdbClient` service built with Twitch OAuth token fetch and game search
 - Seeds import real games from IGDB with cover images
 - `games/index.html.erb` lists games with links
 - `games/show.html.erb` shows game detail, patches, follow/unfollow button, and upcoming events
 - Game model has all associations: patches, events, favourites
 
-### Person 3 — Patches + Summaries
+### Person 3 — Hortense - Patches + Summaries
 - `Patch` model has `belongs_to :game` and `has_many :patch_summaries`
 - `PatchSummary` model has `belongs_to :patch`
 - `PatchesController` with index (scoped to game) and show (includes summaries)
@@ -35,7 +35,7 @@
 - `patches/index.html.erb` lists patches for a game
 - Routes set up with nested patches under games
 
-### Person 4 — Events + Favourites
+### Person 4 — Baptiste -Events + Favourites
 - `FavouritesController` with create and destroy
 - Follow/unfollow buttons on `games/show.html.erb`
 - `EventsController` with index and show
@@ -47,7 +47,7 @@
 
 ## Round 2 Tasks
 
-### Person 1 — Finish Google OAuth + Deploy to Heroku
+### Person 1 — Ed -  Finish Google OAuth + Deploy to Heroku
 **Branch:** `feature/authentication`
 
 | # | Task |
@@ -62,7 +62,7 @@
 
 ---
 
-### Person 2 — Styling
+### Person 2 — Hortense - Styling
 **Branch:** `feature/styling`
 
 | # | Task |
@@ -77,7 +77,7 @@
 
 ---
 
-### Person 3 — AI Summaries
+### Person 3 — Baptiste - AI Summaries
 **Branch:** `feature/ai-summaries`
 
 | # | Task |
@@ -92,7 +92,7 @@
 
 ---
 
-### Person 4 — Reminders + Dashboard
+### Person 4 — Bianca - Reminders + Dashboard
 **Branch:** `feature/reminders-dashboard`
 
 | # | Task |
