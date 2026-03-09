@@ -1,0 +1,11 @@
+<h1>My Dashboard</h1>
+
+<h2>Followed Games</h2>
+
+<% if @followed_games.any? %>
+  <% @followed_games.each do |game| %>
+    <%= link_to game.name, game_path(game), class: "card" %>
+  <% end %>
+<% else %>
+  <p>You haven't followed any games yet.</p>
+<% end %>

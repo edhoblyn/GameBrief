@@ -20,5 +20,7 @@ Rails.application.routes.draw do
   resources :favourites, only: [:create, :destroy]
   resources :reminders, only: [:create, :destroy]
 
+  get "dashboard", to: "pages#dashboard"
+
   root "games#index"
 end
