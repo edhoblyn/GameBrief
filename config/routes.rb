@@ -15,7 +15,11 @@ Rails.application.routes.draw do
   resources :games, only: [:index, :show] do
     resources :patches, only: [:index]
   end
-  resources :patches, only: [:show]
+  resources :patches, only: [:show] do
+    member do
+      post :generate_summary
+    end
+  end
   resources :events, only: [:index, :show]
   resources :favourites, only: [:create, :destroy]
   resources :reminders, only: [:create, :destroy]
