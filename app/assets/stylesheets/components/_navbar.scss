@@ -1,12 +1,84 @@
-.navbar-lewagon {
-  justify-content: space-between;
-  background: white;
-}
+.navbar-gamebrief {
+  background: rgba(13, 13, 20, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid $dark-border;
+  padding: 0.75rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 
-.navbar-lewagon .navbar-collapse {
-  flex-grow: 0;
-}
+  .navbar-brand {
+    font-family: $headers-font;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.5px;
 
-.navbar-lewagon .navbar-brand img {
-  width: 40px;
+    span {
+      color: $accent-purple;
+    }
+
+    &:hover {
+      color: #fff;
+    }
+  }
+
+  .nav-link {
+    color: $dark-muted;
+    font-weight: 500;
+    padding: 0.4rem 0.75rem;
+    border-radius: 0.5rem;
+    transition: color 0.2s, background 0.2s;
+
+    &:hover,
+    &.active {
+      color: $dark-text;
+      background: $dark-surface;
+    }
+  }
+
+  .navbar-toggler {
+    border-color: $dark-border;
+
+    .navbar-toggler-icon {
+      filter: invert(1);
+    }
+  }
+
+  .btn-nav-primary {
+    background: $accent-purple;
+    color: #fff;
+    border: none;
+    padding: 0.4rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: background 0.2s, transform 0.15s;
+
+    &:hover {
+      background: lighten($accent-purple, 8%);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+  }
+
+  .dropdown-menu {
+    margin-top: 0.5rem;
+    border: 1px solid $dark-border;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  }
+
+  .avatar-nav {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid $dark-border;
+    cursor: pointer;
+    transition: border-color 0.2s;
+
+    &:hover {
+      border-color: $accent-purple;
+    }
+  }
 }

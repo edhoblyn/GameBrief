@@ -1,0 +1,107 @@
+// ── Events index ─────────────────────────────────────────────────────────────
+.events-index {
+  padding-bottom: 4rem;
+
+  &__header {
+    padding: 2.5rem 0 1.5rem;
+
+    h1 {
+      font-family: $headers-font;
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0;
+    }
+  }
+}
+
+// ── Event show ────────────────────────────────────────────────────────────
+.event-show {
+  padding-bottom: 4rem;
+
+  &__header {
+    padding: 2.5rem 0 2rem;
+    border-bottom: 1px solid $dark-border;
+    margin-bottom: 2rem;
+
+    h1 {
+      font-family: $headers-font;
+      font-size: clamp(1.5rem, 3.5vw, 2rem);
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.75rem;
+    }
+  }
+
+  &__meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 0;
+  }
+
+  &__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: $dark-surface;
+    border: 1px solid $dark-border;
+    border-radius: 2rem;
+    padding: 0.3rem 0.85rem;
+    font-size: 0.82rem;
+    color: $dark-muted;
+
+    i { color: $accent-blue; }
+
+    a {
+      color: $accent-purple;
+      font-weight: 600;
+      &:hover { color: lighten($accent-purple, 12%); }
+    }
+  }
+
+  &__description {
+    font-size: 1rem;
+    color: $dark-text;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  &__section-title {
+    font-family: $headers-font;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: $dark-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 1rem;
+  }
+}
+
+.btn-gcal {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #fff;
+  color: #333;
+  border-radius: 0.5rem;
+  padding: 0.6rem 1.25rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  border: none;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+
+  &:hover {
+    background: #f0f0f0;
+    color: #111;
+    text-decoration: none;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  }
+
+  i {
+    font-size: 1rem;
+    color: #4285f4;
+  }
+}
