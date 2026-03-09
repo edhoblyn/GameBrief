@@ -1,5 +1,20 @@
 <h1><%= @patch.title %></h1>
+<p class="text-muted"><%= link_to @patch.game.name, game_path(@patch.game) %></p>
 
-<p><%= @patch.content %></p>
+<h2>Patch Notes</h2>
+<pre class="bg-light p-3 rounded"><%= @patch.content %></pre>
 
-<%= link_to "Back", patches_path %>
+<h2>AI Summary</h2>
+<% if @patch.patch_summaries.any? %>
+  <% @patch.patch_summaries.each do |summary| %>
+    <div class="card mb-2">
+      <div class="card-body">
+        <p class="mb-0"><%= summary.summary %></p>
+      </div>
+    </div>
+  <% end %>
+<% else %>
+  <p><em>No summary yet.</em></p>
+<% end %>
+
+<%= link_to "Back to patches", game_patches_path(@patch.game) %>
