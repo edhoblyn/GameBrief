@@ -1,0 +1,152 @@
+// ── Patches index ────────────────────────────────────────────────────────────
+.patches-index {
+  padding-bottom: 4rem;
+
+  &__header {
+    padding: 2.5rem 0 1.5rem;
+
+    h1 {
+      font-family: $headers-font;
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.25rem;
+    }
+  }
+}
+
+.patch-card {
+  display: block;
+  background: $dark-card;
+  border: 1px solid $dark-border;
+  border-radius: 0.75rem;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 0.875rem;
+  text-decoration: none;
+  color: $dark-text;
+  transition: border-color 0.2s, background 0.2s, transform 0.2s;
+
+  &:hover {
+    border-color: rgba(124, 92, 252, 0.45);
+    background: lighten($dark-card, 3%);
+    transform: translateX(3px);
+    color: $dark-text;
+    text-decoration: none;
+  }
+
+  &__title {
+    font-weight: 700;
+    font-size: 1rem;
+    color: $dark-text;
+    margin: 0 0 0.4rem;
+  }
+
+  &__excerpt {
+    font-size: 0.875rem;
+    color: $dark-muted;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  &__arrow {
+    float: right;
+    color: $dark-muted;
+    font-size: 0.85rem;
+    margin-top: 3px;
+  }
+}
+
+// ── Patch show ────────────────────────────────────────────────────────────
+.patch-show {
+  padding-bottom: 4rem;
+
+  &__header {
+    padding: 2.5rem 0 2rem;
+    border-bottom: 1px solid $dark-border;
+    margin-bottom: 2rem;
+
+    h1 {
+      font-family: $headers-font;
+      font-size: clamp(1.5rem, 3.5vw, 2rem);
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.25rem;
+    }
+
+    &__breadcrumb {
+      font-size: 0.85rem;
+      color: $dark-muted;
+
+      a {
+        color: $accent-purple;
+
+        &:hover {
+          color: lighten($accent-purple, 12%);
+        }
+      }
+    }
+  }
+
+  &__section-title {
+    font-family: $headers-font;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: $dark-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid $dark-border;
+  }
+
+  &__raw-notes {
+    background: $dark-surface;
+    border: 1px solid $dark-border;
+    border-radius: 0.75rem;
+    padding: 1.25rem 1.5rem;
+    font-family: monospace;
+    font-size: 0.875rem;
+    color: $dark-muted;
+    white-space: pre-wrap;
+    word-break: break-word;
+    margin-bottom: 2rem;
+    max-height: 400px;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar { width: 6px; }
+    &::-webkit-scrollbar-track { background: transparent; }
+    &::-webkit-scrollbar-thumb { background: $dark-border; border-radius: 3px; }
+  }
+}
+
+// ── Summary cards ────────────────────────────────────────────────────────────
+.summary-card {
+  background: $dark-card;
+  border: 1px solid $dark-border;
+  border-radius: 0.75rem;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 0.875rem;
+
+  &__label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(124, 92, 252, 0.12);
+    color: $accent-purple;
+    border: 1px solid rgba(124, 92, 252, 0.25);
+    border-radius: 2rem;
+    padding: 0.2rem 0.75rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  &__text {
+    font-size: 0.95rem;
+    color: $dark-text;
+    line-height: 1.65;
+    margin: 0;
+  }
+}

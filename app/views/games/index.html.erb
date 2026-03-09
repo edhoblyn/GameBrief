@@ -1,10 +1,31 @@
-<h1>GameBrief</h1>
+<div class="home-hero">
+  <div class="container">
+    <p class="home-hero__eyebrow">Patch notes, simplified</p>
+    <h1 class="home-hero__title">Stay in the loop.<br>Skip the wall of text.</h1>
+    <p class="home-hero__subtitle">GameBrief turns complex patch notes into plain-English summaries so you know exactly what changed — and whether it's worth logging in.</p>
+  </div>
+</div>
 
-<% @games.each do |game| %>
-  <%= link_to game_path(game) do %>
-    <% if game.cover_image.present? %>
-      <%= image_tag game.cover_image, alt: game.name %>
+<div class="home-games container">
+  <h2 class="home-games__heading">Games</h2>
+  <div class="home-games__grid">
+    <% @games.each do |game| %>
+      <%= link_to game_path(game), class: "game-card" do %>
+        <div class="game-card__cover">
+          <% if game.cover_image.present? %>
+            <%= image_tag game.cover_image, alt: game.name, class: "game-card__img" %>
+          <% else %>
+            <div class="game-card__placeholder">
+              <i class="fa fa-gamepad"></i>
+            </div>
+          <% end %>
+          <div class="game-card__overlay"></div>
+        </div>
+        <div class="game-card__body">
+          <h3 class="game-card__name"><%= game.name %></h3>
+          <span class="game-card__cta">View updates <i class="fa fa-arrow-right"></i></span>
+        </div>
+      <% end %>
     <% end %>
-    <p><%= game.name %></p>
-  <% end %>
-<% end %>
+  </div>
+</div>

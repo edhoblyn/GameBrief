@@ -1,36 +1,66 @@
-<%= link_to "Back to games", games_path %>
+<div class="game-show">
+  <div class="game-show__header">
+    <% if @game.cover_image.present? %>
+      <div class="game-show__banner-bg" style="background-image: url('<%= @game.cover_image %>')"></div>
+    <% end %>
+    <div class="container game-show__header-inner">
+      <% if @game.cover_image.present? %>
+        <div class="game-show__cover">
+          <%= image_tag @game.cover_image, alt: @game.name %>
+        </div>
+      <% end %>
+      <div class="game-show__meta">
+        <%= link_to "← All games", games_path, class: "d-block mb-2", style: "font-size:0.82rem; color: rgba(255,255,255,0.45); text-decoration:none;" %>
+        <h1><%= @game.name %></h1>
+        <div class="d-flex gap-2 flex-wrap mt-2">
+          <% if @favourite %>
+            <%= button_to "★ Following", favourite_path(@favourite), method: :delete, class: "btn btn-sm", style: "background: rgba(124,92,252,0.15); color: #7c5cfc; border: 1px solid rgba(124,92,252,0.4); border-radius: 2rem; padding: 0.3rem 1rem; font-weight:600; font-size:0.82rem;" %>
+          <% else %>
+            <%= button_to "☆ Follow", favourites_path, params: { game_id: @game.id }, class: "btn btn-sm", style: "background: #16161f; color: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.15); border-radius: 2rem; padding: 0.3rem 1rem; font-weight:600; font-size:0.82rem;" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<% if @game.cover_image.present? %>
-  <%= image_tag @game.cover_image, alt: @game.name %>
-<% end %>
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-7">
+        <div class="game-show__section">
+          <h2 class="game-show__section-title">Latest Patches</h2>
+          <% if @game.patches.any? %>
+            <% @game.patches.each do |patch| %>
+              <%= link_to patch_path(patch), class: "patch-list-card" do %>
+                <div class="patch-list-card__icon"><i class="fa fa-file-text-o"></i></div>
+                <span class="patch-list-card__title"><%= patch.title %></span>
+                <span class="patch-list-card__arrow"><i class="fa fa-chevron-right"></i></span>
+              <% end %>
+            <% end %>
+          <% else %>
+            <p class="game-show__empty">No patches yet.</p>
+          <% end %>
+        </div>
+      </div>
 
-<h1><%= @game.name %></h1>
-
-<h2>Patches</h2>
-<% if @game.patches.any? %>
-  <% @game.patches.each do |patch| %>
-    <p><%= link_to patch.title, patch_path(patch) %></p>
-  <% end %>
-<% else %>
-  <p>No patches yet.</p>
-<% end %>
-
-<%# Follow / Unfollow %>
-<% if @favourite %>
-  <%= button_to "Unfollow", favourite_path(@favourite), method: :delete %>
-<% else %>
-  <%= button_to "Follow", favourites_path, params: { game_id: @game.id } %>
-<% end %>
-
-<%# Upcoming events for this game %>
-<h2>Upcoming Events</h2>
-<% if @events.any? %>
-  <% @events.each do |event| %>
-    <p>
-      <%= link_to event.title, event_path(event) %> —
-      <%= event.start_date.strftime("%d %b %Y") %>
-    </p>
-  <% end %>
-<% else %>
-  <p>No upcoming events for this game.</p>
-<% end %>
+      <div class="col-lg-5">
+        <div class="game-show__section">
+          <h2 class="game-show__section-title">Upcoming Events</h2>
+          <% if @events.any? %>
+            <% @events.each do |event| %>
+              <%= link_to event_path(event), class: "event-list-card" do %>
+                <div class="event-list-card__date">
+                  <div class="day"><%= event.start_date.strftime("%-d") %></div>
+                  <div class="month"><%= event.start_date.strftime("%b") %></div>
+                </div>
+                <span class="event-list-card__title"><%= event.title %></span>
+                <span class="event-list-card__arrow"><i class="fa fa-chevron-right"></i></span>
+              <% end %>
+            <% end %>
+          <% else %>
+            <p class="game-show__empty">No upcoming events.</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
