@@ -1,9 +1,10 @@
 <h1>GameBrief</h1>
 
-<h2>Games</h2>
-
 <% @games.each do |game| %>
-  <p>
-    <%= link_to game.name, game_path(game) %>
-  </p>
+  <%= link_to game_path(game) do %>
+    <% if game.cover_image.present? %>
+      <%= image_tag game.cover_image, alt: game.name %>
+    <% end %>
+    <p><%= game.name %></p>
+  <% end %>
 <% end %>
