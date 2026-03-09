@@ -1,20 +1,33 @@
-<h1><%= @patch.title %></h1>
-<p class="text-muted"><%= link_to @patch.game.name, game_path(@patch.game) %></p>
+<div class="patch-show">
+  <div class="patch-show__header container">
+    <div class="patch-show__header__breadcrumb">
+      <%= link_to @patch.game.name, game_path(@patch.game) %> &rsaquo; Patches
+    </div>
+    <h1><%= @patch.title %></h1>
+  </div>
 
-<h2>Patch Notes</h2>
-<pre class="bg-light p-3 rounded"><%= @patch.content %></pre>
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-6">
+        <h2 class="patch-show__section-title">Patch Notes</h2>
+        <pre class="patch-show__raw-notes"><%= @patch.content %></pre>
+      </div>
 
-<h2>AI Summary</h2>
-<% if @patch.patch_summaries.any? %>
-  <% @patch.patch_summaries.each do |summary| %>
-    <div class="card mb-2">
-      <div class="card-body">
-        <p class="mb-0"><%= summary.summary %></p>
+      <div class="col-lg-6">
+        <h2 class="patch-show__section-title">AI Summary</h2>
+        <% if @patch.patch_summaries.any? %>
+          <% @patch.patch_summaries.each do |summary| %>
+            <div class="summary-card">
+              <div class="summary-card__label">
+                <i class="fa fa-magic"></i> AI Summary
+              </div>
+              <p class="summary-card__text"><%= summary.summary %></p>
+            </div>
+          <% end %>
+        <% else %>
+          <p style="color: #7a7a9a; font-style: italic; font-size: 0.9rem;">No summary yet.</p>
+        <% end %>
       </div>
     </div>
-  <% end %>
-<% else %>
-  <p><em>No summary yet.</em></p>
-<% end %>
-
-<%= link_to "Back to patches", game_patches_path(@patch.game) %>
+  </div>
+</div>
