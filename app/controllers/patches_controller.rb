@@ -10,8 +10,13 @@ class PatchesController < ApplicationController
 
   def generate_summary
     @patch = Patch.find(params[:id])
-    summary_text = SummaryService.new(@patch).call
-    @patch.patch_summaries.create!(summary: summary_text)
+    begin
+      summary_text = SummaryService.new(@patch).call
+      @patch.patch_summaries.create!(summary: summary_text)
+      flash[:notice] = "Summary generated!"
+    rescue => e
+      flash[:alert] = "Failed to generate summary. Please try again."
+    end
     redirect_to patch_path(@patch)
   end
 end
