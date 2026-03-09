@@ -10,9 +10,62 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_09_105635) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_09_111516) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "events", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.text "description"
+    t.bigint "game_id", null: false
+    t.datetime "start_date"
+    t.string "title"
+    t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_events_on_game_id"
+  end
+
+  create_table "favourites", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "game_id", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["game_id"], name: "index_favourites_on_game_id"
+    t.index ["user_id"], name: "index_favourites_on_user_id"
+  end
+
+  create_table "games", force: :cascade do |t|
+    t.string "cover_image"
+    t.datetime "created_at", null: false
+    t.string "name"
+    t.string "slug"
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "patch_summaries", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "patch_id", null: false
+    t.text "summary"
+    t.datetime "updated_at", null: false
+    t.index ["patch_id"], name: "index_patch_summaries_on_patch_id"
+  end
+
+  create_table "patches", force: :cascade do |t|
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.bigint "game_id", null: false
+    t.string "title"
+    t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_patches_on_game_id"
+  end
+
+  create_table "reminders", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "event_id", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["event_id"], name: "index_reminders_on_event_id"
+    t.index ["user_id"], name: "index_reminders_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -25,4 +78,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_09_105635) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
+
+  add_foreign_key "events", "games"
+  add_foreign_key "favourites", "games"
+  add_foreign_key "favourites", "users"
+  add_foreign_key "patch_summaries", "patches"
+  add_foreign_key "patches", "games"
+  add_foreign_key "reminders", "events"
+  add_foreign_key "reminders", "users"
 end
