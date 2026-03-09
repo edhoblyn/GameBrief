@@ -26,16 +26,11 @@
           <% end %>
         <% else %>
           <p style="color: #7a7a9a; font-style: italic; font-size: 0.9rem;">No summary yet.</p>
+          <%= button_to "Generate Summary", generate_summary_patch_path(@patch), method: :post %>
         <% end %>
       </div>
     </div>
   </div>
 </div>
-  <% end %>
-<% else %>
-  <p><em>No summary yet.</em></p>
-<% end %>
-
-<%= button_to "Generate Summary", generate_summary_patch_path(@patch), method: :post %>
 
 <%= link_to "Back to patches", game_patches_path(@patch.game) %>
