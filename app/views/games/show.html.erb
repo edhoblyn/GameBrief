@@ -1,2 +1,5 @@
-<h1>Games#show</h1>
-<p>Find me in app/views/games/show.html.erb</p>
+<h1><%= @game.name %></h1>
+
+<p>Slug: <%= @game.slug %></p>
+
+<%= link_to "Back to games", games_path %>
