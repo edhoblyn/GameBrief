@@ -122,6 +122,65 @@ All Round 2 tasks finished. See completed work above for details.
 
 ---
 
+## Round 4 Tasks — Demo Ready
+
+### Person 1 — Ed — Final Heroku Checks + Search
+
+**Branch:** `feature/search`
+
+| # | Task | Done? |
+|---|------|-------|
+| 1 | Add a search bar to `games/index.html.erb` that filters games by name | ⬜ |
+| 2 | Add a `search` action or filter to `GamesController#index` using `params[:query]` | ⬜ |
+| 3 | Run full demo walkthrough on Heroku and note any broken pages | ⬜ |
+| 4 | Confirm `heroku run rails db:seed` produces clean data with all 12 games | ⬜ |
+| 5 | Make sure the demo user (`demo@test.com` / `123456`) works on Heroku as a backup if Google login fails during the presentation | ⬜ |
+
+---
+
+### Person 2 — Hortense — Mobile + Error Pages
+
+**Branch:** `feature/mobile-polish`
+
+| # | Task | Done? |
+|---|------|-------|
+| 1 | Check every page on a mobile screen size — fix any broken layouts | ⬜ |
+| 2 | Create `app/views/errors/404.html.erb` — a friendly "page not found" page | ⬜ |
+| 3 | Create `app/views/errors/500.html.erb` — a friendly "something went wrong" page | ⬜ |
+| 4 | Add a loading/disabled state to the Generate Summary button so it can't be double-clicked | ⬜ |
+| 5 | Final styling pass — check fonts, spacing and colours are consistent across all pages | ⬜ |
+
+---
+
+### Person 3 — Baptiste — Multiple Summary Types
+
+**Branch:** `feature/summary-types`
+
+The original spec calls for 3 summary types per patch: Quick Summary, Casual Impact, and Should I Log In.
+
+| # | Task | Done? |
+|---|------|-------|
+| 1 | Add a `summary_type` column to `patch_summaries` table: `rails g migration AddSummaryTypeToPatchSummaries summary_type:string` | ⬜ |
+| 2 | Update `SummaryService` to accept a `summary_type` argument and adjust the Claude prompt accordingly | ⬜ |
+| 3 | Add 3 generate buttons to `patches/show.html.erb`: "Quick Summary", "Casual Impact", "Should I Log In?" | ⬜ |
+| 4 | Display each summary type in its own labelled card on the patch show page | ⬜ |
+| 5 | Update seeds to include all 3 summary types for each patch | ⬜ |
+
+---
+
+### Person 4 — Bianca — Events Index + Reminders List
+
+**Branch:** `feature/events-polish`
+
+| # | Task | Done? |
+|---|------|-------|
+| 1 | Style `events/index.html.erb` — card layout showing game name, event title and date | ⬜ |
+| 2 | Add a "My Reminders" section to the dashboard showing events the user has set reminders for | ⬜ |
+| 3 | Add an "Upcoming Events" section to `games/show.html.erb` that links through to the event page | ⬜ |
+| 4 | Add a count badge to the dashboard — e.g. "3 followed games" and "2 upcoming reminders" | ⬜ |
+
+---
+
 ## Demo Flow (End Goal)
 
 The app should demonstrate this flow without errors:
@@ -137,4 +196,4 @@ The app should demonstrate this flow without errors:
 
 ---
 
-*Last updated: Round 2 complete, Round 3 in progress*
+Last updated: Round 2 complete, Round 3 and Round 4 in progress
