@@ -1,5 +1,25 @@
+<%= link_to "Back to games", games_path %>
+
+<% if @game.cover_image.present? %>
+  <%= image_tag @game.cover_image, alt: @game.name %>
+<% end %>
+
 <h1><%= @game.name %></h1>
 
-<p>Slug: <%= @game.slug %></p>
+<h2>Patches</h2>
+<% if @game.patches.any? %>
+  <% @game.patches.each do |patch| %>
+    <p><%= link_to patch.title, patch_path(patch) %></p>
+  <% end %>
+<% else %>
+  <p>No patches yet.</p>
+<% end %>
 
-<%= link_to "Back to games", games_path %>
+<h2>Events</h2>
+<% if @game.events.any? %>
+  <% @game.events.each do |event| %>
+    <p><%= event.title %> — <%= event.start_date.strftime("%d %b %Y") %></p>
+  <% end %>
+<% else %>
+  <p>No events yet.</p>
+<% end %>

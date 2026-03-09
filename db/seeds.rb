@@ -24,25 +24,29 @@ user = User.create!(
   password: "123456"
 )
 
-puts "Creating games..."
+puts "Importing games from IGDB..."
 
-fortnite = Game.create!(
-  name: "Fortnite",
-  slug: "fortnite",
-  cover_image: "https://example.com/fortnite.jpg"
-)
+client = IgdbClient.new
 
-destiny = Game.create!(
-  name: "Destiny 2",
-  slug: "destiny-2",
-  cover_image: "https://example.com/destiny2.jpg"
-)
+def import_game(client, query)
+  results = client.search_games(query)
+  match = results.find { |g| g["name"]&.downcase == query.downcase && g["cover"] }
+  match ||= results.find { |g| g["cover"] }
+  match ||= results.first
+  return nil unless match
 
-apex = Game.create!(
-  name: "Apex Legends",
-  slug: "apex-legends",
-  cover_image: "https://example.com/apex.jpg"
-)
+  cover_url = match["cover"] ? "https:#{match["cover"]["url"].gsub("t_thumb", "t_cover_big")}" : nil
+
+  Game.create!(
+    name: match["name"],
+    slug: match["slug"],
+    cover_image: cover_url
+  )
+end
+
+fortnite = import_game(client, "Fortnite")
+destiny  = import_game(client, "Destiny 2")
+apex     = import_game(client, "Apex Legends")
 
 puts "Creating patches..."
 
