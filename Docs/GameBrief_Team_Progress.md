@@ -67,7 +67,7 @@ All Round 2 tasks finished. See completed work above for details.
 
 ## Round 3 Tasks — In Progress
 
-### Person 1 — Bianca — Heroku + Demo Prep
+### Person 1 — Ed — Heroku + Demo Prep
 
 **Branch:** `feature/demo-prep`
 
@@ -109,7 +109,7 @@ All Round 2 tasks finished. See completed work above for details.
 
 ---
 
-### Person 4 — Baptiste — Dashboard Polish
+### Person 4 — Bianca — Dashboard Polish
 
 **Branch:** `feature/dashboard-polish`
 
