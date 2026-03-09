@@ -17,4 +17,6 @@
   <p><em>No summary yet.</em></p>
 <% end %>
 
+<%= button_to "Generate Summary", generate_summary_patch_path(@patch), method: :post %>
+
 <%= link_to "Back to patches", game_patches_path(@patch.game) %>

@@ -7,4 +7,11 @@ class PatchesController < ApplicationController
   def show
     @patch = Patch.includes(:patch_summaries, :game).find(params[:id])
   end
+
+  def generate_summary
+    @patch = Patch.find(params[:id])
+    summary_text = SummaryService.new(@patch).call
+    @patch.patch_summaries.create!(summary: summary_text)
+    redirect_to patch_path(@patch)
+  end
 end
