@@ -20,8 +20,8 @@ User.destroy_all
 puts "Creating users..."
 
 user = User.create!(
-  email: "test@example.com",
-  password: "password123"
+  email: "demo@test.com",
+  password: "123456"
 )
 
 puts "Creating games..."
