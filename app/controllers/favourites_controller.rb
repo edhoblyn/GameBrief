@@ -1,0 +1,15 @@
+class FavouritesController < ApplicationController
+  before_action :authenticate_user!
+
+  def create
+    @favourite = current_user.favourites.build(game_id: params[:game_id])
+    @favourite.save
+    redirect_back fallback_location: root_path
+  end
+
+  def destroy
+    @favourite = current_user.favourites.find(params[:id])
+    @favourite.destroy
+    redirect_back fallback_location: root_path
+  end
+end
