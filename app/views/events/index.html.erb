@@ -1,5 +1,9 @@
-<h1>Events</h1>
+<h1>Upcoming Events</h1>
 
 <% @events.each do |event| %>
-  <p><%= link_to event.title, event_path(event) %></p>
+  <p>
+    <%= link_to event.title, event_path(event) %> —
+    <%= event.start_date.strftime("%d %b %Y") %>
+    <em>(<%= event.game.name %>)</em>
+  </p>
 <% end %>

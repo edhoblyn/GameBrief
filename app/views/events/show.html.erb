@@ -1,6 +1,15 @@
 <h1><%= @event.title %></h1>
 
+<p><strong>Game:</strong> <%= link_to @event.game.name, game_path(@event.game) %></p>
+<p><strong>Date:</strong> <%= @event.start_date.strftime("%d %b %Y") %></p>
 <p><%= @event.description %></p>
-<p>Starts: <%= @event.start_date %></p>
 
-<%= link_to "Back", events_path %>
+<% gcal_url = "https://calendar.google.com/calendar/render?" + {
+  action: "TEMPLATE",
+  text: @event.title,
+  dates: "#{@event.start_date.strftime('%Y%m%dT%H%M%SZ')}/#{(@event.start_date + 1.hour).strftime('%Y%m%dT%H%M%SZ')}",
+  details: @event.description
+}.to_query %>
+<%= link_to "Add to Google Calendar", gcal_url, target: "_blank", rel: "noopener noreferrer" %>
+
+<%= link_to "Back to events", events_path %>
