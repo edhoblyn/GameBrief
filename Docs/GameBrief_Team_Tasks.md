@@ -227,7 +227,7 @@ Patches are currently entered manually. A scraper would pull real patch notes fr
 
 ---
 
-### Task person C — Events Page: IRL Filter + Personalised Sections
+### Task person C — Events Page: Filters + Personalised Sections
 
 > Suggested: whoever built events — Baptiste + Bianca
 
@@ -236,9 +236,13 @@ Patches are currently entered manually. A scraper would pull real patch notes fr
 | # | Task | Done? |
 | --- | ------ | ------- |
 | 1 | Add an `event_type` column to events: `in_game` or `irl` | ⬜ |
-| 2 | Add a filter toggle on `events/index.html.erb` — "In-Game Events" / "IRL Events" / "All" | ⬜ |
-| 3 | Add three sections to the events index: "From Games I Follow", "Recommended", "All Events" | ⬜ |
-| 4 | Update seeds to set `event_type` on existing events | ⬜ |
+| 2 | Update seeds to set `event_type` on all existing events | ⬜ |
+| 3 | Add a filter bar to `events/index.html.erb` with three sets of filters (see below) | ⬜ |
+| 4 | **Filter 1 — Event type:** "All" / "In-Game" / "IRL" — via `params[:event_type]` in `EventsController#index` | ⬜ |
+| 5 | **Filter 2 — Game:** a dropdown of all games — via `params[:game_id]` in `EventsController#index` | ⬜ |
+| 6 | **Filter 3 — Time period:** "All" / "This Week" / "This Month" / "Future" — filter on `start_date` | ⬜ |
+| 7 | Filters should work together — applying multiple filters narrows results (AND logic) | ⬜ |
+| 8 | Add three sections to the events index: "From Games I Follow", "Recommended", "All Events" | ⬜ |
 
 ---
 
