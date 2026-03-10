@@ -2,9 +2,9 @@
 
 ---
 
-## Round 3 — Bug Fixes + Page Polish
+## Round 3 — Bug Fixes + Page Polish ✅
 
-> Estimated effort: 1 day for all 4 people working in parallel
+> Completed.
 
 ### Person 1 — Ed — Heroku + Demo Prep
 
@@ -276,8 +276,6 @@ Patches are currently entered manually. A scraper would pull real patch notes fr
 
 ---
 
----
-
 ## Round 7 — Team Feature Requests
 
 > These are features the team has requested. Tasks are unassigned — pick based on interest and what you built before.
@@ -349,15 +347,15 @@ Patches are currently entered manually. A scraper would pull real patch notes fr
 
 The app should demonstrate this flow without errors:
 
-1. User visits the site and is redirected to login
-2. User logs in with Google
+1. User visits the home page
+2. User logs in with Google (or demo account)
 3. Games index loads with cover images
-4. User clicks a game and sees the game detail page
+4. User clicks a game and sees the game detail page with live streamers
 5. User clicks Follow on the game
-6. User clicks a patch and sees the patch notes + AI summary
+6. User clicks a patch, sees the patch notes + AI summary, and asks the chatbot a question
 7. User clicks an event and sets a reminder
-8. User visits the dashboard and sees their followed games
+8. User visits My Profile and sees their followed games, patches, and upcoming events
 
 ---
 
-Last updated: Day 2 — Round 3 done, Rounds 4–7 planned
+Last updated: Day 2 — Round 3 ✅, Rounds 4–7 planned
