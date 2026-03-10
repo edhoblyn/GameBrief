@@ -74,7 +74,10 @@ All Round 2 tasks finished. See Round 1 completed work above for details.
 - Added Heroku callback URI to Google Cloud Console
 - Fixed Google OAuth CSRF error (`provider_ignores_state: true`)
 - Fixed Google OAuth callback URL scheme on Heroku (`OmniAuth.config.full_host`)
-- Identified missing `GOOGLE_OAUTH_CLIENT_ID` config var on Heroku — set
+- Identified and set missing `GOOGLE_OAUTH_CLIENT_ID` config var on Heroku
+- Google login confirmed working on live Heroku URL
+- Full demo walkthrough completed — crashes noted and reported
+- `heroku run rails db:seed` run after each teammate merge
 
 ### Person 2 — Hortense — Styling Round 2
 

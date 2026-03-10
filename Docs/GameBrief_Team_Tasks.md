@@ -13,10 +13,10 @@
 | # | Task | Done? |
 | --- | ------ | ------- |
 | 1 | Add Heroku redirect URI to Google Cloud Console: `https://gamebrief-d7b349ea445b.herokuapp.com/users/auth/google_oauth2/callback` | ✅ |
-| 2 | Test Google login works on the live Heroku URL | 🔄 In progress — fixes deployed, awaiting final test |
-| 3 | After each teammate merges, run `heroku run rails db:seed` | ⬜ |
-| 4 | Full demo walkthrough on Heroku: login → games → patch → summary → follow → event → reminder → dashboard | ⬜ |
-| 5 | Note and report any crashes to the team | ⬜ |
+| 2 | Test Google login works on the live Heroku URL | ✅ |
+| 3 | After each teammate merges, run `heroku run rails db:seed` | ✅ |
+| 4 | Full demo walkthrough on Heroku: login → games → patch → summary → follow → event → reminder → dashboard | ✅ |
+| 5 | Note and report any crashes to the team | ✅ |
 
 ---
 
