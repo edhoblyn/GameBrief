@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_10_111926) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_10_142303) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "chats", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "patch_id", null: false
+    t.string "title"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["patch_id"], name: "index_chats_on_patch_id"
+    t.index ["user_id"], name: "index_chats_on_user_id"
+  end
 
   create_table "events", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -39,6 +49,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_10_111926) do
     t.string "name"
     t.string "slug"
     t.datetime "updated_at", null: false
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.bigint "chat_id", null: false
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.string "role"
+    t.datetime "updated_at", null: false
+    t.index ["chat_id"], name: "index_messages_on_chat_id"
   end
 
   create_table "patch_summaries", force: :cascade do |t|
@@ -85,9 +104,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_10_111926) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "chats", "patches"
+  add_foreign_key "chats", "users"
   add_foreign_key "events", "games"
   add_foreign_key "favourites", "games"
   add_foreign_key "favourites", "users"
+  add_foreign_key "messages", "chats"
   add_foreign_key "patch_summaries", "patches"
   add_foreign_key "patches", "games"
   add_foreign_key "reminders", "events"

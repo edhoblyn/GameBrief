@@ -7,33 +7,42 @@
   </div>
 
   <div class="container">
+    <div class="container mt-3 mb-3">
+      <%= link_to game_patches_path(@patch.game), class: "btn btn-outline-secondary btn-sm" do %>
+        &larr; Back to patches
+      <% end %>
+    </div>
+
     <div class="row g-4">
       <div class="col-lg-6">
         <h2 class="patch-show__section-title">Patch Notes</h2>
         <pre class="patch-show__raw-notes"><%= @patch.content %></pre>
       </div>
 
-      <div class="col-lg-6">
-        <h2 class="patch-show__section-title">AI Summaries</h2>
-
-        <% SummaryService::LABELS.each do |type, label| %>
-          <div class="summary-card mb-3">
-            <div class="summary-card__label">
-              <i class="fa fa-magic"></i> <%= label %>
+      <% if user_signed_in? && @chat %>
+        <div class="col-lg-6">
+          <div class="chatbot">
+            <div class="chatbot__header">
+              Ask about this patch
             </div>
-            <% if (summary = @summaries_by_type[type]) %>
-              <p class="summary-card__text"><%= summary.summary %></p>
-            <% else %>
-              <p style="color: #7a7a9a; font-style: italic; font-size: 0.9rem;">Not generated yet.</p>
-            <% end %>
-            <%= button_to "Generate #{label}", generate_summary_patch_path(@patch), method: :post,
-                params: { summary_type: type },
-                class: "btn btn-sm btn-outline-secondary mt-2" %>
+
+            <div id="messages" class="chatbot__messages">
+              <%= render "messages/messages", messages: @chat.messages %>
+              <% if @chat.messages.empty? %>
+                <p class="chatbot__empty">Ask anything about this patch — e.g. "What changed for snipers?" or "Should I log in?"</p>
+              <% end %>
+            </div>
+
+            <div id="new_message_container">
+              <%= render "messages/form", patch: @patch, chat: @chat, message: Message.new %>
+            </div>
+
+            <p class="chatbot__limit text-muted small mt-2">
+              <%= @chat.messages.where(role: "user").count %> / <%= Message::MAX_USER_MESSAGES %> messages used
+            </p>
           </div>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
-
-<%= link_to "Back to patches", game_patches_path(@patch.game) %>
