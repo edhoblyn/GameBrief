@@ -1,57 +1,23 @@
-# GameBrief — Feature List
-
----
-
-## Implemented Features
-
-### Authentication
-- Email and password sign up / login via Devise
-- Google OAuth login (Sign in with Google)
-- All pages require login — unauthenticated users are redirected
-
-### Games
-- Games index page with cover art loaded from IGDB
-- Game detail page showing description, patches, and upcoming events
-- 12 games seeded with real data from the IGDB API
-
-### Following Games
-- Follow and unfollow any game from its detail page
-- Followed games appear on the user's dashboard
-
-### Patches
-- Patch list per game
-- Patch detail page showing full patch notes
-- AI-generated summary for each patch (one summary type, generated on demand)
-- Summary is saved to the database after generation — not re-generated on each visit
-
-### Events
-- Event list page
-- Event detail page showing description, date, and a link to add it to Google Calendar
-- Set and remove reminders on events
-
-### Dashboard
-- Shows all games the user is following
-- Empty state message if the user has not followed any games
-
-### Infrastructure
-- Deployed to Heroku with Heroku Postgres
-- Environment variables managed via Heroku Config Vars
-- Seed file that imports all 12 games from IGDB and creates patches, summaries, and events
+# GameBrief — Planned & Stretch Features
 
 ---
 
 ## Planned Features
+*These are in the current task rounds and will be built before the demo.*
 
 ### AI Summaries — Multiple Types
+
 - Three summary types per patch: **Quick Summary**, **Casual Impact**, and **Should I Log In?**
 - Each type uses a different Claude prompt tailored to that audience
 - Three separate generate buttons on the patch page, one per type
 - Each type displayed in its own labelled card
 
 ### Search
+
 - Search bar on the games index that filters games by name in real time
 
 ### Dashboard Improvements
+
 - Cover images on followed game cards (not just text links)
 - Latest patch title shown under each game card
 - Upcoming events section loaded from the user's active reminders
@@ -59,12 +25,14 @@
 - "My Reminders" section listing all events the user has set reminders for
 
 ### User Profile Page
+
 - Dedicated profile page showing email, join date, and usage stats
 - Stat summary: number of followed games and reminders set
 - Link in the navbar dropdown
 - Option to delete account
 
 ### Styling + Polish
+
 - Navbar with Dashboard and Profile links
 - Styled patch notes page and summary cards
 - Styled Devise login and signup pages
@@ -72,19 +40,23 @@
 - Loading/disabled state on the Generate Summary button to prevent double-clicks
 
 ### Mobile Responsiveness
+
 - All pages checked and fixed for mobile screen sizes
 
 ### Error Pages
+
 - Custom 404 "page not found" page
 - Custom 500 "something went wrong" page
 
 ### Games Index Improvements
+
 - Sort games alphabetically or by most-followed
 - Follower count badge on each game card
 - Visual highlight on games the current user already follows
 - "Popular Games" section at the top showing the 3 most-followed games
 
 ### Patch Improvements
+
 - Publish date shown on patch cards and the patch detail page
 - Patches ordered by most recent first
 - "Back to game" breadcrumb link on the patch page
@@ -92,22 +64,27 @@
 
 ---
 
-## Stretch Features (if time allows)
+## Stretch Features
+*Nice to have — attempt if there is time after planned features are complete.*
 
 ### Activity Feed on Dashboard
+
 - "Recent Updates" section showing the 5 most recent patches from games the user follows
 - Each item shows game name, patch title, date, and a link to the patch
 
 ### "New" Badge on Patches
+
 - `published_at` date added to patches
 - Green "NEW" badge shown on any patch published within the last 7 days
 
 ### AI Event Summary
+
 - One-sentence AI summary for events generated on demand
 - "Summarise Event" button on the event detail page
 - Summary saved and displayed at the top of the page on future visits
 
 ### Email Confirmation for Reminders
+
 - Confirmation email sent to the user when they set a reminder
 - Email includes event name, date, and a link back to the event page
 
@@ -138,11 +115,44 @@
 - Could live on the patch show page as a collapsible chat panel, or as a floating button across the whole app
 - Conversation history kept for the session so users can ask follow-up questions
 
+### Personalisation
+
+- **Game genre tags** — tag games with genres (FPS, RPG, Battle Royale, MOBA) so users can filter the games index by genre
+- **"For You" recommendations** — suggest games similar to ones the user already follows, based on genre or popularity
+- **Notification preferences** — let users choose what they get alerted for: new patches, upcoming events, or both
+
+### Content
+
+- **Patch difficulty rating** — after reading a patch, users rate it "Minor Update", "Major Update", or "Game Changer" to help others gauge how significant it is
+- **Patch reading history** — track which patches the user has already read so they don't lose their place across visits
+- **Game ratings and reviews** — leave a short review on the game page with a star rating and one-line comment
+
+### Gamification
+
+- **Achievements and badges** — earn badges for milestones like "Followed 5 games", "Read 10 patches", "Set your first reminder"
+- **Streak tracking** — reward users who check in daily to read patch notes, shown on their profile
+
+### Utility
+
+- **Platform tags** — label each game as PC, Console, or Mobile so users know where they can play it
+- **Free to play filter** — filter the games index to show only free-to-play titles
+- **Push notifications** — browser or mobile notifications when a followed game gets a new patch or event
+
+### Social Features
+
+- **Activity feed** — a personalised feed showing recent patches, events, and updates from games the user follows, ordered by date
+- **Follow other users** — follow friends or other players to see what games they are following and what patches they are reading
+- **Player profiles** — public profile pages showing a user's followed games, recent activity, and bio
+- **Find other players** — discover users who follow the same games as you, useful for finding teammates or people to play with
+- **Game chat rooms** — a chat room per game where followers can discuss patches and updates together in real time (could use ActionCable for live updates)
+- **Patch comments** — leave a comment on a patch page to share reactions or tips with other players who follow the same game
+- **Direct messaging** — send messages to other users directly within the app
+- **Share a patch** — share a patch via a link or in-app share button to send to a friend
+
 ---
 
 ## Product Ideas
-
-These are not features to build right now but could shape how the app is positioned in the future.
+*Not features to build now — ideas for how the app could grow in the future.*
 
 ### Developer-Facing Features
 
