@@ -142,7 +142,7 @@
 
 ---
 
-### Stretch Task 3 — AI One-Line Event Summary
+### Stretch Task 3 — AI One-Line Event Summary -done by Batpiste 
 
 > Suggested: whoever built the AI summary service — Baptiste
 
