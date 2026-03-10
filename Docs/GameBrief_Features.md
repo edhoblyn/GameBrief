@@ -130,6 +130,14 @@
 - Data sourced from IGDB (release dates and upcoming titles)
 - Users can follow upcoming games and get notified when they launch
 
+### AI Chatbot
+
+- A chat interface where users can ask questions about a game's patch notes in plain English
+- e.g. "Did they nerf snipers in the latest patch?" or "What changed for support characters?"
+- The chatbot is given the patch content as context and answers using Claude
+- Could live on the patch show page as a collapsible chat panel, or as a floating button across the whole app
+- Conversation history kept for the session so users can ask follow-up questions
+
 ---
 
 ## Product Ideas
