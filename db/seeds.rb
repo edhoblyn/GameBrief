@@ -57,18 +57,18 @@ helldivers = import_game(client, "Helldivers 2")
 
 puts "Setting game genres..."
 
-fortnite&.update!(genre: "Battle Royale")
-warzone&.update!(genre: "FPS")
-apex&.update!(genre: "Battle Royale")
-destiny&.update!(genre: "RPG")
-fifa&.update!(genre: "Sports")
-roblox&.update!(genre: "Sandbox")
-clash&.update!(genre: "Mobile")
-coc&.update!(genre: "Mobile")
-minecraft&.update!(genre: "Sandbox")
-valorant&.update!(genre: "FPS")
-marvel&.update!(genre: "FPS")
-helldivers&.update!(genre: "FPS")
+fortnite&.update!(genre: ["Battle Royale", "Shooter", "Action"])
+warzone&.update!(genre: ["FPS", "Shooter", "Battle Royale"])
+apex&.update!(genre: ["Battle Royale", "FPS", "Shooter"])
+destiny&.update!(genre: ["FPS", "Shooter", "RPG", "Action"])
+fifa&.update!(genre: ["Sports", "Simulation"])
+roblox&.update!(genre: ["Sandbox", "Simulation"])
+clash&.update!(genre: ["Mobile", "Strategy"])
+coc&.update!(genre: ["Mobile", "Strategy"])
+minecraft&.update!(genre: ["Sandbox", "Simulation", "Adventure"])
+valorant&.update!(genre: ["FPS", "Shooter", "Strategy"])
+marvel&.update!(genre: ["Shooter", "Action"])
+helldivers&.update!(genre: ["Shooter", "Action"])
 
 puts "Creating patches..."
 

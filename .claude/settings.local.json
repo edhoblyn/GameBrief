@@ -3,7 +3,9 @@
     "allow": [
       "mcp__playwright",
       "Skill(claude-api)",
-      "Bash(grep -v \"^$\")"
+      "Bash(grep -v \"^$\")",
+      "Bash(bin/rails db:migrate)",
+      "Bash(bin/rails runner tmp/set_genres.rb)"
     ],
     "deny": []
   }
