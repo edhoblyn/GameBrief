@@ -126,21 +126,21 @@ Patches are currently entered manually. A scraper would pull real patch notes fr
 
 ---
 
-### Task 4 — Events Page: Filters
+### Task 4 — Events Page Layout: In-Game Main + IRL Side Section
 
 > Suggested: Bianca
 >
-> Reason: Bianca has already worked on the events index, dashboard reminders, and card-based event displays, so filters build directly on her existing events ownership.
+> Reason: Bianca has already worked on the events index, dashboard reminders, and card-based event displays, so this is a natural continuation of her events page ownership.
 
-**Branch:** `feature/events-filters`
+**Branch:** `feature/events-layout`
 
 | # | Task | Done? |
 | --- | ------ | ------- |
 | 1 | Add an `event_type` column to events: `in_game` or `irl` | ⬜ |
 | 2 | Update seeds to set `event_type` on all existing events | ⬜ |
-| 3 | Add a **Game filter** dropdown to `events/index.html.erb` — filter by `params[:game_id]` | ⬜ |
-| 4 | Add a **Time period filter** — "All" / "This Week" / "This Month" / "Future" — filter on `start_date` | ⬜ |
-| 5 | Filters should work together — applying multiple filters narrows results (AND logic) | ⬜ |
+| 3 | Update `events/index.html.erb` so the main section of the page shows **in-game events** as the primary content area | ⬜ |
+| 4 | Add a smaller side section that lists **IRL events** separately | ⬜ |
+| 5 | Make the layout visually clear that most events are in-game, with IRL events treated as secondary content | ⬜ |
 
 ---
 
