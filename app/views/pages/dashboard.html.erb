@@ -3,9 +3,21 @@
 <h2>Followed Games</h2>
 
 <% if @followed_games.any? %>
-  <% @followed_games.each do |game| %>
-    <%= link_to game.name, game_path(game), class: "card" %>
-  <% end %>
+  <div class="events-grid" data-controller="glow-card">
+    <% @followed_games.each do |game| %>
+      <%= link_to game_path(game),
+            class: "event-glow-card event-glow-card--purple",
+            data: { "glow-card-target": "card" } do %>
+        <div class="event-glow-card__inner">
+          <div class="event-glow-card__title"><%= game.name %></div>
+          <div class="event-glow-card__game">
+            <i class="fa fa-gamepad"></i>
+            View updates
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
 <% else %>
   <p>You haven't followed any games yet.</p>
 <% end %>

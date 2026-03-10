@@ -1,0 +1,165 @@
+// ── Events index ─────────────────────────────────────────────────────────────
+
+.events-index {
+  padding-top: 6rem; // clear the fixed nav
+
+  &__header {
+    margin-bottom: 2rem;
+
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #f4f4f5;
+    }
+  }
+}
+
+// ── Card grid ────────────────────────────────────────────────────────────────
+
+.events-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+
+  @media (min-width: 640px)  { grid-template-columns: repeat(2, 1fr); }
+  @media (min-width: 1024px) { grid-template-columns: repeat(3, 1fr); }
+}
+
+// ── Glowing card ─────────────────────────────────────────────────────────────
+//
+// Mirrors the GlowingEffect component:
+//   --active  : 0 | 1   (set by Stimulus)
+//   --start   : angle   (set by Stimulus)
+//   --spread  : degrees either side of the angle to show the arc
+//
+// The conic gradient is rendered on the ::after pseudo-element using a mask
+// so that only the border area is visible, exactly like the React original.
+
+.event-glow-card {
+  --spread: 20;
+  --start: 0;
+  --active: 0;
+  --border-width: 1px;
+  --radius: 1rem;
+  --gradient: radial-gradient(circle, #dd7bbb 10%, #dd7bbb00 20%),
+              radial-gradient(circle at 40% 40%, #d79f1e 5%,  #d79f1e00 15%),
+              radial-gradient(circle at 60% 60%, #5a922c 10%, #5a922c00 20%),
+              radial-gradient(circle at 40% 60%, #4c7894 10%, #4c789400 20%),
+              repeating-conic-gradient(
+                from 236.84deg at 50% 50%,
+                #dd7bbb 0%,
+                #d79f1e calc(25% / 5),
+                #5a922c calc(50% / 5),
+                #4c7894 calc(75% / 5),
+                #dd7bbb calc(100% / 5)
+              );
+
+  position: relative;
+  border-radius: var(--radius);
+  background: rgba(24, 24, 32, 0.9);
+  border: var(--border-width) solid rgba(255, 255, 255, 0.08);
+  text-decoration: none;
+  display: block;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+    text-decoration: none;
+  }
+
+  // The glowing border arc
+  &::after {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    inset: calc(-1 * var(--border-width));
+    border-radius: inherit;
+    border: var(--border-width) solid transparent;
+
+    background: var(--gradient);
+    background-attachment: fixed;
+
+    opacity: var(--active);
+    transition: opacity 0.3s ease;
+
+    // Mask: only show the border strip (not the fill)
+    -webkit-mask-clip: padding-box, border-box;
+    mask-clip: padding-box, border-box;
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+    -webkit-mask-image:
+      linear-gradient(#000, #000),
+      conic-gradient(
+        from calc((var(--start) - var(--spread)) * 1deg),
+        transparent 0deg,
+        #fff,
+        transparent calc(var(--spread) * 2deg)
+      );
+    mask-image:
+      linear-gradient(#000, #000),
+      conic-gradient(
+        from calc((var(--start) - var(--spread)) * 1deg),
+        transparent 0deg,
+        #fff,
+        transparent calc(var(--spread) * 2deg)
+      );
+  }
+}
+
+// ── Purple-only glow variant (used on dashboard) ──────────────────────────────
+
+.event-glow-card--purple {
+  --gradient: radial-gradient(circle, #a855f7 10%, #a855f700 20%),
+              radial-gradient(circle at 40% 40%, #7c3aed 5%, #7c3aed00 15%),
+              radial-gradient(circle at 60% 60%, #c084fc 10%, #c084fc00 20%),
+              repeating-conic-gradient(
+                from 236.84deg at 50% 50%,
+                #a855f7 0%,
+                #7c3aed calc(25% / 5),
+                #c084fc calc(50% / 5),
+                #9333ea calc(75% / 5),
+                #a855f7 calc(100% / 5)
+              );
+}
+
+// ── Card inner layout ─────────────────────────────────────────────────────────
+
+.event-glow-card__inner {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  height: 100%;
+}
+
+.event-glow-card__date {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #a1a1aa;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+
+  i { font-size: 0.7rem; }
+}
+
+.event-glow-card__title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #f4f4f5;
+  line-height: 1.35;
+}
+
+.event-glow-card__game {
+  font-size: 0.8rem;
+  color: #71717a;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+
+  i { font-size: 0.7rem; }
+}
