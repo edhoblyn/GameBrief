@@ -127,6 +127,15 @@ All Round 2 tasks finished. See Round 1 completed work above for details.
 - `heroku run rails db:seed` confirmed working with all 12 games and demo data
 - Demo user (`demo@test.com` / `123456`) confirmed working on Heroku
 
+### Person 2 — Ed (covering Hortense) — Error Pages
+
+- Custom `ErrorsController` created with `not_found` and `server_error` actions — auth skipped on both
+- `config.exceptions_app = self.routes` added to `config/application.rb`
+- `/404` and `/500` routes added to `config/routes.rb`
+- `app/views/errors/404.html.erb` — "Page not found" with link back home
+- `app/views/errors/500.html.erb` — "Something went wrong" with link back home
+- `_errors.scss` created and imported — styled to match dark theme with large purple error code
+
 ---
 
-Last updated: Round 4 partial — Baptiste ✅, Bianca ✅, Ed ✅ | Hortense still in progress
+Last updated: Round 4 partial — Baptiste ✅, Bianca ✅, Ed ✅, Hortense ⬜ (mobile check pending) | Round 5 pending

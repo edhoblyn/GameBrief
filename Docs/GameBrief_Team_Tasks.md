@@ -24,8 +24,8 @@
 
 | # | Task | Done? |
 | --- | ------ | ------- |
-| 1 | Create `app/views/errors/404.html.erb` — a friendly "page not found" page with a link back home | ⬜ |
-| 2 | Create `app/views/errors/500.html.erb` — a friendly "something went wrong" page with a link back home | ⬜ |
+| 1 | Create `app/views/errors/404.html.erb` — a friendly "page not found" page with a link back home | ✅ |
+| 2 | Create `app/views/errors/500.html.erb` — a friendly "something went wrong" page with a link back home | ✅ |
 | 3 | Go through each page on a small screen — write down anything that looks broken and report to Ed | ⬜ |
 
 > **Moved to Baptiste:** Loading state on Generate Summary button (task 4 below)
@@ -273,4 +273,4 @@ The app should demonstrate this flow without errors:
 
 ---
 
-Last updated: Round 3 ✅ | Round 4 partial — Baptiste ✅, Bianca ✅, Ed ✅, Hortense ⬜ (3 tasks) | Round 5 assigned by person | Rounds 6–7 pending
+Last updated: Round 3 ✅ | Round 4 partial — Baptiste ✅, Bianca ✅, Ed ✅, Hortense ⬜ (mobile check only) | Round 5 assigned by person | Rounds 6–7 pending
