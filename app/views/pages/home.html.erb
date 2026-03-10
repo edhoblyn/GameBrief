@@ -32,20 +32,7 @@
     </div>
   </div>
 
-  <div class="featured-gamers">
-    <p class="featured-gamers__label">Featured Gamers</p>
-    <div class="featured-gamers__list">
-      <% @featured_gamers.each do |gamer| %>
-        <div class="featured-gamers__item">
-          <img src="<%= gamer.avatar_url %>" alt="<%= gamer.username %>" class="featured-gamers__avatar">
-          <span class="featured-gamers__username">@<%= gamer.username %></span>
-          <span class="featured-gamers__followers"><i class="fa fa-user"></i> <%= number_with_delimiter(gamer.follower_count) %></span>
-        </div>
-      <% end %>
-    </div>
-  </div>
-
-  <% if user_signed_in? %>
+<% if user_signed_in? %>
     <div class="home-landing__logout">
       <%= link_to "Log out", destroy_user_session_path, data: { turbo_method: :delete }, class: "btn btn-link text-muted" %>
     </div>
