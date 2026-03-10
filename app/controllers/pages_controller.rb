@@ -6,5 +6,6 @@ class PagesController < ApplicationController
 
   def dashboard
     @followed_games = current_user.favourite_games
+    @reminders = current_user.reminders.includes(event: :game).order("events.start_date asc")
   end
 end
