@@ -1,11 +1,31 @@
 <div class="home-games container">
+  <div class="home-games__search">
+    <%= form_with url: games_path, method: :get, data: { turbo: false } do |f| %>
+      <%= f.text_field :query, placeholder: "Search games...", value: params[:query], class: "home-games__search-input" %>
+      <%= f.submit "Search", class: "home-games__search-btn" %>
+    <% end %>
+  </div>
+
+  <div class="home-games__filters">
+    <div class="home-games__filter-group">
+      <%= link_to "All", games_path(query: params[:query], sort: params[:sort]), class: "filter-btn #{params[:genre].blank? ? 'active' : ''}" %>
+      <% ["FPS", "Shooter", "Battle Royale", "Action", "RPG", "Strategy", "Sports", "Sandbox", "Simulation", "Adventure", "Mobile"].each do |genre| %>
+        <%= link_to genre, games_path(genre: genre, query: params[:query], sort: params[:sort]), class: "filter-btn #{params[:genre] == genre ? 'active' : ''}" %>
+      <% end %>
+    </div>
+    <div class="home-games__sort-group">
+      <%= link_to "A–Z", games_path(genre: params[:genre], query: params[:query], sort: "name"), class: "filter-btn #{params[:sort] == 'name' ? 'active' : ''}" %>
+      <%= link_to "Most Followed", games_path(genre: params[:genre], query: params[:query], sort: "followed"), class: "filter-btn #{params[:sort] == 'followed' ? 'active' : ''}" %>
+    </div>
+  </div>
+
   <h2 class="home-games__heading">Games</h2>
   <div class="home-games__grid" data-controller="glow-card">
     <% @games.each do |game| %>
       <%= link_to game_path(game), class: "game-card event-glow-card", data: { "glow-card-target": "card" } do %>
         <div class="game-card__cover">
           <% if game.cover_image.present? %>
-            <%= image_tag game.cover_image, alt: game.name, class: "game-card__img" %>
+            <%= image_tag game.cover_image, alt: game.name, class: "game-card__img", loading: "lazy" %>
           <% else %>
             <div class="game-card__placeholder">
               <i class="fa fa-gamepad"></i>

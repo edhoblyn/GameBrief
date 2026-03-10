@@ -55,6 +55,29 @@ valorant  = import_game(client, "Valorant")
 marvel    = import_game(client, "Marvel Rivals")
 helldivers = import_game(client, "Helldivers 2")
 
+puts "Setting game genres..."
+
+genre_map = {
+  fortnite   => ["Battle Royale", "Shooter", "Action"],
+  warzone    => ["FPS", "Shooter", "Battle Royale"],
+  apex       => ["Battle Royale", "FPS", "Shooter"],
+  destiny    => ["FPS", "Shooter", "RPG", "Action"],
+  fifa       => ["Sports", "Simulation"],
+  roblox     => ["Sandbox", "Simulation"],
+  clash      => ["Mobile", "Strategy"],
+  coc        => ["Mobile", "Strategy"],
+  minecraft  => ["Sandbox", "Simulation", "Adventure"],
+  valorant   => ["FPS", "Shooter", "Strategy"],
+  marvel     => ["Shooter", "Action"],
+  helldivers => ["Shooter", "Action"]
+}
+
+genre_map.each do |game, genres|
+  next unless game
+  pg_array = "{" + genres.map { |g| "\"#{g}\"" }.join(",") + "}"
+  ActiveRecord::Base.connection.execute("UPDATE games SET genre = '#{pg_array}' WHERE id = #{game.id}")
+end
+
 puts "Creating patches..."
 
 fortnite_patch = Patch.create!(

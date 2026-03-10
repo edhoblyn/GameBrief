@@ -23,12 +23,19 @@ Rails.application.routes.draw do
       resources :messages, only: [:create]
     end
   end
-  resources :events, only: [:index, :show]
+  resources :events, only: [:index, :show] do
+    member do
+      post :generate_summary
+    end
+  end
   resources :favourites, only: [:create, :destroy]
   resources :reminders, only: [:create, :destroy]
 
-  get "dashboard", to: "pages#dashboard"
+  get "my-profile", to: "pages#my_profile", as: :my_profile
   get "home", to: "pages#home"
 
   root "pages#home"
+
+  match "/404", to: "errors#not_found", via: :all
+  match "/500", to: "errors#server_error", via: :all
 end

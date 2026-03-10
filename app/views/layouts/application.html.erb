@@ -24,9 +24,13 @@
   </head>
 
   <body>
-    <%= render "shared/hover_gradient_nav" %>
+    <%= render "shared/hover_gradient_nav" unless content_for?(:hide_navbar) %>
     <%= render "shared/flashes" %>
 
     <%= yield %>
+
+    <footer class="app-footer">
+      <p>GameBrief &copy; <%= Time.current.year %> &mdash; Ed, Hortense, Baptiste, Bianca</p>
+    </footer>
   </body>
 </html>

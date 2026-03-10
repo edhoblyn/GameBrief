@@ -198,6 +198,58 @@
   padding-top: 5rem;
   padding-bottom: 5rem;
 
+  &__search {
+    margin-bottom: 2rem;
+    display: flex;
+    gap: 0.5rem;
+    max-width: 420px;
+  }
+
+  &__search-input {
+    flex: 1;
+    background: $dark-surface;
+    border: 1px solid $dark-border;
+    border-radius: 0.5rem;
+    color: $dark-text;
+    padding: 0.5rem 0.9rem;
+    font-size: 0.9rem;
+
+    &::placeholder { color: $dark-muted; }
+    &:focus {
+      outline: none;
+      border-color: $accent-purple;
+    }
+  }
+
+  &__search-btn {
+    background: $accent-purple;
+    color: #fff;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1.1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:hover { background: lighten($accent-purple, 8%); }
+  }
+
+  &__filters {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  &__filter-group,
+  &__sort-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
   &__heading {
     font-family: $headers-font;
     font-size: 1.1rem;

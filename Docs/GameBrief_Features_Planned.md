@@ -43,9 +43,12 @@
 
 ### Events Page Improvements
 
-- **IRL Events filter** on the events index — toggle between in-game events and IRL events (conventions, esports tournaments, launch events)
+- **Event type filter** — toggle between In-Game events and IRL events (conventions, esports tournaments, launch events)
+- **Game filter** — dropdown to show events for a specific game only
+- **Time period filter** — filter by This Week / This Month / Future / All
+- All three filters work together using AND logic — combining them narrows results
 - IRL events sourced from IGDB or scraped from official sources
-- Same reminder and Google Calendar functionality for both types
+- Same reminder and Google Calendar functionality for both event types
 
 ### Patches & Events — Personalised + Recommended + Full Browse
 
@@ -84,6 +87,7 @@
 - Follower count badge on each game card
 - Visual highlight on games the current user already follows
 - "Popular Games" section at the top showing the 3 most-followed games
+- **Genre filter** — tag each game with a genre (FPS, Sports, Battle Royale, RPG, Sandbox, Mobile) and add filter buttons to the games index so users can browse by category
 
 ### Patch Improvements
 
