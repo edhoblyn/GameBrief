@@ -24,7 +24,7 @@
   </head>
 
   <body>
-    <%= render "shared/hover_gradient_nav" %>
+    <%= render "shared/hover_gradient_nav" unless content_for?(:hide_navbar) %>
     <%= render "shared/flashes" %>
 
     <%= yield %>

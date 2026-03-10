@@ -20,11 +20,15 @@ Rails.application.routes.draw do
       post :generate_summary
     end
   end
-  resources :events, only: [:index, :show]
+  resources :events, only: [:index, :show] do
+    member do
+      post :generate_summary
+    end
+  end
   resources :favourites, only: [:create, :destroy]
   resources :reminders, only: [:create, :destroy]
 
-  get "dashboard", to: "pages#dashboard"
+  get "my-profile", to: "pages#my_profile", as: :my_profile
   get "home", to: "pages#home"
 
   root "pages#home"

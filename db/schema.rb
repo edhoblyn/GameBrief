@@ -19,6 +19,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_10_145358) do
     t.text "description"
     t.bigint "game_id", null: false
     t.datetime "start_date"
+    t.text "summary"
     t.string "title"
     t.datetime "updated_at", null: false
     t.index ["game_id"], name: "index_events_on_game_id"

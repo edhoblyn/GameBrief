@@ -1,0 +1,154 @@
+<% content_for :hide_navbar, true %>
+<% content_for :title, "My Profile" %>
+
+<div class="my-profile-layout">
+
+  <!-- Sidebar -->
+  <aside class="profile-sidebar">
+    <div class="profile-sidebar__user">
+      <div class="profile-sidebar__avatar">
+        <% if current_user.avatar_url.present? %>
+          <%= image_tag current_user.avatar_url, class: "profile-sidebar__avatar-img" %>
+        <% else %>
+          <div class="profile-sidebar__avatar-placeholder">
+            <%= current_user.email.first.upcase %>
+          </div>
+        <% end %>
+      </div>
+      <div class="profile-sidebar__name">
+        <%= current_user.username.presence || current_user.email %>
+      </div>
+    </div>
+
+    <nav class="profile-sidebar__nav">
+      <a href="<%= root_path %>" class="profile-sidebar__nav-link">
+        <i class="fa fa-home"></i> Home
+      </a>
+      <a href="#my-games" class="profile-sidebar__nav-link profile-sidebar__nav-link--active">
+        <i class="fa fa-gamepad"></i> My Games
+        <span class="badge bg-secondary ms-auto"><%= @followed_games.count %></span>
+      </a>
+      <a href="#my-patches" class="profile-sidebar__nav-link">
+        <i class="fa fa-file-text"></i> My Patches
+        <span class="badge bg-secondary ms-auto"><%= @recent_patches.count %></span>
+      </a>
+      <a href="#my-events" class="profile-sidebar__nav-link">
+        <i class="fa fa-calendar"></i> My Events
+        <span class="badge bg-secondary ms-auto"><%= @reminders.count %></span>
+      </a>
+      <a href="#communities" class="profile-sidebar__nav-link">
+        <i class="fa fa-users"></i> Communities
+      </a>
+      <a href="#recommendations" class="profile-sidebar__nav-link">
+        <i class="fa fa-star"></i> My Recommendations
+      </a>
+    </nav>
+
+    <div class="profile-sidebar__footer">
+      <%= link_to "Sign out", destroy_user_session_path, data: { "turbo-method": :delete }, class: "profile-sidebar__signout" %>
+    </div>
+  </aside>
+
+  <!-- Main content -->
+  <main class="profile-main">
+    <h1 class="profile-main__title">My Profile</h1>
+
+    <!-- My Games -->
+    <section id="my-games" class="profile-section">
+      <h2 class="profile-section__title">
+        My Games
+        <span class="badge bg-secondary ms-2"><%= @followed_games.count %></span>
+      </h2>
+
+      <% if @followed_games.any? %>
+        <div class="events-grid" data-controller="glow-card">
+          <% @followed_games.each do |game| %>
+            <%= link_to game_path(game),
+                  class: "event-glow-card event-glow-card--purple",
+                  data: { "glow-card-target": "card" } do %>
+              <div class="event-glow-card__inner">
+                <% if game.cover_image.present? %>
+                  <%= image_tag game.cover_image, class: "event-glow-card__cover" %>
+                <% end %>
+                <div class="event-glow-card__title"><%= game.name %></div>
+                <div class="event-glow-card__game">
+                  <i class="fa fa-gamepad"></i> View updates
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="profile-section__empty">You haven't followed any games yet. <%= link_to "Browse games", games_path %>.</p>
+      <% end %>
+    </section>
+
+    <!-- My Patches -->
+    <section id="my-patches" class="profile-section">
+      <h2 class="profile-section__title">My Game's Patches</h2>
+
+      <% if @recent_patches.any? %>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+          <% @recent_patches.each do |patch| %>
+            <div class="col">
+              <%= link_to patch_path(patch), class: "text-decoration-none" do %>
+                <div class="card h-100">
+                  <div class="card-body">
+                    <p class="text-muted small mb-1"><%= patch.game.name %></p>
+                    <h5 class="card-title"><%= patch.title %></h5>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="profile-section__empty">No patches yet for your followed games.</p>
+      <% end %>
+    </section>
+
+    <!-- My Events -->
+    <section id="my-events" class="profile-section">
+      <h2 class="profile-section__title">
+        My Events
+        <span class="badge bg-secondary ms-2"><%= @reminders.count %></span>
+      </h2>
+
+      <% if @reminders.any? %>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+          <% @reminders.each do |reminder| %>
+            <div class="col">
+              <%= link_to event_path(reminder.event), class: "text-decoration-none" do %>
+                <div class="card h-100">
+                  <div class="card-body">
+                    <p class="text-muted small mb-1"><%= reminder.event.game.name %></p>
+                    <h5 class="card-title"><%= reminder.event.title %></h5>
+                    <p class="card-text text-muted small">
+                      <i class="fa fa-calendar me-1"></i>
+                      <%= reminder.event.start_date.strftime("%-d %b %Y") %>
+                    </p>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="profile-section__empty">No reminders set. <%= link_to "Browse events", events_path %>.</p>
+      <% end %>
+    </section>
+
+    <!-- Communities -->
+    <section id="communities" class="profile-section">
+      <h2 class="profile-section__title">Communities</h2>
+      <p class="profile-section__empty">Communities coming soon.</p>
+    </section>
+
+    <!-- My Recommendations -->
+    <section id="recommendations" class="profile-section">
+      <h2 class="profile-section__title">My Recommendations</h2>
+      <p class="profile-section__empty">Recommendations coming soon.</p>
+    </section>
+
+  </main>
+</div>
