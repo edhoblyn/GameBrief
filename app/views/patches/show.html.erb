@@ -14,19 +14,22 @@
       </div>
 
       <div class="col-lg-6">
-        <h2 class="patch-show__section-title">AI Summary</h2>
-        <% if @patch.patch_summaries.any? %>
-          <% @patch.patch_summaries.each do |summary| %>
-            <div class="summary-card">
-              <div class="summary-card__label">
-                <i class="fa fa-magic"></i> AI Summary
-              </div>
-              <p class="summary-card__text"><%= summary.summary %></p>
+        <h2 class="patch-show__section-title">AI Summaries</h2>
+
+        <% SummaryService::LABELS.each do |type, label| %>
+          <div class="summary-card mb-3">
+            <div class="summary-card__label">
+              <i class="fa fa-magic"></i> <%= label %>
             </div>
-          <% end %>
-        <% else %>
-          <p style="color: #7a7a9a; font-style: italic; font-size: 0.9rem;">No summary yet.</p>
-          <%= button_to "Generate Summary", generate_summary_patch_path(@patch), method: :post %>
+            <% if (summary = @summaries_by_type[type]) %>
+              <p class="summary-card__text"><%= summary.summary %></p>
+            <% else %>
+              <p style="color: #7a7a9a; font-style: italic; font-size: 0.9rem;">Not generated yet.</p>
+            <% end %>
+            <%= button_to "Generate #{label}", generate_summary_patch_path(@patch), method: :post,
+                params: { summary_type: type },
+                class: "btn btn-sm btn-outline-secondary mt-2" %>
+          </div>
         <% end %>
       </div>
     </div>

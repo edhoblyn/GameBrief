@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_09_124450) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_10_112431) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -45,6 +45,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_09_124450) do
     t.datetime "created_at", null: false
     t.bigint "patch_id", null: false
     t.text "summary"
+    t.string "summary_type"
     t.datetime "updated_at", null: false
     t.index ["patch_id"], name: "index_patch_summaries_on_patch_id"
   end
