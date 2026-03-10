@@ -275,6 +275,11 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
+  #
+  # Heroku terminates SSL at its router, so internally requests arrive as http://.
+  # OmniAuth would build an http:// callback URL, which Google rejects.
+  # Setting full_host forces https:// in production.
+  OmniAuth.config.full_host = Rails.env.production? ? 'https://gamebrief-d7b349ea445b.herokuapp.com' : nil
   config.omniauth :google_oauth2, ENV['GOOGLE_OAUTH_CLIENT_ID'], ENV['GOOGLE_OAUTH_CLIENT_SECRET'], provider_ignores_state: true
 
   # ==> Warden configuration
