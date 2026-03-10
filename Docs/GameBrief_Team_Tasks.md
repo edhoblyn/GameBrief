@@ -4,60 +4,7 @@
 
 ## Round 3 — Bug Fixes + Page Polish ✅
 
-> Completed.
-
-### Person 1 — Ed — Heroku + Demo Prep
-
-**Branch:** `feature/demo-prep`
-
-| # | Task | Done? |
-| --- | ------ | ------- |
-| 1 | Add Heroku redirect URI to Google Cloud Console: `https://gamebrief-d7b349ea445b.herokuapp.com/users/auth/google_oauth2/callback` | ✅ |
-| 2 | Test Google login works on the live Heroku URL | ✅ |
-| 3 | After each teammate merges, run `heroku run rails db:seed` | ✅ |
-| 4 | Full demo walkthrough on Heroku: login → games → patch → summary → follow → event → reminder → dashboard | ✅ |
-| 5 | Note and report any crashes to the team | ✅ |
-
----
-
-### Person 2 — Hortense — Styling Round 2
-
-**Branch:** `feature/styling-2`
-
-| # | Task | Done? |
-| --- | ------ | ------- |
-| 1 | Add Dashboard link to the navbar | ✅ |
-| 2 | Style `patches/show.html.erb` — patch notes block, summary card | ✅ |
-| 3 | Style `dashboard.html.erb` — game cards matching the games index | ✅ |
-| 4 | Clean up duplicate Google Calendar section in `events/show.html.erb` (remove lines 27–46) | ⬜ |
-| 5 | Style the Devise login/signup pages | ⬜ |
-
----
-
-### Person 3 — Baptiste — Fix + Polish AI Summaries
-
-**Branch:** `feature/ai-summaries-polish`
-
-| # | Task | Done? |
-| --- | ------ | ------- |
-| 1 | **Fix:** Remove `thinking: { type: "adaptive" }` from `SummaryService` — will cause API error | ✅ |
-| 2 | Only show "Generate Summary" button if no summary exists yet | ✅ |
-| 3 | Add flash message after generating: `"Summary generated!"` | ⬜ |
-| 4 | Wrap API call in `begin/rescue` — redirect with error flash if it fails | ⬜ |
-| 5 | Test end-to-end: click button, summary appears | ⬜ |
-
----
-
-### Person 4 — Bianca — Dashboard Polish
-
-**Branch:** `feature/dashboard-polish`
-
-| # | Task | Done? |
-| --- | ------ | ------- |
-| 1 | Show cover images on dashboard game cards (not just text links) | ✅ |
-| 2 | Show latest patch title under each game card | ⬜ |
-| 3 | Add upcoming events section — load events from user's reminders | ✅ |
-| 4 | Add friendly empty state if no games followed | ⬜ |
+> Completed. See [GameBrief_Team_Progress.md](GameBrief_Team_Progress.md) for details.
 
 ---
 
