@@ -6,28 +6,35 @@
   </div>
 
   <div class="home-landing">
-    <h2 class="home-landing__heading">Stay in the loop.<br>Skip the wall of text.</h2>
-    <p class="home-landing__subtitle">GameBrief turns complex patch notes into plain-English summaries so you know exactly what changed — and whether it's worth logging in.</p>
-
-    <div class="home-landing__actions">
-      <%= link_to "Get Started", games_path, class: "btn btn-primary btn-lg" %>
-      <%= link_to "Explore Games", games_path, class: "btn btn-outline-light btn-lg" %>
+    <div class="home-landing__video-bg">
+      <%= video_tag "owyeah.mp4", autoplay: true, muted: true, loop: true, playsinline: true %>
     </div>
+    <div class="home-landing__video-overlay"></div>
 
-    <div class="home-landing__stats">
-      <div class="home-landing__stat">
-        <i class="fa fa-bolt"></i>
-        <span>12K+ Active Now</span>
+    <div class="home-landing__content">
+      <h2 class="home-landing__heading">Stay in the loop.<br>Skip the wall of text.</h2>
+      <p class="home-landing__subtitle">GameBrief turns complex patch notes into plain-English summaries so you know exactly what changed — and whether it's worth logging in.</p>
+
+      <div class="home-landing__actions">
+        <%= link_to "Get Started", games_path, class: "btn btn-primary btn-lg" %>
+        <%= link_to "Explore Games", games_path, class: "btn btn-outline-light btn-lg" %>
       </div>
-      <div class="home-landing__stat-divider"></div>
-      <div class="home-landing__stat">
-        <i class="fa fa-users"></i>
-        <span>500+ Communities</span>
-      </div>
-      <div class="home-landing__stat-divider"></div>
-      <div class="home-landing__stat">
-        <i class="fa fa-gamepad"></i>
-        <span>10K+ Games Tracked</span>
+
+      <div class="home-landing__stats">
+        <div class="home-landing__stat">
+          <i class="fa fa-bolt"></i>
+          <span>12K+ Active Now</span>
+        </div>
+        <div class="home-landing__stat-divider"></div>
+        <div class="home-landing__stat">
+          <i class="fa fa-users"></i>
+          <span>500+ Communities</span>
+        </div>
+        <div class="home-landing__stat-divider"></div>
+        <div class="home-landing__stat">
+          <i class="fa fa-gamepad"></i>
+          <span>10K+ Games Tracked</span>
+        </div>
       </div>
     </div>
   </div>
