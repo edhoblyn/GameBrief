@@ -8,9 +8,9 @@
 
 <div class="home-games container">
   <h2 class="home-games__heading">Games</h2>
-  <div class="home-games__grid">
+  <div class="home-games__grid" data-controller="glow-card">
     <% @games.each do |game| %>
-      <%= link_to game_path(game), class: "game-card" do %>
+      <%= link_to game_path(game), class: "game-card event-glow-card", data: { "glow-card-target": "card" } do %>
         <div class="game-card__cover">
           <% if game.cover_image.present? %>
             <%= image_tag game.cover_image, alt: game.name, class: "game-card__img" %>
