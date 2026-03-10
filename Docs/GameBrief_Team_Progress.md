@@ -102,4 +102,23 @@ All Round 2 tasks finished. See Round 1 completed work above for details.
 
 ---
 
-Last updated: Round 3 complete, Round 4 not yet started
+## Round 4 — New Features (partial)
+
+### Person 3 — Baptiste — Multiple Summary Types
+
+- `summary_type` string column added to `patch_summaries` table (migration `20260310112431`)
+- `SummaryService` updated to accept `summary_type` argument with distinct Claude prompts for each type
+- `PROMPTS` and `LABELS` hashes added covering Quick Summary, Casual Impact, Should I Log In?
+- `patches/show.html.erb` loops through all 3 summary types — each displayed in its own labelled card with a Generate button
+- Seeds updated to create all 3 summary types for every patch
+
+### Person 4 — Bianca — Events Index + Reminders List
+
+- `events/index.html.erb` styled with a card grid showing game name, event title and date
+- "My Reminders" section added to the dashboard with event cards, game name, date, and empty state message
+- "Upcoming Events" section on `games/show.html.erb` links through to the event page
+- Count badges added to the dashboard for followed games and reminders
+
+---
+
+Last updated: Round 4 partial — Baptiste ✅, Bianca ✅ | Ed and Hortense still in progress

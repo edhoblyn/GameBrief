@@ -40,32 +40,15 @@
 
 ---
 
-### Person 3 — Baptiste — Multiple Summary Types
+### Person 3 — Baptiste — Multiple Summary Types ✅
 
-**Branch:** `feature/summary-types`
-
-The original spec calls for 3 summary types per patch: Quick Summary, Casual Impact, and Should I Log In.
-
-| # | Task | Done? |
-| --- | ------ | ------- |
-| 1 | Add a `summary_type` column to `patch_summaries` table: `rails g migration AddSummaryTypeToPatchSummaries summary_type:string` | ⬜ |
-| 2 | Update `SummaryService` to accept a `summary_type` argument and adjust the Claude prompt accordingly | ⬜ |
-| 3 | Add 3 generate buttons to `patches/show.html.erb`: "Quick Summary", "Casual Impact", "Should I Log In?" | ⬜ |
-| 4 | Display each summary type in its own labelled card on the patch show page | ⬜ |
-| 5 | Update seeds to include all 3 summary types for each patch | ⬜ |
+> Completed. See [GameBrief_Team_Progress.md](GameBrief_Team_Progress.md) for details.
 
 ---
 
-### Person 4 — Bianca — Events Index + Reminders List
+### Person 4 — Bianca — Events Index + Reminders List ✅
 
-**Branch:** `feature/events-polish`
-
-| # | Task | Done? |
-| --- | ------ | ------- |
-| 1 | Style `events/index.html.erb` — card layout showing game name, event title and date | ⬜ |
-| 2 | Add a "My Reminders" section to the dashboard showing events the user has set reminders for | ⬜ |
-| 3 | Add an "Upcoming Events" section to `games/show.html.erb` that links through to the event page | ⬜ |
-| 4 | Add a count badge to the dashboard — e.g. "3 followed games" and "2 upcoming reminders" | ⬜ |
+> Completed. See [GameBrief_Team_Progress.md](GameBrief_Team_Progress.md) for details.
 
 ---
 
@@ -118,7 +101,7 @@ Tasks are unassigned. Suggestions are based on who worked on related features.
 | --- | ------ | ------- |
 | 1 | Show patch publish date on `patches/show.html.erb` and `patches/index.html.erb` | ⬜ |
 | 2 | Order patches by most recent first on the game show page | ⬜ |
-| 3 | Add a "Back to game" breadcrumb link on the patch show page | ⬜ |
+| 3 | Add a "Back to game" breadcrumb link on the patch show page | ✅ |
 | 4 | Add a thumbs up / thumbs down reaction to each AI summary card (no backend needed — just UI) | ⬜ |
 | 5 | If all 3 summary types already exist, hide all generate buttons and show a "Summaries up to date" message | ⬜ |
 
@@ -305,4 +288,4 @@ The app should demonstrate this flow without errors:
 
 ---
 
-Last updated: Day 2 — Round 3 ✅, Rounds 4–7 planned
+Last updated: Round 3 ✅ | Round 4 partial — Baptiste ✅, Bianca ✅, Ed ⬜, Hortense ⬜ | Rounds 5–7 pending
