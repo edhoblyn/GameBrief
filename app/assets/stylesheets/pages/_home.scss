@@ -12,6 +12,43 @@
   text-align: center;
   gap: 1rem;
   padding-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+
+  &__video-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+
+    video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: cover;
+    }
+  }
+
+  &__video-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 10, 18, 0.65);
+    z-index: 1;
+  }
+
+  &__content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
 
   &__corner {
     position: absolute;
