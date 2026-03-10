@@ -14,7 +14,7 @@
 
 ---
 
-## Round 5 — Polish + Extra Features
+## Round 5 — Polish + Additional Features
 
 > Ed's tasks 1–6 are done and logged in [GameBrief_Team_Progress.md](GameBrief_Team_Progress.md).
 
@@ -67,9 +67,9 @@
 
 ---
 
-## Round 6 — Features
+## Round 6 — Planned Features
 
-> Only attempt once Round 5 is fully merged and working on Heroku. Prioritise fixing bugs over these.
+> These are the next planned features for the next two weeks. Start once Round 5 is fully merged and working on Heroku, and continue to prioritise bug fixes where needed.
 
 ---
 
@@ -182,4 +182,4 @@ The app should demonstrate this flow without errors:
 
 ---
 
-Last updated: Round 3 ✅ | Round 4 ✅ (Hortense mobile check ⬜) | Round 5 Ed ✅ tasks 1–6 | Round 5 others ⬜ | Rounds 6 pending
+Last updated: Round 3 ✅ | Round 4 ✅ (Hortense mobile check ⬜) | Round 5 Ed ✅ tasks 1–6 | Round 5 others ⬜ | Round 6 planned work pending

@@ -7,6 +7,13 @@
 
 ### Highest Demo Priority
 
+- **Web scraping — auto-import game data** — one of the original pitch ideas and a major differentiator for GameBrief
+  Right now patches and events are entered manually. Web scraping would pull real patch notes and event data automatically, keeping content fresh without manual entry.
+  - Scrape official patch note pages for each game (Fortnite, Valorant, Apex, etc.)
+  - Use `Nokogiri` for HTML parsing and `HTTParty`/`Faraday` for HTTP requests
+  - Deduplicate by title or source URL — skip records already imported
+  - Store a `source_url` column on `patches` and `events`
+  - Schedule scraping daily using Heroku Scheduler or a background job
 - **Activity feed** — personalised feed of recent patches and events from followed games
 - **Events page filters** — game filter plus time period filter (This Week / This Month / Future / All)
 - **"New" badge on patches** — add `published_at` and show a green "NEW" badge for the last 7 days
@@ -59,16 +66,6 @@
 - **Community collections** — curated lists like "Best games for quick matches" or "Top active live-service games"
 - Dedicated section showing unreleased games sourced from IGDB
 - Users can follow upcoming games and get notified at launch
-
-### Web Scraping — Auto-Import Game Data
-
-Right now patches and events are entered manually. Web scraping would pull real patch notes and event data automatically, keeping content fresh without manual entry.
-
-- Scrape official patch note pages for each game (Fortnite, Valorant, Apex, etc.)
-- Use `Nokogiri` for HTML parsing and `HTTParty`/`Faraday` for HTTP requests
-- Deduplicate by title or source URL — skip records already imported
-- Store a `source_url` column on `patches` and `events`
-- Schedule scraping daily using Heroku Scheduler or a background job
 
 ---
 

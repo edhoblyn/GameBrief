@@ -138,7 +138,7 @@ All Round 2 tasks finished. See Round 1 completed work above for details.
 
 ---
 
-## Round 5 — Polish + Extra Features (partial)
+## Round 5 — Polish + Additional Features (partial)
 
 ### Person 1 — Ed — Games Index Polish + Finishing Touches
 
@@ -155,9 +155,9 @@ All Round 2 tasks finished. See Round 1 completed work above for details.
 
 ---
 
-## Round 6 — Stretch Features (partial)
+## Round 6 — Planned Features (partial)
 
-### Stretch Task 3 — AI Event Summary — Baptiste
+### Task 3 — AI Event Summary — Baptiste
 
 - `summary` text column added to the `events` table
 - `EventSummaryService` created — sends event title + description to Claude and returns a single sentence
@@ -193,4 +193,4 @@ All Round 2 tasks finished. See Round 1 completed work above for details.
 
 ---
 
-Last updated: Round 4 ✅ (Hortense mobile check ⬜) | Round 5 Ed ✅ tasks 1–6 | Round 5 others ⬜ | Round 6 Stretch Task 3 ✅ | Round 7 Tasks A + B ✅ | Round 5 remaining + Round 6 other stretch tasks ⬜
+Last updated: Round 4 ✅ (Hortense mobile check ⬜) | Round 5 Ed ✅ tasks 1–6 | Round 5 others ⬜ | Round 6 Task 3 ✅ | Round 7 Tasks A + B ✅ | Round 5 remaining + Round 6 other planned tasks ⬜
