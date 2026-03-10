@@ -67,4 +67,39 @@ All Round 2 tasks finished. See Round 1 completed work above for details.
 
 ---
 
-Last updated: Round 2 complete, Round 3 and Round 4 in progress
+## Round 3 — Bug Fixes + Page Polish ✅
+
+### Person 1 — Ed — Heroku + Demo Prep
+
+- Added Heroku callback URI to Google Cloud Console
+- Fixed Google OAuth CSRF error (`provider_ignores_state: true`)
+- Fixed Google OAuth callback URL scheme on Heroku (`OmniAuth.config.full_host`)
+- Identified and set missing `GOOGLE_OAUTH_CLIENT_ID` config var on Heroku
+- Google login confirmed working on live Heroku URL
+- Full demo walkthrough completed — crashes noted and reported
+- `heroku run rails db:seed` run after each teammate merge
+
+### Person 2 — Hortense — Styling Round 2
+
+- Dashboard link added to navbar
+- `patches/show.html.erb` styled — patch notes block, summary card
+- `games/show.html.erb` and `games/index.html.erb` restyled
+- `events/show.html.erb` and `events/index.html.erb` styled
+- Navbar rebuilt with cleaner layout and hover effects
+
+### Person 3 — Baptiste — Fix + Polish AI Summaries
+
+- Removed `thinking: { type: "adaptive" }` from `SummaryService` — was causing API error
+- Generate Summary button now only shown if no summary exists yet
+- Homepage added with hero section and styling
+
+### Person 4 — Bianca — Dashboard Polish
+
+- Cover images shown on dashboard game cards
+- Upcoming events section added to dashboard
+- Events index styled with card layout
+- Dashboard layout improved with styling
+
+---
+
+Last updated: Round 3 complete, Round 4 not yet started

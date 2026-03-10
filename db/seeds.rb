@@ -15,6 +15,13 @@ user = User.create!(
   password: "123456"
 )
 
+puts "Creating featured gamers..."
+
+User.create!(email: "edhomey@gamebrief.gg",    password: "password123", username: "Ed Homey",    avatar_url: "https://randomuser.me/api/portraits/men/46.jpg",    follower_count: 84200)
+User.create!(email: "biancastar@gamebrief.gg", password: "password123", username: "Bianca Star", avatar_url: "https://randomuser.me/api/portraits/women/73.jpg",  follower_count: 61500)
+User.create!(email: "hortgamer@gamebrief.gg",  password: "password123", username: "Hort Gamer",  avatar_url: "https://randomuser.me/api/portraits/women/44.jpg",  follower_count: 43900)
+User.create!(email: "baptistex@gamebrief.gg",  password: "password123", username: "BaptisteX",   avatar_url: "https://randomuser.me/api/portraits/men/78.jpg",    follower_count: 29300)
+
 puts "Importing games from IGDB..."
 
 client = IgdbClient.new

@@ -1,23 +1,166 @@
+// ── Landing ──────────────────────────────────────────────────────────────────
+.home-page {
+  overscroll-behavior-y: none; // prevents pull-to-refresh
+}
+
+.home-landing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+  gap: 1rem;
+  padding-bottom: 2rem;
+
+  &__corner {
+    position: absolute;
+    top: 4.5rem;
+    left: 1.5rem;
+  }
+
+  &__title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #f4f4f5;
+    margin: 0;
+  }
+
+  &__heading {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #f4f4f5;
+    line-height: 1.2;
+    margin: 0;
+
+    @media (min-width: 768px) { font-size: 3rem; }
+  }
+
+  &__subtitle {
+    font-size: 1rem;
+    color: #a1a1aa;
+    margin: 0;
+    max-width: 480px;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  &__stats {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  &__stat {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+    color: #71717a;
+    letter-spacing: 0.02em;
+
+    i { font-size: 0.7rem; color: #a855f7; }
+  }
+
+  &__stat-divider {
+    width: 1px;
+    height: 0.75rem;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  &__logout {
+    margin-top: 1rem;
+    padding-bottom: 3rem;
+  }
+}
+
+// ── Featured Gamers ───────────────────────────────────────────────────────────
+.featured-gamers {
+  text-align: center;
+  padding: 2rem 0 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #52525b;
+    margin-bottom: 0.6rem;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 280px;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: flex-start;
+  }
+
+  &__avatar {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    flex-shrink: 0;
+  }
+
+  &__username {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #e4e4e7;
+    flex: 1;
+    text-align: left;
+  }
+
+  &__followers {
+    font-size: 0.8rem;
+    color: #71717a;
+    white-space: nowrap;
+
+    i { font-size: 0.7rem; margin-right: 0.2rem; }
+  }
+}
+
+// ── Nav divider ───────────────────────────────────────────────────────────────
+.nav-divider {
+  position: fixed;
+  top: 3.75rem;
+  left: 0;
+  width: 100%;
+  margin: 0;
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  z-index: 1049;
+
+  @media (min-width: 768px) {
+    top: 4.25rem;
+  }
+}
+
 // ── Hero ────────────────────────────────────────────────────────────────────
 .home-hero {
   padding: 5rem 0 4rem;
   text-align: center;
   position: relative;
 
-  // Subtle radial glow behind the title
-  &::before {
-    content: "";
-    position: absolute;
-    top: -80px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 600px;
-    height: 400px;
-    background: radial-gradient(ellipse at center, rgba(124, 92, 252, 0.15) 0%, transparent 70%);
-    pointer-events: none;
-  }
-
-  &__eyebrow {
+&__eyebrow {
     display: inline-block;
     background: rgba(124, 92, 252, 0.15);
     color: $accent-purple;
@@ -52,6 +195,7 @@
 
 // ── Games grid ──────────────────────────────────────────────────────────────
 .home-games {
+  padding-top: 5rem;
   padding-bottom: 5rem;
 
   &__heading {

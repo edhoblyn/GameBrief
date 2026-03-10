@@ -64,6 +64,46 @@
 
 ---
 
+## Web Scraping — Auto-Import Game Data
+
+*Replacing manual data entry with automated imports from public sources.*
+
+Right now patches and events are entered manually. Web scraping would let the app pull real patch notes and event data automatically, keeping content fresh without anyone on the team having to do it by hand.
+
+### Patch Notes Scraping
+
+- Scrape official patch note pages for each game (e.g. Fortnite, League of Legends, Valorant all publish patch notes at predictable URLs)
+- Use `Nokogiri` (HTML parsing) or `Mechanize` (for pages that need cookie/session handling)
+- Parse the page and save new entries as `Patch` records — skip if already imported (deduplicate by title or URL)
+- Run on a schedule using a background job (e.g. `Sidekiq` + `sidekiq-cron`, or a Heroku Scheduler task)
+
+### Sources by Game
+
+| Game | Patch Note Source |
+| --- | --- |
+| Fortnite | `fortnite.com/en-US/news/patch-notes` |
+| League of Legends | `leagueoflegends.com/en-us/news/tags/patch-notes` |
+| Valorant | `playvalorant.com/en-us/news/tags/patch-notes` |
+| Apex Legends | `ea.com/games/apex-legends/news/tags/patch-notes` |
+| Call of Duty / Warzone | `callofduty.com/blog` |
+| Others | Check each game's official news/blog page |
+
+### Events Scraping
+
+- Scrape esports and in-game event announcements from official game sites or their news feeds
+- Some games expose RSS feeds — these are easier to parse than raw HTML
+- IGDB API already covers some events — scraping fills the gaps
+
+### Technical Approach
+
+- `Nokogiri` gem for HTML parsing — already widely used in Rails projects
+- `HTTParty` or `Faraday` for making HTTP requests
+- Store a `source_url` column on `patches` and `events` to track where each record came from and avoid duplicates
+- A `ScraperService` per game, each with a `call` method that returns an array of hashes ready to upsert
+- Heroku Scheduler (free add-on) to trigger scraping daily or on a set interval
+
+---
+
 ## Stretch Features
 *Nice to have — attempt if there is time after planned features are complete.*
 

@@ -12,11 +12,11 @@
 
 | # | Task | Done? |
 | --- | ------ | ------- |
-| 1 | Add Heroku redirect URI to Google Cloud Console: `https://gamebrief-d7b349ea445b.herokuapp.com/users/auth/google_oauth2/callback` | ⬜ |
-| 2 | Test Google login works on the live Heroku URL | ⬜ |
-| 3 | After each teammate merges, run `heroku run rails db:seed` | ⬜ |
-| 4 | Full demo walkthrough on Heroku: login → games → patch → summary → follow → event → reminder → dashboard | ⬜ |
-| 5 | Note and report any crashes to the team | ⬜ |
+| 1 | Add Heroku redirect URI to Google Cloud Console: `https://gamebrief-d7b349ea445b.herokuapp.com/users/auth/google_oauth2/callback` | ✅ |
+| 2 | Test Google login works on the live Heroku URL | ✅ |
+| 3 | After each teammate merges, run `heroku run rails db:seed` | ✅ |
+| 4 | Full demo walkthrough on Heroku: login → games → patch → summary → follow → event → reminder → dashboard | ✅ |
+| 5 | Note and report any crashes to the team | ✅ |
 
 ---
 
@@ -26,9 +26,9 @@
 
 | # | Task | Done? |
 | --- | ------ | ------- |
-| 1 | Add Dashboard link to the navbar | ⬜ |
-| 2 | Style `patches/show.html.erb` — patch notes block, summary card | ⬜ |
-| 3 | Style `dashboard.html.erb` — game cards matching the games index | ⬜ |
+| 1 | Add Dashboard link to the navbar | ✅ |
+| 2 | Style `patches/show.html.erb` — patch notes block, summary card | ✅ |
+| 3 | Style `dashboard.html.erb` — game cards matching the games index | ✅ |
 | 4 | Clean up duplicate Google Calendar section in `events/show.html.erb` (remove lines 27–46) | ⬜ |
 | 5 | Style the Devise login/signup pages | ⬜ |
 
@@ -40,8 +40,8 @@
 
 | # | Task | Done? |
 | --- | ------ | ------- |
-| 1 | **Fix:** Remove `thinking: { type: "adaptive" }` from `SummaryService` — will cause API error | ⬜ |
-| 2 | Only show "Generate Summary" button if no summary exists yet | ⬜ |
+| 1 | **Fix:** Remove `thinking: { type: "adaptive" }` from `SummaryService` — will cause API error | ✅ |
+| 2 | Only show "Generate Summary" button if no summary exists yet | ✅ |
 | 3 | Add flash message after generating: `"Summary generated!"` | ⬜ |
 | 4 | Wrap API call in `begin/rescue` — redirect with error flash if it fails | ⬜ |
 | 5 | Test end-to-end: click button, summary appears | ⬜ |
@@ -54,9 +54,9 @@
 
 | # | Task | Done? |
 | --- | ------ | ------- |
-| 1 | Show cover images on dashboard game cards (not just text links) | ⬜ |
+| 1 | Show cover images on dashboard game cards (not just text links) | ✅ |
 | 2 | Show latest patch title under each game card | ⬜ |
-| 3 | Add upcoming events section — load events from user's reminders | ⬜ |
+| 3 | Add upcoming events section — load events from user's reminders | ✅ |
 | 4 | Add friendly empty state if no games followed | ⬜ |
 
 ---
@@ -242,7 +242,26 @@ Tasks are unassigned. Suggestions are based on who worked on related features.
 
 ---
 
-### Stretch Task 4 — Email Confirmation for Reminders
+### Stretch Task 4 — Web Scraping — Auto-Import Patch Notes
+
+> Suggested: whoever built the IGDB service and seed data — Ed
+
+**Branch:** `feature/scraper`
+
+Patches are currently entered manually. A scraper would pull real patch notes from official game sites automatically.
+
+| # | Task | Done? |
+| --- | ------ | ------- |
+| 1 | Add `source_url` string column to the `patches` table so scraped records can be deduplicated | ⬜ |
+| 2 | Add `nokogiri` and `httparty` gems to the Gemfile | ⬜ |
+| 3 | Create `app/services/scrapers/base_scraper.rb` with a shared `call` interface | ⬜ |
+| 4 | Build one scraper as a proof of concept — e.g. `scrapers/fortnite_scraper.rb` — that fetches and parses the patch note list page and returns an array of `{ title:, content:, source_url: }` hashes | ⬜ |
+| 5 | Create a rake task `rails patches:scrape` that runs each scraper and upserts results into the `patches` table | ⬜ |
+| 6 | Add Heroku Scheduler (free add-on) and configure it to run `rails patches:scrape` daily | ⬜ |
+
+---
+
+### Stretch Task 5 — Email Confirmation for Reminders
 
 > Suggested: whoever built the reminders — Baptiste
 
@@ -272,4 +291,4 @@ The app should demonstrate this flow without errors:
 
 ---
 
-Last updated: Day 2 — Round 3 in progress
+Last updated: Day 2 — Round 3 mostly done, Round 4 not yet started
