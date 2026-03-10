@@ -58,7 +58,7 @@
     }
   }
 
-  // Glow background
+  // Glow background — always purple regardless of per-item inline style
   .hn-glow {
     position: absolute;
     inset: 0;
@@ -67,6 +67,7 @@
     pointer-events: none;
     transform: scale(0.8);
     transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.25) 0%, rgba(124, 58, 237, 0.1) 50%, rgba(88, 28, 135, 0) 100%) !important;
   }
 
   // Front and back face shared styles
@@ -140,19 +141,7 @@
     }
   }
 
-  // Icon colour per item
-  .hn-card[data-color="blue"]:hover svg,
-  .hn-card[data-color="blue"].hovered svg     { color: #3b82f6; }
-  .hn-card[data-color="orange"]:hover svg,
-  .hn-card[data-color="orange"].hovered svg   { color: #f97316; }
-  .hn-card[data-color="purple"]:hover svg,
-  .hn-card[data-color="purple"].hovered svg   { color: #9333ea; }
-  .hn-card[data-color="green"]:hover svg,
-  .hn-card[data-color="green"].hovered svg    { color: #22c55e; }
-  .hn-card[data-color="red"]:hover svg,
-  .hn-card[data-color="red"].hovered svg      { color: #ef4444; }
-  .hn-card[data-color="teal"]:hover svg,
-  .hn-card[data-color="teal"].hovered svg     { color: #14b8a6; }
-  .hn-card[data-color="amber"]:hover svg,
-  .hn-card[data-color="amber"].hovered svg    { color: #d97706; }
+  // All icons glow purple on hover
+  .hn-card:hover svg,
+  .hn-card.hovered svg { color: #a855f7; }
 }
