@@ -1,15 +1,53 @@
-<hr class="nav-divider">
+<div class="home-page">
+  <hr class="nav-divider">
 
-<div class="home-landing__corner">
-  <h1 class="home-landing__title">GameBrief</h1>
-</div>
-
-<div class="home-landing">
-  <h2 class="home-landing__heading">Stay in the loop.<br>Skip the wall of text.</h2>
-  <p class="home-landing__subtitle">GameBrief turns complex patch notes into plain-English summaries so you know exactly what changed — and whether it's worth logging in.</p>
-
-  <div class="home-landing__actions">
-    <%= link_to "Get Started", dashboard_path, class: "btn btn-primary btn-lg" %>
-    <%= link_to "Explore Games", games_path, class: "btn btn-outline-light btn-lg" %>
+  <div class="home-landing__corner">
+    <h1 class="home-landing__title">GameBrief</h1>
   </div>
+
+  <div class="home-landing">
+    <h2 class="home-landing__heading">Stay in the loop.<br>Skip the wall of text.</h2>
+    <p class="home-landing__subtitle">GameBrief turns complex patch notes into plain-English summaries so you know exactly what changed — and whether it's worth logging in.</p>
+
+    <div class="home-landing__actions">
+      <%= link_to "Get Started", dashboard_path, class: "btn btn-primary btn-lg" %>
+      <%= link_to "Explore Games", games_path, class: "btn btn-outline-light btn-lg" %>
+    </div>
+
+    <div class="home-landing__stats">
+      <div class="home-landing__stat">
+        <i class="fa fa-bolt"></i>
+        <span>12K+ Active Now</span>
+      </div>
+      <div class="home-landing__stat-divider"></div>
+      <div class="home-landing__stat">
+        <i class="fa fa-users"></i>
+        <span>500+ Communities</span>
+      </div>
+      <div class="home-landing__stat-divider"></div>
+      <div class="home-landing__stat">
+        <i class="fa fa-gamepad"></i>
+        <span>10K+ Games Tracked</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="featured-gamers">
+    <p class="featured-gamers__label">Featured Gamers</p>
+    <div class="featured-gamers__list">
+      <% @featured_gamers.each do |gamer| %>
+        <div class="featured-gamers__item">
+          <img src="<%= gamer.avatar_url %>" alt="<%= gamer.username %>" class="featured-gamers__avatar">
+          <span class="featured-gamers__username">@<%= gamer.username %></span>
+          <span class="featured-gamers__followers"><i class="fa fa-user"></i> <%= number_with_delimiter(gamer.follower_count) %></span>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <% if user_signed_in? %>
+    <div class="home-landing__logout">
+      <%= link_to "Log out", destroy_user_session_path, data: { turbo_method: :delete }, class: "btn btn-link text-muted" %>
+    </div>
+  <% end %>
 </div>
