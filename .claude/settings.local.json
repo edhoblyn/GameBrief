@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "mcp__playwright",
-      "Skill(claude-api)"
+      "Skill(claude-api)",
+      "Bash(grep -v \"^$\")"
     ],
     "deny": []
   }
