@@ -47,7 +47,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_10_145358) do
   create_table "games", force: :cascade do |t|
     t.string "cover_image"
     t.datetime "created_at", null: false
-    t.string "genre"
+    t.string "genre", default: [], array: true
     t.string "name"
     t.string "slug"
     t.datetime "updated_at", null: false
