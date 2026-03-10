@@ -12,17 +12,9 @@
 
 > Estimated effort: 2 days for all 4 people working in parallel
 
-### Person 1 — Ed — Search + Heroku Checks
+### Person 1 — Ed — Search + Heroku Checks ✅
 
-**Branch:** `feature/search`
-
-| # | Task | Done? |
-| --- | ------ | ------- |
-| 1 | Add a search bar to `games/index.html.erb` that filters games by name | ⬜ |
-| 2 | Add a `search` action or filter to `GamesController#index` using `params[:query]` | ⬜ |
-| 3 | Run full demo walkthrough on Heroku and note any broken pages | ⬜ |
-| 4 | Confirm `heroku run rails db:seed` produces clean data with all 12 games | ⬜ |
-| 5 | Make sure the demo user (`demo@test.com` / `123456`) works on Heroku as a backup if Google login fails | ⬜ |
+> Completed. See [GameBrief_Team_Progress.md](GameBrief_Team_Progress.md) for details.
 
 ---
 
@@ -288,4 +280,4 @@ The app should demonstrate this flow without errors:
 
 ---
 
-Last updated: Round 3 ✅ | Round 4 partial — Baptiste ✅, Bianca ✅, Ed ⬜, Hortense ⬜ | Rounds 5–7 pending
+Last updated: Round 3 ✅ | Round 4 partial — Baptiste ✅, Bianca ✅, Ed ✅, Hortense ⬜ | Rounds 5–7 pending

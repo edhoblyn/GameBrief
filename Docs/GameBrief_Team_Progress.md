@@ -119,6 +119,14 @@ All Round 2 tasks finished. See Round 1 completed work above for details.
 - "Upcoming Events" section on `games/show.html.erb` links through to the event page
 - Count badges added to the dashboard for followed games and reminders
 
+### Person 1 — Ed — Search + Heroku Checks
+
+- Search bar added to `games/index.html.erb` — filters by name, preserves query in input field
+- `GamesController#index` updated with case-insensitive `ILIKE` filter on `params[:query]`
+- Full demo walkthrough completed on Heroku — no broken pages found
+- `heroku run rails db:seed` confirmed working with all 12 games and demo data
+- Demo user (`demo@test.com` / `123456`) confirmed working on Heroku
+
 ---
 
-Last updated: Round 4 partial — Baptiste ✅, Bianca ✅ | Ed and Hortense still in progress
+Last updated: Round 4 partial — Baptiste ✅, Bianca ✅, Ed ✅ | Hortense still in progress
