@@ -1,6 +1,11 @@
 class EventsController < ApplicationController
   def index
-    @events = Event.order(start_date: :asc)
+    followed_game_ids = user_signed_in? ? current_user.favourite_games.pluck(:id) : []
+    @events = Event.includes(:game)
+                   .order(
+                     Arel.sql("CASE WHEN game_id IN (#{followed_game_ids.any? ? followed_game_ids.join(',') : 'NULL'}) THEN 0 ELSE 1 END"),
+                     start_date: :asc
+                   )
   end
 
   def show

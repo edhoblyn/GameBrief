@@ -1,20 +1,30 @@
 <div class="patches-index">
   <div class="patches-index__header container">
-    <%= link_to "← #{@game.name}", game_path(@game), style: "font-size:0.82rem; color: #7a7a9a; text-decoration:none;" %>
+    <% if @game %>
+      <%= link_to "← #{@game.name}", game_path(@game), style: "font-size:0.82rem; color: #7a7a9a; text-decoration:none;" %>
+    <% end %>
     <h1>Patches</h1>
   </div>
 
   <div class="container">
     <% if @patches.any? %>
-      <% @patches.each do |patch| %>
-        <%= link_to patch_path(patch), class: "patch-card" do %>
-          <span class="patch-card__arrow"><i class="fa fa-chevron-right"></i></span>
-          <div class="patch-card__title"><%= patch.title %></div>
-          <p class="patch-card__excerpt"><%= patch.content.truncate(120) %></p>
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <% @patches.each do |patch| %>
+          <div class="col">
+            <%= link_to patch_path(patch), class: "text-decoration-none" do %>
+              <div class="card h-100">
+                <div class="card-body">
+                  <p class="text-muted small mb-1"><%= patch.game.name %></p>
+                  <h5 class="card-title"><%= patch.title %></h5>
+                  <p class="card-text text-muted small"><%= patch.content.truncate(100) %></p>
+                </div>
+              </div>
+            <% end %>
+          </div>
         <% end %>
-      <% end %>
+      </div>
     <% else %>
-      <p style="color: #7a7a9a; font-style: italic;">No patches yet for this game.</p>
+      <p style="color: #7a7a9a; font-style: italic;">No patches yet.</p>
     <% end %>
   </div>
 </div>

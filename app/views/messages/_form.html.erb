@@ -1,0 +1,4 @@
+<%= form_with url: patch_chat_messages_path(@patch, chat), model: message, method: :post do |f| %>
+  <%= f.text_field :content, placeholder: "Ask a question...", class: "form-control mb-2", required: true, autocomplete: "off" %>
+  <%= f.submit "Ask Chat", class: "btn btn-primary btn-sm" %>
+<% end %>

@@ -15,9 +15,12 @@ Rails.application.routes.draw do
   resources :games, only: [:index, :show] do
     resources :patches, only: [:index]
   end
-  resources :patches, only: [:show] do
+  resources :patches, only: [:index, :show] do
     member do
       post :generate_summary
+    end
+    resources :chats, only: [:create] do
+      resources :messages, only: [:create]
     end
   end
   resources :events, only: [:index, :show] do
