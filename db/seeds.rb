@@ -57,18 +57,26 @@ helldivers = import_game(client, "Helldivers 2")
 
 puts "Setting game genres..."
 
-fortnite&.update!(genre: ["Battle Royale", "Shooter", "Action"])
-warzone&.update!(genre: ["FPS", "Shooter", "Battle Royale"])
-apex&.update!(genre: ["Battle Royale", "FPS", "Shooter"])
-destiny&.update!(genre: ["FPS", "Shooter", "RPG", "Action"])
-fifa&.update!(genre: ["Sports", "Simulation"])
-roblox&.update!(genre: ["Sandbox", "Simulation"])
-clash&.update!(genre: ["Mobile", "Strategy"])
-coc&.update!(genre: ["Mobile", "Strategy"])
-minecraft&.update!(genre: ["Sandbox", "Simulation", "Adventure"])
-valorant&.update!(genre: ["FPS", "Shooter", "Strategy"])
-marvel&.update!(genre: ["Shooter", "Action"])
-helldivers&.update!(genre: ["Shooter", "Action"])
+genre_map = {
+  fortnite   => ["Battle Royale", "Shooter", "Action"],
+  warzone    => ["FPS", "Shooter", "Battle Royale"],
+  apex       => ["Battle Royale", "FPS", "Shooter"],
+  destiny    => ["FPS", "Shooter", "RPG", "Action"],
+  fifa       => ["Sports", "Simulation"],
+  roblox     => ["Sandbox", "Simulation"],
+  clash      => ["Mobile", "Strategy"],
+  coc        => ["Mobile", "Strategy"],
+  minecraft  => ["Sandbox", "Simulation", "Adventure"],
+  valorant   => ["FPS", "Shooter", "Strategy"],
+  marvel     => ["Shooter", "Action"],
+  helldivers => ["Shooter", "Action"]
+}
+
+genre_map.each do |game, genres|
+  next unless game
+  pg_array = "{" + genres.map { |g| "\"#{g}\"" }.join(",") + "}"
+  ActiveRecord::Base.connection.execute("UPDATE games SET genre = '#{pg_array}' WHERE id = #{game.id}")
+end
 
 puts "Creating patches..."
 
