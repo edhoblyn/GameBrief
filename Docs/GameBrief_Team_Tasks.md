@@ -197,7 +197,7 @@ Patches are currently entered manually. A scraper would pull real patch notes fr
 
 ---
 
-### Task Group A — Rename Dashboard → My Profile + Sidebar
+### Task person A — Rename Dashboard → My Profile + Sidebar
 
 > Suggested: whoever built the dashboard — Baptiste + Bianca
 
@@ -212,7 +212,7 @@ Patches are currently entered manually. A scraper would pull real patch notes fr
 
 ---
 
-### Task Group B — Patches Navbar Link + Dedicated Patches Page
+### Task person B — Patches Navbar Link + Dedicated Patches Page
 
 > Suggested: whoever built patches — Hortense + Baptiste
 
@@ -227,7 +227,7 @@ Patches are currently entered manually. A scraper would pull real patch notes fr
 
 ---
 
-### Task Group C — Events Page: IRL Filter + Personalised Sections
+### Task person C — Events Page: IRL Filter + Personalised Sections
 
 > Suggested: whoever built events — Baptiste + Bianca
 
@@ -242,7 +242,7 @@ Patches are currently entered manually. A scraper would pull real patch notes fr
 
 ---
 
-### Task Group D — Live Streamers on Game Page
+### Task person D — Live Streamers on Game Page
 
 > Suggested: whoever built the IGDB/Twitch integration — Ed
 
