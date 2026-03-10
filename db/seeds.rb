@@ -58,18 +58,18 @@ helldivers = import_game(client, "Helldivers 2")
 puts "Setting game genres..."
 
 genre_map = {
-  fortnite   => ["Battle Royale", "Shooter", "Action"],
-  warzone    => ["FPS", "Shooter", "Battle Royale"],
-  apex       => ["Battle Royale", "FPS", "Shooter"],
-  destiny    => ["FPS", "Shooter", "RPG", "Action"],
+  fortnite   => ["Battle Royale", "Shooter"],
+  warzone    => ["Shooter", "Battle Royale"],
+  apex       => ["Battle Royale", "Shooter"],
+  destiny    => ["Shooter"],
   fifa       => ["Sports", "Simulation"],
   roblox     => ["Sandbox", "Simulation"],
   clash      => ["Mobile", "Strategy"],
   coc        => ["Mobile", "Strategy"],
-  minecraft  => ["Sandbox", "Simulation", "Adventure"],
-  valorant   => ["FPS", "Shooter", "Strategy"],
-  marvel     => ["Shooter", "Action"],
-  helldivers => ["Shooter", "Action"]
+  minecraft  => ["Sandbox", "Simulation"],
+  valorant   => ["Shooter", "Strategy"],
+  marvel     => ["Shooter"],
+  helldivers => ["Shooter"]
 }
 
 genre_map.each do |game, genres|

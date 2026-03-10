@@ -9,7 +9,7 @@
   <div class="home-games__filters">
     <div class="home-games__filter-group">
       <%= link_to "All", games_path(query: params[:query], sort: params[:sort]), class: "filter-btn #{params[:genre].blank? ? 'active' : ''}" %>
-      <% ["FPS", "Shooter", "Battle Royale", "Action", "RPG", "Strategy", "Sports", "Sandbox", "Simulation", "Adventure", "Mobile"].each do |genre| %>
+      <% ["Shooter", "Battle Royale", "Strategy", "Sports", "Sandbox", "Simulation", "Mobile"].each do |genre| %>
         <%= link_to genre, games_path(genre: genre, query: params[:query], sort: params[:sort]), class: "filter-btn #{params[:genre] == genre ? 'active' : ''}" %>
       <% end %>
     </div>
