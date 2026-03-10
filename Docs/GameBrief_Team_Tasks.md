@@ -51,18 +51,18 @@
 
 ---
 
-### Person 1 — Ed — Games Index Polish + Finishing Touches
+### Person 1 — Ed — Games Index Polish + Finishing Touches ✅
 
 **Branch:** `feature/games-index-polish`
 
 | # | Task | Done? |
 | --- | ------ | ------- |
-| 1 | Add a `genre` string column to the `games` table: `rails g migration AddGenreToGames genre:string` | ⬜ |
-| 2 | Update seeds to set a genre on each game — e.g. `"FPS"`, `"Battle Royale"`, `"Sports"`, `"Sandbox"`, `"Mobile"` | ⬜ |
-| 3 | Add genre filter buttons above the games grid — filter via `params[:genre]` in `GamesController#index` | ⬜ |
-| 4 | Add sort options to the games index — alphabetical (A–Z) and most-followed | ⬜ |
-| 5 | Add a simple footer to `application.html.erb` — GameBrief name, current year, team names | ⬜ |
-| 6 | Add `loading="lazy"` to all cover images so pages load faster | ⬜ |
+| 1 | Add a `genre` column to the `games` table — migrated as a PostgreSQL array for multi-genre support | ✅ |
+| 2 | Update seeds to set genres on each game — multi-genre support (e.g. Fortnite: Battle Royale + Shooter) | ✅ |
+| 3 | Add genre filter buttons above the games grid — 7 categories: Shooter, Battle Royale, Strategy, Sports, Sandbox, Simulation, Mobile | ✅ |
+| 4 | Add sort options to the games index — alphabetical (A–Z) and most-followed | ✅ |
+| 5 | Add a simple footer to `application.html.erb` — GameBrief name, current year, team names | ✅ |
+| 6 | Add `loading="lazy"` to all cover images so pages load faster | ✅ |
 | 7 | Do a final pass — check every link in the navbar works and no broken routes exist | ⬜ |
 
 ---
@@ -278,4 +278,4 @@ The app should demonstrate this flow without errors:
 
 ---
 
-Last updated: Round 3 ✅ | Round 4 partial — Baptiste ✅, Bianca ✅, Ed ✅, Hortense ⬜ (mobile check only) | Round 5 assigned by person | Rounds 6–7 pending
+Last updated: Round 3 ✅ | Round 4 ✅ Baptiste, Bianca, Ed | Hortense mobile check ⬜ | Round 5 Ed ✅ (tasks 1–6), Hortense/Baptiste/Bianca ⬜ | Rounds 6–7 pending

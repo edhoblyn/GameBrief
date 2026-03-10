@@ -138,4 +138,21 @@ All Round 2 tasks finished. See Round 1 completed work above for details.
 
 ---
 
-Last updated: Round 4 partial — Baptiste ✅, Bianca ✅, Ed ✅, Hortense ⬜ (mobile check pending) | Round 5 pending
+## Round 5 — Polish + Extra Features (partial)
+
+### Person 1 — Ed — Games Index Polish + Finishing Touches
+
+- `genre` column added to `games` table as a PostgreSQL array (`array: true, default: []`) — supports multi-genre per game
+- Genre data set on all 12 games using raw SQL with correct PG array literal format (`{"Shooter","Battle Royale"}`)
+- Genre filter buttons added to `games/index.html.erb` — 7 categories: Shooter, Battle Royale, Strategy, Sports, Sandbox, Simulation, Mobile
+- `GamesController#index` filters by genre using `? = ANY(genre::text[])` PostgreSQL query
+- Sort options added: A–Z and Most Followed (`left_joins(:favourites).group.order COUNT DESC`)
+- Footer added to `application.html.erb` — GameBrief name, current year, team names
+- `loading="lazy"` added to all cover images in games index
+- `_filter_btn.scss` and `_footer.scss` created and imported
+- `dashboard_path` bug fixed in `pages/home.html.erb` — changed to `games_path` (route didn't exist)
+- Error templates bug fixed — `ErrorsController` now explicitly renders `errors/404` and `errors/500`
+
+---
+
+Last updated: Round 4 ✅ | Round 5 Ed ✅ (tasks 1–6 done, task 7 manual check pending) | Hortense/Baptiste/Bianca Round 5 ⬜ | Rounds 6–7 pending
