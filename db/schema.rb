@@ -45,6 +45,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_10_111926) do
     t.datetime "created_at", null: false
     t.bigint "patch_id", null: false
     t.text "summary"
+    t.string "summary_type"
     t.datetime "updated_at", null: false
     t.index ["patch_id"], name: "index_patch_summaries_on_patch_id"
   end

@@ -420,65 +420,72 @@ helldivers_patch = Patch.create!(
 
 puts "Creating patch summaries..."
 
-PatchSummary.create!(
-  patch: fortnite_patch,
-  summary: "Guns feel a bit more accurate this patch — ARs got a damage boost and bloom was reduced so your shots land more consistently. Two new named locations dropped in the northwest, so expect hot drops there early on. Shotguns got a slight nerf at the top end, so don't rely on one-pumping as much."
-)
-
-PatchSummary.create!(
-  patch: warzone_patch,
-  summary: "The MTZ-556 AR got a range buff making it stronger at distance, while the Striker 9 SMG was pulled back to stop it dominating at longer ranges. Slide cancelling is slightly slower so movement feels less frantic. The Gulag got refreshed with a rotating weapon pool which keeps close quarters matches feeling fresh."
-)
-
-PatchSummary.create!(
-  patch: apex_patch,
-  summary: "Bloodhound and Wraith got buffed — Wraith's void ability is up more often and Bloodhound scans a bit further. Gibraltar took hits to both his dome cooldown and gun shield so he's a little weaker this patch. The new Squad Royale LTM is worth trying if you want a chaotic team mode with cosmetic rewards."
-)
-
-PatchSummary.create!(
-  patch: destiny_patch,
-  summary: "Big patch this season — there's a brand new raid called the Vault of Fractured Light plus a fresh set of craftable seasonal weapons. Solar and Void builds got small buffs so if you've been running those subclasses you'll feel stronger. Stasis shatter got toned down in higher-end content so pure Stasis builds may want to adjust."
-)
-
-PatchSummary.create!(
-  patch: fifa_patch,
-  summary: "Pack weights are temporarily boosted around Team of the Season so it's a good time to open packs if you've been saving. Heading has been toned down for weaker players and through ball defending is more consistent, which should reduce some frustrating goals. FUT Champions now rewards points more fairly for lower win counts."
-)
-
-PatchSummary.create!(
-  patch: roblox_patch,
-  summary: "A performance-focused update — loading times are roughly 15% faster and mobile devices should crash less often in busy servers. Layered clothing now supports 8 layers so you can style your avatar even more. Developers get a new flame graph profiler tool to help track down lag in their games."
-)
-
-PatchSummary.create!(
-  patch: clash_patch,
-  summary: "Goblin Giant and Dark Prince got some love this patch with hitpoint and shield buffs, making them more viable in ladder. Evo Firecracker lost her death split when evolved which was a significant nerf to one of the most popular evolutions. A new Evo Cannon Cart is coming in Season 52 with a speed burst after its cart is destroyed."
-)
-
-PatchSummary.create!(
-  patch: coc_patch,
-  summary: "The Druid and Super Witch got buffed this patch making them stronger offensive options, while the Root Rider was slowed down to stop it being too dominant. Defences got tweaked too — the Scattershot hits air troops faster and the Ricochet Cannon was toned down at TH16. Clan War League loot went up by 10% so it's a good time to stay active in wars."
-)
-
-PatchSummary.create!(
-  patch: minecraft_patch,
-  summary: "A big atmospheric update — the new Pale Garden biome is a creepy white forest that spawns the Creaking, a mob that only moves when you're not looking at it. Bundles are finally out of experimental and let you mix item types in one stack, which is a big quality of life win for inventory management. Pale Oak is a new full wood type so builders have a fresh block palette to work with."
-)
-
-PatchSummary.create!(
-  patch: valorant_patch,
-  summary: "Gekko and Jett got nerfed — Jett's dash window is shorter and Gekko's blind doesn't last as long, so both are slightly less dominant in ranked. Deadlock got some love with a faster Gravnet cooldown and stronger barriers, making her more viable as a sentinel. The Phantom got a small accuracy buff while moving which could make it feel better in close-range fights."
-)
-
-PatchSummary.create!(
-  patch: marvel_patch,
-  summary: "Hela and Jeff the Land Shark were both nerfed — Hela hits a bit softer and Jeff's ultimate covers less ground, so both are less oppressive to play against. Iron Man and Rocket Raccoon got buffed and should feel more impactful this season. Mister Fantastic is now available to unlock and Invisible Woman is coming mid-season, so the roster keeps growing."
-)
-
-PatchSummary.create!(
-  patch: helldivers_patch,
-  summary: "The Illuminate are back as a third enemy faction which adds a fresh challenge on certain planets. Railgun got a meaningful buff in unsafe mode so it's worth experimenting with again, and the Flamethrower now deals more damage but carries less fuel. A new Tesla Tower stratagem has been added for area control and is great against the new Voteless swarm enemies."
-)
+{
+  fortnite_patch => {
+    "quick_summary" => "Guns feel a bit more accurate this patch — ARs got a damage boost and bloom was reduced so your shots land more consistently. Two new named locations dropped in the northwest, so expect hot drops there early on. Shotguns got a slight nerf at the top end, so don't rely on one-pumping as much.",
+    "casual_impact" => "If you mainly build and fight, you'll notice ARs feeling a bit snappier and more reliable. Two new areas to explore give you fresh drop spots to try. Shotgun players may need to adjust — the big one-shot potential is slightly reduced.",
+    "should_i_log_in" => "Yes — two brand new named locations dropped and the weapon meta shifted, so it's a good week to jump in and explore the map changes before everyone figures out the new meta."
+  },
+  warzone_patch => {
+    "quick_summary" => "The MTZ-556 AR got a range buff making it stronger at distance, while the Striker 9 SMG was pulled back to stop it dominating at longer ranges. Slide cancelling is slightly slower so movement feels less frantic. The Gulag got refreshed with a rotating weapon pool which keeps close quarters matches feeling fresh.",
+    "casual_impact" => "Movement feels a little less chaotic now that slide cancelling is toned down, which may help if you struggle against hyper-aggressive players. The Gulag has fresh weapons so those second-chance fights feel less predictable. No drastic meta shift — your favourite loadout probably still works.",
+    "should_i_log_in" => "If you play casually, sure — the Gulag refresh keeps things interesting and nothing was broken so badly that the game feels unfair. Don't rush back just for this patch though."
+  },
+  apex_patch => {
+    "quick_summary" => "Bloodhound and Wraith got buffed — Wraith's void ability is up more often and Bloodhound scans a bit further. Gibraltar took hits to both his dome cooldown and gun shield so he's a little weaker this patch. The new Squad Royale LTM is worth trying if you want a chaotic team mode with cosmetic rewards.",
+    "casual_impact" => "If you play Wraith, you'll notice her escape is available more often which feels great in tough spots. Gibraltar mains may feel slightly squishier but the difference is small in casual play. The new Squad Royale mode is a fun change of pace if you want something less sweaty.",
+    "should_i_log_in" => "Yes — the Squad Royale LTM is only available for 2 weeks and has exclusive cosmetic rewards. It's a fun, lower-pressure way to play and well worth a few sessions."
+  },
+  destiny_patch => {
+    "quick_summary" => "Big patch this season — there's a brand new raid called the Vault of Fractured Light plus a fresh set of craftable seasonal weapons. Solar and Void builds got small buffs so if you've been running those subclasses you'll feel stronger. Stasis shatter got toned down in higher-end content so pure Stasis builds may want to adjust.",
+    "casual_impact" => "There's a lot of new content to sink your teeth into — a new raid, new weapons to chase, and a fresh artifact to level up. If you play Solar or Void casually you'll feel slightly stronger without needing to change anything. Stasis players in endgame content may want to experiment with alternatives.",
+    "should_i_log_in" => "Absolutely yes — new raid, new craftable weapons, and a seasonal artifact make this one of the bigger patches of the year. Even if you only play a few hours a week there's plenty of new content to enjoy."
+  },
+  fifa_patch => {
+    "quick_summary" => "Pack weights are temporarily boosted around Team of the Season so it's a good time to open packs if you've been saving. Heading has been toned down for weaker players and through ball defending is more consistent, which should reduce some frustrating goals. FUT Champions now rewards points more fairly for lower win counts.",
+    "casual_impact" => "Gameplay feels slightly more consistent — fewer cheap goals from headers and lobbed through balls. If you play FUT Champions occasionally, you'll earn more points even from losses which makes weekend league less punishing. If you've been hoarding packs, now's the time to open them.",
+    "should_i_log_in" => "Yes if you play FUT — Team of the Season pack weights are boosted right now which is the best time to open packs all year. Even if you don't spend coins, the gameplay improvements make matches feel a bit less frustrating."
+  },
+  roblox_patch => {
+    "quick_summary" => "A performance-focused update — loading times are roughly 15% faster and mobile devices should crash less often in busy servers. Layered clothing now supports 8 layers so you can style your avatar even more. Developers get a new flame graph profiler tool to help track down lag in their games.",
+    "casual_impact" => "Games load noticeably faster and your experience should be smoother, especially on mobile. You can now layer even more clothing items on your avatar for more creative outfits. Nothing gameplay-changing — this is a quality of life patch.",
+    "should_i_log_in" => "Only if you were already planning to — this is a background improvements patch with no major new content. The performance boost is welcome but not a reason to rush back on its own."
+  },
+  clash_patch => {
+    "quick_summary" => "Goblin Giant and Dark Prince got some love this patch with hitpoint and shield buffs, making them more viable in ladder. Evo Firecracker lost her death split when evolved which was a significant nerf to one of the most popular evolutions. A new Evo Cannon Cart is coming in Season 52 with a speed burst after its cart is destroyed.",
+    "casual_impact" => "If you've been using Evo Firecracker, her death split is gone when evolved so she feels less explosive. Goblin Giant decks become more viable which could shake up what you face on ladder. Season 52 is close and brings a new Evo to try out.",
+    "should_i_log_in" => "Worth checking in — the Evo Firecracker nerf shakes up a dominant deck and Season 52 starts soon with new content. If you like keeping up with the meta, now's a good time to experiment with alternatives."
+  },
+  coc_patch => {
+    "quick_summary" => "The Druid and Super Witch got buffed this patch making them stronger offensive options, while the Root Rider was slowed down to stop it being too dominant. Defences got tweaked too — the Scattershot hits air troops faster and the Ricochet Cannon was toned down at TH16. Clan War League loot went up by 10% so it's a good time to stay active in wars.",
+    "casual_impact" => "Your attacks might feel different — Root Rider pushes slower now so you need to adjust timing. Druid and Super Witch are better options if you have them unlocked. The 10% Clan War League loot boost means you earn more just by participating normally.",
+    "should_i_log_in" => "Yes — Clan War League loot is up 10% this cycle so you get more rewards for the same effort. Worth logging in to take advantage even if you just play a few attacks."
+  },
+  minecraft_patch => {
+    "quick_summary" => "A big atmospheric update — the new Pale Garden biome is a creepy white forest that spawns the Creaking, a mob that only moves when you're not looking at it. Bundles are finally out of experimental and let you mix item types in one stack, which is a big quality of life win for inventory management. Pale Oak is a new full wood type so builders have a fresh block palette to work with.",
+    "casual_impact" => "Exploring the world just got more interesting with a spooky new biome and a genuinely unsettling new mob. Bundles make managing your inventory much less painful — you can finally carry a mix of items in one slot. Builders get a beautiful new pale wood type to use in their creations.",
+    "should_i_log_in" => "Yes — new biome, new mob, and bundles finally released are all worth exploring. Whether you like survival, building or just wandering, this patch has something for you."
+  },
+  valorant_patch => {
+    "quick_summary" => "Gekko and Jett got nerfed — Jett's dash window is shorter and Gekko's blind doesn't last as long, so both are slightly less dominant in ranked. Deadlock got some love with a faster Gravnet cooldown and stronger barriers, making her more viable as a sentinel. The Phantom got a small accuracy buff while moving which could make it feel better in close-range fights.",
+    "casual_impact" => "Jett feels a little less slippery now which may help if you struggle against her. Phantom users may notice it feeling more responsive when moving which is a small but noticeable improvement. Deadlock is more playable if you like sentinel roles.",
+    "should_i_log_in" => "If you're already playing ranked, yes — the meta shifted slightly and Deadlock is more viable now which adds variety. No major map changes or new agents so it's not a must-play patch if you've been taking a break."
+  },
+  marvel_patch => {
+    "quick_summary" => "Hela and Jeff the Land Shark were both nerfed — Hela hits a bit softer and Jeff's ultimate covers less ground, so both are less oppressive to play against. Iron Man and Rocket Raccoon got buffed and should feel more impactful this season. Mister Fantastic is now available to unlock and Invisible Woman is coming mid-season, so the roster keeps growing.",
+    "casual_impact" => "Matches should feel a bit less one-sided now that Hela and Jeff are toned down — two of the most complained-about characters got reined in. Iron Man feels stronger if you like playing him. Two new heroes arrive this season giving you more options to try.",
+    "should_i_log_in" => "Yes — Mister Fantastic is now playable and Invisible Woman arrives mid-season, making this a great time to come back and try new heroes. The balance changes also make the game feel fairer which helps casual players."
+  },
+  helldivers_patch => {
+    "quick_summary" => "The Illuminate are back as a third enemy faction which adds a fresh challenge on certain planets. Railgun got a meaningful buff in unsafe mode so it's worth experimenting with again, and the Flamethrower now deals more damage but carries less fuel. A new Tesla Tower stratagem has been added for area control and is great against the new Voteless swarm enemies.",
+    "casual_impact" => "You'll face a brand new enemy type — the Illuminate Voteless come in large swarms and play completely differently from bugs or robots. The Flamethrower hits harder but you'll burn through ammo faster. Bring the new Tesla Tower for the swarm missions — it's very effective.",
+    "should_i_log_in" => "Absolutely yes — a new enemy faction is one of the biggest additions the game can get. The Illuminate missions feel fresh and different, and there's a Major Order active with bonus rewards. Don't miss this one."
+  }
+}.each do |patch, summaries|
+  summaries.each do |summary_type, summary_text|
+    PatchSummary.create!(patch: patch, summary: summary_text, summary_type: summary_type)
+  end
+end
 
 puts "Creating events..."
 
