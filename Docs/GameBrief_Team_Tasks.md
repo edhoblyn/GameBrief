@@ -18,17 +18,18 @@
 
 ---
 
-### Person 2 — Hortense — Mobile + Error Pages
+### Person 2 — Hortense — Error Pages + Mobile Check
 
 **Branch:** `feature/mobile-polish`
 
 | # | Task | Done? |
 | --- | ------ | ------- |
-| 1 | Check every page on a mobile screen size — fix any broken layouts | ⬜ |
-| 2 | Create `app/views/errors/404.html.erb` — a friendly "page not found" page | ⬜ |
-| 3 | Create `app/views/errors/500.html.erb` — a friendly "something went wrong" page | ⬜ |
-| 4 | Add a loading/disabled state to the Generate Summary button so it can't be double-clicked | ⬜ |
-| 5 | Final styling pass — check fonts, spacing and colours are consistent across all pages | ⬜ |
+| 1 | Create `app/views/errors/404.html.erb` — a friendly "page not found" page with a link back home | ⬜ |
+| 2 | Create `app/views/errors/500.html.erb` — a friendly "something went wrong" page with a link back home | ⬜ |
+| 3 | Go through each page on a small screen — write down anything that looks broken and report to Ed | ⬜ |
+
+> **Moved to Baptiste:** Loading state on Generate Summary button (task 4 below)
+> **Moved to Ed:** Final styling pass (task 5 below)
 
 ---
 
@@ -48,73 +49,62 @@
 
 > Estimated effort: 2 days for all 4 people working in parallel
 
-Tasks are unassigned. Suggestions are based on who worked on related features.
+---
+
+### Person 1 — Ed — Games Index Polish + Finishing Touches
+
+**Branch:** `feature/games-index-polish`
+
+| # | Task | Done? |
+| --- | ------ | ------- |
+| 1 | Add a `genre` string column to the `games` table: `rails g migration AddGenreToGames genre:string` | ⬜ |
+| 2 | Update seeds to set a genre on each game — e.g. `"FPS"`, `"Battle Royale"`, `"Sports"`, `"Sandbox"`, `"Mobile"` | ⬜ |
+| 3 | Add genre filter buttons above the games grid — filter via `params[:genre]` in `GamesController#index` | ⬜ |
+| 4 | Add sort options to the games index — alphabetical (A–Z) and most-followed | ⬜ |
+| 5 | Add a simple footer to `application.html.erb` — GameBrief name, current year, team names | ⬜ |
+| 6 | Add `loading="lazy"` to all cover images so pages load faster | ⬜ |
+| 7 | Do a final pass — check every link in the navbar works and no broken routes exist | ⬜ |
 
 ---
 
-### Task Group A — User Profile Page
+### Person 2 — Hortense — Styling Fixes
 
-> Suggested: whoever built the dashboard — Baptiste built it, Bianca polished it
+**Branch:** `feature/styling-fixes`
+
+| # | Task | Done? |
+| --- | ------ | ------- |
+| 1 | Style the Devise login and signup pages so they match the dark theme | ⬜ |
+| 2 | Add `<meta>` description tag to `application.html.erb` | ⬜ |
+| 3 | Check all pages have a page title set using `content_for :title` — add any that are missing | ⬜ |
+| 4 | Fix any mobile layout issues found in Round 4 mobile check | ⬜ |
+
+---
+
+### Person 3 — Baptiste — Patch + Summary Improvements
+
+**Branch:** `feature/patch-polish`
+
+| # | Task | Done? |
+| --- | ------ | ------- |
+| 1 | Add a loading/disabled state to the Generate Summary button so it can't be double-clicked | ⬜ |
+| 2 | Order patches by most recent first on the game show page (`@game.patches.order(created_at: :desc)`) | ⬜ |
+| 3 | If all 3 summary types already exist for a patch, hide all generate buttons and show "Summaries up to date" | ⬜ |
+| 4 | Add a flash message after generating a summary: `"Summary generated!"` | ⬜ |
+| 5 | Wrap the Claude API call in `begin/rescue` — redirect with error flash if it fails | ⬜ |
+
+---
+
+### Person 4 — Bianca — Profile Page + Dashboard
 
 **Branch:** `feature/profile-page`
 
 | # | Task | Done? |
 | --- | ------ | ------- |
 | 1 | Create a `profile` route and action in `PagesController` | ⬜ |
-| 2 | Create `app/views/pages/profile.html.erb` — show the user's email and join date | ⬜ |
-| 3 | Add a stat summary: number of followed games, number of reminders set | ⬜ |
-| 4 | Add a "Profile" link to the navbar dropdown | ⬜ |
-| 5 | Add a "Delete account" link using Devise's `registrations#destroy` | ⬜ |
-
----
-
-### Task Group B — Games Index Improvements
-
-> Suggested: whoever built the games index and search — Ed
-
-**Branch:** `feature/games-index-polish`
-
-| # | Task | Done? |
-| --- | ------ | ------- |
-| 1 | Add sort options to the games index — alphabetical (A–Z) and most-followed | ⬜ |
-| 2 | Show a follower count badge on each game card (e.g. "142 following") | ⬜ |
-| 3 | Highlight games the current user already follows with a different card style | ⬜ |
-| 4 | Add a "Popular Games" section at the top of the index showing the 3 most-followed games | ⬜ |
-| 5 | Add a `genre` string column to the `games` table: `rails g migration AddGenreToGames genre:string` | ⬜ |
-| 6 | Update seeds to set a genre on each game — e.g. `"FPS"`, `"Battle Royale"`, `"Sports"`, `"Sandbox"`, `"Mobile"` | ⬜ |
-| 7 | Add genre filter buttons above the games grid (All / FPS / Sports / Battle Royale / RPG / Sandbox / Mobile) — filter via `params[:genre]` in `GamesController#index` | ⬜ |
-
----
-
-### Task Group C — Patch + Summary Improvements
-
-> Suggested: whoever worked on patches/show and AI summaries — Hortense + Baptiste
-
-**Branch:** `feature/patch-polish`
-
-| # | Task | Done? |
-| --- | ------ | ------- |
-| 1 | Show patch publish date on `patches/show.html.erb` and `patches/index.html.erb` | ⬜ |
-| 2 | Order patches by most recent first on the game show page | ⬜ |
-| 3 | Add a "Back to game" breadcrumb link on the patch show page | ✅ |
-| 4 | Add a thumbs up / thumbs down reaction to each AI summary card (no backend needed — just UI) | ⬜ |
-| 5 | If all 3 summary types already exist, hide all generate buttons and show a "Summaries up to date" message | ⬜ |
-
----
-
-### Task Group D — App-Wide Finishing Touches
-
-> Suggested: whoever handled styling and error pages — Hortense
-
-**Branch:** `feature/final-touches`
-
-| # | Task | Done? |
-| --- | ------ | ------- |
-| 1 | Add a simple footer to `application.html.erb` — GameBrief name, current year, team names | ⬜ |
-| 2 | Add `<meta>` description tags to the layout for basic SEO | ⬜ |
-| 3 | Add `loading="lazy"` to all cover images so pages load faster | ⬜ |
-| 4 | Check all pages have a page title set using `content_for :title` | ⬜ |
-| 5 | Do a final pass — check every link in the navbar works and no broken routes exist | ⬜ |
+| 2 | Create `app/views/pages/profile.html.erb` — show the user's email, join date, followed game count and reminder count | ⬜ |
+| 3 | Add a "Profile" link to the navbar (next to Dashboard) | ⬜ |
+| 4 | Show latest patch title under each game card on the dashboard | ⬜ |
+| 5 | Add a friendly empty state message if the user has no followed games on the dashboard | ⬜ |
 
 ---
 
@@ -283,4 +273,4 @@ The app should demonstrate this flow without errors:
 
 ---
 
-Last updated: Round 3 ✅ | Round 4 partial — Baptiste ✅, Bianca ✅, Ed ✅, Hortense ⬜ | Rounds 5–7 pending
+Last updated: Round 3 ✅ | Round 4 partial — Baptiste ✅, Bianca ✅, Ed ✅, Hortense ⬜ (3 tasks) | Round 5 assigned by person | Rounds 6–7 pending
