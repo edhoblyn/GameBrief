@@ -67,15 +67,17 @@
 
 ---
 
-## Round 6 — Planned Features
+## Round 6 — Planned Features (Group of 4)
 
-> These are the next planned features for the next two weeks. Start once Round 5 is fully merged and working on Heroku, and continue to prioritise bug fixes where needed.
+> These are the next four parallel tasks for the team of 4. Start once Round 5 is fully merged and working on Heroku, and continue to prioritise bug fixes where needed.
 
 ---
 
 ### Task 1 — Activity Feed on My Profile
 
-> Suggested: Baptiste + Bianca
+> Suggested: Baptiste
+>
+> Reason: Baptiste already built My Profile, My Game's Patches, reminders, and the chatbot flow, so this fits his existing ownership of profile logic and patch-related UI.
 
 **Branch:** `feature/activity-feed`
 
@@ -90,6 +92,8 @@
 ### Task 2 — "New" Badge on Recent Patches
 
 > Suggested: Hortense
+>
+> Reason: Hortense has already owned most patch page styling and UI polish, so this is a good continuation of her patch presentation and frontend work.
 
 **Branch:** `feature/new-badge`
 
@@ -104,6 +108,8 @@
 ### Task 3 — Web Scraping — Auto-Import Patch Notes
 
 > Suggested: Ed
+>
+> Reason: Ed has already handled IGDB integration, Twitch OAuth, Heroku checks, and service-layer setup, so scraper infrastructure is the closest match to his previous work.
 
 **Branch:** `feature/scraper`
 
@@ -120,24 +126,11 @@ Patches are currently entered manually. A scraper would pull real patch notes fr
 
 ---
 
-### Task 4 — Email Confirmation for Reminders
-
-> Suggested: Baptiste
-
-**Branch:** `feature/reminder-email`
-
-| # | Task | Done? |
-| --- | ------ | ------- |
-| 1 | Create a `ReminderMailer` using `rails g mailer ReminderMailer` | ⬜ |
-| 2 | Add a `confirmation` method that sends the event name, date, and a link to the event page | ⬜ |
-| 3 | Call `ReminderMailer.confirmation(reminder).deliver_later` inside `RemindersController#create` | ⬜ |
-| 4 | Configure ActionMailer for development using the `letter_opener` gem so emails open in the browser | ⬜ |
-
----
-
-### Task 5 — Events Page: Filters
+### Task 4 — Events Page: Filters
 
 > Suggested: Bianca
+>
+> Reason: Bianca has already worked on the events index, dashboard reminders, and card-based event displays, so filters build directly on her existing events ownership.
 
 **Branch:** `feature/events-filters`
 
@@ -151,9 +144,34 @@ Patches are currently entered manually. A scraper would pull real patch notes fr
 
 ---
 
-### Task 6 — Live Streamers on Game Page
+## Round 7 — Planned Features (Next Group of 4)
+
+> These are the next planned features after Round 6. Two strong ownership suggestions are already clear; the final two task slots can either be added later or pulled forward from new bugs / polish work once Round 6 is complete.
+
+---
+
+### Task 1 — Email Confirmation for Reminders
+
+> Suggested: Baptiste
+>
+> Reason: Baptiste built reminders, events, and the related controller flow already, so mailer confirmation is the cleanest follow-on task for him.
+
+**Branch:** `feature/reminder-email`
+
+| # | Task | Done? |
+| --- | ------ | ------- |
+| 1 | Create a `ReminderMailer` using `rails g mailer ReminderMailer` | ⬜ |
+| 2 | Add a `confirmation` method that sends the event name, date, and a link to the event page | ⬜ |
+| 3 | Call `ReminderMailer.confirmation(reminder).deliver_later` inside `RemindersController#create` | ⬜ |
+| 4 | Configure ActionMailer for development using the `letter_opener` gem so emails open in the browser | ⬜ |
+
+---
+
+### Task 2 — Live Streamers on Game Page
 
 > Suggested: Ed
+>
+> Reason: Ed already owns the external API side of the app through IGDB/Twitch work, so another Twitch-backed integration should stay with him.
 
 **Branch:** `feature/live-streamers`
 
@@ -164,6 +182,34 @@ Patches are currently entered manually. A scraper would pull real patch notes fr
 | 3 | Add a `TwitchStreamsService` that fetches the top 6 live streams for a given game | ⬜ |
 | 4 | Add a "Watch Live" section to `games/show.html.erb` showing streamer cards: avatar, name, title, viewer count, link | ⬜ |
 | 5 | Hide the section if no streams are live | ⬜ |
+
+---
+
+### Task 3 — Reserved for next agreed feature / bugfix batch
+
+> Suggested: Hortense
+>
+> Reason: Hortense has consistently owned cross-page styling, mobile checks, and visual polish, so this slot is a good placeholder for the next UI / responsiveness task that comes out of testing.
+
+**Branch:** `feature/tbd-hortense`
+
+| # | Task | Done? |
+| --- | ------ | ------- |
+| 1 | Hold for next agreed styling / UX / mobile polish task after Round 6 | ⬜ |
+
+---
+
+### Task 4 — Reserved for next agreed feature / bugfix batch
+
+> Suggested: Bianca
+>
+> Reason: Bianca has repeatedly owned dashboard, profile, and events UI work, so this slot is a good placeholder for the next page-level feature that extends those areas.
+
+**Branch:** `feature/tbd-bianca`
+
+| # | Task | Done? |
+| --- | ------ | ------- |
+| 1 | Hold for next agreed dashboard / profile / events feature after Round 6 | ⬜ |
 
 ---
 
