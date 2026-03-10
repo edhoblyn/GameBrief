@@ -276,6 +276,75 @@ Patches are currently entered manually. A scraper would pull real patch notes fr
 
 ---
 
+---
+
+## Round 7 — Team Feature Requests
+
+> These are features the team has requested. Tasks are unassigned — pick based on interest and what you built before.
+
+---
+
+### Task Group A — Rename Dashboard → My Profile + Sidebar
+
+> Suggested: whoever built the dashboard — Baptiste + Bianca
+
+**Branch:** `feature/my-profile`
+
+| # | Task | Done? |
+| --- | ------ | ------- |
+| 1 | Rename "Dashboard" to "My Profile" — update the navbar link, route name, page title, and any internal links | ⬜ |
+| 2 | Add a "My Game's Patches" section to the My Profile page showing recent patches from followed games | ⬜ |
+| 3 | Build a sidebar for the My Profile page: My Games, My Patches, My Events, Communities, My Recommendations | ⬜ |
+| 4 | Hide the top navbar on the My Profile page — the sidebar replaces it for navigation | ⬜ |
+
+---
+
+### Task Group B — Patches Navbar Link + Dedicated Patches Page
+
+> Suggested: whoever built patches — Hortense + Baptiste
+
+**Branch:** `feature/patches-index`
+
+| # | Task | Done? |
+| --- | ------ | ------- |
+| 1 | Add a "Patches" link to the main navbar | ⬜ |
+| 2 | Create a dedicated `patches/index` page (not scoped to a single game) showing all recent patches | ⬜ |
+| 3 | Add three sections to the patches index: "From Games I Follow", "Recommended", "All Patches" | ⬜ |
+| 4 | Add the AI chatbot panel to `patches/show.html.erb` — collapsible, uses patch content as context, answers via Claude | ⬜ |
+
+---
+
+### Task Group C — Events Page: IRL Filter + Personalised Sections
+
+> Suggested: whoever built events — Baptiste + Bianca
+
+**Branch:** `feature/events-revamp`
+
+| # | Task | Done? |
+| --- | ------ | ------- |
+| 1 | Add an `event_type` column to events: `in_game` or `irl` | ⬜ |
+| 2 | Add a filter toggle on `events/index.html.erb` — "In-Game Events" / "IRL Events" / "All" | ⬜ |
+| 3 | Add three sections to the events index: "From Games I Follow", "Recommended", "All Events" | ⬜ |
+| 4 | Update seeds to set `event_type` on existing events | ⬜ |
+
+---
+
+### Task Group D — Live Streamers on Game Page
+
+> Suggested: whoever built the IGDB/Twitch integration — Ed
+
+**Branch:** `feature/live-streamers`
+
+| # | Task | Done? |
+| --- | ------ | ------- |
+| 1 | Use the existing Twitch credentials to call `GET https://api.twitch.tv/helix/streams?game_id=...` | ⬜ |
+| 2 | Map the IGDB game to a Twitch game ID (IGDB and Twitch share the same game IDs) | ⬜ |
+| 3 | Add a `TwitchStreamsService` that fetches the top 6 live streams for a given game | ⬜ |
+| 4 | Add a "Watch Live" section to `games/show.html.erb` showing streamer cards: avatar, name, title, viewer count, link | ⬜ |
+| 5 | Hide the section if no streams are live | ⬜ |
+
+---
+
 ## Demo Flow (End Goal)
 
 The app should demonstrate this flow without errors:
@@ -291,4 +360,4 @@ The app should demonstrate this flow without errors:
 
 ---
 
-Last updated: Day 2 — Round 3 mostly done, Round 4 not yet started
+Last updated: Day 2 — Round 3 done, Rounds 4–7 planned
