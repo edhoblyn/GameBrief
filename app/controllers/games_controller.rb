@@ -1,10 +1,13 @@
 class GamesController < ApplicationController
   def index
-    if params[:query].present?
-      @games = Game.where("name ILIKE ?", "%#{params[:query]}%")
-    else
-      @games = Game.all
-    end
+    @games = Game.all
+    @games = @games.where("name ILIKE ?", "%#{params[:query]}%") if params[:query].present?
+    @games = @games.where(genre: params[:genre]) if params[:genre].present?
+    @games = case params[:sort]
+             when "name"     then @games.order(name: :asc)
+             when "followed" then @games.left_joins(:favourites).group("games.id").order("COUNT(favourites.id) DESC")
+             else @games
+             end
   end
 
   def show

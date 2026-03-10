@@ -55,6 +55,21 @@ valorant  = import_game(client, "Valorant")
 marvel    = import_game(client, "Marvel Rivals")
 helldivers = import_game(client, "Helldivers 2")
 
+puts "Setting game genres..."
+
+fortnite&.update!(genre: "Battle Royale")
+warzone&.update!(genre: "FPS")
+apex&.update!(genre: "Battle Royale")
+destiny&.update!(genre: "RPG")
+fifa&.update!(genre: "Sports")
+roblox&.update!(genre: "Sandbox")
+clash&.update!(genre: "Mobile")
+coc&.update!(genre: "Mobile")
+minecraft&.update!(genre: "Sandbox")
+valorant&.update!(genre: "FPS")
+marvel&.update!(genre: "FPS")
+helldivers&.update!(genre: "FPS")
+
 puts "Creating patches..."
 
 fortnite_patch = Patch.create!(

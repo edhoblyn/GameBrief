@@ -6,7 +6,7 @@
     <div class="container game-show__header-inner">
       <% if @game.cover_image.present? %>
         <div class="game-show__cover">
-          <%= image_tag @game.cover_image, alt: @game.name %>
+          <%= image_tag @game.cover_image, alt: @game.name, loading: "lazy" %>
         </div>
       <% end %>
       <div class="game-show__meta">

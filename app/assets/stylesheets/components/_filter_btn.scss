@@ -1,0 +1,24 @@
+.filter-btn {
+  display: inline-block;
+  padding: 0.3rem 0.85rem;
+  border-radius: 2rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: $dark-surface;
+  color: $dark-muted;
+  border: 1px solid $dark-border;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+
+  &:hover {
+    background: $dark-card;
+    color: $dark-text;
+    border-color: $accent-purple;
+  }
+
+  &.active {
+    background: rgba(124, 92, 252, 0.15);
+    color: $accent-purple;
+    border-color: $accent-purple;
+  }
+}
