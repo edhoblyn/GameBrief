@@ -1,6 +1,10 @@
 class GamesController < ApplicationController
   def index
-    @games = Game.all
+    if params[:query].present?
+      @games = Game.where("name ILIKE ?", "%#{params[:query]}%")
+    else
+      @games = Game.all
+    end
   end
 
   def show
