@@ -1,2 +1,15 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<hr class="nav-divider">
+
+<div class="home-landing__corner">
+  <h1 class="home-landing__title">GameBrief</h1>
+</div>
+
+<div class="home-landing">
+  <h2 class="home-landing__heading">Stay in the loop.<br>Skip the wall of text.</h2>
+  <p class="home-landing__subtitle">GameBrief turns complex patch notes into plain-English summaries so you know exactly what changed — and whether it's worth logging in.</p>
+
+  <div class="home-landing__actions">
+    <%= link_to "Get Started", dashboard_path, class: "btn btn-primary btn-lg" %>
+    <%= link_to "Explore Games", games_path, class: "btn btn-outline-light btn-lg" %>
+  </div>
+</div>

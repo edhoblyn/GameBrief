@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   resources :reminders, only: [:create, :destroy]
 
   get "dashboard", to: "pages#dashboard"
+  get "home", to: "pages#home"
 
-  root "games#index"
+  root "pages#home"
 end

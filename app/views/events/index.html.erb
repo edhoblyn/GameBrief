@@ -1,27 +1,22 @@
-<div class="events-index">
-  <div class="events-index__header container">
-    <h1>Upcoming Events</h1>
-  </div>
+<div class="container py-4">
+  <h1 class="mb-4">Upcoming Events</h1>
 
-  <div class="container">
-    <div class="events-grid" data-controller="glow-card">
-      <% @events.each do |event| %>
-        <%= link_to event_path(event),
-              class: "event-glow-card",
-              data: { "glow-card-target": "card" } do %>
-          <div class="event-glow-card__inner">
-            <div class="event-glow-card__date">
-              <i class="fa fa-calendar"></i>
-              <%= event.start_date.strftime("%-d %b %Y") %>
-            </div>
-            <div class="event-glow-card__title"><%= event.title %></div>
-            <div class="event-glow-card__game">
-              <i class="fa fa-gamepad"></i>
-              <%= event.game.name %>
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    <% @events.each do |event| %>
+      <div class="col">
+        <%= link_to event_path(event), class: "text-decoration-none" do %>
+          <div class="card h-100">
+            <div class="card-body">
+              <p class="text-muted small mb-1"><%= event.game.name %></p>
+              <h5 class="card-title"><%= event.title %></h5>
+              <p class="card-text text-muted small">
+                <i class="fa fa-calendar me-1"></i>
+                <%= event.start_date.strftime("%-d %b %Y") %>
+              </p>
             </div>
           </div>
         <% end %>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
   </div>
 </div>
