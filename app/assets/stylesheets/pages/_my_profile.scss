@@ -1,0 +1,178 @@
+// My Profile — sidebar layout
+$sidebar-width: 260px;
+
+.my-profile-layout {
+  display: flex;
+  min-height: 100vh;
+  background: $dark-bg;
+}
+
+// ── Sidebar ────────────────────────────────────────────────────────────────
+.profile-sidebar {
+  width: $sidebar-width;
+  min-width: $sidebar-width;
+  background: $dark-surface;
+  border-right: 1px solid $dark-border;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+
+  &__user {
+    padding: 2rem 1.5rem 1.5rem;
+    border-bottom: 1px solid $dark-border;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  &__avatar-img {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid $accent-purple;
+  }
+
+  &__avatar-placeholder {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: $accent-purple;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  &__name {
+    color: $dark-text;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-align: center;
+    word-break: break-word;
+  }
+
+  &__nav {
+    flex: 1;
+    padding: 1rem 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    color: $dark-muted;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background 0.15s, color 0.15s;
+
+    i { width: 16px; text-align: center; }
+
+    &:hover {
+      background: $dark-card;
+      color: $dark-text;
+      text-decoration: none;
+    }
+
+    &--active {
+      color: $dark-text;
+      background: rgba($accent-purple, 0.12);
+      border-left: 3px solid $accent-purple;
+      padding-left: calc(1.5rem - 3px);
+    }
+  }
+
+  &__footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid $dark-border;
+  }
+
+  &__signout {
+    color: $dark-muted;
+    font-size: 0.85rem;
+    text-decoration: none;
+
+    &:hover { color: $red; }
+  }
+}
+
+// ── Main content ────────────────────────────────────────────────────────────
+.profile-main {
+  flex: 1;
+  padding: 2.5rem 2rem;
+  overflow-y: auto;
+
+  &__title {
+    color: $dark-text;
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+  }
+}
+
+.profile-section {
+  margin-bottom: 3rem;
+
+  &__title {
+    color: $dark-text;
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid $dark-border;
+    display: flex;
+    align-items: center;
+  }
+
+  &__empty {
+    color: $dark-muted;
+    font-style: italic;
+    font-size: 0.9rem;
+
+    a { color: $accent-purple; }
+  }
+}
+
+// ── Mobile: stack sidebar above content ─────────────────────────────────────
+@media (max-width: 768px) {
+  .my-profile-layout {
+    flex-direction: column;
+  }
+
+  .profile-sidebar {
+    width: 100%;
+    min-width: unset;
+    height: auto;
+    position: static;
+    border-right: none;
+    border-bottom: 1px solid $dark-border;
+
+    &__nav {
+      flex-direction: row;
+      flex-wrap: wrap;
+      padding: 0.5rem;
+      gap: 0.25rem;
+    }
+
+    &__nav-link {
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+
+      &--active {
+        border-left: none;
+        border-bottom: 2px solid $accent-purple;
+        padding-left: 0.75rem;
+      }
+    }
+  }
+}

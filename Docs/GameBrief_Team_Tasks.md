@@ -197,7 +197,7 @@ Patches are currently entered manually. A scraper would pull real patch notes fr
 
 ---
 
-### Task person A — Rename Dashboard → My Profile + Sidebar
+### Task person A — Rename Dashboard → My Profile + Sidebar - done by Baptiste 
 
 > Suggested: whoever built the dashboard — Baptiste + Bianca
 
@@ -207,6 +207,7 @@ Patches are currently entered manually. A scraper would pull real patch notes fr
 | --- | ------ | ------- |
 | 1 | Rename "Dashboard" to "My Profile" — update the navbar link, route name, page title, and any internal links | ⬜ |
 | 2 | Add a "My Game's Patches" section to the My Profile page showing recent patches from followed games | ⬜ |
+
 | 3 | Build a sidebar for the My Profile page: My Games, My Patches, My Events, Communities, My Recommendations | ⬜ |
 | 4 | Hide the top navbar on the My Profile page — the sidebar replaces it for navigation | ⬜ |
 
