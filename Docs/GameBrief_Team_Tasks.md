@@ -80,6 +80,9 @@ Tasks are unassigned. Suggestions are based on who worked on related features.
 | 2 | Show a follower count badge on each game card (e.g. "142 following") | ⬜ |
 | 3 | Highlight games the current user already follows with a different card style | ⬜ |
 | 4 | Add a "Popular Games" section at the top of the index showing the 3 most-followed games | ⬜ |
+| 5 | Add a `genre` string column to the `games` table: `rails g migration AddGenreToGames genre:string` | ⬜ |
+| 6 | Update seeds to set a genre on each game — e.g. `"FPS"`, `"Battle Royale"`, `"Sports"`, `"Sandbox"`, `"Mobile"` | ⬜ |
+| 7 | Add genre filter buttons above the games grid (All / FPS / Sports / Battle Royale / RPG / Sandbox / Mobile) — filter via `params[:genre]` in `GamesController#index` | ⬜ |
 
 ---
 

@@ -84,6 +84,7 @@
 - Follower count badge on each game card
 - Visual highlight on games the current user already follows
 - "Popular Games" section at the top showing the 3 most-followed games
+- **Genre filter** — tag each game with a genre (FPS, Sports, Battle Royale, RPG, Sandbox, Mobile) and add filter buttons to the games index so users can browse by category
 
 ### Patch Improvements
 
