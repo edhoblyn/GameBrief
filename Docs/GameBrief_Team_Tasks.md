@@ -242,7 +242,26 @@ Tasks are unassigned. Suggestions are based on who worked on related features.
 
 ---
 
-### Stretch Task 4 — Email Confirmation for Reminders
+### Stretch Task 4 — Web Scraping — Auto-Import Patch Notes
+
+> Suggested: whoever built the IGDB service and seed data — Ed
+
+**Branch:** `feature/scraper`
+
+Patches are currently entered manually. A scraper would pull real patch notes from official game sites automatically.
+
+| # | Task | Done? |
+| --- | ------ | ------- |
+| 1 | Add `source_url` string column to the `patches` table so scraped records can be deduplicated | ⬜ |
+| 2 | Add `nokogiri` and `httparty` gems to the Gemfile | ⬜ |
+| 3 | Create `app/services/scrapers/base_scraper.rb` with a shared `call` interface | ⬜ |
+| 4 | Build one scraper as a proof of concept — e.g. `scrapers/fortnite_scraper.rb` — that fetches and parses the patch note list page and returns an array of `{ title:, content:, source_url: }` hashes | ⬜ |
+| 5 | Create a rake task `rails patches:scrape` that runs each scraper and upserts results into the `patches` table | ⬜ |
+| 6 | Add Heroku Scheduler (free add-on) and configure it to run `rails patches:scrape` daily | ⬜ |
+
+---
+
+### Stretch Task 5 — Email Confirmation for Reminders
 
 > Suggested: whoever built the reminders — Baptiste
 
