@@ -67,13 +67,13 @@
 
 ---
 
-## Round 6 — Stretch Features (if time allows)
+## Round 6 — Features
 
 > Only attempt once Round 5 is fully merged and working on Heroku. Prioritise fixing bugs over these.
 
 ---
 
-### Stretch Task 1 — Activity Feed on My Profile
+### Task 1 — Activity Feed on My Profile
 
 > Suggested: Baptiste + Bianca
 
@@ -87,7 +87,7 @@
 
 ---
 
-### Stretch Task 2 — "New" Badge on Recent Patches
+### Task 2 — "New" Badge on Recent Patches
 
 > Suggested: Hortense
 
@@ -101,7 +101,7 @@
 
 ---
 
-### Stretch Task 3 — Web Scraping — Auto-Import Patch Notes
+### Task 3 — Web Scraping — Auto-Import Patch Notes
 
 > Suggested: Ed
 
@@ -120,7 +120,7 @@ Patches are currently entered manually. A scraper would pull real patch notes fr
 
 ---
 
-### Stretch Task 4 — Email Confirmation for Reminders
+### Task 4 — Email Confirmation for Reminders
 
 > Suggested: Baptiste
 
@@ -135,7 +135,7 @@ Patches are currently entered manually. A scraper would pull real patch notes fr
 
 ---
 
-### Stretch Task 5 — Events Page: Filters
+### Task 5 — Events Page: Filters
 
 > Suggested: Bianca
 
@@ -151,7 +151,7 @@ Patches are currently entered manually. A scraper would pull real patch notes fr
 
 ---
 
-### Stretch Task 6 — Live Streamers on Game Page
+### Task 6 — Live Streamers on Game Page
 
 > Suggested: Ed
 
@@ -182,4 +182,4 @@ The app should demonstrate this flow without errors:
 
 ---
 
-Last updated: Round 3 ✅ | Round 4 ✅ (Hortense mobile check ⬜) | Round 5 Ed ✅ tasks 1–6 | Round 5 others ⬜ | Rounds 6 stretch pending
+Last updated: Round 3 ✅ | Round 4 ✅ (Hortense mobile check ⬜) | Round 5 Ed ✅ tasks 1–6 | Round 5 others ⬜ | Rounds 6 pending
