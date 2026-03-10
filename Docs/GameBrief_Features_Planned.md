@@ -16,13 +16,43 @@
 
 - Search bar on the games index that filters games by name in real time
 
-### Dashboard Improvements
+### My Profile Page (renamed from Dashboard)
 
-- Cover images on followed game cards (not just text links)
+- **Rename "Dashboard" to "My Profile"** across the app (navbar link, routes, page title)
+- Cover images on followed game cards
 - Latest patch title shown under each game card
+- "My Game's Patches" section — list of recent patches from games the user follows, with links and a short summary
 - Upcoming events section loaded from the user's active reminders
 - Count badges showing number of followed games and upcoming reminders
 - "My Reminders" section listing all events the user has set reminders for
+- **Sidebar navigation** (replaces top navbar on this page):
+  - My Games
+  - My Patches
+  - My Events
+  - Communities
+  - My Recommendations (maybe)
+- Top navbar hidden on the My Profile page — sidebar takes over navigation
+
+### Patches Page — Dedicated Page + Chatbot
+
+- **Patches link in the main navbar** — takes users to a dedicated patches index page
+- The patches index shows patches from games the user follows, plus recommended patches, plus all recent patches (tabbed or sectioned)
+- **Integrated AI chatbot on each patch page** — collapsible panel where users can ask questions about the patch in plain English (e.g. "Did they nerf snipers?")
+- Chatbot uses the patch content as context and answers via Claude
+- Conversation history kept for the session so users can ask follow-up questions
+
+### Events Page Improvements
+
+- **IRL Events filter** on the events index — toggle between in-game events and IRL events (conventions, esports tournaments, launch events)
+- IRL events sourced from IGDB or scraped from official sources
+- Same reminder and Google Calendar functionality for both types
+
+### Patches & Events — Personalised + Recommended + Full Browse
+
+- **Followed content** — patches and events from games the user follows shown first
+- **Recommendations** — patches and events from similar or popular games suggested below followed content
+- **All content** — full browse of all patches and events for users who want to explore
+- This structure applies to both the patches index and the events index
 
 ### User Profile Page
 
@@ -33,7 +63,7 @@
 
 ### Styling + Polish
 
-- Navbar with Dashboard and Profile links
+- Navbar with My Profile and Patches links
 - Styled patch notes page and summary cards
 - Styled Devise login and signup pages
 - Footer with app name, year, and team names
@@ -154,6 +184,16 @@ Right now patches and events are entered manually. Web scraping would let the ap
 - The chatbot is given the patch content as context and answers using Claude
 - Could live on the patch show page as a collapsible chat panel, or as a floating button across the whole app
 - Conversation history kept for the session so users can ask follow-up questions
+
+### Live Streamers on Game Page
+
+- On each game's detail page, show a live panel of streamers currently streaming that game on Twitch and/or Kick
+- Pull data from the **Twitch API** (`GET /streams?game_id=...`) and optionally the **Kick API** if available
+- Each streamer card shows: avatar, username, stream title, viewer count, and a link to their stream
+- Limit to top 6–8 streamers by viewer count
+- Panel only shows when there are active streams — hidden if no one is live
+- Could be a separate section at the bottom of `games/show.html.erb` labelled "Watch Live"
+- Twitch requires a client credentials OAuth token — similar setup to the IGDB integration (both use Twitch credentials)
 
 ### Personalisation
 
