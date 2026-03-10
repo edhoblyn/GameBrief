@@ -30,11 +30,6 @@
 - **Game filter** — dropdown to show events for a specific game only
 - **Time period filter** — filter by This Week / This Month / Future / All
 
----
-
-## Stretch Features
-*Nice to have — attempt if time allows after planned features are complete.*
-
 ### Web Scraping — Auto-Import Game Data
 
 Right now patches and events are entered manually. Web scraping would pull real patch notes and event data automatically, keeping content fresh without manual entry.
