@@ -1,5 +1,5 @@
 class PatchesController < ApplicationController
-  SORT_OPTIONS = %w[recommended newest title oldest].freeze
+  SORT_OPTIONS = %w[recommended newest oldest].freeze
 
   def index
     @date_filter = params[:date_filter].presence_in(Patch::DATE_FILTERS.keys) || "all"
@@ -48,8 +48,6 @@ class PatchesController < ApplicationController
     case @sort
     when "newest"
       scope.known_newest_first
-    when "title"
-      scope.order(title: :asc)
     when "oldest"
       scope.known_oldest_first
     else
