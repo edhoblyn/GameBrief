@@ -64,4 +64,15 @@ namespace :patches do
     puts "Expected an existing Game named 'Destiny 2' or slugged 'destiny-2'."
     exit 1
   end
+
+  desc "Scrape and import Minecraft patch notes from feedback.minecraft.net"
+  task scrape_minecraft: :environment do
+    puts "Scraping Minecraft patch notes..."
+    result = PatchImporters::MinecraftImporter.new.call
+    puts "Done - #{result.imported} imported, #{result.skipped} already existed."
+  rescue ActiveRecord::RecordNotFound
+    puts "ERROR: Minecraft game not found in the database."
+    puts "Expected an existing Game named 'Minecraft' or slugged 'minecraft'."
+    exit 1
+  end
 end
