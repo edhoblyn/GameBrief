@@ -2,7 +2,10 @@ class PatchesController < ApplicationController
   def index
     if params[:game_id]
       @game = Game.find(params[:game_id])
-      @patches = @game.patches
+      @patches = @game.patches.order(
+        Arel.sql("CASE WHEN source_url IS NULL THEN 1 ELSE 0 END"),
+        created_at: :desc
+      )
     else
       followed_game_ids = user_signed_in? ? current_user.favourite_games.pluck(:id) : []
       @patches = Patch.includes(:game)

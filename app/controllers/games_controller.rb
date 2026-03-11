@@ -12,6 +12,10 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find(params[:id])
+    @patches = @game.patches.order(
+      Arel.sql("CASE WHEN source_url IS NULL THEN 1 ELSE 0 END"),
+      created_at: :desc
+    )
     @events = @game.events.order(start_date: :asc)
     @favourite = current_user.favourites.find_by(game: @game)
   end
