@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   resources :reminders, only: [:create, :destroy]
 
   get "my-profile", to: "pages#my_profile", as: :my_profile
+  get "dashboard", to: "pages#dashboard"
   get "home", to: "pages#home"
 
   root "pages#home"

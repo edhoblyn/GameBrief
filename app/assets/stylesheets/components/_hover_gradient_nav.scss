@@ -37,7 +37,6 @@
     }
   }
 
-  // Each nav item wrapper
   .hn-item {
     position: relative;
     flex: 1;
@@ -47,10 +46,7 @@
     }
   }
 
-  // The flip card container
   .hn-card {
-    perspective: 600px;
-    position: relative;
     border-radius: 0.75rem;
 
     @media (min-width: 768px) {
@@ -58,21 +54,7 @@
     }
   }
 
-  // Glow background — always purple regardless of per-item inline style
-  .hn-glow {
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    opacity: 0;
-    pointer-events: none;
-    transform: scale(0.8);
-    transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    background: radial-gradient(circle, rgba(168, 85, 247, 0.25) 0%, rgba(124, 58, 237, 0.1) 50%, rgba(88, 28, 135, 0) 100%) !important;
-  }
-
-  // Front and back face shared styles
-  .hn-front,
-  .hn-back {
+  .hn-front {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -83,44 +65,10 @@
     font-size: 0.875rem;
     font-weight: 500;
     white-space: nowrap;
-    backface-visibility: hidden;
-    transform-style: preserve-3d;
-    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
+    transition: color 0.2s ease;
 
-  .hn-front {
-    transform-origin: center bottom;
-    transform: rotateX(0deg);
-    opacity: 1;
-  }
-
-  .hn-back {
-    position: absolute;
-    inset: 0;
-    transform-origin: center top;
-    transform: rotateX(90deg);
-    opacity: 0;
-  }
-
-  // Hovered state
-  .hn-card.hovered {
-    .hn-glow {
-      opacity: 1;
-      transform: scale(2);
-    }
-
-    .hn-front {
-      transform: rotateX(-90deg);
-      opacity: 0;
-    }
-
-    .hn-back {
-      transform: rotateX(0deg);
-      opacity: 1;
+    &:hover {
+      color: #a855f7;
     }
   }
-
-  // All icons glow purple on hover
-  .hn-card:hover svg,
-  .hn-card.hovered svg { color: #a855f7; }
 }
