@@ -28,8 +28,8 @@
       <div class="col-lg-7">
         <div class="game-show__section">
           <h2 class="game-show__section-title">Latest Patches</h2>
-          <% if @game.patches.any? %>
-            <% @game.patches.each do |patch| %>
+          <% if @patches.any? %>
+            <% @patches.each do |patch| %>
               <%= link_to patch_path(patch), class: "patch-list-card" do %>
                 <div class="patch-list-card__icon"><i class="fa fa-file-text-o"></i></div>
                 <span class="patch-list-card__title"><%= patch.title %></span>
