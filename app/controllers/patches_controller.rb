@@ -4,6 +4,7 @@ class PatchesController < ApplicationController
   def index
     @date_filter = params[:date_filter].presence_in(Patch::DATE_FILTERS.keys) || "all"
     @sort = params[:sort].presence_in(SORT_OPTIONS) || "recommended"
+    @games = Game.order(:name)
 
     if params[:game_id]
       @game = Game.find(params[:game_id])
@@ -15,6 +16,7 @@ class PatchesController < ApplicationController
       followed_game_ids = user_signed_in? ? current_user.favourite_games.pluck(:id) : []
       @patches = Patch.includes(:game)
                       .with_date_filter(@date_filter)
+      @patches = apply_game_filter(@patches)
       @patches = apply_sort(@patches, followed_game_ids: followed_game_ids)
     end
   end
@@ -43,6 +45,12 @@ class PatchesController < ApplicationController
   end
 
   private
+
+  def apply_game_filter(scope)
+    return scope if params[:game].blank?
+
+    scope.where(game_id: @games.where(id: params[:game]).select(:id))
+  end
 
   def apply_sort(scope, followed_game_ids: [])
     case @sort

@@ -25,6 +25,18 @@ class PatchesControllerTest < ActionDispatch::IntegrationTest
     assert_equal ["Newer Patch", "Older Patch", "Unknown Date Patch"], rendered_patch_titles.first(3)
   end
 
+  test "filters patches by game when requested" do
+    included_game = Game.create!(name: "Included Game", slug: "included-game")
+    excluded_game = Game.create!(name: "Excluded Game", slug: "excluded-game")
+    Patch.create!(game: included_game, title: "Included Patch", content: "Notes", published_at: 2.days.ago)
+    Patch.create!(game: excluded_game, title: "Excluded Patch", content: "Notes", published_at: 1.day.ago)
+
+    get patches_url(game: included_game.id)
+
+    assert_response :success
+    assert_equal ["Included Patch"], rendered_patch_titles
+  end
+
   test "sorts patches by oldest when requested" do
     game = Game.create!(name: "Patch Oldest Game", slug: "patch-oldest-game")
     Patch.create!(game: game, title: "Older Patch", content: "Notes", published_at: 10.days.ago)
