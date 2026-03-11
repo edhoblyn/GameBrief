@@ -31,6 +31,9 @@ Rails.application.routes.draw do
   resources :favourites, only: [:create, :destroy]
   resources :reminders, only: [:create, :destroy]
 
+  resources :users, only: [:index]
+
+  get "find-friends", to: "pages#find_friends", as: :find_friends
   get "my-profile", to: "pages#my_profile", as: :my_profile
   get "home", to: "pages#home"
 
