@@ -30,7 +30,8 @@ module PatchImporters
         patch.update!(
           game: game,
           title: data[:title],
-          content: data[:content]
+          content: data[:content],
+          published_at: data[:published_at] || patch.published_at
         )
       end
 

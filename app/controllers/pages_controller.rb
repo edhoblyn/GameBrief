@@ -17,7 +17,7 @@ class PagesController < ApplicationController
     @followed_games = current_user.favourite_games
     @reminders = current_user.reminders.includes(event: :game).order("events.start_date asc")
     @recent_patches = Patch.where(game: @followed_games)
-                           .order(created_at: :desc)
+                           .recent_first
                            .limit(10)
                            .includes(:game)
   end

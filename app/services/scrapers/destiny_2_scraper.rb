@@ -2,6 +2,8 @@ require "open-uri"
 require "nokogiri"
 
 class Scrapers::Destiny2Scraper
+  include Scrapers::PublishedAtExtraction
+
   INDEX_URL = "https://www.bungie.net/7/en/News"
   HEADERS = { "User-Agent" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36" }
   TITLE_PATTERN = /(destiny 2 update|destiny update|patch notes|update \d+\.\d+)/i
@@ -36,7 +38,7 @@ class Scrapers::Destiny2Scraper
     return nil if title.blank? || content.blank?
     return nil unless title.match?(TITLE_PATTERN)
 
-    { title: title, content: content, source_url: url }
+    { title: title, content: content, source_url: url, published_at: extract_published_at(doc) }
   rescue OpenURI::HTTPError => e
     Rails.logger.warn "Destiny2Scraper: failed to fetch #{url} - #{e.message}"
     nil

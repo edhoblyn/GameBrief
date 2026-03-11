@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_11_121500) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_11_130000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -77,10 +77,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_11_121500) do
     t.text "content"
     t.datetime "created_at", null: false
     t.bigint "game_id", null: false
+    t.datetime "published_at"
     t.string "source_url"
     t.string "title"
     t.datetime "updated_at", null: false
     t.index ["game_id"], name: "index_patches_on_game_id"
+    t.index ["published_at"], name: "index_patches_on_published_at"
   end
 
   create_table "reminders", force: :cascade do |t|

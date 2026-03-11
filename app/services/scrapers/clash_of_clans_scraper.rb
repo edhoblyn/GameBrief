@@ -2,6 +2,8 @@ require "open-uri"
 require "nokogiri"
 
 class Scrapers::ClashOfClansScraper
+  include Scrapers::PublishedAtExtraction
+
   INDEX_URL = "https://supercell.com/en/games/clashofclans/blog/"
   HEADERS = { "User-Agent" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36" }
   TITLE_PATTERN = /(update|patch|release notes|balance|maintenance|fixes|town hall)/i
@@ -26,7 +28,7 @@ class Scrapers::ClashOfClansScraper
     articles.filter_map do |article|
       href = article["linkUrl"].to_s.strip
       title = article["title"].to_s.squish
-      published_at = parse_time(article["publishDate"])
+      published_at = parse_published_at(article["publishDate"])
 
       next if href.blank? || title.blank?
       next if published_at && published_at < cutoff
@@ -45,7 +47,7 @@ class Scrapers::ClashOfClansScraper
     return nil if title.blank? || content.blank?
     return nil unless title.match?(TITLE_PATTERN)
 
-    { title: title, content: content, source_url: url }
+    { title: title, content: content, source_url: url, published_at: extract_published_at(doc) }
   rescue OpenURI::HTTPError => e
     Rails.logger.warn "ClashOfClansScraper: failed to fetch #{url} - #{e.message}"
     nil
@@ -83,9 +85,4 @@ class Scrapers::ClashOfClansScraper
     nil
   end
 
-  def parse_time(value)
-    Time.zone.parse(value.to_s)
-  rescue ArgumentError, TypeError
-    nil
-  end
 end

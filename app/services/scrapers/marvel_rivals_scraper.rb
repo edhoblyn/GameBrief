@@ -2,6 +2,8 @@ require "open-uri"
 require "nokogiri"
 
 class Scrapers::MarvelRivalsScraper
+  include Scrapers::PublishedAtExtraction
+
   BASE_URL = "https://www.marvelrivals.com"
   INDEX_URL = "#{BASE_URL}/gameupdate/"
   HEADERS = { "User-Agent" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36" }
@@ -29,7 +31,7 @@ class Scrapers::MarvelRivalsScraper
 
     return nil if title.blank? || content.blank?
 
-    { title: title, content: content, source_url: url }
+    { title: title, content: content, source_url: url, published_at: extract_published_at(doc) }
   rescue OpenURI::HTTPError => e
     Rails.logger.warn "MarvelRivalsScraper: failed to fetch #{url} — #{e.message}"
     nil

@@ -7,19 +7,22 @@ class PatchImporters::MarvelRivalsImporterTest < ActiveSupport::TestCase
       game: game,
       title: "Old Title",
       content: "Old content",
-      source_url: "https://example.com/patch-1"
+      source_url: "https://example.com/patch-1",
+      published_at: Time.zone.parse("2026-01-01")
     )
 
     scraper_results = [
       {
         title: "Patch 1 Updated",
         content: "Updated content",
-        source_url: "https://example.com/patch-1"
+        source_url: "https://example.com/patch-1",
+        published_at: Time.zone.parse("2026-02-01")
       },
       {
         title: "Patch 2",
         content: "Fresh content",
-        source_url: "https://example.com/patch-2"
+        source_url: "https://example.com/patch-2",
+        published_at: Time.zone.parse("2026-02-10")
       }
     ]
 
@@ -47,6 +50,8 @@ class PatchImporters::MarvelRivalsImporterTest < ActiveSupport::TestCase
     assert_equal 2, Patch.count
     assert_equal "Patch 1 Updated", existing_patch.reload.title
     assert_equal "Updated content", existing_patch.content
+    assert_equal Time.zone.parse("2026-02-01").to_i, existing_patch.published_at.to_i
+    assert_equal Time.zone.parse("2026-02-10").to_i, Patch.find_by(source_url: "https://example.com/patch-2").published_at.to_i
   end
 
   test "raises when marvel rivals game is missing" do
