@@ -17,7 +17,7 @@ class PatchesController < ApplicationController
         followed_first_sql = Patch.sanitize_sql_array(
           ["CASE WHEN game_id IN (?) THEN 0 ELSE 1 END", followed_game_ids]
         )
-        @patches = @patches.order(Arel.sql(followed_first_sql), Arel.sql("#{Patch::EFFECTIVE_PUBLISHED_AT_SQL} DESC"))
+        @patches = @patches.order(Arel.sql(followed_first_sql), Arel.sql("#{Patch.effective_published_at_sql} DESC"))
       else
         @patches = @patches.recent_first
       end

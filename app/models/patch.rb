@@ -7,31 +7,60 @@ class Patch < ApplicationRecord
     "this_year" => "This year"
   }.freeze
 
-  EFFECTIVE_PUBLISHED_AT_SQL = "COALESCE(published_at, created_at)".freeze
-  SCRAPED_FIRST_SQL = "CASE WHEN source_url IS NULL THEN 1 ELSE 0 END".freeze
-
   belongs_to :game
   has_many :patch_summaries, dependent: :destroy
   has_many :chats, dependent: :destroy
 
-  scope :recent_first, -> { order(Arel.sql("#{EFFECTIVE_PUBLISHED_AT_SQL} DESC")) }
-  scope :scraped_first_recent_first, -> { order(Arel.sql(SCRAPED_FIRST_SQL), Arel.sql("#{EFFECTIVE_PUBLISHED_AT_SQL} DESC")) }
+  scope :recent_first, -> { order(Arel.sql("#{effective_published_at_sql} DESC")) }
+  scope :scraped_first_recent_first, -> { order(Arel.sql(scraped_first_sql), Arel.sql("#{effective_published_at_sql} DESC")) }
   scope :with_date_filter, lambda { |filter|
     case filter
     when "last_7_days"
-      where("#{EFFECTIVE_PUBLISHED_AT_SQL} >= ?", 7.days.ago.beginning_of_day)
+      where("#{effective_published_at_sql} >= ?", 7.days.ago.beginning_of_day)
     when "last_30_days"
-      where("#{EFFECTIVE_PUBLISHED_AT_SQL} >= ?", 30.days.ago.beginning_of_day)
+      where("#{effective_published_at_sql} >= ?", 30.days.ago.beginning_of_day)
     when "last_90_days"
-      where("#{EFFECTIVE_PUBLISHED_AT_SQL} >= ?", 90.days.ago.beginning_of_day)
+      where("#{effective_published_at_sql} >= ?", 90.days.ago.beginning_of_day)
     when "this_year"
-      where("#{EFFECTIVE_PUBLISHED_AT_SQL} >= ?", Time.zone.today.beginning_of_year)
+      where("#{effective_published_at_sql} >= ?", Time.zone.today.beginning_of_year)
     else
       all
     end
   }
 
+  def self.published_at_column?
+    columns_hash.key?("published_at")
+  end
+
+  def self.effective_published_at_sql
+    if published_at_column?
+      "#{table_name}.published_at"
+    else
+      "#{table_name}.created_at"
+    end
+  end
+
+  def self.scraped_first_sql
+    "CASE WHEN #{table_name}.source_url IS NULL THEN 1 ELSE 0 END"
+  end
+
+  def self.import_attributes(data, game:, existing_patch:)
+    attributes = {
+      game: game,
+      title: data[:title],
+      content: data[:content]
+    }
+
+    if published_at_column?
+      attributes[:published_at] = data[:published_at] || existing_patch&.then { |patch| patch[:published_at] }
+    end
+
+    attributes
+  end
+
   def effective_published_at
-    published_at || created_at
+    return created_at unless self.class.published_at_column?
+
+    self[:published_at] || created_at
   end
 end

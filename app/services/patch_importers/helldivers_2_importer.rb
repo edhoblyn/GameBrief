@@ -27,12 +27,7 @@ module PatchImporters
           skipped += 1
         end
 
-        patch.update!(
-          game: game,
-          title: data[:title],
-          content: data[:content],
-          published_at: data[:published_at] || patch.published_at
-        )
+        patch.update!(Patch.import_attributes(data, game: game, existing_patch: patch))
       end
 
       Result.new(imported: imported, skipped: skipped)
