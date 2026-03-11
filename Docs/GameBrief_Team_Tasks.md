@@ -1,215 +1,76 @@
 # GameBrief — Team Tasks
 
----
-
-## Round 4 — One Task Remaining
-
-### Person 2 — Hortense — Mobile Check
-
-**Branch:** `feature/mobile-polish`
-
-| # | Task | Done? |
-| --- | ------ | ------- |
-| 1 | Go through each page on a small screen — write down anything that looks broken and report to Ed | ⬜ |
+> Last updated: 2026-03-11 | Focus: Bug Fixes + Web Scraping
 
 ---
 
-## Round 5 — Polish + Additional Features
+## Today's Split
 
-> Ed's tasks 1–6 are done and logged in [GameBrief_Team_Progress.md](GameBrief_Team_Progress.md).
-
-### Person 1 — Ed — Final Navbar Check
-
-**Branch:** `feature/games-index-polish`
-
-| # | Task | Done? |
-| --- | ------ | ------- |
-| 1 | Do a final pass — check every link in the navbar works and no broken routes exist | ⬜ |
+| Person | Focus |
+| --- | --- |
+| Ed | Web scraping (auto-import patch notes) |
+| Hortense | Bug fixes — public access + styling |
+| Baptiste | Bug fixes — patch/summary issues |
+| Bianca | Bug fixes — profile page + navbar |
 
 ---
 
-### Person 2 — Hortense — Styling Fixes
-
-**Branch:** `feature/styling-fixes`
-
-| # | Task | Done? |
-| --- | ------ | ------- |
-| 1 | Style the Devise login and signup pages so they match the dark theme | ⬜ |
-| 2 | Add `<meta>` description tag to `application.html.erb` | ⬜ |
-| 3 | Check all pages have a page title set using `content_for :title` — add any that are missing | ⬜ |
-| 4 | Fix any mobile layout issues found in the Round 4 mobile check | ⬜ |
-
----
-
-### Person 3 — Baptiste — Patch + Summary Polish
-
-**Branch:** `feature/patch-polish`
-
-| # | Task | Done? |
-| --- | ------ | ------- |
-| 1 | Add a loading/disabled state to the Generate Summary button so it can't be double-clicked | ⬜ |
-| 2 | Order patches by most recent first on the game show page (`@game.patches.order(created_at: :desc)`) | ⬜ |
-| 3 | Add a flash message after generating a summary: `"Summary generated!"` | ⬜ |
-| 4 | Wrap the Claude API call in `begin/rescue` — redirect with an error flash if it fails | ⬜ |
-
----
-
-### Person 4 — Bianca — Dedicated Profile Page
-
-**Branch:** `feature/profile-page`
-
-| # | Task | Done? |
-| --- | ------ | ------- |
-| 1 | Create a `profile` route and action in `PagesController` | ⬜ |
-| 2 | Create `app/views/pages/profile.html.erb` — show the user's email, join date, followed game count, and reminder count | ⬜ |
-| 3 | Add a "Profile" link to the navbar dropdown | ⬜ |
-| 4 | Show the latest patch title under each game card on the My Profile page | ⬜ |
-
----
-
-## Round 6 — Planned Features (Group of 4)
-
-> These are the next four parallel tasks for the team of 4. Start once Round 5 is fully merged and working on Heroku, and continue to prioritise bug fixes where needed.
-
----
-
-### Task 1 — Activity Feed on My Profile
-
-> Suggested: Baptiste
->
-> Reason: Baptiste already built My Profile, My Game's Patches, reminders, and the chatbot flow, so this fits his existing ownership of profile logic and patch-related UI.
-
-**Branch:** `feature/activity-feed`
-
-| # | Task | Done? |
-| --- | ------ | ------- |
-| 1 | On the My Profile page, add a "Recent Updates" section below followed games | ⬜ |
-| 2 | Load the 5 most recent patches from games the user follows | ⬜ |
-| 3 | Show each patch as a small card: game name, patch title, date, link to patch | ⬜ |
-
----
-
-### Task 2 — "New" Badge on Recent Patches
-
-> Suggested: Hortense
->
-> Reason: Hortense has already owned most patch page styling and UI polish, so this is a good continuation of her patch presentation and frontend work.
-
-**Branch:** `feature/new-badge`
-
-| # | Task | Done? |
-| --- | ------ | ------- |
-| 1 | Add a `published_at` datetime column to the `patches` table | ⬜ |
-| 2 | Update the seeds to set `published_at` to realistic recent dates | ⬜ |
-| 3 | Show a green "NEW" badge on patch cards where `published_at` is within the last 7 days | ⬜ |
-
----
-
-### Task 3 — Web Scraping — Auto-Import Patch Notes
-
-> Suggested: Ed
->
-> Reason: Ed has already handled IGDB integration, Twitch OAuth, Heroku checks, and service-layer setup, so scraper infrastructure is the closest match to his previous work.
+## Ed — Web Scraping
 
 **Branch:** `feature/scraper`
 
-Patches are currently entered manually. A scraper would pull real patch notes from official game sites automatically.
+Patches are currently entered manually via seeds. This task builds a scraper to auto-import real patch notes from official game sites.
 
 | # | Task | Done? |
-| --- | ------ | ------- |
-| 1 | Add `source_url` string column to the `patches` table so scraped records can be deduplicated | ⬜ |
-| 2 | Add `nokogiri` and `httparty` gems to the Gemfile | ⬜ |
-| 3 | Create `app/services/scrapers/base_scraper.rb` with a shared `call` interface | ⬜ |
-| 4 | Build one scraper as a proof of concept — e.g. `scrapers/fortnite_scraper.rb` — fetches and parses the patch note list page and returns an array of `{ title:, content:, source_url: }` hashes | ⬜ |
-| 5 | Create a rake task `rails patches:scrape` that runs each scraper and upserts results into the `patches` table | ⬜ |
-| 6 | Add Heroku Scheduler (free add-on) and configure it to run `rails patches:scrape` daily | ⬜ |
+| --- | --- | --- |
+| 1 | Add `source_url` string column to `patches` table: `rails g migration AddSourceUrlToPatches source_url:string` then `rails db:migrate` | ⬜ |
+| 2 | Add `nokogiri` and `httparty` gems to the Gemfile, then run `bundle install` | ⬜ |
+| 3 | Create `app/services/scrapers/base_scraper.rb` with a shared `call` interface (abstract class pattern) | ⬜ |
+| 4 | Build one proof-of-concept scraper — e.g. `app/services/scrapers/fortnite_scraper.rb` — that fetches the patch notes list page and returns an array of `{ title:, content:, source_url: }` hashes | ⬜ |
+| 5 | Create a rake task `lib/tasks/patches.rake` with `rails patches:scrape` that runs each scraper and upserts results into the `patches` table (use `find_or_create_by(source_url:)` to avoid duplicates) | ⬜ |
+| 6 | Test it locally: run `rails patches:scrape` and confirm records appear in the DB | ⬜ |
 
 ---
 
-### Task 4 — Events Page Layout: In-Game Main + IRL Side Section
+## Hortense — Bug Fixes: Public Access + Styling
 
-> Suggested: Bianca
->
-> Reason: Bianca has already worked on the events index, dashboard reminders, and card-based event displays, so this is a natural continuation of her events page ownership.
+**Branch:** `bugfix/public-access-and-styling`
 
-**Branch:** `feature/events-layout`
-
-| # | Task | Done? |
-| --- | ------ | ------- |
-| 1 | Add an `event_type` column to events: `in_game` or `irl` | ⬜ |
-| 2 | Update seeds to set `event_type` on all existing events | ⬜ |
-| 3 | Update `events/index.html.erb` so the main section of the page shows **in-game events** as the primary content area | ⬜ |
-| 4 | Add a smaller side section that lists **IRL events** separately | ⬜ |
-| 5 | Make the layout visually clear that most events are in-game, with IRL events treated as secondary content | ⬜ |
+| # | Bug / Task | File(s) | Done? |
+| --- | --- | --- | --- |
+| 1 | **Games index requires login** — `ApplicationController` has global `authenticate_user!`. `GamesController` needs `skip_before_action :authenticate_user!, only: [:index, :show]` so guests can browse games | `app/controllers/games_controller.rb` | ⬜ |
+| 2 | **Devise mailer placeholder** — Change `config.mailer_sender` from `'please-change-me...'` to `'noreply@gamebrief.com'` | `config/initializers/devise.rb` | ⬜ |
+| 3 | **Style Devise login and signup pages** — Add Bootstrap card wrapper and dark theme to match the rest of the app | `app/views/devise/sessions/new.html.erb`, `registrations/new.html.erb` | ⬜ |
+| 4 | **Add `<meta>` description tag** to the application layout | `app/views/layouts/application.html.erb` | ⬜ |
+| 5 | **Check page titles** — Make sure every page sets a title using `content_for :title`. Add any that are missing | All views | ⬜ |
 
 ---
 
-## Round 7 — Planned Features (Next Group of 4)
+## Baptiste — Bug Fixes: Patches + Summaries
 
-> These are the next planned features after Round 6. Two strong ownership suggestions are already clear; the final two task slots can either be added later or pulled forward from new bugs / polish work once Round 6 is complete.
+**Branch:** `bugfix/patches-and-summaries`
 
----
-
-### Task 1 — Email Confirmation for Reminders
-
-> Suggested: Baptiste
->
-> Reason: Baptiste built reminders, events, and the related controller flow already, so mailer confirmation is the cleanest follow-on task for him.
-
-**Branch:** `feature/reminder-email`
-
-| # | Task | Done? |
-| --- | ------ | ------- |
-| 1 | Create a `ReminderMailer` using `rails g mailer ReminderMailer` | ⬜ |
-| 2 | Add a `confirmation` method that sends the event name, date, and a link to the event page | ⬜ |
-| 3 | Call `ReminderMailer.confirmation(reminder).deliver_later` inside `RemindersController#create` | ⬜ |
-| 4 | Configure ActionMailer for development using the `letter_opener` gem so emails open in the browser | ⬜ |
+| # | Bug / Task | File(s) | Done? |
+| --- | --- | --- | --- |
+| 1 | **SQL injection risk** — `PatchesController#index` builds a raw SQL string using `followed_game_ids.join(',')`. Replace with a safe ActiveRecord query (e.g. `where(game_id: followed_game_ids)`) | `app/controllers/patches_controller.rb` | ⬜ |
+| 2 | **SQL injection risk** — Same issue in `EventsController#index`. Apply the same fix | `app/controllers/events_controller.rb` | ⬜ |
+| 3 | **Add loading state to Generate Summary button** — Disable the button on click with `data-disable-with="Generating..."` so it can't be double-submitted | Patch and event show views | ⬜ |
+| 4 | **Wrap Claude API call in begin/rescue** — If `SummaryService` or `EventSummaryService` raises an error, catch it and redirect back with a flash error message instead of crashing | `app/services/summary_service.rb`, `app/services/event_summary_service.rb` | ⬜ |
+| 5 | **Order patches by most recent first** on the game show page — change to `@game.patches.order(created_at: :desc)` | `app/controllers/games_controller.rb` or game show view | ⬜ |
+| 6 | **Add flash message after generating a summary** — Show `"Summary generated!"` on success | `app/controllers/patches_controller.rb`, `app/controllers/events_controller.rb` | ⬜ |
 
 ---
 
-### Task 2 — Live Streamers on Game Page
+## Bianca — Bug Fixes: Profile + Navbar
 
-> Suggested: Ed
->
-> Reason: Ed already owns the external API side of the app through IGDB/Twitch work, so another Twitch-backed integration should stay with him.
+**Branch:** `bugfix/profile-and-navbar`
 
-**Branch:** `feature/live-streamers`
-
-| # | Task | Done? |
-| --- | ------ | ------- |
-| 1 | Use the existing Twitch credentials to call `GET https://api.twitch.tv/helix/streams?game_id=...` | ⬜ |
-| 2 | Map the IGDB game to a Twitch game ID (IGDB and Twitch share the same game IDs) | ⬜ |
-| 3 | Add a `TwitchStreamsService` that fetches the top 6 live streams for a given game | ⬜ |
-| 4 | Add a "Watch Live" section to `games/show.html.erb` showing streamer cards: avatar, name, title, viewer count, link | ⬜ |
-| 5 | Hide the section if no streams are live | ⬜ |
-
----
-
-### Task 3 — Reserved for next agreed feature / bugfix batch
-
-> Suggested: Hortense
->
-> Reason: Hortense has consistently owned cross-page styling, mobile checks, and visual polish, so this slot is a good placeholder for the next UI / responsiveness task that comes out of testing.
-
-**Branch:** `feature/tbd-hortense`
-
-| # | Task | Done? |
-| --- | ------ | ------- |
-| 1 | Hold for next agreed styling / UX / mobile polish task after Round 6 | ⬜ |
-
----
-
-### Task 4 — Reserved for next agreed feature / bugfix batch
-
-> Suggested: Bianca
->
-> Reason: Bianca has repeatedly owned dashboard, profile, and events UI work, so this slot is a good placeholder for the next page-level feature that extends those areas.
-
-**Branch:** `feature/tbd-bianca`
-
-| # | Task | Done? |
-| --- | ------ | ------- |
-| 1 | Hold for next agreed dashboard / profile / events feature after Round 6 | ⬜ |
+| # | Bug / Task | File(s) | Done? |
+| --- | --- | --- | --- |
+| 1 | **Navbar avatar is hardcoded** — The navbar uses a placeholder image URL instead of `current_user.avatar_url`. Fix it to fall back to a generic avatar icon if `avatar_url` is blank | `app/views/shared/_navbar.html.erb` | ⬜ |
+| 2 | **Profile page: show latest patch under each followed game** — On the My Profile page, under each game card show the title of the most recent patch (or "No patches yet" if none) | `app/views/pages/my_profile.html.erb` | ⬜ |
+| 3 | **Profile page: show upcoming reminders** — On the My Profile page, list the user's upcoming event reminders (event name, date, link) | `app/views/pages/my_profile.html.erb` | ⬜ |
+| 4 | **Add "Profile" link to navbar dropdown** — Link to `my_profile_path` in the user dropdown menu | `app/views/shared/_navbar.html.erb` | ⬜ |
 
 ---
 
@@ -217,15 +78,11 @@ Patches are currently entered manually. A scraper would pull real patch notes fr
 
 The app should demonstrate this flow without errors:
 
-1. User visits the home page
-2. User logs in with Google (or demo account)
+1. Guest visits the home page and can browse games without logging in
+2. User logs in with Google (or demo account: `demo@test.com` / `123456`)
 3. Games index loads with cover images, search, genre filters, sort
 4. User clicks a game and sees the game detail page
-5. User clicks Follow on the game
-6. User clicks a patch, sees the patch notes + 3 AI summary types, and asks the chatbot a question
+5. User clicks Follow on a game
+6. User clicks a patch, sees the patch notes + 3 AI summary types, and can chat with the AI
 7. User clicks an event, reads the AI summary, and sets a reminder
-8. User visits My Profile and sees their followed games, recent patches, and upcoming reminders
-
----
-
-Last updated: Round 3 ✅ | Round 4 ✅ (Hortense mobile check ⬜) | Round 5 Ed ✅ tasks 1–6 | Round 5 others ⬜ | Round 6 planned work pending
+8. User visits My Profile and sees followed games, recent patches, and upcoming reminders
