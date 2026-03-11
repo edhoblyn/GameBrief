@@ -53,4 +53,15 @@ namespace :patches do
     puts "Expected an existing Game named 'Helldivers 2' or slugged 'helldivers-2'."
     exit 1
   end
+
+  desc "Scrape and import Destiny 2 patch notes from bungie.net"
+  task scrape_destiny_2: :environment do
+    puts "Scraping Destiny 2 patch notes..."
+    result = PatchImporters::Destiny2Importer.new.call
+    puts "Done - #{result.imported} imported, #{result.skipped} already existed."
+  rescue ActiveRecord::RecordNotFound
+    puts "ERROR: Destiny 2 game not found in the database."
+    puts "Expected an existing Game named 'Destiny 2' or slugged 'destiny-2'."
+    exit 1
+  end
 end
