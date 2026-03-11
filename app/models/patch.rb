@@ -44,9 +44,37 @@ class Patch < ApplicationRecord
     "CASE WHEN #{table_name}.source_url IS NULL THEN 1 ELSE 0 END"
   end
 
+  def self.normalize_imported_published_at(published_at, source_url:)
+    return if published_at.blank?
+    return published_at unless published_at > Time.zone.now.end_of_day
+
+    inferred_published_at = infer_published_at_from_source_url(source_url)
+    return inferred_published_at if inferred_published_at.present? && inferred_published_at <= Time.zone.now.end_of_day
+
+    nil
+  end
+
+  def self.infer_published_at_from_source_url(source_url)
+    return if source_url.blank?
+
+    full_date_match = source_url.match(%r{/(20\d{2})[/-](\d{2})[/-](\d{2})(?:/|$)})
+    return Time.zone.local(full_date_match[1].to_i, full_date_match[2].to_i, full_date_match[3].to_i) if full_date_match
+
+    compact_date_match = source_url.match(%r{/(20\d{2})(\d{2})(\d{2})(?:/|$)})
+    return Time.zone.local(compact_date_match[1].to_i, compact_date_match[2].to_i, compact_date_match[3].to_i) if compact_date_match
+
+    year_month_match = source_url.match(%r{/(20\d{2})[/-](\d{2})(?:/|$)})
+    return Time.zone.local(year_month_match[1].to_i, year_month_match[2].to_i, 1) if year_month_match
+  rescue ArgumentError
+    nil
+  end
+
   def self.import_attributes(data, game:, existing_patch:)
     resolved_published_at = if published_at_column?
-      data[:published_at] || existing_patch&.stored_published_at_for_reimport
+      normalize_imported_published_at(
+        data[:published_at] || existing_patch&.stored_published_at_for_reimport,
+        source_url: data[:source_url] || existing_patch&.source_url
+      )
     end
 
     attributes = {
@@ -75,10 +103,12 @@ class Patch < ApplicationRecord
   def stored_published_at_for_reimport
     return unless self.class.published_at_column?
     return if self[:published_at].blank?
-    return self[:published_at] if source_url.blank?
-    return self[:published_at] if created_at.blank?
+    normalized_published_at = self.class.normalize_imported_published_at(self[:published_at], source_url: source_url)
+    return if normalized_published_at.blank?
+    return normalized_published_at if source_url.blank?
+    return normalized_published_at if created_at.blank?
     return if self[:published_at].to_i == created_at.to_i
 
-    self[:published_at]
+    normalized_published_at
   end
 end
