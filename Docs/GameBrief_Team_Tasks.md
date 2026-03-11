@@ -19,41 +19,41 @@ These were explicitly suggested by the team for tomorrow, so they should be trea
 
 ### Task 1
 
+**Brand Pass** 🔵
+
 **Task:** **Change the browser tab icon and add the GameBrief logo on the homepage**
 
 **Why it matters:** This is a quick visual polish win that improves first impressions immediately and makes the app feel more finished.
-
-**Owner:** **Baptiste**
 
 **Done?** ⬜
 
 ### Task 2
 
+**Hero Polish** 🟢
+
 **Task:** **Homepage polish** — make `"See my profile"` white and review the log in button styling/state so the hero actions are visually clear
 
 **Why it matters:** The homepage is one of the main demo entry points, so these small changes have outsized presentation value.
-
-**Suggested owner:** **Hortense** — homepage styling and CTA polish
 
 **Done?** ⬜
 
 ### Task 3
 
+**Profile Flow** 🟣
+
 **Task:** **My Profile layout pass** — reduce the large empty areas, fill out unused space, and improve the overall page structure
 
 **Why it matters:** My Profile is currently one of the biggest screens in the app, so layout imbalance is very noticeable during demos.
-
-**Suggested owner:** **Bianca** — profile layout refinement
 
 **Done?** ⬜
 
 ### Task 4
 
+**Sidebar Shift** 🟠
+
 **Task:** **My Profile sidebar updates** — change the notification buttons/sidebar controls and make them fit the revised profile layout
 
 **Why it matters:** This directly follows the team feedback and will make the profile page feel more intentional instead of placeholder-heavy.
-
-**Suggested owner:** **Ed** — good fit for sidebar/layout implementation work
 
 **Done?** ⬜
 
@@ -65,41 +65,41 @@ These are still worth doing next, but they come after the team-priority UI chang
 
 ### Task 1
 
+**Event Lens** 🔴
+
 **Task:** **Events page filters** — add game filter plus time filter (`This Week`, `This Month`, `Future`, `All`) on the events index
 
 **Why it matters:** This is still one of the clearest missing demo features and matches the filtering work already present on patches.
-
-**Suggested owner:** **Baptiste** — events flow and filtering logic
 
 **Done?** ⬜
 
 ### Task 2
 
+**Fresh Badge** 🟡
+
 **Task:** **"New" badge on patches** — use `published_at` and show a visible badge on recent patches from the last 7 days
 
 **Why it matters:** The backend support now exists, so this is a strong demo win with limited scope.
-
-**Suggested owner:** **Ed** — can handle the patch data/UI wiring
 
 **Done?** ⬜
 
 ### Task 3
 
+**Safe Clicks** 🟤
+
 **Task:** **Loading / disabled state on Generate Summary buttons** — prevent double submits on patch and event summary actions
 
 **Why it matters:** This closes a known UX gap and reduces accidental duplicate requests during demos.
-
-**Suggested owner:** **Bianca** — good fit for user-facing interaction polish
 
 **Done?** ⬜
 
 ### Task 4
 
+**Mobile Sweep** 🩷
+
 **Task:** **Mobile responsiveness pass** — check and fix My Profile, patches, events, and games pages on small screens
 
 **Why it matters:** This is still important before any live presentation, especially if the profile layout is changing again tomorrow.
-
-**Suggested owner:** **Hortense** — responsive and visual polish work
 
 **Done?** ⬜
 
