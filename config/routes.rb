@@ -33,6 +33,10 @@ Rails.application.routes.draw do
 
   resources :users, only: [:index]
 
+  namespace :admin do
+    resources :patch_scrapes, only: [:create]
+  end
+
   get "find-friends", to: "pages#find_friends", as: :find_friends
   get "my-profile", to: "pages#my_profile", as: :my_profile
   get "home", to: "pages#home"

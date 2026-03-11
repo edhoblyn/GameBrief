@@ -10,6 +10,10 @@ class User < ApplicationRecord
   has_many :favourite_games, through: :favourites, source: :game
   has_many :reminders, dependent: :destroy
 
+  def admin?
+    has_attribute?(:role) && self[:role] == "admin"
+  end
+
   def self.from_omniauth(auth)
     # Find or create a user based on the provider and uid
     where(provider: auth.provider, uid: auth.uid).first_or_initialize do |user|

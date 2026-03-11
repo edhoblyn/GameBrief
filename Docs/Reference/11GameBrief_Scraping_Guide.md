@@ -21,8 +21,8 @@ GameBrief uses three layers for patch ingestion:
 2. `PatchImporters::*`
    Resolve the target `Game`, de-duplicate by `source_url`, and create or update `Patch` records.
 
-3. `Scrape*Job` / rake tasks
-   Trigger imports manually or on a recurring schedule.
+3. `PatchScrapeRunner` / rake tasks
+   Provide a shared execution path for manual imports, Heroku Scheduler, and future admin-triggered scrapes.
 
 Flow:
 
@@ -36,6 +36,9 @@ Scrapers live in:
 Importers live in:
 `app/services/patch_importers/`
 
+Shared scrape runner lives in:
+`app/services/patch_scrape_runner.rb`
+
 Jobs live in:
 `app/jobs/`
 
@@ -44,6 +47,9 @@ Manual tasks live in:
 
 Recurring schedule lives in:
 `config/recurring.yml`
+
+Future admin trigger endpoint lives in:
+`app/controllers/admin/patch_scrapes_controller.rb`
 
 ## Patch Model Notes
 
@@ -165,16 +171,71 @@ Run multiple scrapers:
 bin/rake patches:scrape_apex_legends patches:scrape_ea_sports_fc_26 patches:scrape_valorant
 ```
 
+Run all supported scrapers:
+
+```bash
+bin/rake patches:scrape_all
+```
+
+Heroku one-off import flow:
+
+```bash
+heroku run bin/rails db:migrate
+heroku run bin/rails db:seed
+heroku run bin/rake patches:scrape_all
+```
+
 ## Scheduling
 
-Recurring jobs are configured in:
+Recurring jobs are still defined in:
 [config/recurring.yml](/Users/edhoblyn/GameBrief/config/recurring.yml)
 
-Each supported game has a dedicated job class, for example:
+However, on Heroku the production-safe scheduling path is:
+
+1. Add the Heroku Scheduler add-on.
+2. Create a scheduled job that runs:
+
+```bash
+bin/rake patches:scrape_all
+```
+
+Recommended cadence:
+
+- daily for normal use
+- hourly only if you need faster refreshes and are comfortable with more external requests
+
+Why:
+
+- the app currently does not boot a persistent in-app queue on Heroku
+- `patches:scrape_all` is the simplest reliable production entrypoint
+- it uses the same `PatchScrapeRunner` service as manual runs and future admin-triggered runs
+
+The per-game `Scrape*Job` classes still exist in the repo, for example:
 
 - `ScrapeWarzoneJob`
 - `ScrapeApexLegendsJob`
 - `ScrapeEaSportsFc26Job`
+
+But they are not the primary production scheduling mechanism on Heroku right now.
+
+## Future Admin Trigger
+
+The app now has a shared backend path for manual admin-triggered scrapes.
+
+Current endpoint:
+
+- `POST /admin/patch_scrapes`
+
+Expected param:
+
+- `source`, for example `marvel_rivals`, `warzone`, or `fortnite`
+
+Current access control:
+
+- the controller checks `current_user.admin?`
+- `User#admin?` is implemented defensively so it returns `false` until a real user `role` column and admin workflow are added
+
+This means the backend path is ready, but no user can trigger it yet until admin roles are implemented.
 
 ## Recent Backfill Status
 
@@ -246,3 +307,4 @@ Impact:
 - Add a backfill task that targets a configurable date window.
 - Add monitoring or logging around scraper failures by source.
 - Build source-specific fallback strategies for Fortnite and Destiny 2.
+- Add a real admin role migration and UI for triggering `/admin/patch_scrapes`.
