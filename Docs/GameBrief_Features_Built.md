@@ -49,11 +49,21 @@
 - Shows all games the user is following with cover images
 - "My Games' Patches" section — recent patches from followed games with links
 - "My Reminders" section — all events the user has set reminders for
+- Count badges showing number of followed games, patches, and reminders in the My Profile sidebar
+- Sidebar navigation on the My Profile page for My Games, My Patches, My Events, and My Recommendations
+- Top navbar hidden on the My Profile page so the sidebar becomes the main navigation
 - Empty state messages when no games are followed or no reminders are set
+
+### UI + Styling
+
+- Styled game cards, patch cards, and event cards
+- Styled Devise login and signup pages
+- Footer with app name, year, and team names
 
 ### Infrastructure
 
 - IGDB API service (`IgdbClient`) for searching and importing game data using Twitch credentials
+- Web scraping for patch imports from official game update pages, with `source_url` de-duplication and recurring background jobs
 - Custom 404 "page not found" page
 - Custom 500 "something went wrong" page
 - Seed file that creates 12 games with real IGDB data, patches, pre-generated summaries, events, and a demo user (`demo@test.com` / `123456`)
