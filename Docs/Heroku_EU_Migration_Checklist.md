@@ -30,6 +30,7 @@ Before migration, review these app-specific items:
   - `GOOGLE_OAUTH_CLIENT_SECRET`
   - `TWITCH_CLIENT_ID`
   - `TWITCH_CLIENT_SECRET`
+  - `OPENAI_API_KEY`
 - Google OAuth callback URLs must match the final production hostname
 - [production.rb](/Users/edhoblyn/GameBrief/config/environments/production.rb) still contains placeholder host values and should be corrected for the real production domain
 
@@ -93,6 +94,7 @@ Confirm the current config includes:
 - `GOOGLE_OAUTH_CLIENT_SECRET`
 - `TWITCH_CLIENT_ID`
 - `TWITCH_CLIENT_SECRET`
+- `OPENAI_API_KEY`
 
 ## 3. Create The New EU App
 
@@ -135,6 +137,7 @@ Example:
 heroku config:set RAILS_MASTER_KEY=... -a NEW_APP
 heroku config:set GOOGLE_OAUTH_CLIENT_ID=... GOOGLE_OAUTH_CLIENT_SECRET=... -a NEW_APP
 heroku config:set TWITCH_CLIENT_ID=... TWITCH_CLIENT_SECRET=... -a NEW_APP
+heroku config:set OPENAI_API_KEY=... -a NEW_APP
 ```
 
 If the current app has any other secrets, copy them as well.
