@@ -9,4 +9,15 @@ namespace :patches do
     puts "Run: Game.create!(name: 'Marvel Rivals', slug: 'marvel-rivals', genre: ['shooter'])"
     exit 1
   end
+
+  desc "Scrape and import Call of Duty: Warzone patch notes from callofduty.com"
+  task scrape_warzone: :environment do
+    puts "Scraping Call of Duty: Warzone patch notes..."
+    result = PatchImporters::WarzoneImporter.new.call
+    puts "Done - #{result.imported} imported, #{result.skipped} already existed."
+  rescue ActiveRecord::RecordNotFound
+    puts "ERROR: Warzone game not found in the database."
+    puts "Expected an existing Game named 'Call of Duty: Warzone' or slugged 'call-of-duty-warzone'."
+    exit 1
+  end
 end
