@@ -7,7 +7,9 @@
       "Bash(bin/rails db:migrate)",
       "Bash(bin/rails runner tmp/set_genres.rb)",
       "Bash(bin/rails runner \"Game.all.each { |g| puts \"\"#{g.name}: #{g.genre.inspect} \\(#{g.genre.class}\\)\"\" }\")",
-      "Bash(bin/rails runner tmp/fix_genres.rb)"
+      "Bash(bin/rails runner tmp/fix_genres.rb)",
+      "Bash(find /Users/edhoblyn/GameBrief/app/services -type f -name *.rb)",
+      "Bash(grep -n \"skip_before_action\\\\|before_action\" /Users/edhoblyn/GameBrief/app/controllers/*.rb)"
     ],
     "deny": []
   }
