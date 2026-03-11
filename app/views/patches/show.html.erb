@@ -8,7 +8,7 @@
 
   <div class="container">
     <div class="container mt-3 mb-3">
-      <%= link_to game_patches_path(@patch.game), class: "btn btn-outline-secondary btn-sm" do %>
+      <%= link_to game_patches_path(@patch.game), class: "btn btn-sm", style: "background: #581c87; color: #fff; border: none;" do %>
         &larr; Back to patches
       <% end %>
     </div>
@@ -37,7 +37,7 @@
               <%= render "messages/form", patch: @patch, chat: @chat, message: Message.new %>
             </div>
 
-            <p class="chatbot__limit text-muted small mt-2">
+            <p class="chatbot__limit text-muted small mt-2 text-end">
               <%= @chat.messages.where(role: "user").count %> / <%= Message::MAX_USER_MESSAGES %> messages used
             </p>
           </div>
