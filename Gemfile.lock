@@ -527,6 +527,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   kamal
+  nokogiri
   omniauth
   omniauth-google-oauth2
   omniauth-rails_csrf_protection

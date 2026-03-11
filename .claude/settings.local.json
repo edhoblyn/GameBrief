@@ -13,7 +13,10 @@
       "WebSearch",
       "WebFetch(domain:www.marvelrivals.com)",
       "WebFetch(domain:store.steampowered.com)",
-      "WebFetch(domain:marvelrivals.gg)"
+      "WebFetch(domain:marvelrivals.gg)",
+      "Bash(rails g:*)",
+      "Bash(rails db:migrate)",
+      "Bash(bundle install:*)"
     ],
     "deny": []
   }
