@@ -109,13 +109,13 @@ These are still worth doing next, but they come after the team-priority UI chang
 
 Use these if someone finishes early or gets blocked.
 
-| Task | Suggested owner | Why |
+| Backup task | Suggested owner | Why |
 | --- | --- | --- |
-| **Saved AI chats** | **Baptiste** | Good extension of the chat system that already exists |
-| **Colour-coded update categories on game pages** | **Bianca** | Best fit for user-facing game page layout and presentation |
-| **Free to play filter** on games index | **Ed** | Closest to games index queries and filtering logic |
-| **Styled patch summary cards** refinement pass | **Hortense** | Best fit for visual consistency and card polish |
-| **Notification centre** placeholder page | **Bianca** | Good fit with profile/social-style UI work |
+| **Chat Archive** 🩵 — **Saved AI chats** | **Baptiste** | Good extension of the chat system that already exists |
+| **Patch Palette** ❤️ — **Colour-coded update categories on game pages** | **Bianca** | Best fit for user-facing game page layout and presentation |
+| **Free Queue** 💚 — **Free to play filter** on games index | **Ed** | Closest to games index queries and filtering logic |
+| **Card Glow** 💜 — **Styled patch summary cards** refinement pass | **Hortense** | Best fit for visual consistency and card polish |
+| **Notify Hub** 🧡 — **Notification centre** placeholder page | **Bianca** | Good fit with profile/social-style UI work |
 
 ---
 
