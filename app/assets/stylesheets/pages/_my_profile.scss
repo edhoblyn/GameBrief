@@ -592,6 +592,110 @@ $sidebar-width: 260px;
   }
 }
 
+// ── Communities Suggestions ───────────────────────────────────────────────────
+.communities-suggestions-header {
+  padding: 1rem 1.25rem 0.75rem;
+  border-bottom: 1px solid $dark-border;
+}
+
+.communities-suggestions-label {
+  color: $dark-muted;
+  font-size: 0.82rem;
+  font-weight: 500;
+
+  i { margin-right: 0.4rem; }
+}
+
+.community-suggestion-card {
+  display: flex;
+  gap: 1rem;
+  padding: 1.125rem 1.25rem;
+  border-bottom: 1px solid $dark-border;
+  transition: background 0.12s;
+
+  &:hover { background: rgba(255, 255, 255, 0.015); }
+
+  &__icon {
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+  }
+
+  &__body {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  &__name {
+    color: $dark-text;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  &__desc {
+    color: $dark-muted;
+    font-size: 0.82rem;
+    line-height: 1.45;
+    margin: 0;
+  }
+
+  &__friends {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 0.25rem;
+  }
+
+  &__friends-label {
+    color: $dark-muted;
+    font-size: 0.78rem;
+    line-height: 1.35;
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+  }
+
+  &__members {
+    color: $dark-muted;
+    font-size: 0.78rem;
+    i { margin-right: 0.25rem; }
+  }
+}
+
+.friend-avatars {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.friend-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid $dark-bg;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #fff;
+  margin-left: -6px;
+
+  &:last-child { margin-left: 0; }
+}
+
 // ── Mobile ───────────────────────────────────────────────────────────────────
 @media (max-width: 768px) {
   .my-profile-layout { flex-direction: column; }
