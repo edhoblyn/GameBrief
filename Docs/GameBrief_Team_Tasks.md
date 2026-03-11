@@ -15,20 +15,31 @@
 
 ---
 
-## Ed — Web Scraping
+## Ed — Web Scraping (Marvel Rivals)
 
 **Branch:** `feature/scraper`
 
-Patches are currently entered manually via seeds. This task builds a scraper to auto-import real patch notes from official game sites.
+Patches are currently entered manually. This task builds a scraper to auto-import real patch notes from **Marvel Rivals** as a proof of concept. Their patch notes page is fully server-side rendered — no headless browser needed.
+
+**Target site:** `https://www.marvelrivals.com/gameupdate/`
 
 | # | Task | Done? |
 | --- | --- | --- |
 | 1 | Add `source_url` string column to `patches` table: `rails g migration AddSourceUrlToPatches source_url:string` then `rails db:migrate` | ⬜ |
-| 2 | Add `nokogiri` and `httparty` gems to the Gemfile, then run `bundle install` | ⬜ |
-| 3 | Create `app/services/scrapers/base_scraper.rb` with a shared `call` interface (abstract class pattern) | ⬜ |
-| 4 | Build one proof-of-concept scraper — e.g. `app/services/scrapers/fortnite_scraper.rb` — that fetches the patch notes list page and returns an array of `{ title:, content:, source_url: }` hashes | ⬜ |
-| 5 | Create a rake task `lib/tasks/patches.rake` with `rails patches:scrape` that runs each scraper and upserts results into the `patches` table (use `find_or_create_by(source_url:)` to avoid duplicates) | ⬜ |
-| 6 | Test it locally: run `rails patches:scrape` and confirm records appear in the DB | ⬜ |
+| 2 | Add `nokogiri` gem to the Gemfile (httparty is optional — `open-uri` works fine), then run `bundle install` | ⬜ |
+| 3 | Add Marvel Rivals to the seed data (or `rails console`) so there's a `Game` record to attach patches to: `Game.create!(name: "Marvel Rivals", slug: "marvel-rivals", genre: "shooter")` | ⬜ |
+| 4 | Create `app/services/scrapers/marvel_rivals_scraper.rb`. It should: fetch the index page (`https://www.marvelrivals.com/gameupdate/`), find all `a.list-item` elements, follow each link, then on the detail page extract `h1.artTitle` (title), `p.date` (date), and `div.artText` (full content). Return an array of `{ title:, content:, source_url: }` hashes. Set a browser-like `User-Agent` header to avoid being blocked. | ⬜ |
+| 5 | Create a rake task `lib/tasks/patches.rake` with `rails patches:scrape[marvel_rivals]`. It should call the scraper, then for each result call `Patch.find_or_create_by(source_url:)` and update `title` and `content` — this prevents duplicates on re-runs | ⬜ |
+| 6 | Test it locally: run `rails patches:scrape[marvel_rivals]` and confirm patch records appear in the DB attached to the Marvel Rivals game | ⬜ |
+
+**Key HTML selectors on the detail page:**
+
+| What | Selector |
+| --- | --- |
+| All patch links (index) | `a.list-item` → `href` |
+| Patch title (detail) | `h1.artTitle` |
+| Date (detail) | `p.date` (format: `2026/03/04`) |
+| Full content (detail) | `div.artText` |
 
 ---
 
