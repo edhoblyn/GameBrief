@@ -29,8 +29,11 @@ Patches are currently entered manually. This task builds a scraper to auto-impor
 | 2 | Add `nokogiri` gem to the Gemfile (httparty is optional — `open-uri` works fine), then run `bundle install` | ⬜ |
 | 3 | Add Marvel Rivals to the seed data (or `rails console`) so there's a `Game` record to attach patches to: `Game.create!(name: "Marvel Rivals", slug: "marvel-rivals", genre: "shooter")` | ⬜ |
 | 4 | Create `app/services/scrapers/marvel_rivals_scraper.rb`. It should: fetch the index page (`https://www.marvelrivals.com/gameupdate/`), find all `a.list-item` elements, follow each link, then on the detail page extract `h1.artTitle` (title), `p.date` (date), and `div.artText` (full content). Return an array of `{ title:, content:, source_url: }` hashes. Set a browser-like `User-Agent` header to avoid being blocked. | ⬜ |
-| 5 | Create a rake task `lib/tasks/patches.rake` with `rails patches:scrape[marvel_rivals]`. It should call the scraper, then for each result call `Patch.find_or_create_by(source_url:)` and update `title` and `content` — this prevents duplicates on re-runs | ⬜ |
-| 6 | Test it locally: run `rails patches:scrape[marvel_rivals]` and confirm patch records appear in the DB attached to the Marvel Rivals game | ⬜ |
+| 5 | Create a rake task `lib/tasks/patches.rake` with `rails patches:scrape_marvel_rivals`. It should call the scraper, then for each result call `Patch.find_or_initialize_by(source_url:)` and update `title` and `content` — this prevents duplicates on re-runs | ⬜ |
+| 6 | Add a recurring job so Marvel Rivals patch scraping runs automatically every week in production | ⬜ |
+| 7 | Test it locally: run `rails patches:scrape_marvel_rivals` and confirm patch records appear in the DB attached to the Marvel Rivals game | ⬜ |
+
+**Follow-up for later:** add admin-only controls to trigger a manual scrape on demand and show the last successful scrape time/status.
 
 **Key HTML selectors on the detail page:**
 
