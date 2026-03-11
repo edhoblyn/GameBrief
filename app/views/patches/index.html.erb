@@ -22,7 +22,6 @@
       <div class="patches-index__sort-group">
         <%= link_to "Recommended", (@game ? game_patches_path(@game, date_filter: @date_filter, sort: "recommended") : patches_path(date_filter: @date_filter, sort: "recommended")), class: "filter-btn #{@sort == 'recommended' ? 'active' : ''}" %>
         <%= link_to "Newest", (@game ? game_patches_path(@game, date_filter: @date_filter, sort: "newest") : patches_path(date_filter: @date_filter, sort: "newest")), class: "filter-btn #{@sort == 'newest' ? 'active' : ''}" %>
-        <%= link_to "A–Z", (@game ? game_patches_path(@game, date_filter: @date_filter, sort: "title") : patches_path(date_filter: @date_filter, sort: "title")), class: "filter-btn #{@sort == 'title' ? 'active' : ''}" %>
         <%= link_to "Oldest", (@game ? game_patches_path(@game, date_filter: @date_filter, sort: "oldest") : patches_path(date_filter: @date_filter, sort: "oldest")), class: "filter-btn #{@sort == 'oldest' ? 'active' : ''}" %>
       </div>
     </div>
