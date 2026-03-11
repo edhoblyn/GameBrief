@@ -19,7 +19,7 @@ class PatchTest < ActiveSupport::TestCase
     assert_not_includes filtered_patches, old_patch
   end
 
-  test "display_published_at hides synthetic scrape timestamps" do
+  test "display_published_at falls back to a demo date for synthetic scrape timestamps" do
     game = Game.create!(name: "Synthetic Date Game", slug: "synthetic-date-game")
     created_at = Time.zone.parse("2026-03-11 12:00:00")
 
@@ -33,7 +33,7 @@ class PatchTest < ActiveSupport::TestCase
       updated_at: created_at
     )
 
-    assert_nil patch.display_published_at
+    assert_includes 180.days.ago.to_date..Time.zone.today, patch.display_published_at.to_date
   end
 
   test "import_attributes clears synthetic scrape timestamps when no better date exists" do
@@ -96,7 +96,7 @@ class PatchTest < ActiveSupport::TestCase
     assert_nil attrs[:published_at]
   end
 
-  test "display_published_at hides future scraped dates" do
+  test "display_published_at falls back to a demo date for future scraped dates" do
     game = Game.create!(name: "Future Display Game", slug: "future-display-game")
     patch = Patch.create!(
       game: game,
@@ -106,6 +106,22 @@ class PatchTest < ActiveSupport::TestCase
       published_at: 2.months.from_now
     )
 
-    assert_nil patch.display_published_at
+    assert_includes 180.days.ago.to_date..Time.zone.today, patch.display_published_at.to_date
+  end
+
+  test "display_published_at demo fallback is deterministic" do
+    game = Game.create!(name: "Demo Fallback Game", slug: "demo-fallback-game")
+    created_at = Time.zone.parse("2026-03-11 12:00:00")
+    patch = Patch.create!(
+      game: game,
+      title: "Undated Patch",
+      content: "Notes",
+      source_url: "https://example.com/patch/undated",
+      published_at: created_at,
+      created_at: created_at,
+      updated_at: created_at
+    )
+
+    assert_equal patch.display_published_at.to_i, patch.display_published_at.to_i
   end
 end

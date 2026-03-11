@@ -34,7 +34,7 @@
                 <div class="patch-list-card__icon"><i class="fa fa-file-text-o"></i></div>
                 <span class="patch-list-card__title">
                   <%= patch.title %>
-                  <small class="d-block text-muted"><%= patch.display_published_at ? patch.display_published_at.to_date.to_fs(:long) : "Date unavailable" %></small>
+                  <small class="d-block text-muted"><%= patch.display_published_at.to_date.to_fs(:long) %></small>
                 </span>
                 <span class="patch-list-card__arrow"><i class="fa fa-chevron-right"></i></span>
               <% end %>

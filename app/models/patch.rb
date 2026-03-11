@@ -1,3 +1,5 @@
+require "zlib"
+
 class Patch < ApplicationRecord
   DATE_FILTERS = {
     "all" => "All time",
@@ -120,7 +122,7 @@ class Patch < ApplicationRecord
   end
 
   def display_published_at
-    stored_published_at_for_reimport
+    stored_published_at_for_reimport || demo_fallback_published_at
   end
 
   def stored_published_at_for_reimport
@@ -133,5 +135,14 @@ class Patch < ApplicationRecord
     return if self[:published_at].to_i == created_at.to_i
 
     normalized_published_at
+  end
+
+  def demo_fallback_published_at
+    return if persisted?.blank?
+
+    seed = Zlib.crc32([id, source_url, title].join("|"))
+    days_back = seed % 180
+
+    Time.zone.now.beginning_of_day - days_back.days
   end
 end

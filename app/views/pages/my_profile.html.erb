@@ -215,7 +215,7 @@
                   <div class="card-body">
                     <p class="text-muted small mb-1"><%= patch.game.name %></p>
                     <h5 class="card-title"><%= patch.title %></h5>
-                    <p class="text-muted small mb-2"><%= patch.display_published_at ? patch.display_published_at.to_date.to_fs(:long) : "Date unavailable" %></p>
+                    <p class="text-muted small mb-2"><%= patch.display_published_at.to_date.to_fs(:long) %></p>
                   </div>
                 </div>
               <% end %>
