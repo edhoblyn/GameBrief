@@ -193,4 +193,34 @@ All Round 2 tasks finished. See Round 1 completed work above for details.
 
 ---
 
-Last updated: Round 4 ✅ (Hortense mobile check ⬜) | Round 5 Ed ✅ tasks 1–6 | Round 5 others ⬜ | Round 6 Stretch Task 3 ✅ | Round 7 Tasks A + B ✅ | Round 5 remaining + Round 6 other stretch tasks ⬜
+## 2026-03-11 Session — Scraping Expansion + Profile Refresh (partial)
+
+### Person 1 — Ed — Scraping System Expansion
+
+- Marvel Rivals proof of concept completed end-to-end: `source_url` added to `patches`, scraper/importer wired up, duplicate prevention added, weekly automation added
+- Scraper support expanded beyond Marvel Rivals to 11 more games: Warzone, Fortnite, Apex Legends, EA Sports FC 26, Helldivers 2, Destiny 2, Minecraft, Valorant, Roblox, Clash Royale, Clash of Clans
+- Shared `PatchScrapeRunner` service added so manual runs, scheduled runs, and future admin-triggered scrapes all use the same execution path
+- `patches:scrape_all` added and hardened so one source failure does not stop the rest of the import run
+- Scraping guide written and then updated with current source strategy, Heroku scheduling approach, blocked-source notes, and known limitations
+- Seeds updated to preserve real scraped patch data and remove placeholder patches when live imported records exist
+- Game and patch pages updated so scraped patches are shown before fallback/manual placeholder patches
+- EA Sports FC seed data updated from FC 24 to FC 26 and the cover image refresh migration added
+
+### Person 2 — Bianca — My Profile Refresh
+
+- `my_profile.html.erb` rebuilt into a social-style layout with sidebar, header, tabs, recommendations, and community sections
+- `social_feed_controller.js` added for tab switching plus like/repost interaction states
+- My Profile reminders list now shows linked upcoming events with dates
+- Sidebar/avatar handling on the profile page now falls back cleanly when the user has no avatar image
+- Find Friends flow linked into the profile navigation
+
+### Team — UI / Stability Fixes
+
+- Event page reminder button layout cleaned up
+- Events index styling adjusted
+- Chatbot UI accessibility tweaked
+- Heroku scraping flow checked again after scheduler/queue changes
+
+---
+
+Last updated: 2026-03-11 session added | Round 4 ✅ (Hortense mobile check ⬜) | Round 5 Ed ✅ tasks 1–6 | Round 5 others ⬜ | Round 6 Stretch Task 3 ✅ | Round 7 Tasks A + B ✅ | Scraping expansion ✅ partial blocked-source follow-up ⬜
