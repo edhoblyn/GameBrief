@@ -35,6 +35,22 @@ Patches are currently entered manually. This task builds a scraper to auto-impor
 
 **Follow-up for later:** add admin-only controls to trigger a manual scrape on demand and show the last successful scrape time/status.
 
+## Ed — Web Scraping Follow-up (Blocked Sources)
+
+**Branch:** `feature/scraper`
+
+Some previously working patch-note sources are now blocked or unreliable with the current HTML scraping approach. This follow-up replaces brittle scraping with official APIs or more stable structured sources where possible.
+
+| # | Task | Done? |
+| --- | --- | --- |
+| 1 | Replace the `Minecraft` HTML scraper with the official Zendesk Help Center API for section `360001186971` so patch articles can be imported without depending on the rendered changelog page | ⬜ |
+| 2 | Replace the `Helldivers 2` HTML scraper with the official Zendesk Help Center API for section `12541983411100` so patch articles can be imported without depending on the rendered support page | ⬜ |
+| 3 | Replace the `Destiny 2` HTML scraper with Bungie's official content/news API and import real patch-note articles through a stable official endpoint | ⬜ |
+| 4 | Investigate a production-safe official source for `Fortnite` patch notes. Prefer Epic documentation or another structured official release-notes source instead of `fortnite.com/news`, which is blocked to the current scraper | ⬜ |
+| 5 | Add `published_at` to `Patch` and update importers so the app can reliably enforce the "last 6 months" requirement across all supported games | ⬜ |
+| 6 | Update the affected scraper/importer tests to cover API payload parsing, date filtering, and duplicate prevention for the new source strategy | ⬜ |
+| 7 | Update the scraping guide to document which games use APIs vs HTML scraping, which sources are currently blocked, and the current known limitations | ⬜ |
+
 **Key HTML selectors on the detail page:**
 
 | What | Selector |
