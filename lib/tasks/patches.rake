@@ -1,14 +1,20 @@
 namespace :patches do
-  def run_scrape(source)
+  def run_scrape(source, continue_on_error: false)
     config = PatchScrapeRunner.fetch(source)
 
     puts "Scraping #{config[:label]} patch notes..."
     result = PatchScrapeRunner.run(source)
     puts "Done - #{result.imported} imported, #{result.skipped} already existed."
+    result
   rescue ActiveRecord::RecordNotFound
     puts "ERROR: #{config[:missing_game_error]}"
     puts config[:missing_game_hint]
-    exit 1
+    exit 1 unless continue_on_error
+    nil
+  rescue StandardError => e
+    puts "ERROR: #{config[:label]} scrape failed: #{e.class}: #{e.message}"
+    raise unless continue_on_error
+    nil
   end
 
   desc "Scrape and import Marvel Rivals patch notes from marvelrivals.com"
@@ -73,8 +79,19 @@ namespace :patches do
 
   desc "Scrape and import patch notes for all configured games"
   task scrape_all: :environment do
+    failures = []
+
     PatchScrapeRunner.sources.each do |source|
-      run_scrape(source)
+      result = run_scrape(source, continue_on_error: true)
+      failures << source if result.nil?
+    end
+
+    if failures.any?
+      puts
+      puts "Completed with failures for: #{failures.join(', ')}"
+    else
+      puts
+      puts "Completed successfully for all sources."
     end
   end
 end
