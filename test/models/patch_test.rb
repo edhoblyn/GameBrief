@@ -61,4 +61,51 @@ class PatchTest < ActiveSupport::TestCase
 
     assert_nil attrs[:published_at]
   end
+
+  test "import_attributes replaces future scraped date with source url date when available" do
+    game = Game.create!(name: "Future Date Game", slug: "future-date-game")
+
+    attrs = Patch.import_attributes(
+      {
+        title: "Future dated patch",
+        content: "Notes",
+        source_url: "https://example.com/patchnotes/2025/12/31/future-dated-patch",
+        published_at: Time.zone.parse("2026-12-31")
+      },
+      game: game,
+      existing_patch: nil
+    )
+
+    assert_equal Time.zone.parse("2025-12-31").to_i, attrs[:published_at].to_i
+  end
+
+  test "import_attributes clears future scraped date when no safe fallback exists" do
+    game = Game.create!(name: "Unknown Future Date Game", slug: "unknown-future-date-game")
+
+    attrs = Patch.import_attributes(
+      {
+        title: "Future dated patch",
+        content: "Notes",
+        source_url: "https://example.com/patch/future-dated-patch",
+        published_at: 2.months.from_now
+      },
+      game: game,
+      existing_patch: nil
+    )
+
+    assert_nil attrs[:published_at]
+  end
+
+  test "display_published_at hides future scraped dates" do
+    game = Game.create!(name: "Future Display Game", slug: "future-display-game")
+    patch = Patch.create!(
+      game: game,
+      title: "Future Patch",
+      content: "Notes",
+      source_url: "https://example.com/patch/future-patch",
+      published_at: 2.months.from_now
+    )
+
+    assert_nil patch.display_published_at
+  end
 end

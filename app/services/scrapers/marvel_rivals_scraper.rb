@@ -28,7 +28,7 @@ class Scrapers::MarvelRivalsScraper
     doc = Nokogiri::HTML(URI.open(url, HEADERS))
     title   = doc.at("h1.artTitle")&.text&.strip
     content = doc.at("div.artText")&.text&.strip
-    published_at = extract_detail_date(doc) || extract_published_at(doc)
+    published_at = extract_detail_date(doc, title) || extract_published_at(doc)
 
     return nil if title.blank? || content.blank?
 
@@ -38,7 +38,32 @@ class Scrapers::MarvelRivalsScraper
     nil
   end
 
-  def extract_detail_date(doc)
-    parse_published_at(doc.at("p.date")&.text)
+  def extract_detail_date(doc, title)
+    published_at = parse_published_at(doc.at("p.date")&.text)
+    normalize_detail_date(published_at, title)
+  end
+
+  def normalize_detail_date(published_at, title)
+    return published_at if published_at.blank? || title.blank?
+
+    version_date = extract_version_date(title)
+    return published_at if version_date.blank?
+
+    if published_at.year == version_date.year &&
+       published_at.month > version_date.month &&
+       published_at > 6.months.from_now
+      published_at.change(year: published_at.year - 1)
+    else
+      published_at
+    end
+  end
+
+  def extract_version_date(title)
+    match = title.match(/Version\s+(\d{4})(\d{2})(\d{2})/i)
+    return if match.nil?
+
+    Time.zone.local(match[1].to_i, match[2].to_i, match[3].to_i)
+  rescue ArgumentError
+    nil
   end
 end
