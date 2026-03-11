@@ -42,4 +42,15 @@ namespace :patches do
     puts "Expected an existing Game named 'Apex Legends' or slugged 'apex-legends'."
     exit 1
   end
+
+  desc "Scrape and import Helldivers 2 patch notes from arrowhead.zendesk.com"
+  task scrape_helldivers_2: :environment do
+    puts "Scraping Helldivers 2 patch notes..."
+    result = PatchImporters::Helldivers2Importer.new.call
+    puts "Done - #{result.imported} imported, #{result.skipped} already existed."
+  rescue ActiveRecord::RecordNotFound
+    puts "ERROR: Helldivers 2 game not found in the database."
+    puts "Expected an existing Game named 'Helldivers 2' or slugged 'helldivers-2'."
+    exit 1
+  end
 end
