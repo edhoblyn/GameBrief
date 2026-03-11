@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_11_113036) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_11_113858) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -51,6 +51,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_11_113036) do
     t.string "name"
     t.string "slug"
     t.datetime "updated_at", null: false
+    t.index "lower((name)::text)", name: "index_games_on_lower_name", unique: true
+    t.index ["slug"], name: "index_games_on_slug", unique: true
   end
 
   create_table "messages", force: :cascade do |t|
