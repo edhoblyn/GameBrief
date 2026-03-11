@@ -50,8 +50,9 @@ Rails.application.configure do
   # Use memory cache store (simpler setup for student project)
   config.cache_store = :memory_store
 
-  # Use Solid Queue so recurring jobs in config/recurring.yml run in production.
-  config.active_job.queue_adapter = :solid_queue
+  # Keep production simple on Heroku. Scrape imports run via rake tasks or
+  # Heroku Scheduler rather than a boot-time Solid Queue supervisor.
+  config.active_job.queue_adapter = :async
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
