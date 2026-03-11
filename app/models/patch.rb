@@ -44,6 +44,21 @@ class Patch < ApplicationRecord
     "CASE WHEN #{table_name}.source_url IS NULL THEN 1 ELSE 0 END"
   end
 
+  def self.known_published_date_sql
+    <<~SQL.squish
+      CASE
+      WHEN #{table_name}.published_at IS NULL THEN NULL
+      WHEN #{table_name}.published_at > CURRENT_TIMESTAMP THEN NULL
+      WHEN #{table_name}.source_url IS NOT NULL AND #{table_name}.published_at = #{table_name}.created_at THEN NULL
+      ELSE #{table_name}.published_at
+      END
+    SQL
+  end
+
+  def self.known_published_date_first_sql
+    "CASE WHEN #{known_published_date_sql} IS NULL THEN 1 ELSE 0 END"
+  end
+
   def self.normalize_imported_published_at(published_at, source_url:)
     return if published_at.blank?
     return published_at unless published_at > Time.zone.now.end_of_day
@@ -88,6 +103,14 @@ class Patch < ApplicationRecord
     end
 
     attributes
+  end
+
+  def self.known_newest_first
+    order(Arel.sql(known_published_date_first_sql), Arel.sql("#{known_published_date_sql} DESC"))
+  end
+
+  def self.known_oldest_first
+    order(Arel.sql(known_published_date_first_sql), Arel.sql("#{known_published_date_sql} ASC"))
   end
 
   def effective_published_at

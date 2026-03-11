@@ -47,11 +47,11 @@ class PatchesController < ApplicationController
   def apply_sort(scope, followed_game_ids: [])
     case @sort
     when "newest"
-      scope.recent_first
+      scope.known_newest_first
     when "title"
       scope.order(title: :asc)
     when "oldest"
-      scope.order(Arel.sql("#{Patch.effective_published_at_sql} ASC"))
+      scope.known_oldest_first
     else
       if followed_game_ids.any?
         followed_first_sql = Patch.sanitize_sql_array(
