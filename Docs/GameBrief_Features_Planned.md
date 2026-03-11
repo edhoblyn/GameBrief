@@ -13,7 +13,8 @@
   - Use `Nokogiri` for HTML parsing and `HTTParty`/`Faraday` for HTTP requests
   - Deduplicate by title or source URL — skip records already imported
   - Store a `source_url` column on `patches` and `events`
-  - Schedule scraping daily using Heroku Scheduler or a background job
+  - Schedule scraping automatically with a recurring background job
+  - Add admin-only manual scrape triggers later for urgent out-of-band updates
 - **Activity feed** — personalised feed of recent patches and events from followed games
 - **Events page filters** — game filter plus time period filter (This Week / This Month / Future / All)
 - **"New" badge on patches** — add `published_at` and show a green "NEW" badge for the last 7 days
