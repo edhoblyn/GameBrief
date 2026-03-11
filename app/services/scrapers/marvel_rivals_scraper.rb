@@ -28,12 +28,17 @@ class Scrapers::MarvelRivalsScraper
     doc = Nokogiri::HTML(URI.open(url, HEADERS))
     title   = doc.at("h1.artTitle")&.text&.strip
     content = doc.at("div.artText")&.text&.strip
+    published_at = extract_detail_date(doc) || extract_published_at(doc)
 
     return nil if title.blank? || content.blank?
 
-    { title: title, content: content, source_url: url, published_at: extract_published_at(doc) }
+    { title: title, content: content, source_url: url, published_at: published_at }
   rescue OpenURI::HTTPError => e
     Rails.logger.warn "MarvelRivalsScraper: failed to fetch #{url} — #{e.message}"
     nil
+  end
+
+  def extract_detail_date(doc)
+    parse_published_at(doc.at("p.date")&.text)
   end
 end

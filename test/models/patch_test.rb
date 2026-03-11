@@ -18,4 +18,47 @@ class PatchTest < ActiveSupport::TestCase
     assert_includes filtered_patches, recent_patch
     assert_not_includes filtered_patches, old_patch
   end
+
+  test "display_published_at hides synthetic scrape timestamps" do
+    game = Game.create!(name: "Synthetic Date Game", slug: "synthetic-date-game")
+    created_at = Time.zone.parse("2026-03-11 12:00:00")
+
+    patch = Patch.create!(
+      game: game,
+      title: "Scraped Patch",
+      content: "Notes",
+      source_url: "https://example.com/patch",
+      published_at: created_at,
+      created_at: created_at,
+      updated_at: created_at
+    )
+
+    assert_nil patch.display_published_at
+  end
+
+  test "import_attributes clears synthetic scrape timestamps when no better date exists" do
+    game = Game.create!(name: "Import Date Game", slug: "import-date-game")
+    created_at = Time.zone.parse("2026-03-11 12:00:00")
+    patch = Patch.create!(
+      game: game,
+      title: "Scraped Patch",
+      content: "Notes",
+      source_url: "https://example.com/patch",
+      published_at: created_at,
+      created_at: created_at,
+      updated_at: created_at
+    )
+
+    attrs = Patch.import_attributes(
+      {
+        title: "Updated title",
+        content: "Updated notes",
+        published_at: nil
+      },
+      game: game,
+      existing_patch: patch
+    )
+
+    assert_nil attrs[:published_at]
+  end
 end
