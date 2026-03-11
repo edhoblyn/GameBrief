@@ -2,9 +2,10 @@ require "open-uri"
 require "nokogiri"
 
 class Scrapers::ClashOfClansScraper
-  INDEX_URL = "https://supercell.com/en/games/clashofclans/blog/release-notes/"
+  INDEX_URL = "https://supercell.com/en/games/clashofclans/blog/"
   HEADERS = { "User-Agent" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36" }
   TITLE_PATTERN = /(update|patch|release notes|balance|maintenance|fixes|town hall)/i
+  LOOKBACK_WINDOW = 6.months
 
   def call
     patch_links = fetch_patch_links
@@ -16,13 +17,21 @@ class Scrapers::ClashOfClansScraper
 
   def fetch_patch_links
     doc = Nokogiri::HTML(URI.open(INDEX_URL, HEADERS))
+    payload = extract_next_data(doc)
+    return [] unless payload
 
-    doc.css("a[href]").filter_map do |link|
-      href = link["href"].to_s.strip
-      text = link.text.to_s.squish
-      next if href.blank? || text.blank?
-      next unless href.include?("/games/clashofclans/blog/release-notes/")
-      next unless text.match?(TITLE_PATTERN)
+    articles = payload.dig("props", "pageProps", "articles") || []
+    cutoff = LOOKBACK_WINDOW.ago
+
+    articles.filter_map do |article|
+      href = article["linkUrl"].to_s.strip
+      title = article["title"].to_s.squish
+      published_at = parse_time(article["publishDate"])
+
+      next if href.blank? || title.blank?
+      next if published_at && published_at < cutoff
+      next unless href.include?("/games/clashofclans/blog/")
+      next unless title.match?(TITLE_PATTERN)
 
       normalize_url(href)
     end.uniq
@@ -30,7 +39,7 @@ class Scrapers::ClashOfClansScraper
 
   def fetch_patch(url)
     doc = Nokogiri::HTML(URI.open(url, HEADERS))
-    title = doc.at("h1")&.text&.squish
+    title = doc.at("h1, h2")&.text&.squish
     content = extract_content(doc)
 
     return nil if title.blank? || content.blank?
@@ -63,5 +72,20 @@ class Scrapers::ClashOfClansScraper
     return href if href.start_with?("http")
 
     URI.join(INDEX_URL, href).to_s
+  end
+
+  def extract_next_data(doc)
+    script = doc.at("script#__NEXT_DATA__")
+    return if script.blank?
+
+    JSON.parse(script.text)
+  rescue JSON::ParserError
+    nil
+  end
+
+  def parse_time(value)
+    Time.zone.parse(value.to_s)
+  rescue ArgumentError, TypeError
+    nil
   end
 end
