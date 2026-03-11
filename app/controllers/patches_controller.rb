@@ -1,18 +1,26 @@
 class PatchesController < ApplicationController
   def index
+    @date_filter = params[:date_filter].presence_in(Patch::DATE_FILTERS.keys) || "all"
+
     if params[:game_id]
       @game = Game.find(params[:game_id])
-      @patches = @game.patches.order(
-        Arel.sql("CASE WHEN source_url IS NULL THEN 1 ELSE 0 END"),
-        created_at: :desc
-      )
+      @patches = @game.patches
+                      .includes(:game)
+                      .with_date_filter(@date_filter)
+                      .scraped_first_recent_first
     else
       followed_game_ids = user_signed_in? ? current_user.favourite_games.pluck(:id) : []
       @patches = Patch.includes(:game)
-                      .order(
-                        Arel.sql("CASE WHEN game_id IN (#{followed_game_ids.any? ? followed_game_ids.join(',') : 'NULL'}) THEN 0 ELSE 1 END"),
-                        created_at: :desc
-                      )
+                      .with_date_filter(@date_filter)
+
+      if followed_game_ids.any?
+        followed_first_sql = Patch.sanitize_sql_array(
+          ["CASE WHEN game_id IN (?) THEN 0 ELSE 1 END", followed_game_ids]
+        )
+        @patches = @patches.order(Arel.sql(followed_first_sql), Arel.sql("#{Patch::EFFECTIVE_PUBLISHED_AT_SQL} DESC"))
+      else
+        @patches = @patches.recent_first
+      end
     end
   end
 

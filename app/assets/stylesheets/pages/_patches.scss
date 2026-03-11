@@ -13,6 +13,39 @@
       margin-bottom: 0.25rem;
     }
   }
+
+  &__filters {
+    margin-bottom: 1.5rem;
+  }
+
+  &__filter-form {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  &__filter-label {
+    color: $dark-text;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  &__filter-select {
+    min-width: 13rem;
+    background: $dark-card;
+    color: $dark-text;
+    border: 1px solid $dark-border;
+    border-radius: 0.65rem;
+    padding: 0.55rem 0.8rem;
+  }
+
+  &__date {
+    color: $accent-purple;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
 }
 
 .patch-card {
@@ -84,6 +117,13 @@
           color: lighten($accent-purple, 12%);
         }
       }
+    }
+
+    .patch-show__meta {
+      color: $accent-purple;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin: 0;
     }
   }
 

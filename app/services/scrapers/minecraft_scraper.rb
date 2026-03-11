@@ -2,6 +2,8 @@ require "open-uri"
 require "nokogiri"
 
 class Scrapers::MinecraftScraper
+  include Scrapers::PublishedAtExtraction
+
   INDEX_URL = "https://feedback.minecraft.net/hc/en-us/sections/360001186971-Release-Changelogs"
   HEADERS = { "User-Agent" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36" }
   TITLE_PATTERN = /(minecraft: java edition|minecraft: bedrock edition|minecraft - \d|changelog|hotfix)/i
@@ -36,7 +38,7 @@ class Scrapers::MinecraftScraper
     return nil if title.blank? || content.blank?
     return nil unless title.match?(TITLE_PATTERN)
 
-    { title: title, content: content, source_url: url }
+    { title: title, content: content, source_url: url, published_at: extract_published_at(doc) }
   rescue OpenURI::HTTPError => e
     Rails.logger.warn "MinecraftScraper: failed to fetch #{url} - #{e.message}"
     nil

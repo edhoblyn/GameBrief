@@ -2,6 +2,8 @@ require "open-uri"
 require "nokogiri"
 
 class Scrapers::Helldivers2Scraper
+  include Scrapers::PublishedAtExtraction
+
   INDEX_URL = "https://arrowhead.zendesk.com/hc/en-us/sections/12541983411100-Latest-patch-notes"
   HEADERS = { "User-Agent" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36" }
   TITLE_PATTERN = /(patch|hotfix|into the unjust)/i
@@ -36,7 +38,7 @@ class Scrapers::Helldivers2Scraper
     return nil if title.blank? || content.blank?
     return nil unless title.match?(TITLE_PATTERN)
 
-    { title: title, content: content, source_url: url }
+    { title: title, content: content, source_url: url, published_at: extract_published_at(doc) }
   rescue OpenURI::HTTPError => e
     Rails.logger.warn "Helldivers2Scraper: failed to fetch #{url} - #{e.message}"
     nil

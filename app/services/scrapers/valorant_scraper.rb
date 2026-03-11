@@ -2,6 +2,8 @@ require "open-uri"
 require "nokogiri"
 
 class Scrapers::ValorantScraper
+  include Scrapers::PublishedAtExtraction
+
   INDEX_URL = "https://playvalorant.com/en-us/news/game-updates/"
   HEADERS = { "User-Agent" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36" }
   TITLE_PATTERN = /(valorant patch notes|patch notes)/i
@@ -36,7 +38,7 @@ class Scrapers::ValorantScraper
     return nil if title.blank? || content.blank?
     return nil unless title.match?(TITLE_PATTERN)
 
-    { title: title, content: content, source_url: url }
+    { title: title, content: content, source_url: url, published_at: extract_published_at(doc) }
   rescue OpenURI::HTTPError => e
     Rails.logger.warn "ValorantScraper: failed to fetch #{url} - #{e.message}"
     nil

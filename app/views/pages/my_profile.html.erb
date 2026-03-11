@@ -215,6 +215,7 @@
                   <div class="card-body">
                     <p class="text-muted small mb-1"><%= patch.game.name %></p>
                     <h5 class="card-title"><%= patch.title %></h5>
+                    <p class="text-muted small mb-2"><%= patch.effective_published_at.to_date.to_fs(:long) %></p>
                   </div>
                 </div>
               <% end %>

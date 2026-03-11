@@ -7,6 +7,16 @@
   </div>
 
   <div class="container">
+    <div class="patches-index__filters">
+      <%= form_with url: (@game ? game_patches_path(@game) : patches_path), method: :get, local: true, class: "patches-index__filter-form" do %>
+        <%= label_tag :date_filter, "Filter by date", class: "patches-index__filter-label" %>
+        <%= select_tag :date_filter,
+              options_for_select(Patch::DATE_FILTERS.map { |value, label| [label, value] }, @date_filter),
+              class: "patches-index__filter-select",
+              onchange: "this.form.requestSubmit()" %>
+      <% end %>
+    </div>
+
     <% if @patches.any? %>
       <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
         <% @patches.each do |patch| %>
@@ -16,6 +26,7 @@
                 <div class="card-body">
                   <p class="text-muted small mb-1"><%= patch.game.name %></p>
                   <h5 class="card-title"><%= patch.title %></h5>
+                  <p class="patches-index__date"><%= patch.effective_published_at.to_date.to_fs(:long) %></p>
                   <p class="card-text text-muted small"><%= patch.content.truncate(100) %></p>
                 </div>
               </div>
@@ -24,7 +35,7 @@
         <% end %>
       </div>
     <% else %>
-      <p style="color: #7a7a9a; font-style: italic;">No patches yet.</p>
+      <p style="color: #7a7a9a; font-style: italic;">No patches found for that date range.</p>
     <% end %>
   </div>
 </div>

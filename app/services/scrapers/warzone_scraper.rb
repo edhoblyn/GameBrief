@@ -2,6 +2,8 @@ require "open-uri"
 require "nokogiri"
 
 class Scrapers::WarzoneScraper
+  include Scrapers::PublishedAtExtraction
+
   INDEX_URL = "https://www.callofduty.com/patchnotes"
   HEADERS = { "User-Agent" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36" }
 
@@ -34,7 +36,7 @@ class Scrapers::WarzoneScraper
 
     return nil if title.blank? || content.blank?
 
-    { title: title, content: content, source_url: url }
+    { title: title, content: content, source_url: url, published_at: extract_published_at(doc) }
   rescue OpenURI::HTTPError => e
     Rails.logger.warn "WarzoneScraper: failed to fetch #{url} - #{e.message}"
     nil
