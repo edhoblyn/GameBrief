@@ -4,8 +4,7 @@ require "nokogiri"
 class Scrapers::RobloxScraper
   INDEX_URL = "https://create.roblox.com/docs/release-notes/release-notes-555"
   HEADERS = { "User-Agent" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36" }
-  TITLE_PATTERN = /(release notes for \d+|release notes)/i
-  MAX_NOTES = 10
+  MAX_NOTES = 26
 
   def call
     patch_links = fetch_patch_links
@@ -16,26 +15,48 @@ class Scrapers::RobloxScraper
   private
 
   def fetch_patch_links
-    doc = Nokogiri::HTML(URI.open(INDEX_URL, HEADERS))
+    latest_url = find_latest_release_note_url
+    return [] if latest_url.blank?
 
-    doc.css("a[href]").filter_map do |link|
-      href = link["href"].to_s.strip
-      text = link.text.to_s.squish
-      next if href.blank? || text.blank?
-      next unless href.include?("/docs/release-notes/release-notes-")
-      next unless text.match?(TITLE_PATTERN)
+    urls = []
+    current_url = latest_url
 
-      normalize_url(href)
-    end.uniq.first(MAX_NOTES)
+    while current_url.present? && urls.size < MAX_NOTES
+      urls << current_url
+      payload = fetch_payload(current_url)
+      previous_path = payload.dig("props", "pageProps", "data", "releaseNoteContents", "prev")
+      current_url = normalize_url(previous_path)
+    end
+
+    urls.uniq
+  end
+
+  def find_latest_release_note_url
+    current_url = INDEX_URL
+    seen = []
+
+    loop do
+      break if current_url.blank? || seen.include?(current_url)
+
+      seen << current_url
+      payload = fetch_payload(current_url)
+      next_path = payload.dig("props", "pageProps", "data", "releaseNoteContents", "next")
+      next_url = normalize_url(next_path)
+      break if next_url.blank?
+
+      current_url = next_url
+    end
+
+    current_url
   end
 
   def fetch_patch(url)
-    doc = Nokogiri::HTML(URI.open(url, HEADERS))
-    title = doc.at("h1")&.text&.squish
-    content = extract_content(doc)
+    payload = fetch_payload(url)
+    data = payload.dig("props", "pageProps", "data", "releaseNoteContents") || {}
+    title = data["title"].to_s.squish
+    content = build_content(data["content"])
 
     return nil if title.blank? || content.blank?
-    return nil unless title.match?(TITLE_PATTERN)
 
     { title: title, content: content, source_url: url }
   rescue OpenURI::HTTPError => e
@@ -43,26 +64,32 @@ class Scrapers::RobloxScraper
     nil
   end
 
-  def extract_content(doc)
-    selectors = [
-      "main",
-      "article",
-      "[class*='article']",
-      "[class*='content']",
-      "[class*='markdown']"
-    ]
+  def fetch_payload(url)
+    doc = Nokogiri::HTML(URI.open(url, HEADERS))
+    script = doc.at("script#__NEXT_DATA__")
+    return {} if script.blank?
 
-    selectors.each do |selector|
-      node = doc.at(selector)
-      text = node&.text&.squish
-      return text if text.present?
-    end
+    JSON.parse(script.text)
+  rescue JSON::ParserError
+    {}
+  end
 
-    doc.text.to_s.squish
+  def build_content(entries)
+    Array(entries).map do |entry|
+      type = entry["ReleaseNotesType"].presence
+      status = entry["Status"].presence
+      text = entry["ReleaseNotesText"].to_s.squish
+      next if text.blank?
+
+      prefix = [type, status].compact.join(" - ")
+      prefix.present? ? "#{prefix}: #{text}" : text
+    end.compact.join("\n")
   end
 
   def normalize_url(href)
+    return if href.blank?
     return href if href.start_with?("http")
+    return URI.join(INDEX_URL, "/docs#{href}").to_s if href.start_with?("/release-notes/")
 
     URI.join(INDEX_URL, href).to_s
   end
