@@ -16,7 +16,11 @@
       <p class="home-landing__subtitle">GameBrief turns complex patch notes into plain-English summaries so you know exactly what changed — and whether it's worth logging in.</p>
 
       <div class="home-landing__actions">
-        <%= link_to "Get Started", games_path, class: "btn btn-primary btn-lg" %>
+        <% if user_signed_in? %>
+          <%= link_to "See My Profile", my_profile_path, class: "btn btn-primary btn-lg" %>
+        <% else %>
+          <%= link_to "Get Started", new_user_registration_path, class: "btn btn-primary btn-lg" %>
+        <% end %>
         <%= link_to "Explore Games", games_path, class: "btn btn-outline-light btn-lg" %>
       </div>
 
@@ -54,7 +58,9 @@
 
 <% if user_signed_in? %>
     <div class="home-landing__logout">
-      <%= link_to "Log out", destroy_user_session_path, data: { turbo_method: :delete }, class: "btn btn-link text-muted" %>
+      <%= button_to destroy_user_session_path, method: :delete, class: "logout-btn" do %>
+        <i class="fa fa-sign-out"></i> Log out
+      <% end %>
     </div>
   <% end %>
 </div>
