@@ -86,6 +86,30 @@
     margin-top: 1rem;
     flex-wrap: wrap;
     justify-content: center;
+
+    .btn {
+      transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+
+      &:hover {
+        transform: scale(1.07);
+      }
+    }
+
+    .btn-outline-light {
+      &:hover {
+        background-color: rgba(124, 92, 252, 0.15);
+        border-color: $accent-purple;
+        color: #c4b5fd;
+      }
+    }
+
+    .btn-primary {
+      &:hover {
+        background-color: lighten($accent-purple, 8%);
+        border-color: lighten($accent-purple, 8%);
+        box-shadow: 0 0 16px rgba(124, 92, 252, 0.45);
+      }
+    }
   }
 
   &__stats {
