@@ -36,12 +36,12 @@
         <i class="fa fa-calendar"></i> My Events
         <span class="badge bg-secondary ms-auto"><%= @reminders.count %></span>
       </a>
-      <a href="#communities" class="profile-sidebar__nav-link">
-        <i class="fa fa-users"></i> Communities
-      </a>
       <a href="#recommendations" class="profile-sidebar__nav-link">
         <i class="fa fa-star"></i> My Recommendations
       </a>
+      <%= link_to find_friends_path, class: "profile-sidebar__nav-link" do %>
+        <i class="fa fa-users"></i> Find friends
+      <% end %>
     </nav>
 
     <div class="profile-sidebar__footer">
@@ -83,7 +83,6 @@
       <% end %>
     </section>
 
-    <!-- My Patches -->
     <section id="my-patches" class="profile-section">
       <h2 class="profile-section__title">My Game's Patches</h2>
 
@@ -107,7 +106,7 @@
       <% end %>
     </section>
 
-    <!-- My Events -->
+
     <section id="my-events" class="profile-section">
       <h2 class="profile-section__title">
         My Events
@@ -138,17 +137,13 @@
       <% end %>
     </section>
 
-    <!-- Communities -->
-    <section id="communities" class="profile-section">
-      <h2 class="profile-section__title">Communities</h2>
-      <p class="profile-section__empty">Communities coming soon.</p>
-    </section>
-
-    <!-- My Recommendations -->
     <section id="recommendations" class="profile-section">
       <h2 class="profile-section__title">My Recommendations</h2>
       <p class="profile-section__empty">Recommendations coming soon.</p>
     </section>
 
+      <%= link_to users_path, class: "btn btn-primary" do %>
+        <i class="fa fa-users me-2"></i> Start Session
+      <% end %>
   </main>
 </div>
