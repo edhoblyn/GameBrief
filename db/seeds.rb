@@ -1,26 +1,53 @@
-puts "Cleaning database..."
+puts "Seeding database without deleting real scraped data..."
 
-Reminder.destroy_all
-Event.destroy_all
-PatchSummary.destroy_all
-Patch.destroy_all
-Favourite.destroy_all
-Game.destroy_all
-User.destroy_all
+def upsert_user(email:, password:, **attributes)
+  user = User.find_or_initialize_by(email: email)
+  user.password = password if user.new_record?
+  user.update!(attributes)
+  user
+end
+
+def seed_placeholder_patch(game:, title:, content:, summaries:)
+  return nil unless game
+
+  if game.patches.where.not(source_url: nil).exists?
+    game.patches.where(source_url: nil).find_each(&:destroy!)
+    puts "Skipping placeholder patch for #{game.name} because scraped patches already exist."
+    return nil
+  end
+
+  patch = game.patches.where(source_url: nil).order(:id).first_or_initialize
+  patch.update!(title: title, content: content)
+  patch.patch_summaries.destroy_all
+
+  summaries.each do |summary_type, summary_text|
+    patch.patch_summaries.create!(summary: summary_text, summary_type: summary_type)
+  end
+
+  patch
+end
+
+def seed_event(game:, title:, description:, start_date:)
+  return nil unless game
+
+  event = Event.find_or_initialize_by(game: game, title: title)
+  event.update!(description: description, start_date: start_date)
+  event
+end
 
 puts "Creating users..."
 
-user = User.create!(
+user = upsert_user(
   email: "demo@test.com",
   password: "123456"
 )
 
 puts "Creating featured gamers..."
 
-User.create!(email: "edhomey@gamebrief.gg",    password: "password123", username: "Ed Homey",    avatar_url: "https://randomuser.me/api/portraits/men/46.jpg",    follower_count: 84200)
-User.create!(email: "biancastar@gamebrief.gg", password: "password123", username: "Bianca Star", avatar_url: "https://randomuser.me/api/portraits/women/73.jpg",  follower_count: 61500)
-User.create!(email: "hortgamer@gamebrief.gg",  password: "password123", username: "Hort Gamer",  avatar_url: "https://randomuser.me/api/portraits/women/44.jpg",  follower_count: 43900)
-User.create!(email: "baptistex@gamebrief.gg",  password: "password123", username: "BaptisteX",   avatar_url: "https://randomuser.me/api/portraits/men/78.jpg",    follower_count: 29300)
+upsert_user(email: "edhomey@gamebrief.gg",    password: "password123", username: "Ed Homey",    avatar_url: "https://randomuser.me/api/portraits/men/46.jpg",   follower_count: 84200)
+upsert_user(email: "biancastar@gamebrief.gg", password: "password123", username: "Bianca Star", avatar_url: "https://randomuser.me/api/portraits/women/73.jpg", follower_count: 61500)
+upsert_user(email: "hortgamer@gamebrief.gg",  password: "password123", username: "Hort Gamer",  avatar_url: "https://randomuser.me/api/portraits/women/44.jpg", follower_count: 43900)
+upsert_user(email: "baptistex@gamebrief.gg",  password: "password123", username: "BaptisteX",   avatar_url: "https://randomuser.me/api/portraits/men/78.jpg",   follower_count: 29300)
 
 puts "Importing games from IGDB..."
 
@@ -35,11 +62,9 @@ def import_game(client, query)
 
   cover_url = match["cover"] ? "https:#{match["cover"]["url"].gsub("t_thumb", "t_cover_big")}" : nil
 
-  game = if match["slug"].present?
-           Game.find_or_initialize_by(slug: match["slug"])
-         else
-           Game.find_or_initialize_by(name: match["name"])
-         end
+  game = Game.where("LOWER(name) = ?", query.downcase).first
+  game ||= Game.find_by(slug: match["slug"]) if match["slug"].present?
+  game ||= Game.new
 
   game.update!(
     name: match["name"],
@@ -88,10 +113,10 @@ end
 
 puts "Creating patches..."
 
-fortnite_patch = Patch.create!(
+fortnite_patch = seed_placeholder_patch(
   game: fortnite,
   title: "Chapter 6 Balance Update",
-  content: <<~TEXT
+  content: <<~TEXT,
     Weapons
     - Assault Rifles: Reduced bloom by 12% across all rarities. Common AR damage increased from 30 to 32.
     - Shotguns: Pump shotgun fire rate increased slightly. Charge shotgun max damage reduced from 220 to 200.
@@ -112,12 +137,17 @@ fortnite_patch = Patch.create!(
     - Fixed the Storm King Mythic not appearing in floor loot rotations.
     - Addressed several audio desync issues in late-game circles.
   TEXT
+  summaries: {
+    "quick_summary" => "Guns feel a bit more accurate this patch — ARs got a damage boost and bloom was reduced so your shots land more consistently. Two new named locations dropped in the northwest, so expect hot drops there early on. Shotguns got a slight nerf at the top end, so don't rely on one-pumping as much.",
+    "casual_impact" => "If you mainly build and fight, you'll notice ARs feeling a bit snappier and more reliable. Two new areas to explore give you fresh drop spots to try. Shotgun players may need to adjust — the big one-shot potential is slightly reduced.",
+    "should_i_log_in" => "Yes — two brand new named locations dropped and the weapon meta shifted, so it's a good week to jump in and explore the map changes before everyone figures out the new meta."
+  }
 )
 
-warzone_patch = Patch.create!(
+warzone_patch = seed_placeholder_patch(
   game: warzone,
   title: "Season 4 Weapon Tuning",
-  content: <<~TEXT
+  content: <<~TEXT,
     Weapon Balancing
     - Assault Rifles: MTZ-556 damage range increased by 8%. BAS-B fire rate slightly reduced.
     - SMGs: Striker 9 recoil increased to reduce long-range dominance. WSP Swarm minimum damage reduced from 18 to 16.
@@ -137,12 +167,17 @@ warzone_patch = Patch.create!(
     - Resolved crash occurring when spectating a player during Buy Station interaction.
     - Fixed several audio issues with vehicle engine sounds cutting out mid-match.
   TEXT
+  summaries: {
+    "quick_summary" => "The MTZ-556 AR got a range buff making it stronger at distance, while the Striker 9 SMG was pulled back to stop it dominating at longer ranges. Slide cancelling is slightly slower so movement feels less frantic. The Gulag got refreshed with a rotating weapon pool which keeps close quarters matches feeling fresh.",
+    "casual_impact" => "Movement feels a little less chaotic now that slide cancelling is toned down, which may help if you struggle against hyper-aggressive players. The Gulag has fresh weapons so those second-chance fights feel less predictable. No drastic meta shift — your favourite loadout probably still works.",
+    "should_i_log_in" => "If you play casually, sure — the Gulag refresh keeps things interesting and nothing was broken so badly that the game feels unfair. Don't rush back just for this patch though."
+  }
 )
 
-apex_patch = Patch.create!(
+apex_patch = seed_placeholder_patch(
   game: apex,
   title: "Mid-Season Update",
-  content: <<~TEXT
+  content: <<~TEXT,
     Legend Balance
 
     Bloodhound
@@ -177,12 +212,17 @@ apex_patch = Patch.create!(
     - Resolved hitbox misalignment on Revenant Reborn during certain animations.
     - Fixed audio cues for Trident vehicle not playing on low settings.
   TEXT
+  summaries: {
+    "quick_summary" => "Bloodhound and Wraith got buffed — Wraith's void ability is up more often and Bloodhound scans a bit further. Gibraltar took hits to both his dome cooldown and gun shield so he's a little weaker this patch. The new Squad Royale LTM is worth trying if you want a chaotic team mode with cosmetic rewards.",
+    "casual_impact" => "If you play Wraith, you'll notice her escape is available more often which feels great in tough spots. Gibraltar mains may feel slightly squishier but the difference is small in casual play. The new Squad Royale mode is a fun change of pace if you want something less sweaty.",
+    "should_i_log_in" => "Yes — the Squad Royale LTM is only available for 2 weeks and has exclusive cosmetic rewards. It's a fun, lower-pressure way to play and well worth a few sessions."
+  }
 )
 
-destiny_patch = Patch.create!(
+destiny_patch = seed_placeholder_patch(
   game: destiny,
   title: "Season of Echoes Update",
-  content: <<~TEXT
+  content: <<~TEXT,
     New Content
     - New 6-player raid: The Vault of Fractured Light. Available on normal and master difficulty from launch.
     - Seasonal weapon set includes 6 new weapons: 2 primary, 2 special, 2 heavy. All craftable after 5 red border drops.
@@ -204,12 +244,17 @@ destiny_patch = Patch.create!(
     - Resolved seasonal rank resets not granting correct Bright Dust amounts.
     - Fixed geometry clipping in the new patrol zone.
   TEXT
+  summaries: {
+    "quick_summary" => "Big patch this season — there's a brand new raid called the Vault of Fractured Light plus a fresh set of craftable seasonal weapons. Solar and Void builds got small buffs so if you've been running those subclasses you'll feel stronger. Stasis shatter got toned down in higher-end content so pure Stasis builds may want to adjust.",
+    "casual_impact" => "There's a lot of new content to sink your teeth into — a new raid, new weapons to chase, and a fresh artifact to level up. If you play Solar or Void casually you'll feel slightly stronger without needing to change anything. Stasis players in endgame content may want to experiment with alternatives.",
+    "should_i_log_in" => "Absolutely yes — new raid, new craftable weapons, and a seasonal artifact make this one of the bigger patches of the year. Even if you only play a few hours a week there's plenty of new content to enjoy."
+  }
 )
 
-fifa_patch = Patch.create!(
+fifa_patch = seed_placeholder_patch(
   game: fifa,
   title: "Title Update 10 — FUT Balance",
-  content: <<~TEXT
+  content: <<~TEXT,
     Ultimate Team
     - Pack weight for high-rated players increased for a limited period around Team of the Season.
     - SBC catalogue updated with 3 new squad-building challenges offering rare player rewards.
@@ -230,12 +275,17 @@ fifa_patch = Patch.create!(
     - Resolved rare crash when entering the FUT transfer market on console.
     - Fixed player name display issue in certain kit combinations.
   TEXT
+  summaries: {
+    "quick_summary" => "Pack weights are temporarily boosted around Team of the Season so it's a good time to open packs if you've been saving. Heading has been toned down for weaker players and through ball defending is more consistent, which should reduce some frustrating goals. FUT Champions now rewards points more fairly for lower win counts.",
+    "casual_impact" => "Gameplay feels slightly more consistent — fewer cheap goals from headers and lobbed through balls. If you play FUT Champions occasionally, you'll earn more points even from losses which makes weekend league less punishing. If you've been hoarding packs, now's the time to open them.",
+    "should_i_log_in" => "Yes if you play FUT — Team of the Season pack weights are boosted right now which is the best time to open packs all year. Even if you don't spend coins, the gameplay improvements make matches feel a bit less frustrating."
+  }
 )
 
-roblox_patch = Patch.create!(
+roblox_patch = seed_placeholder_patch(
   game: roblox,
   title: "Engine Update — Physics & Performance",
-  content: <<~TEXT
+  content: <<~TEXT,
     Performance Improvements
     - Rendering pipeline updated to reduce frame drops in high-player-count servers.
     - Memory usage optimised for devices with 2GB RAM — improved stability on mobile.
@@ -259,12 +309,17 @@ roblox_patch = Patch.create!(
     - Resolved avatar accessories clipping through layered clothing on certain body types.
     - Fixed teleport service failing silently when the destination place was loading.
   TEXT
+  summaries: {
+    "quick_summary" => "A performance-focused update — loading times are roughly 15% faster and mobile devices should crash less often in busy servers. Layered clothing now supports 8 layers so you can style your avatar even more. Developers get a new flame graph profiler tool to help track down lag in their games.",
+    "casual_impact" => "Games load noticeably faster and your experience should be smoother, especially on mobile. You can now layer even more clothing items on your avatar for more creative outfits. Nothing gameplay-changing — this is a quality of life patch.",
+    "should_i_log_in" => "Only if you were already planning to — this is a background improvements patch with no major new content. The performance boost is welcome but not a reason to rush back on its own."
+  }
 )
 
-clash_patch = Patch.create!(
+clash_patch = seed_placeholder_patch(
   game: clash,
   title: "Balance Update — Card Adjustments",
-  content: <<~TEXT
+  content: <<~TEXT,
     Card Balance Changes
 
     Buffs
@@ -291,12 +346,17 @@ clash_patch = Patch.create!(
     - Resolved rare visual glitch where cards appeared greyed out despite being ready.
     - Fixed clan war boat battle win not counting in certain edge cases.
   TEXT
+  summaries: {
+    "quick_summary" => "Goblin Giant and Dark Prince got some love this patch with hitpoint and shield buffs, making them more viable in ladder. Evo Firecracker lost her death split when evolved which was a significant nerf to one of the most popular evolutions. A new Evo Cannon Cart is coming in Season 52 with a speed burst after its cart is destroyed.",
+    "casual_impact" => "If you've been using Evo Firecracker, her death split is gone when evolved so she feels less explosive. Goblin Giant decks become more viable which could shake up what you face on ladder. Season 52 is close and brings a new Evo to try out.",
+    "should_i_log_in" => "Worth checking in — the Evo Firecracker nerf shakes up a dominant deck and Season 52 starts soon with new content. If you like keeping up with the meta, now's a good time to experiment with alternatives."
+  }
 )
 
-coc_patch = Patch.create!(
+coc_patch = seed_placeholder_patch(
   game: coc,
   title: "Spring 2025 Balance Update",
-  content: <<~TEXT
+  content: <<~TEXT,
     Town Hall 17
     - Loot Cart now collects 20% more resources from attacks (up from 15%).
     - Hero Equipment: Barbarian Puppet equipment level cap increased to 27.
@@ -320,12 +380,17 @@ coc_patch = Patch.create!(
     - Fixed Builder Base troops sometimes freezing mid-attack on certain layouts.
     - Resolved issue where Clan Capital raid medals were not being awarded correctly after a disconnect.
   TEXT
+  summaries: {
+    "quick_summary" => "The Druid and Super Witch got buffed this patch making them stronger offensive options, while the Root Rider was slowed down to stop it being too dominant. Defences got tweaked too — the Scattershot hits air troops faster and the Ricochet Cannon was toned down at TH16. Clan War League loot went up by 10% so it's a good time to stay active in wars.",
+    "casual_impact" => "Your attacks might feel different — Root Rider pushes slower now so you need to adjust timing. Druid and Super Witch are better options if you have them unlocked. The 10% Clan War League loot boost means you earn more just by participating normally.",
+    "should_i_log_in" => "Yes — Clan War League loot is up 10% this cycle so you get more rewards for the same effort. Worth logging in to take advantage even if you just play a few attacks."
+  }
 )
 
-minecraft_patch = Patch.create!(
+minecraft_patch = seed_placeholder_patch(
   game: minecraft,
   title: "Java Edition 1.21.4",
-  content: <<~TEXT
+  content: <<~TEXT,
     New Features
     - Added the Pale Garden biome: a new eerie woodland with white birch-like trees and hanging moss.
     - Added the Creaking mob: a hostile creature that only moves when unobserved. Spawns in Pale Gardens at night.
@@ -345,12 +410,17 @@ minecraft_patch = Patch.create!(
     - Resolved Breeze wind charge sometimes passing through solid blocks.
     - Fixed fishing rod occasionally failing to reel in entities.
   TEXT
+  summaries: {
+    "quick_summary" => "A big atmospheric update — the new Pale Garden biome is a creepy white forest that spawns the Creaking, a mob that only moves when you're not looking at it. Bundles are finally out of experimental and let you mix item types in one stack, which is a big quality of life win for inventory management. Pale Oak is a new full wood type so builders have a fresh block palette to work with.",
+    "casual_impact" => "Exploring the world just got more interesting with a spooky new biome and a genuinely unsettling new mob. Bundles make managing your inventory much less painful — you can finally carry a mix of items in one slot. Builders get a beautiful new pale wood type to use in their creations.",
+    "should_i_log_in" => "Yes — new biome, new mob, and bundles finally released are all worth exploring. Whether you like survival, building or just wandering, this patch has something for you."
+  }
 )
 
-valorant_patch = Patch.create!(
+valorant_patch = seed_placeholder_patch(
   game: valorant,
   title: "Patch 10.04 — Agent & Map Updates",
-  content: <<~TEXT
+  content: <<~TEXT,
     Agent Updates
 
     Gekko
@@ -382,12 +452,17 @@ valorant_patch = Patch.create!(
     - Fixed Viper's Pit not correctly applying decay to players entering from the edge.
     - Resolved Cypher camera sometimes persisting after Cypher is eliminated.
   TEXT
+  summaries: {
+    "quick_summary" => "Gekko and Jett got nerfed — Jett's dash window is shorter and Gekko's blind doesn't last as long, so both are slightly less dominant in ranked. Deadlock got some love with a faster Gravnet cooldown and stronger barriers, making her more viable as a sentinel. The Phantom got a small accuracy buff while moving which could make it feel better in close-range fights.",
+    "casual_impact" => "Jett feels a little less slippery now which may help if you struggle against her. Phantom users may notice it feeling more responsive when moving which is a small but noticeable improvement. Deadlock is more playable if you like sentinel roles.",
+    "should_i_log_in" => "If you're already playing ranked, yes — the meta shifted slightly and Deadlock is more viable now which adds variety. No major map changes or new agents so it's not a must-play patch if you've been taking a break."
+  }
 )
 
-marvel_patch = Patch.create!(
+marvel_patch = seed_placeholder_patch(
   game: marvel,
   title: "Season 1 Balance Patch",
-  content: <<~TEXT
+  content: <<~TEXT,
     Hero Adjustments
 
     Buffs
@@ -415,12 +490,17 @@ marvel_patch = Patch.create!(
     - Fixed Storm's Lightning Surge sometimes dealing no damage on hit.
     - Resolved Cloak & Dagger Team-Up ability not triggering correctly when both heroes were alive.
   TEXT
+  summaries: {
+    "quick_summary" => "Hela and Jeff the Land Shark were both nerfed — Hela hits a bit softer and Jeff's ultimate covers less ground, so both are less oppressive to play against. Iron Man and Rocket Raccoon got buffed and should feel more impactful this season. Mister Fantastic is now available to unlock and Invisible Woman is coming mid-season, so the roster keeps growing.",
+    "casual_impact" => "Matches should feel a bit less one-sided now that Hela and Jeff are toned down — two of the most complained-about characters got reined in. Iron Man feels stronger if you like playing him. Two new heroes arrive this season giving you more options to try.",
+    "should_i_log_in" => "Yes — Mister Fantastic is now playable and Invisible Woman arrives mid-season, making this a great time to come back and try new heroes. The balance changes also make the game feel fairer which helps casual players."
+  }
 )
 
-helldivers_patch = Patch.create!(
+helldivers_patch = seed_placeholder_patch(
   game: helldivers,
   title: "Patch 01.002.200 — Escalation of Freedom",
-  content: <<~TEXT
+  content: <<~TEXT,
     New Content
     - New enemy faction: the Illuminate have returned to the galaxy. Available on select planets.
     - New stratagem: Tesla Tower — an area-denial electric turret effective against grouped infantry.
@@ -447,157 +527,93 @@ helldivers_patch = Patch.create!(
     - Resolved mission objective markers disappearing after a host migration.
     - Fixed some stratagems not being callable near certain map edges.
   TEXT
-)
-
-puts "Creating patch summaries..."
-
-{
-  fortnite_patch => {
-    "quick_summary" => "Guns feel a bit more accurate this patch — ARs got a damage boost and bloom was reduced so your shots land more consistently. Two new named locations dropped in the northwest, so expect hot drops there early on. Shotguns got a slight nerf at the top end, so don't rely on one-pumping as much.",
-    "casual_impact" => "If you mainly build and fight, you'll notice ARs feeling a bit snappier and more reliable. Two new areas to explore give you fresh drop spots to try. Shotgun players may need to adjust — the big one-shot potential is slightly reduced.",
-    "should_i_log_in" => "Yes — two brand new named locations dropped and the weapon meta shifted, so it's a good week to jump in and explore the map changes before everyone figures out the new meta."
-  },
-  warzone_patch => {
-    "quick_summary" => "The MTZ-556 AR got a range buff making it stronger at distance, while the Striker 9 SMG was pulled back to stop it dominating at longer ranges. Slide cancelling is slightly slower so movement feels less frantic. The Gulag got refreshed with a rotating weapon pool which keeps close quarters matches feeling fresh.",
-    "casual_impact" => "Movement feels a little less chaotic now that slide cancelling is toned down, which may help if you struggle against hyper-aggressive players. The Gulag has fresh weapons so those second-chance fights feel less predictable. No drastic meta shift — your favourite loadout probably still works.",
-    "should_i_log_in" => "If you play casually, sure — the Gulag refresh keeps things interesting and nothing was broken so badly that the game feels unfair. Don't rush back just for this patch though."
-  },
-  apex_patch => {
-    "quick_summary" => "Bloodhound and Wraith got buffed — Wraith's void ability is up more often and Bloodhound scans a bit further. Gibraltar took hits to both his dome cooldown and gun shield so he's a little weaker this patch. The new Squad Royale LTM is worth trying if you want a chaotic team mode with cosmetic rewards.",
-    "casual_impact" => "If you play Wraith, you'll notice her escape is available more often which feels great in tough spots. Gibraltar mains may feel slightly squishier but the difference is small in casual play. The new Squad Royale mode is a fun change of pace if you want something less sweaty.",
-    "should_i_log_in" => "Yes — the Squad Royale LTM is only available for 2 weeks and has exclusive cosmetic rewards. It's a fun, lower-pressure way to play and well worth a few sessions."
-  },
-  destiny_patch => {
-    "quick_summary" => "Big patch this season — there's a brand new raid called the Vault of Fractured Light plus a fresh set of craftable seasonal weapons. Solar and Void builds got small buffs so if you've been running those subclasses you'll feel stronger. Stasis shatter got toned down in higher-end content so pure Stasis builds may want to adjust.",
-    "casual_impact" => "There's a lot of new content to sink your teeth into — a new raid, new weapons to chase, and a fresh artifact to level up. If you play Solar or Void casually you'll feel slightly stronger without needing to change anything. Stasis players in endgame content may want to experiment with alternatives.",
-    "should_i_log_in" => "Absolutely yes — new raid, new craftable weapons, and a seasonal artifact make this one of the bigger patches of the year. Even if you only play a few hours a week there's plenty of new content to enjoy."
-  },
-  fifa_patch => {
-    "quick_summary" => "Pack weights are temporarily boosted around Team of the Season so it's a good time to open packs if you've been saving. Heading has been toned down for weaker players and through ball defending is more consistent, which should reduce some frustrating goals. FUT Champions now rewards points more fairly for lower win counts.",
-    "casual_impact" => "Gameplay feels slightly more consistent — fewer cheap goals from headers and lobbed through balls. If you play FUT Champions occasionally, you'll earn more points even from losses which makes weekend league less punishing. If you've been hoarding packs, now's the time to open them.",
-    "should_i_log_in" => "Yes if you play FUT — Team of the Season pack weights are boosted right now which is the best time to open packs all year. Even if you don't spend coins, the gameplay improvements make matches feel a bit less frustrating."
-  },
-  roblox_patch => {
-    "quick_summary" => "A performance-focused update — loading times are roughly 15% faster and mobile devices should crash less often in busy servers. Layered clothing now supports 8 layers so you can style your avatar even more. Developers get a new flame graph profiler tool to help track down lag in their games.",
-    "casual_impact" => "Games load noticeably faster and your experience should be smoother, especially on mobile. You can now layer even more clothing items on your avatar for more creative outfits. Nothing gameplay-changing — this is a quality of life patch.",
-    "should_i_log_in" => "Only if you were already planning to — this is a background improvements patch with no major new content. The performance boost is welcome but not a reason to rush back on its own."
-  },
-  clash_patch => {
-    "quick_summary" => "Goblin Giant and Dark Prince got some love this patch with hitpoint and shield buffs, making them more viable in ladder. Evo Firecracker lost her death split when evolved which was a significant nerf to one of the most popular evolutions. A new Evo Cannon Cart is coming in Season 52 with a speed burst after its cart is destroyed.",
-    "casual_impact" => "If you've been using Evo Firecracker, her death split is gone when evolved so she feels less explosive. Goblin Giant decks become more viable which could shake up what you face on ladder. Season 52 is close and brings a new Evo to try out.",
-    "should_i_log_in" => "Worth checking in — the Evo Firecracker nerf shakes up a dominant deck and Season 52 starts soon with new content. If you like keeping up with the meta, now's a good time to experiment with alternatives."
-  },
-  coc_patch => {
-    "quick_summary" => "The Druid and Super Witch got buffed this patch making them stronger offensive options, while the Root Rider was slowed down to stop it being too dominant. Defences got tweaked too — the Scattershot hits air troops faster and the Ricochet Cannon was toned down at TH16. Clan War League loot went up by 10% so it's a good time to stay active in wars.",
-    "casual_impact" => "Your attacks might feel different — Root Rider pushes slower now so you need to adjust timing. Druid and Super Witch are better options if you have them unlocked. The 10% Clan War League loot boost means you earn more just by participating normally.",
-    "should_i_log_in" => "Yes — Clan War League loot is up 10% this cycle so you get more rewards for the same effort. Worth logging in to take advantage even if you just play a few attacks."
-  },
-  minecraft_patch => {
-    "quick_summary" => "A big atmospheric update — the new Pale Garden biome is a creepy white forest that spawns the Creaking, a mob that only moves when you're not looking at it. Bundles are finally out of experimental and let you mix item types in one stack, which is a big quality of life win for inventory management. Pale Oak is a new full wood type so builders have a fresh block palette to work with.",
-    "casual_impact" => "Exploring the world just got more interesting with a spooky new biome and a genuinely unsettling new mob. Bundles make managing your inventory much less painful — you can finally carry a mix of items in one slot. Builders get a beautiful new pale wood type to use in their creations.",
-    "should_i_log_in" => "Yes — new biome, new mob, and bundles finally released are all worth exploring. Whether you like survival, building or just wandering, this patch has something for you."
-  },
-  valorant_patch => {
-    "quick_summary" => "Gekko and Jett got nerfed — Jett's dash window is shorter and Gekko's blind doesn't last as long, so both are slightly less dominant in ranked. Deadlock got some love with a faster Gravnet cooldown and stronger barriers, making her more viable as a sentinel. The Phantom got a small accuracy buff while moving which could make it feel better in close-range fights.",
-    "casual_impact" => "Jett feels a little less slippery now which may help if you struggle against her. Phantom users may notice it feeling more responsive when moving which is a small but noticeable improvement. Deadlock is more playable if you like sentinel roles.",
-    "should_i_log_in" => "If you're already playing ranked, yes — the meta shifted slightly and Deadlock is more viable now which adds variety. No major map changes or new agents so it's not a must-play patch if you've been taking a break."
-  },
-  marvel_patch => {
-    "quick_summary" => "Hela and Jeff the Land Shark were both nerfed — Hela hits a bit softer and Jeff's ultimate covers less ground, so both are less oppressive to play against. Iron Man and Rocket Raccoon got buffed and should feel more impactful this season. Mister Fantastic is now available to unlock and Invisible Woman is coming mid-season, so the roster keeps growing.",
-    "casual_impact" => "Matches should feel a bit less one-sided now that Hela and Jeff are toned down — two of the most complained-about characters got reined in. Iron Man feels stronger if you like playing him. Two new heroes arrive this season giving you more options to try.",
-    "should_i_log_in" => "Yes — Mister Fantastic is now playable and Invisible Woman arrives mid-season, making this a great time to come back and try new heroes. The balance changes also make the game feel fairer which helps casual players."
-  },
-  helldivers_patch => {
+  summaries: {
     "quick_summary" => "The Illuminate are back as a third enemy faction which adds a fresh challenge on certain planets. Railgun got a meaningful buff in unsafe mode so it's worth experimenting with again, and the Flamethrower now deals more damage but carries less fuel. A new Tesla Tower stratagem has been added for area control and is great against the new Voteless swarm enemies.",
     "casual_impact" => "You'll face a brand new enemy type — the Illuminate Voteless come in large swarms and play completely differently from bugs or robots. The Flamethrower hits harder but you'll burn through ammo faster. Bring the new Tesla Tower for the swarm missions — it's very effective.",
     "should_i_log_in" => "Absolutely yes — a new enemy faction is one of the biggest additions the game can get. The Illuminate missions feel fresh and different, and there's a Major Order active with bonus rewards. Don't miss this one."
   }
-}.each do |patch, summaries|
-  summaries.each do |summary_type, summary_text|
-    PatchSummary.create!(patch: patch, summary: summary_text, summary_type: summary_type)
-  end
-end
+)
 
 puts "Creating events..."
 
-Event.create!(
+seed_event(
   game: fortnite,
   title: "End of Season Live Event",
   description: "The Chapter 6 finale live in-game event. All players online at the time will experience the event together.",
   start_date: DateTime.now + 14.days
 )
 
-Event.create!(
+seed_event(
   game: warzone,
   title: "Double XP Weekend",
   description: "Earn double weapon and operator XP across all Warzone modes for the full weekend.",
   start_date: DateTime.now + 5.days
 )
 
-Event.create!(
+seed_event(
   game: apex,
   title: "Anniversary Collection Event",
   description: "Limited-time cosmetics, themed LTMs and exclusive event challenges with a free legendary reward track.",
   start_date: DateTime.now + 8.days
 )
 
-Event.create!(
+seed_event(
   game: destiny,
   title: "Iron Banner Returns",
   description: "The limited-time PvP event is back. Earn Iron Banner armour and weapons through matches and bounties.",
   start_date: DateTime.now + 4.days
 )
 
-Event.create!(
+seed_event(
   game: fifa,
   title: "Team of the Season",
   description: "TOTS is live — the best performing players from Europe's top leagues get special high-rated cards in packs.",
   start_date: DateTime.now + 2.days
 )
 
-Event.create!(
+seed_event(
   game: roblox,
   title: "Egg Hunt 2025",
   description: "The annual Roblox Egg Hunt event is back. Find eggs hidden across participating experiences to earn exclusive avatar items.",
   start_date: DateTime.now + 10.days
 )
 
-Event.create!(
+seed_event(
   game: clash,
   title: "Season 52 Start",
   description: "Season 52 kicks off with the new Neon Arcade Tower skin, updated Global Tournament format and the Evo Cannon Cart.",
   start_date: DateTime.now + 3.days
 )
 
-Event.create!(
+seed_event(
   game: coc,
   title: "Clan Games",
   description: "Complete challenges with your clan to earn magic items and exclusive rewards from the prize tier.",
   start_date: DateTime.now + 6.days
 )
 
-Event.create!(
+seed_event(
   game: minecraft,
   title: "Minecraft Live 2025",
   description: "The annual Minecraft Live broadcast — new mob vote, feature reveals and community celebrations.",
   start_date: DateTime.now + 21.days
 )
 
-Event.create!(
+seed_event(
   game: valorant,
   title: "VCT Masters 2025",
   description: "The Valorant Champions Tour Masters tournament. Watch the world's best teams compete live.",
   start_date: DateTime.now + 12.days
 )
 
-Event.create!(
+seed_event(
   game: marvel,
   title: "Invisible Woman Launch",
   description: "Invisible Woman joins the Marvel Rivals roster mid-season. New hero challenges and cosmetics available on launch day.",
   start_date: DateTime.now + 9.days
 )
 
-Event.create!(
+seed_event(
   game: helldivers,
   title: "Major Order — Illuminate Invasion",
   description: "All Helldivers are called to defend against the Illuminate return. Complete the Major Order to earn bonus Medals and a Super Credit reward.",
