@@ -50,8 +50,8 @@ Rails.application.configure do
   # Use memory cache store (simpler setup for student project)
   config.cache_store = :memory_store
 
-  # Use async queue adapter (no separate DB needed)
-  config.active_job.queue_adapter = :async
+  # Use Solid Queue so recurring jobs in config/recurring.yml run in production.
+  config.active_job.queue_adapter = :solid_queue
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
