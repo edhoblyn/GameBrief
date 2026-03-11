@@ -33,14 +33,17 @@ module Scrapers
         "meta[name='date']",
         "meta[itemprop='datePublished']",
         "time[datetime]",
-        "[itemprop='datePublished']"
+        "[itemprop='datePublished']",
+        "[data-test-id='tagline']",
+        "[class*='tagline']"
       ]
 
       selectors.each do |selector|
-        node = doc.at_css(selector)
-        value = node&.[]("content") || node&.[]("datetime") || node&.text
-        published_at = parse_published_at(value)
-        return published_at if published_at
+        doc.css(selector).each do |node|
+          value = node&.[]("content") || node&.[]("datetime") || node&.text
+          published_at = parse_published_at(value)
+          return published_at if published_at
+        end
       end
 
       nil
