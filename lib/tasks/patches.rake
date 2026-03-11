@@ -20,4 +20,26 @@ namespace :patches do
     puts "Expected an existing Game named 'Call of Duty: Warzone' or slugged 'call-of-duty-warzone'."
     exit 1
   end
+
+  desc "Scrape and import Fortnite patch notes from fortnite.com"
+  task scrape_fortnite: :environment do
+    puts "Scraping Fortnite patch notes..."
+    result = PatchImporters::FortniteImporter.new.call
+    puts "Done - #{result.imported} imported, #{result.skipped} already existed."
+  rescue ActiveRecord::RecordNotFound
+    puts "ERROR: Fortnite game not found in the database."
+    puts "Expected an existing Game named 'Fortnite' or slugged 'fortnite'."
+    exit 1
+  end
+
+  desc "Scrape and import Apex Legends patch notes from ea.com"
+  task scrape_apex_legends: :environment do
+    puts "Scraping Apex Legends patch notes..."
+    result = PatchImporters::ApexLegendsImporter.new.call
+    puts "Done - #{result.imported} imported, #{result.skipped} already existed."
+  rescue ActiveRecord::RecordNotFound
+    puts "ERROR: Apex Legends game not found in the database."
+    puts "Expected an existing Game named 'Apex Legends' or slugged 'apex-legends'."
+    exit 1
+  end
 end
