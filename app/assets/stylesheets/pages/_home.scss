@@ -115,6 +115,7 @@
   &__logout {
     margin-top: 1rem;
     padding-bottom: 3rem;
+    text-align: center;
   }
 }
 
@@ -172,6 +173,28 @@
     white-space: nowrap;
 
     i { font-size: 0.7rem; margin-right: 0.2rem; }
+  }
+}
+
+// ── Logout button ─────────────────────────────────────────────────────────────
+.logout-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0.5rem;
+  color: $dark-muted;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  padding: 0.4rem 1rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+
+  i { margin-right: 0.4rem; font-size: 0.75rem; }
+
+  &:hover {
+    border-color: rgba(253, 16, 21, 0.5);
+    color: #fd6b6e;
+    background: rgba(253, 16, 21, 0.08);
   }
 }
 
