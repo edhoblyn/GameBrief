@@ -86,4 +86,15 @@ namespace :patches do
     puts "Expected an existing Game named 'Valorant' or slugged 'valorant'."
     exit 1
   end
+
+  desc "Scrape and import Roblox release notes from create.roblox.com"
+  task scrape_roblox: :environment do
+    puts "Scraping Roblox release notes..."
+    result = PatchImporters::RobloxImporter.new.call
+    puts "Done - #{result.imported} imported, #{result.skipped} already existed."
+  rescue ActiveRecord::RecordNotFound
+    puts "ERROR: Roblox game not found in the database."
+    puts "Expected an existing Game named 'Roblox' or slugged 'roblox'."
+    exit 1
+  end
 end
