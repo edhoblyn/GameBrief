@@ -29,7 +29,7 @@ These were explicitly suggested by the team for tomorrow, so they should be trea
 
 ### Task 2
 
-**Hero Polish** 🟢
+**Hero Polish** 🟣
 
 **Task:** **Homepage polish** — make `"See my profile"` white and review the log in button styling/state so the hero actions are visually clear
 
@@ -39,7 +39,7 @@ These were explicitly suggested by the team for tomorrow, so they should be trea
 
 ### Task 3
 
-**Profile Flow** 🟣
+**Profile Flow** 🔴
 
 **Task:** **My Profile layout pass** — reduce the large empty areas, fill out unused space, and improve the overall page structure
 
@@ -65,7 +65,7 @@ These are still worth doing next, but they come after the team-priority UI chang
 
 ### Task 1
 
-**Event Lens** 🔴
+**Event Lens** 🟡
 
 **Task:** **Events page filters** — add game filter plus time filter (`This Week`, `This Month`, `Future`, `All`) on the events index
 
@@ -75,7 +75,7 @@ These are still worth doing next, but they come after the team-priority UI chang
 
 ### Task 2
 
-**Fresh Badge** 🟡
+**Fresh Badge** 🩷
 
 **Task:** **"New" badge on patches** — use `published_at` and show a visible badge on recent patches from the last 7 days
 
@@ -95,7 +95,7 @@ These are still worth doing next, but they come after the team-priority UI chang
 
 ### Task 4
 
-**Mobile Sweep** 🩷
+**Mobile Sweep** ⭐️
 
 **Task:** **Mobile responsiveness pass** — check and fix My Profile, patches, events, and games pages on small screens
 
@@ -113,9 +113,9 @@ Use these if someone finishes early or gets blocked.
 | --- | --- | --- |
 | **Chat Archive** 🩵 — **Saved AI chats** | **Baptiste** | Good extension of the chat system that already exists |
 | **Patch Palette** ❤️ — **Colour-coded update categories on game pages** | **Bianca** | Best fit for user-facing game page layout and presentation |
-| **Free Queue** 💚 — **Free to play filter** on games index | **Ed** | Closest to games index queries and filtering logic |
+| **Free Queue** 💙 — **Free to play filter** on games index | **Ed** | Closest to games index queries and filtering logic |
 | **Card Glow** 💜 — **Styled patch summary cards** refinement pass | **Hortense** | Best fit for visual consistency and card polish |
-| **Notify Hub** 🧡 — **Notification centre** placeholder page | **Bianca** | Good fit with profile/social-style UI work |
+| **Notify Hub** 📣 — **Notification centre** placeholder page | **Bianca** | Good fit with profile/social-style UI work |
 
 ---
 
