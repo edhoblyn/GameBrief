@@ -75,4 +75,15 @@ namespace :patches do
     puts "Expected an existing Game named 'Minecraft' or slugged 'minecraft'."
     exit 1
   end
+
+  desc "Scrape and import VALORANT patch notes from playvalorant.com"
+  task scrape_valorant: :environment do
+    puts "Scraping VALORANT patch notes..."
+    result = PatchImporters::ValorantImporter.new.call
+    puts "Done - #{result.imported} imported, #{result.skipped} already existed."
+  rescue ActiveRecord::RecordNotFound
+    puts "ERROR: VALORANT game not found in the database."
+    puts "Expected an existing Game named 'Valorant' or slugged 'valorant'."
+    exit 1
+  end
 end
