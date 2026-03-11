@@ -28,22 +28,24 @@ class PatchesControllerTest < ActionDispatch::IntegrationTest
     game = Game.create!(name: "Patch Newest Game", slug: "patch-newest-game")
     Patch.create!(game: game, title: "Older Patch", content: "Notes", published_at: 10.days.ago)
     Patch.create!(game: game, title: "Newer Patch", content: "Notes", published_at: 2.days.ago)
+    Patch.create!(game: game, title: "Unknown Date Patch", content: "Notes", source_url: "https://example.com/unknown")
 
     get patches_url(sort: "newest")
 
     assert_response :success
-    assert_equal ["Newer Patch", "Older Patch"], rendered_patch_titles.first(2)
+    assert_equal ["Newer Patch", "Older Patch", "Unknown Date Patch"], rendered_patch_titles.first(3)
   end
 
   test "sorts patches by oldest when requested" do
     game = Game.create!(name: "Patch Oldest Game", slug: "patch-oldest-game")
     Patch.create!(game: game, title: "Older Patch", content: "Notes", published_at: 10.days.ago)
     Patch.create!(game: game, title: "Newer Patch", content: "Notes", published_at: 2.days.ago)
+    Patch.create!(game: game, title: "Unknown Date Patch", content: "Notes", source_url: "https://example.com/unknown")
 
     get patches_url(sort: "oldest")
 
     assert_response :success
-    assert_equal ["Older Patch", "Newer Patch"], rendered_patch_titles.first(2)
+    assert_equal ["Older Patch", "Newer Patch", "Unknown Date Patch"], rendered_patch_titles.first(3)
   end
 
   private
