@@ -35,7 +35,6 @@ Rails.application.routes.draw do
 
   get "find-friends", to: "pages#find_friends", as: :find_friends
   get "my-profile", to: "pages#my_profile", as: :my_profile
-  get "dashboard", to: "pages#dashboard"
   get "home", to: "pages#home"
 
   root "pages#home"
