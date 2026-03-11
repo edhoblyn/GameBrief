@@ -12,7 +12,7 @@ class Scrapers::ClashOfClansScraper
   def call
     patch_links = fetch_patch_links
     Rails.logger.info "ClashOfClansScraper: found #{patch_links.size} patches to import"
-    patch_links.map { |url| fetch_patch(url) }.compact
+    patch_links.map { |patch_link| fetch_patch(patch_link) }.compact
   end
 
   private
@@ -35,11 +35,15 @@ class Scrapers::ClashOfClansScraper
       next unless href.include?("/games/clashofclans/blog/")
       next unless title.match?(TITLE_PATTERN)
 
-      normalize_url(href)
+      {
+        url: normalize_url(href),
+        published_at: published_at
+      }
     end.uniq
   end
 
-  def fetch_patch(url)
+  def fetch_patch(patch_link)
+    url = patch_link.fetch(:url)
     doc = Nokogiri::HTML(URI.open(url, HEADERS))
     title = doc.at("h1, h2")&.text&.squish
     content = extract_content(doc)
@@ -47,7 +51,12 @@ class Scrapers::ClashOfClansScraper
     return nil if title.blank? || content.blank?
     return nil unless title.match?(TITLE_PATTERN)
 
-    { title: title, content: content, source_url: url, published_at: extract_published_at(doc) }
+    {
+      title: title,
+      content: content,
+      source_url: url,
+      published_at: extract_published_at(doc) || patch_link[:published_at]
+    }
   rescue OpenURI::HTTPError => e
     Rails.logger.warn "ClashOfClansScraper: failed to fetch #{url} - #{e.message}"
     nil
