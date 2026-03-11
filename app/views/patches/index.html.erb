@@ -12,6 +12,13 @@
 
       <%= form_with url: form_action, method: :get, local: true, class: "patches-index__filter-form" do %>
         <%= hidden_field_tag :sort, @sort %>
+        <% unless @game %>
+          <%= label_tag :game, "Game", class: "patches-index__filter-label" %>
+          <%= select_tag :game,
+                options_for_select([["All games", ""]] + @games.map { |game| [game.name, game.id] }, params[:game]),
+                class: "patches-index__filter-select",
+                onchange: "this.form.requestSubmit()" %>
+        <% end %>
         <%= label_tag :date_filter, "Filter by date", class: "patches-index__filter-label" %>
         <%= select_tag :date_filter,
               options_for_select(Patch::DATE_FILTERS.map { |value, label| [label, value] }, @date_filter),
@@ -20,9 +27,9 @@
       <% end %>
 
       <div class="patches-index__sort-group">
-        <%= link_to "Recommended", (@game ? game_patches_path(@game, date_filter: @date_filter, sort: "recommended") : patches_path(date_filter: @date_filter, sort: "recommended")), class: "filter-btn #{@sort == 'recommended' ? 'active' : ''}" %>
-        <%= link_to "Newest", (@game ? game_patches_path(@game, date_filter: @date_filter, sort: "newest") : patches_path(date_filter: @date_filter, sort: "newest")), class: "filter-btn #{@sort == 'newest' ? 'active' : ''}" %>
-        <%= link_to "Oldest", (@game ? game_patches_path(@game, date_filter: @date_filter, sort: "oldest") : patches_path(date_filter: @date_filter, sort: "oldest")), class: "filter-btn #{@sort == 'oldest' ? 'active' : ''}" %>
+        <%= link_to "Recommended", (@game ? game_patches_path(@game, date_filter: @date_filter, sort: "recommended") : patches_path(game: params[:game], date_filter: @date_filter, sort: "recommended")), class: "filter-btn #{@sort == 'recommended' ? 'active' : ''}" %>
+        <%= link_to "Newest", (@game ? game_patches_path(@game, date_filter: @date_filter, sort: "newest") : patches_path(game: params[:game], date_filter: @date_filter, sort: "newest")), class: "filter-btn #{@sort == 'newest' ? 'active' : ''}" %>
+        <%= link_to "Oldest", (@game ? game_patches_path(@game, date_filter: @date_filter, sort: "oldest") : patches_path(game: params[:game], date_filter: @date_filter, sort: "oldest")), class: "filter-btn #{@sort == 'oldest' ? 'active' : ''}" %>
       </div>
     </div>
 
