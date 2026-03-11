@@ -138,4 +138,59 @@ All Round 2 tasks finished. See Round 1 completed work above for details.
 
 ---
 
-Last updated: Round 4 partial — Baptiste ✅, Bianca ✅, Ed ✅, Hortense ⬜ (mobile check pending) | Round 5 pending
+## Round 5 — Polish + Extra Features (partial)
+
+### Person 1 — Ed — Games Index Polish + Finishing Touches
+
+- `genre` column added to `games` table as a PostgreSQL array (`array: true, default: []`) — supports multi-genre per game
+- Genre data set on all 12 games using raw SQL with correct PG array literal format (`{"Shooter","Battle Royale"}`)
+- Genre filter buttons added to `games/index.html.erb` — 7 categories: Shooter, Battle Royale, Strategy, Sports, Sandbox, Simulation, Mobile
+- `GamesController#index` filters by genre using `? = ANY(genre::text[])` PostgreSQL query
+- Sort options added: A–Z and Most Followed (`left_joins(:favourites).group.order COUNT DESC`)
+- Footer added to `application.html.erb` — GameBrief name, current year, team names
+- `loading="lazy"` added to all cover images in games index
+- `_filter_btn.scss` and `_footer.scss` created and imported
+- `dashboard_path` bug fixed in `pages/home.html.erb` — changed to `games_path` (route didn't exist)
+- Error templates bug fixed — `ErrorsController` now explicitly renders `errors/404` and `errors/500`
+
+---
+
+## Round 6 — Stretch Features (partial)
+
+### Stretch Task 3 — AI Event Summary — Baptiste
+
+- `summary` text column added to the `events` table
+- `EventSummaryService` created — sends event title + description to Claude and returns a single sentence
+- `generate_summary` POST action added to `EventsController` with route wired up
+- "Summarise Event" button added to `events/show.html.erb` — generates and saves the summary on click
+- Summary displayed at the top of the event page when it exists
+
+---
+
+## Round 7 — Team Feature Requests (partial)
+
+### Task A — My Profile + Sidebar — Baptiste
+
+- "Dashboard" renamed to "My Profile" — navbar link, route (`my_profile_path`), page title, and internal links updated
+- "My Game's Patches" section added to My Profile — recent patches from followed games with links
+- "My Reminders" section shows all events the user has set reminders for
+- Sidebar navigation built for the My Profile page: My Games, My Patches, My Events, Communities, My Recommendations
+- Top navbar hidden on the My Profile page — sidebar replaces it for navigation
+- Empty state messages shown when no games are followed or no reminders are set
+
+### Task B — Patches Index + AI Chatbot — Baptiste
+
+- Standalone `patches/index` page created (not scoped to a single game) — shows patches from followed games first, then all other patches
+- "Patches" link added to the main navbar
+- `Chat` model and `chats` table created — belongs to `patch` and `user`, has many `messages`
+- `Message` model and `messages` table created — `role` (user/assistant), `content` (text)
+- `MAX_USER_MESSAGES = 10` limit enforced per chat to prevent abuse
+- `ChatsController#create` — finds or creates a chat between the current user and a patch
+- `MessagesController#create` — saves user message, calls RubyLLM (GPT-4o) for assistant response, streams reply via Turbo Streams
+- Conversation history built from all prior messages and passed as context on each request
+- Custom system instructions include the patch content so the chatbot answers questions about that specific patch
+- Chatbot UI added to `patches/show.html.erb` — collapsible panel with message history and input form
+
+---
+
+Last updated: Round 4 ✅ (Hortense mobile check ⬜) | Round 5 Ed ✅ tasks 1–6 | Round 5 others ⬜ | Round 6 Stretch Task 3 ✅ | Round 7 Tasks A + B ✅ | Round 5 remaining + Round 6 other stretch tasks ⬜

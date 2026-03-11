@@ -10,6 +10,46 @@
 #     schedule: at 5am every day
 
 production:
+  scrape_marvel_rivals_patches:
+    class: ScrapeMarvelRivalsJob
+    queue: default
+    schedule: every monday at 6am
+
+  scrape_warzone_patches:
+    class: ScrapeWarzoneJob
+    queue: default
+    schedule: every monday at 7am
+
+  scrape_fortnite_patches:
+    class: ScrapeFortniteJob
+    queue: default
+    schedule: every monday at 8am
+
+  scrape_apex_legends_patches:
+    class: ScrapeApexLegendsJob
+    queue: default
+    schedule: every monday at 9am
+
+  scrape_helldivers_2_patches:
+    class: ScrapeHelldivers2Job
+    queue: default
+    schedule: every monday at 10am
+
+  scrape_destiny_2_patches:
+    class: ScrapeDestiny2Job
+    queue: default
+    schedule: every monday at 11am
+
+  scrape_minecraft_patches:
+    class: ScrapeMinecraftJob
+    queue: default
+    schedule: every monday at 12pm
+
+  scrape_valorant_patches:
+    class: ScrapeValorantJob
+    queue: default
+    schedule: every monday at 1pm
+
   clear_solid_queue_finished_jobs:
     command: "SolidQueue::Job.clear_finished_in_batches(sleep_between_batches: 0.3)"
     schedule: every hour at minute 12

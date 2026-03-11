@@ -86,9 +86,12 @@
         <i class="fa fa-calendar"></i> My Events
         <span class="badge bg-secondary ms-auto"><%= @reminders.count %></span>
       </a>
-      <a href="#" class="profile-sidebar__nav-link">
-        <i class="fa fa-users"></i> Communities
+      <a href="#recommendations" class="profile-sidebar__nav-link">
+        <i class="fa fa-star"></i> My Recommendations
       </a>
+      <%= link_to find_friends_path, class: "profile-sidebar__nav-link" do %>
+        <i class="fa fa-users"></i> Find friends
+      <% end %>
     </nav>
 
     <div class="profile-sidebar__footer">
@@ -198,75 +201,69 @@
           </div>
         </article>
       <% end %>
-    </div>
+    </section>
 
-    <!-- Discover panel -->
-    <div class="social-tab-panel d-none" data-social-feed-target="tabPanel" data-panel="discover">
-      <div class="discover-section">
-        <h3 class="discover-section__title">Who to Follow</h3>
-        <div class="discover-profiles">
-          <% mock_profiles.last(6).each do |profile| %>
-            <div class="discover-profile-card">
-              <div class="discover-profile-card__avatar" style="background: <%= profile[:color] %>">
-                <%= profile[:initials] %>
-              </div>
-              <div class="discover-profile-card__info">
-                <span class="discover-profile-card__name"><%= profile[:name] %></span>
-                <span class="discover-profile-card__handle">@<%= profile[:handle] %></span>
-                <span class="discover-profile-card__followers"><%= fmt.(profile[:followers]) %> followers</span>
-              </div>
-              <button class="btn-follow" data-action="click->social-feed#toggleFollow">Follow</button>
+    <section id="my-patches" class="profile-section">
+      <h2 class="profile-section__title">My Game's Patches</h2>
+
+      <% if @recent_patches.any? %>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+          <% @recent_patches.each do |patch| %>
+            <div class="col">
+              <%= link_to patch_path(patch), class: "text-decoration-none" do %>
+                <div class="card h-100">
+                  <div class="card-body">
+                    <p class="text-muted small mb-1"><%= patch.game.name %></p>
+                    <h5 class="card-title"><%= patch.title %></h5>
+                  </div>
+                </div>
+              <% end %>
             </div>
           <% end %>
         </div>
-      </div>
+      <% else %>
+        <p class="profile-section__empty">No patches yet for your followed games.</p>
+      <% end %>
+    </section>
 
-      <div class="discover-section">
-        <h3 class="discover-section__title">Trending in Gaming</h3>
-        <div class="trending-list">
-          <% [
-            { tag: "#EldenRingDLC",  posts: "42.1K" },
-            { tag: "#PatchNotes",    posts: "18.7K" },
-            { tag: "#Valorant2025",  posts: "31.4K" },
-            { tag: "#BGS2025",       posts: "9.2K"  },
-            { tag: "#Speedrunning",  posts: "6.8K"  },
-            { tag: "#IndieGames",    posts: "4.1K"  },
-          ].each do |trend| %>
-            <div class="trending-item">
-              <div class="trending-item__tag"><%= trend[:tag] %></div>
-              <div class="trending-item__count"><%= trend[:posts] %> posts</div>
+
+    <section id="my-events" class="profile-section">
+      <h2 class="profile-section__title">
+        My Events
+        <span class="badge bg-secondary ms-2"><%= @reminders.count %></span>
+      </h2>
+
+      <% if @reminders.any? %>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+          <% @reminders.each do |reminder| %>
+            <div class="col">
+              <%= link_to event_path(reminder.event), class: "text-decoration-none" do %>
+                <div class="card h-100">
+                  <div class="card-body">
+                    <p class="text-muted small mb-1"><%= reminder.event.game.name %></p>
+                    <h5 class="card-title"><%= reminder.event.title %></h5>
+                    <p class="card-text text-muted small">
+                      <i class="fa fa-calendar me-1"></i>
+                      <%= reminder.event.start_date.strftime("%-d %b %Y") %>
+                    </p>
+                  </div>
+                </div>
+              <% end %>
             </div>
           <% end %>
         </div>
-      </div>
-    </div>
+      <% else %>
+        <p class="profile-section__empty">No reminders set. <%= link_to "Browse events", events_path %>.</p>
+      <% end %>
+    </section>
 
-    <!-- Communities panel -->
-    <div class="social-tab-panel d-none" data-social-feed-target="tabPanel" data-panel="communities">
-      <div class="communities-grid">
-        <% mock_communities.each do |community| %>
-          <div class="community-card">
-            <div class="community-card__icon" style="background: <%= community[:color] %>22; color: <%= community[:color] %>">
-              <%= community[:icon] %>
-            </div>
-            <div class="community-card__body">
-              <h4 class="community-card__name"><%= community[:name] %></h4>
-              <p class="community-card__desc"><%= community[:description] %></p>
-              <div class="community-card__footer">
-                <span class="community-card__members">
-                  <i class="fa fa-users"></i> <%= fmt.(community[:members]) %> members
-                </span>
-                <button class="btn-community <%= 'btn-community--joined' if community[:joined] %>"
-                        data-action="click->social-feed#toggleCommunity"
-                        style="--accent: <%= community[:color] %>">
-                  <%= community[:joined] ? "Joined ✓" : "Join" %>
-                </button>
-              </div>
-            </div>
-          </div>
-        <% end %>
-      </div>
-    </div>
+    <section id="recommendations" class="profile-section">
+      <h2 class="profile-section__title">My Recommendations</h2>
+      <p class="profile-section__empty">Recommendations coming soon.</p>
+    </section>
 
+      <%= link_to users_path, class: "btn btn-primary" do %>
+        <i class="fa fa-users me-2"></i> Start Session
+      <% end %>
   </main>
 </div>

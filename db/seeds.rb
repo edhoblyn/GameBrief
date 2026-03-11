@@ -35,11 +35,19 @@ def import_game(client, query)
 
   cover_url = match["cover"] ? "https:#{match["cover"]["url"].gsub("t_thumb", "t_cover_big")}" : nil
 
-  Game.create!(
+  game = if match["slug"].present?
+           Game.find_or_initialize_by(slug: match["slug"])
+         else
+           Game.find_or_initialize_by(name: match["name"])
+         end
+
+  game.update!(
     name: match["name"],
     slug: match["slug"],
     cover_image: cover_url
   )
+
+  game
 end
 
 fortnite  = import_game(client, "Fortnite")

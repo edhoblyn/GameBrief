@@ -1,53 +1,40 @@
-<nav class="hover-gradient-nav" data-controller="hover-nav">
+<nav class="hover-gradient-nav">
   <ul>
 
     <li class="hn-item">
-      <div class="hn-card" data-hover-nav-target="item">
-        <div class="hn-glow"></div>
+      <div class="hn-card">
         <a href="<%= root_path %>" class="hn-front">Home</a>
-        <a href="<%= root_path %>" class="hn-back">Home</a>
       </div>
     </li>
 
     <li class="hn-item">
-      <div class="hn-card" data-hover-nav-target="item">
-        <div class="hn-glow"></div>
+      <div class="hn-card">
         <a href="<%= games_path %>" class="hn-front">Games</a>
-        <a href="<%= games_path %>" class="hn-back">Games</a>
       </div>
     </li>
 
     <li class="hn-item">
-      <div class="hn-card" data-hover-nav-target="item">
-        <div class="hn-glow"></div>
+      <div class="hn-card">
         <a href="<%= events_path %>" class="hn-front">Events</a>
-        <a href="<%= events_path %>" class="hn-back">Events</a>
       </div>
     </li>
 
     <li class="hn-item">
-      <div class="hn-card" data-hover-nav-target="item">
-        <div class="hn-glow"></div>
+      <div class="hn-card">
         <a href="<%= patches_path %>" class="hn-front">Patches</a>
-        <a href="<%= patches_path %>" class="hn-back">Patches</a>
       </div>
     </li>
 
     <% if user_signed_in? %>
       <li class="hn-item">
-        <div class="hn-card" data-hover-nav-target="item">
-          <div class="hn-glow"></div>
-          <a href="<%= my_profile_path %>" class="hn-front">My Profile</a>
-          <a href="<%= my_profile_path %>" class="hn-back">My Profile</a>
+        <div class="hn-card">
+          <a href="<%= dashboard_path %>" class="hn-front">Dashboard</a>
         </div>
       </li>
-
     <% else %>
       <li class="hn-item">
-        <div class="hn-card" data-hover-nav-target="item">
-          <div class="hn-glow"></div>
+        <div class="hn-card">
           <a href="<%= new_user_session_path %>" class="hn-front">Login</a>
-          <a href="<%= new_user_session_path %>" class="hn-back">Login</a>
         </div>
       </li>
     <% end %>
