@@ -4,7 +4,7 @@
       <%= link_to @patch.game.name, game_path(@patch.game) %> &rsaquo; Patches
     </div>
     <h1><%= @patch.title %></h1>
-    <p class="patch-show__meta"><%= @patch.display_published_at ? @patch.display_published_at.to_date.to_fs(:long) : "Date unavailable" %></p>
+    <p class="patch-show__meta"><%= @patch.display_published_at.to_date.to_fs(:long) %></p>
   </div>
 
   <div class="container">
