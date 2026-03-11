@@ -45,6 +45,10 @@ class Patch < ApplicationRecord
   end
 
   def self.import_attributes(data, game:, existing_patch:)
+    resolved_published_at = if published_at_column?
+      data[:published_at] || existing_patch&.stored_published_at_for_reimport
+    end
+
     attributes = {
       game: game,
       title: data[:title],
@@ -52,7 +56,7 @@ class Patch < ApplicationRecord
     }
 
     if published_at_column?
-      attributes[:published_at] = data[:published_at] || existing_patch&.then { |patch| patch[:published_at] }
+      attributes[:published_at] = resolved_published_at
     end
 
     attributes
@@ -62,5 +66,19 @@ class Patch < ApplicationRecord
     return created_at unless self.class.published_at_column?
 
     self[:published_at] || created_at
+  end
+
+  def display_published_at
+    stored_published_at_for_reimport
+  end
+
+  def stored_published_at_for_reimport
+    return unless self.class.published_at_column?
+    return if self[:published_at].blank?
+    return self[:published_at] if source_url.blank?
+    return self[:published_at] if created_at.blank?
+    return if self[:published_at].to_i == created_at.to_i
+
+    self[:published_at]
   end
 end

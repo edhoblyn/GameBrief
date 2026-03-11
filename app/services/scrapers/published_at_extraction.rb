@@ -30,12 +30,9 @@ module Scrapers
         "meta[name='publish_date']",
         "meta[name='publish-date']",
         "meta[name='pubdate']",
-        "meta[name='date']",
         "meta[itemprop='datePublished']",
         "time[datetime]",
-        "[itemprop='datePublished']",
-        "[data-test-id='tagline']",
-        "[class*='tagline']"
+        "[itemprop='datePublished']"
       ]
 
       selectors.each do |selector|
