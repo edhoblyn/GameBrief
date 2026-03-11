@@ -43,6 +43,17 @@ namespace :patches do
     exit 1
   end
 
+  desc "Scrape and import EA Sports FC 26 pitch notes from ea.com"
+  task scrape_ea_sports_fc_26: :environment do
+    puts "Scraping EA Sports FC 26 patch notes..."
+    result = PatchImporters::EaSportsFc26Importer.new.call
+    puts "Done - #{result.imported} imported, #{result.skipped} already existed."
+  rescue ActiveRecord::RecordNotFound
+    puts "ERROR: EA Sports FC 26 game not found in the database."
+    puts "Expected an existing Game named 'EA Sports FC 26' or slugged 'ea-sports-fc-26'."
+    exit 1
+  end
+
   desc "Scrape and import Helldivers 2 patch notes from arrowhead.zendesk.com"
   task scrape_helldivers_2: :environment do
     puts "Scraping Helldivers 2 patch notes..."
