@@ -1,4 +1,4 @@
-// My Profile — sidebar layout
+// My Profile — social feed layout
 $sidebar-width: 260px;
 
 .my-profile-layout {
@@ -7,7 +7,7 @@ $sidebar-width: 260px;
   background: $dark-bg;
 }
 
-// ── Sidebar ────────────────────────────────────────────────────────────────
+// ── Sidebar ─────────────────────────────────────────────────────────────────
 .profile-sidebar {
   width: $sidebar-width;
   min-width: $sidebar-width;
@@ -26,26 +26,26 @@ $sidebar-width: 260px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.4rem;
   }
 
   &__avatar-img {
-    width: 64px;
-    height: 64px;
+    width: 56px;
+    height: 56px;
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid $accent-purple;
   }
 
   &__avatar-placeholder {
-    width: 64px;
-    height: 64px;
+    width: 56px;
+    height: 56px;
     border-radius: 50%;
     background: $accent-purple;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: 700;
     color: #fff;
   }
@@ -53,9 +53,15 @@ $sidebar-width: 260px;
   &__name {
     color: $dark-text;
     font-weight: 600;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     text-align: center;
     word-break: break-word;
+  }
+
+  &__handle {
+    color: $dark-muted;
+    font-size: 0.78rem;
+    text-align: center;
   }
 
   &__nav {
@@ -72,7 +78,7 @@ $sidebar-width: 260px;
     padding: 0.75rem 1.5rem;
     color: $dark-muted;
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     transition: background 0.15s, color 0.15s;
 
     i { width: 16px; text-align: center; }
@@ -98,55 +104,497 @@ $sidebar-width: 260px;
 
   &__signout {
     color: $dark-muted;
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     text-decoration: none;
-
     &:hover { color: $red; }
   }
 }
 
-// ── Main content ────────────────────────────────────────────────────────────
-.profile-main {
+// ── Social Main ──────────────────────────────────────────────────────────────
+.social-main {
   flex: 1;
-  padding: 2.5rem 2rem;
+  max-width: 660px;
+  border-right: 1px solid $dark-border;
+  min-height: 100vh;
   overflow-y: auto;
+}
 
-  &__title {
-    color: $dark-text;
-    font-size: 1.75rem;
-    font-weight: 700;
-    margin-bottom: 2rem;
+// ── Profile Header ───────────────────────────────────────────────────────────
+.social-profile-header {
+  border-bottom: 1px solid $dark-border;
+}
+
+.social-profile-banner {
+  height: 180px;
+  background: linear-gradient(
+    135deg,
+    rgba(124, 92, 252, 0.75) 0%,
+    rgba(79, 156, 249, 0.55) 45%,
+    rgba(30, 221, 136, 0.35) 100%
+  );
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   }
 }
 
-.profile-section {
-  margin-bottom: 3rem;
+.social-profile-info {
+  padding: 0 1.25rem 1.25rem;
+}
 
-  &__title {
+.social-profile-top-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.social-profile-avatar-wrap {
+  margin-top: -44px;
+}
+
+.social-profile-avatar {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: $accent-purple;
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 4px solid $dark-bg;
+
+  &--img {
+    object-fit: cover;
+  }
+}
+
+.social-profile-identity {
+  margin-bottom: 0.5rem;
+}
+
+.social-profile-name {
+  color: $dark-text;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0 0 0.15rem;
+}
+
+.social-profile-handle {
+  color: $dark-muted;
+  font-size: 0.88rem;
+}
+
+.social-profile-bio {
+  color: $dark-text;
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.5;
+}
+
+.social-profile-stats {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.social-stat {
+  display: flex;
+  gap: 0.3rem;
+  align-items: baseline;
+  text-decoration: none;
+  color: $dark-muted;
+  font-size: 0.85rem;
+
+  &:hover { color: $dark-text; text-decoration: none; }
+
+  &__count {
     color: $dark-text;
-    font-size: 1.15rem;
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+}
+
+.btn-edit-profile {
+  background: transparent;
+  border: 1px solid $dark-border;
+  color: $dark-text;
+  border-radius: 20px;
+  padding: 0.35rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: $dark-text;
+  }
+}
+
+// ── Tab Navigation ───────────────────────────────────────────────────────────
+.social-tabs-nav {
+  display: flex;
+  border-bottom: 1px solid $dark-border;
+}
+
+.social-tab-btn {
+  flex: 1;
+  background: none;
+  border: none;
+  color: $dark-muted;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 1rem 0;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.15s, background 0.15s;
+  font-family: inherit;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 3px;
+    background: $accent-purple;
+    border-radius: 3px 3px 0 0;
+    transition: width 0.2s;
+  }
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.03);
+    color: $dark-text;
+  }
+
+  &.active {
+    color: $dark-text;
     font-weight: 600;
-    margin-bottom: 1.25rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid $dark-border;
+
+    &::after { width: 48px; }
+  }
+}
+
+// ── Post Feed ────────────────────────────────────────────────────────────────
+.social-post {
+  display: flex;
+  gap: 0.875rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid $dark-border;
+  transition: background 0.12s;
+
+  &:hover { background: rgba(255, 255, 255, 0.015); }
+
+  &__avatar {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    border-radius: 50%;
     display: flex;
     align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #fff;
   }
 
-  &__empty {
-    color: $dark-muted;
-    font-style: italic;
-    font-size: 0.9rem;
+  &__body { flex: 1; min-width: 0; }
 
-    a { color: $accent-purple; }
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-bottom: 0.3rem;
+    flex-wrap: wrap;
+  }
+
+  &__name {
+    color: $dark-text;
+    font-weight: 600;
+    font-size: 0.88rem;
+  }
+
+  &__handle,
+  &__dot,
+  &__time {
+    color: $dark-muted;
+    font-size: 0.82rem;
+  }
+
+  &__text {
+    color: $dark-text;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    margin-bottom: 0.75rem;
+    word-break: break-word;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 1.5rem;
   }
 }
 
-// ── Mobile: stack sidebar above content ─────────────────────────────────────
-@media (max-width: 768px) {
-  .my-profile-layout {
-    flex-direction: column;
+.post-action {
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: $dark-muted;
+  font-size: 0.8rem;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.15s;
+  font-family: inherit;
+
+  i { font-size: 0.95rem; }
+
+  &--reply:hover  { color: $accent-blue; }
+  &--repost:hover { color: #1EDD88; }
+  &--like:hover   { color: $red; }
+  &--views:hover  { color: $accent-blue; }
+
+  &--repost.is-reposted {
+    color: #1EDD88;
+    font-weight: 600;
   }
+
+  &--like.is-liked {
+    color: $red;
+    i { font-size: 0.95rem; }
+  }
+}
+
+.interaction-count { font-variant-numeric: tabular-nums; }
+
+// ── Discover Panel ───────────────────────────────────────────────────────────
+.discover-section {
+  padding: 1.25rem;
+  border-bottom: 1px solid $dark-border;
+
+  &__title {
+    color: $dark-text;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+}
+
+.discover-profiles {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.discover-profile-card {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.625rem;
+  border-radius: 10px;
+  transition: background 0.15s;
+
+  &:hover { background: rgba(255, 255, 255, 0.04); }
+
+  &__avatar {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  &__info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    min-width: 0;
+  }
+
+  &__name {
+    color: $dark-text;
+    font-size: 0.88rem;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__handle {
+    color: $dark-muted;
+    font-size: 0.78rem;
+  }
+
+  &__followers {
+    color: $dark-muted;
+    font-size: 0.75rem;
+  }
+}
+
+.btn-follow {
+  background: $dark-text;
+  color: $dark-bg;
+  border: none;
+  border-radius: 20px;
+  padding: 0.3rem 1rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+  font-family: inherit;
+
+  &.is-following {
+    background: transparent;
+    color: $dark-text;
+    border: 1px solid $dark-border;
+  }
+
+  &:hover:not(.is-following) { background: rgba($dark-text, 0.85); }
+  &.is-following:hover { border-color: $red; color: $red; }
+}
+
+.trending-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.trending-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.625rem;
+  border-radius: 8px;
+  transition: background 0.15s;
+  cursor: pointer;
+
+  &:hover { background: rgba(255, 255, 255, 0.04); }
+
+  &__tag {
+    color: $dark-text;
+    font-weight: 600;
+    font-size: 0.88rem;
+  }
+
+  &__count {
+    color: $dark-muted;
+    font-size: 0.78rem;
+  }
+}
+
+// ── Communities Panel ────────────────────────────────────────────────────────
+.communities-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: $dark-border;
+}
+
+.community-card {
+  display: flex;
+  gap: 0.875rem;
+  padding: 1.125rem;
+  background: $dark-bg;
+  transition: background 0.15s;
+
+  &:hover { background: rgba(255, 255, 255, 0.02); }
+
+  &__icon {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+  }
+
+  &__body {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  &__name {
+    color: $dark-text;
+    font-size: 0.88rem;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  &__desc {
+    color: $dark-muted;
+    font-size: 0.77rem;
+    line-height: 1.4;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-top: 0.4rem;
+    flex-wrap: wrap;
+  }
+
+  &__members {
+    color: $dark-muted;
+    font-size: 0.75rem;
+    i { margin-right: 0.25rem; }
+  }
+}
+
+.btn-community {
+  background: transparent;
+  border: 1px solid var(--accent, #{$accent-purple});
+  color: var(--accent, #{$accent-purple});
+  border-radius: 16px;
+  padding: 0.2rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+  font-family: inherit;
+
+  &:hover:not(.btn-community--joined) {
+    background: var(--accent, #{$accent-purple});
+    color: #fff;
+  }
+
+  &--joined {
+    background: var(--accent, #{$accent-purple});
+    color: #fff;
+    opacity: 0.85;
+  }
+}
+
+// ── Mobile ───────────────────────────────────────────────────────────────────
+@media (max-width: 768px) {
+  .my-profile-layout { flex-direction: column; }
 
   .profile-sidebar {
     width: 100%;
@@ -166,7 +614,7 @@ $sidebar-width: 260px;
     &__nav-link {
       padding: 0.5rem 0.75rem;
       border-radius: 6px;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
 
       &--active {
         border-left: none;
@@ -175,4 +623,10 @@ $sidebar-width: 260px;
       }
     }
   }
+
+  .social-main { max-width: 100%; border-right: none; }
+
+  .communities-grid { grid-template-columns: 1fr; }
+
+  .social-post__actions { gap: 1rem; }
 }

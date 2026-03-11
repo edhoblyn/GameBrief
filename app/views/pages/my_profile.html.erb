@@ -1,6 +1,54 @@
 <% content_for :hide_navbar, true %>
 <% content_for :title, "My Profile" %>
 
+<%
+  fmt = ->(n) { n >= 1000 ? "#{(n / 1000.0).round(1).to_s.sub(/\.0$/, '')}K" : n.to_s }
+
+  mock_profiles = [
+    { name: "Zara Nova",    handle: "zaranova",      initials: "ZN", color: "#7c5cfc", followers: 12400 },
+    { name: "Kai Rivers",   handle: "kaiRivers_gg",  initials: "KR", color: "#4f9cf9", followers: 3200  },
+    { name: "Milo Ashton",  handle: "miloashton",    initials: "MA", color: "#1EDD88", followers: 890   },
+    { name: "Luna Park",    handle: "lunapark_x",    initials: "LP", color: "#FFC65A", followers: 5600  },
+    { name: "Dev Echo",     handle: "devecho",       initials: "DE", color: "#E67E22", followers: 21000 },
+    { name: "Nova Strike",  handle: "novaStrike99",  initials: "NS", color: "#FD1015", followers: 760   },
+    { name: "Pixel Ghost",  handle: "pixelghost",    initials: "PG", color: "#7c5cfc", followers: 4100  },
+    { name: "Ariel Storm",  handle: "arielstorm",    initials: "AS", color: "#4f9cf9", followers: 1200  },
+    { name: "Jax Fury",     handle: "jaxfury_gg",    initials: "JF", color: "#1EDD88", followers: 8900  },
+    { name: "Cleo Vex",     handle: "cleovex",       initials: "CV", color: "#FFC65A", followers: 330   },
+    { name: "Rex Online",   handle: "rex_online",    initials: "RO", color: "#E67E22", followers: 15000 },
+    { name: "Sage Vortex",  handle: "sagevortex",    initials: "SV", color: "#FD1015", followers: 2700  },
+  ]
+
+  mock_posts = [
+    { id: 1,  user: mock_profiles[0],  text: "The new Elden Ring DLC patch just dropped and the balancing changes are INSANE 🔥 Finally some love for strength builds!", timestamp: "2h",  views: 14200, likes: 342,  reposts: 89,  replies: 47,  liked: false, reposted: false },
+    { id: 2,  user: mock_profiles[4],  text: "Hot take: Patch 2.4 actually made Valorant worse for casual players. The ranked matchmaking feels completely broken. Anyone else noticing this?", timestamp: "4h",  views: 8900,  likes: 521,  reposts: 134, replies: 203, liked: true,  reposted: false },
+    { id: 3,  user: mock_profiles[1],  text: "Just unlocked the secret ending in Hollow Knight after 80 hours. No spoilers but... I need to lie down for a bit 😭", timestamp: "6h",  views: 6700,  likes: 891,  reposts: 210, replies: 88,  liked: false, reposted: false },
+    { id: 4,  user: mock_profiles[8],  text: "League patch notes just hit and they nerfed my main again. Third time this season. Riot is personally attacking me.", timestamp: "8h",  views: 22100, likes: 1240, reposts: 430, replies: 320, liked: false, reposted: true  },
+    { id: 5,  user: mock_profiles[3],  text: "Reminder that the Apex Legends Season 20 patch made the movement way better. If you haven't tried the new stim mechanics, do it NOW.", timestamp: "12h", views: 5400,  likes: 267,  reposts: 56,  replies: 31,  liked: false, reposted: false },
+    { id: 6,  user: mock_profiles[6],  text: "Patch 7.2 for Cyberpunk 2077 is basically a different game at this point. The police AI rework alone is worth coming back for.", timestamp: "1d",  views: 19300, likes: 703,  reposts: 198, replies: 115, liked: true,  reposted: false },
+    { id: 7,  user: mock_profiles[2],  text: "Counter-Strike 2 update broke my config and now my sens is completely wrong. This is a genuine tragedy.", timestamp: "1d",  views: 3200,  likes: 445,  reposts: 77,  replies: 59,  liked: false, reposted: false },
+    { id: 8,  user: mock_profiles[10], text: "Destiny 2 just revealed the 2025 roadmap. A full sandbox overhaul is coming. This is the comeback arc they needed.", timestamp: "2d",  views: 34500, likes: 1890, reposts: 620, replies: 441, liked: false, reposted: false },
+    { id: 9,  user: mock_profiles[5],  text: "Pro tip: there's a secret spot on Fortnite's north island nobody's talking about yet. Drop there = free top 5.", timestamp: "2d",  views: 7800,  likes: 334,  reposts: 112, replies: 78,  liked: true,  reposted: true  },
+    { id: 10, user: mock_profiles[11], text: "Street Fighter 6 patch 1.10 Cammy buffs are insane. She went from C-tier to potentially S-tier overnight. The FGC is not ready.", timestamp: "3d",  views: 4100,  likes: 188,  reposts: 44,  replies: 23,  liked: false, reposted: false },
+    { id: 11, user: mock_profiles[7],  text: "The Baldur's Gate 3 community patch notes are a masterclass in how studios should communicate with players. Shoutout to the whole team 👏", timestamp: "3d",  views: 9200,  likes: 672,  reposts: 215, replies: 98,  liked: false, reposted: false },
+    { id: 12, user: mock_profiles[9],  text: "Finally hit Diamond in Rocket League after the rank reset. The new matchmaking from the last patch is way more fair imo.", timestamp: "4d",  views: 2300,  likes: 156,  reposts: 28,  replies: 14,  liked: true,  reposted: false },
+  ]
+
+  mock_communities = [
+    { name: "Elden Ring Lore Masters", description: "Deep dives into FromSoft lore, patch analysis, and build theory.",       members: 24800, joined: true,  icon: "🏰", color: "#7c5cfc" },
+    { name: "Speedrun Central",        description: "Any% to 100%, all games welcome. Share routes, splits, and PBs.",        members: 8300,  joined: false, icon: "⚡", color: "#FFC65A" },
+    { name: "Indie Dev Watchers",      description: "Track indie studios, wishlists, and upcoming patch previews.",           members: 5100,  joined: true,  icon: "🎮", color: "#1EDD88" },
+    { name: "Competitive FPS Hub",     description: "CS2, Valorant, Overwatch — strategy, pro play and patch breakdowns.",    members: 41200, joined: false, icon: "🎯", color: "#FD1015" },
+    { name: "JRPG Travellers",         description: "Story discussion, tier lists, and patch notes for JRPGs.",               members: 12700, joined: false, icon: "✨", color: "#4f9cf9" },
+    { name: "Patch Notes Nerds",       description: "We read every single patch note so you don't have to.",                 members: 3900,  joined: true,  icon: "📋", color: "#E67E22" },
+    { name: "Couch Co-op Crew",        description: "Local and online co-op recommendations and event organization.",         members: 7600,  joined: false, icon: "🛋️", color: "#7c5cfc" },
+    { name: "Roguelike Runners",       description: "Hades, Dead Cells, Slay the Spire — runs, builds and meta discussion.", members: 15400, joined: false, icon: "🎲", color: "#4f9cf9" },
+  ]
+
+  profile_name   = current_user.username.presence || current_user.email.split("@").first
+  profile_handle = profile_name.downcase.gsub(/\s+/, "_")
+%>
+
 <div class="my-profile-layout">
 
   <!-- Sidebar -->
@@ -15,24 +63,26 @@
           </div>
         <% end %>
       </div>
-      <div class="profile-sidebar__name">
-        <%= current_user.username.presence || current_user.email %>
-      </div>
+      <div class="profile-sidebar__name"><%= profile_name %></div>
+      <div class="profile-sidebar__handle">@<%= profile_handle %></div>
     </div>
 
     <nav class="profile-sidebar__nav">
       <a href="<%= root_path %>" class="profile-sidebar__nav-link">
         <i class="fa fa-home"></i> Home
       </a>
-      <a href="#my-games" class="profile-sidebar__nav-link profile-sidebar__nav-link--active">
+      <a href="#" class="profile-sidebar__nav-link profile-sidebar__nav-link--active">
+        <i class="fa fa-user"></i> My Profile
+      </a>
+      <a href="<%= games_path %>" class="profile-sidebar__nav-link">
         <i class="fa fa-gamepad"></i> My Games
         <span class="badge bg-secondary ms-auto"><%= @followed_games.count %></span>
       </a>
-      <a href="#my-patches" class="profile-sidebar__nav-link">
+      <a href="#" class="profile-sidebar__nav-link">
         <i class="fa fa-file-text"></i> My Patches
         <span class="badge bg-secondary ms-auto"><%= @recent_patches.count %></span>
       </a>
-      <a href="#my-events" class="profile-sidebar__nav-link">
+      <a href="#" class="profile-sidebar__nav-link">
         <i class="fa fa-calendar"></i> My Events
         <span class="badge bg-secondary ms-auto"><%= @reminders.count %></span>
       </a>
@@ -49,37 +99,107 @@
     </div>
   </aside>
 
-  <!-- Main content -->
-  <main class="profile-main">
-    <h1 class="profile-main__title">My Profile</h1>
+  <!-- Social main -->
+  <main class="social-main" data-controller="social-feed">
 
-    <!-- My Games -->
-    <section id="my-games" class="profile-section">
-      <h2 class="profile-section__title">
-        My Games
-        <span class="badge bg-secondary ms-2"><%= @followed_games.count %></span>
-      </h2>
-
-      <% if @followed_games.any? %>
-        <div class="events-grid" data-controller="glow-card">
-          <% @followed_games.each do |game| %>
-            <%= link_to game_path(game),
-                  class: "event-glow-card event-glow-card--purple",
-                  data: { "glow-card-target": "card" } do %>
-              <div class="event-glow-card__inner">
-                <% if game.cover_image.present? %>
-                  <%= image_tag game.cover_image, class: "event-glow-card__cover" %>
-                <% end %>
-                <div class="event-glow-card__title"><%= game.name %></div>
-                <div class="event-glow-card__game">
-                  <i class="fa fa-gamepad"></i> View updates
-                </div>
+    <!-- Profile header -->
+    <div class="social-profile-header">
+      <div class="social-profile-banner"></div>
+      <div class="social-profile-info">
+        <div class="social-profile-top-row">
+          <div class="social-profile-avatar-wrap">
+            <% if current_user.avatar_url.present? %>
+              <%= image_tag current_user.avatar_url, class: "social-profile-avatar social-profile-avatar--img" %>
+            <% else %>
+              <div class="social-profile-avatar">
+                <%= current_user.email.first.upcase %>
               </div>
             <% end %>
-          <% end %>
+          </div>
+          <button class="btn-edit-profile">Edit Profile</button>
         </div>
-      <% else %>
-        <p class="profile-section__empty">You haven't followed any games yet. <%= link_to "Browse games", games_path %>.</p>
+
+        <div class="social-profile-identity">
+          <h2 class="social-profile-name"><%= profile_name %></h2>
+          <span class="social-profile-handle">@<%= profile_handle %></span>
+        </div>
+        <p class="social-profile-bio">Casual gamer. Patch notes enthusiast. Always one update behind.</p>
+        <div class="social-profile-stats">
+          <a href="#" class="social-stat">
+            <span class="social-stat__count">248</span>
+            <span class="social-stat__label">Following</span>
+          </a>
+          <a href="#" class="social-stat">
+            <span class="social-stat__count"><%= current_user.follower_count || 0 %></span>
+            <span class="social-stat__label">Followers</span>
+          </a>
+          <a href="#" class="social-stat">
+            <span class="social-stat__count">89</span>
+            <span class="social-stat__label">Posts</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab navigation -->
+    <div class="social-tabs-nav">
+      <button class="social-tab-btn active"
+              data-action="click->social-feed#switchTab"
+              data-social-feed-target="tabBtn"
+              data-tab="for-you">
+        For You
+      </button>
+      <button class="social-tab-btn"
+              data-action="click->social-feed#switchTab"
+              data-social-feed-target="tabBtn"
+              data-tab="discover">
+        Discover
+      </button>
+      <button class="social-tab-btn"
+              data-action="click->social-feed#switchTab"
+              data-social-feed-target="tabBtn"
+              data-tab="communities">
+        Communities
+      </button>
+    </div>
+
+    <!-- For You panel -->
+    <div class="social-tab-panel" data-social-feed-target="tabPanel" data-panel="for-you">
+      <% mock_posts.each do |post| %>
+        <article class="social-post">
+          <div class="social-post__avatar" style="background: <%= post[:user][:color] %>">
+            <%= post[:user][:initials] %>
+          </div>
+          <div class="social-post__body">
+            <div class="social-post__header">
+              <span class="social-post__name"><%= post[:user][:name] %></span>
+              <span class="social-post__handle">@<%= post[:user][:handle] %></span>
+              <span class="social-post__dot">·</span>
+              <span class="social-post__time"><%= post[:timestamp] %></span>
+            </div>
+            <p class="social-post__text"><%= post[:text] %></p>
+            <div class="social-post__actions">
+              <button class="post-action post-action--reply">
+                <i class="fa fa-comment-o"></i>
+                <span class="interaction-count"><%= post[:replies] %></span>
+              </button>
+              <button class="post-action post-action--repost <%= 'is-reposted' if post[:reposted] %>"
+                      data-action="click->social-feed#toggleRepost">
+                <i class="fa fa-retweet"></i>
+                <span class="interaction-count"><%= fmt.(post[:reposts]) %></span>
+              </button>
+              <button class="post-action post-action--like <%= 'is-liked' if post[:liked] %>"
+                      data-action="click->social-feed#toggleLike">
+                <i class="fa fa-heart<%= '-o' unless post[:liked] %>"></i>
+                <span class="interaction-count"><%= fmt.(post[:likes]) %></span>
+              </button>
+              <button class="post-action post-action--views">
+                <i class="fa fa-bar-chart"></i>
+                <span class="interaction-count"><%= fmt.(post[:views]) %></span>
+              </button>
+            </div>
+          </div>
+        </article>
       <% end %>
     </section>
 
