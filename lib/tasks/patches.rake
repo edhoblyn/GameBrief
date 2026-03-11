@@ -97,4 +97,15 @@ namespace :patches do
     puts "Expected an existing Game named 'Roblox' or slugged 'roblox'."
     exit 1
   end
+
+  desc "Scrape and import Clash Royale release notes from supercell.com"
+  task scrape_clash_royale: :environment do
+    puts "Scraping Clash Royale release notes..."
+    result = PatchImporters::ClashRoyaleImporter.new.call
+    puts "Done - #{result.imported} imported, #{result.skipped} already existed."
+  rescue ActiveRecord::RecordNotFound
+    puts "ERROR: Clash Royale game not found in the database."
+    puts "Expected an existing Game named 'Clash Royale' or slugged 'clash-royale'."
+    exit 1
+  end
 end
