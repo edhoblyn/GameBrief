@@ -166,6 +166,11 @@ $sidebar-width: 260px;
       border-color: rgba($accent-purple, 0.35);
       transform: translateY(-1px);
     }
+
+    &--active {
+      border-color: rgba(#1EDD88, 0.22);
+      background: linear-gradient(180deg, rgba(#1EDD88, 0.1), rgba(255, 255, 255, 0.03));
+    }
   }
 
   &__control-copy {

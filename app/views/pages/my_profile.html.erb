@@ -100,35 +100,56 @@
       <% end %>
     </nav>
 
-    <section class="profile-sidebar__section">
+    <section class="profile-sidebar__section" data-controller="notification-toggles">
       <div class="profile-sidebar__section-header">
         <h3 class="profile-sidebar__section-title">Notifications</h3>
         <span class="profile-sidebar__section-badge">Live</span>
       </div>
 
       <div class="profile-sidebar__control-list">
-        <button type="button" class="profile-sidebar__control">
+        <button type="button"
+                class="profile-sidebar__control profile-sidebar__control--active"
+                data-action="click->notification-toggles#toggle"
+                data-notification-toggles-target="toggle"
+                data-notification-key="patch-alerts"
+                data-notification-default-state="on"
+                aria-pressed="true">
           <span class="profile-sidebar__control-copy">
             <span class="profile-sidebar__control-label">Patch alerts</span>
             <span class="profile-sidebar__control-meta">Major game updates and fresh patch drops</span>
           </span>
-          <span class="profile-sidebar__control-state profile-sidebar__control-state--active">On</span>
+          <span class="profile-sidebar__control-state profile-sidebar__control-state--active"
+                data-notification-toggles-target="state">On</span>
         </button>
 
-        <button type="button" class="profile-sidebar__control">
+        <button type="button"
+                class="profile-sidebar__control profile-sidebar__control--active"
+                data-action="click->notification-toggles#toggle"
+                data-notification-toggles-target="toggle"
+                data-notification-key="event-reminders"
+                data-notification-default-state="on"
+                aria-pressed="true">
           <span class="profile-sidebar__control-copy">
             <span class="profile-sidebar__control-label">Event reminders</span>
             <span class="profile-sidebar__control-meta">Upcoming events from games you follow</span>
           </span>
-          <span class="profile-sidebar__control-state profile-sidebar__control-state--active">On</span>
+          <span class="profile-sidebar__control-state profile-sidebar__control-state--active"
+                data-notification-toggles-target="state">On</span>
         </button>
 
-        <button type="button" class="profile-sidebar__control">
+        <button type="button"
+                class="profile-sidebar__control"
+                data-action="click->notification-toggles#toggle"
+                data-notification-toggles-target="toggle"
+                data-notification-key="recommendation-updates"
+                data-notification-default-state="off"
+                aria-pressed="false">
           <span class="profile-sidebar__control-copy">
             <span class="profile-sidebar__control-label">Recommendation updates</span>
             <span class="profile-sidebar__control-meta">Suggestions based on your activity</span>
           </span>
-          <span class="profile-sidebar__control-state">Off</span>
+          <span class="profile-sidebar__control-state"
+                data-notification-toggles-target="state">Off</span>
         </button>
       </div>
     </section>
