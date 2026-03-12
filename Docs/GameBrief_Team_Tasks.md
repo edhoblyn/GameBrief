@@ -1,6 +1,6 @@
 # GameBrief — Team Tasks
 
-> Last updated: 2026-03-11 | Focus: Next working day plan updated with team priorities for homepage, tab icon, and My Profile improvements
+> Last updated: 2026-03-12 | Focus: Task 1 (Brand Pass) done — tab icon updated, GameBrief logo on homepage, featured gamers carousel
 
 ---
 
@@ -25,7 +25,7 @@ These were explicitly suggested by the team for tomorrow, so they should be trea
 
 **Why it matters:** This is a quick visual polish win that improves first impressions immediately and makes the app feel more finished.
 
-**Done?** ⬜
+**Done?** ✅
 
 ### Task 2 - Bianaca
 
