@@ -25,4 +25,19 @@ class PagesController < ApplicationController
   def my_games
     @games = current_user.favourite_games.order(:name)
   end
+
+  def my_patches
+    @followed_games = current_user.favourite_games
+    @date_filter = params[:date_filter].presence_in(Patch::DATE_FILTERS.keys) || "all"
+    @sort = params[:sort].presence_in(%w[newest oldest]) || "newest"
+
+    @patches = Patch.where(game: @followed_games)
+                    .includes(:game)
+                    .with_date_filter(@date_filter)
+
+    @patches = case @sort
+               when "oldest" then @patches.known_oldest_first
+               else @patches.known_newest_first
+               end
+  end
 end

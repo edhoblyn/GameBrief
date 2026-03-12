@@ -84,7 +84,7 @@
         <i class="fa fa-gamepad"></i> My Games
         <span class="badge bg-secondary ms-auto"><%= @followed_games.count %></span>
       </a>
-      <a href="#" class="profile-sidebar__nav-link">
+      <a href="<%= my_patches_path %>" class="profile-sidebar__nav-link">
         <i class="fa fa-file-text"></i> My Patches
         <span class="badge bg-secondary ms-auto"><%= @recent_patches.count %></span>
       </a>
@@ -347,7 +347,7 @@
     <section id="my-patches" class="profile-rail-card">
       <div class="profile-rail-card__header">
         <h3 class="profile-rail-card__title">Latest Patch</h3>
-        <%= link_to "View patches", patches_path, class: "profile-rail-card__link" %>
+        <%= link_to "View patches", my_patches_path, class: "profile-rail-card__link" %>
       </div>
       <% if latest_patch.present? %>
         <%= link_to patch_path(latest_patch), class: "profile-rail-feature" do %>
