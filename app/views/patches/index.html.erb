@@ -8,13 +8,29 @@
 
   <div class="container">
     <div class="patches-index__filters">
-      <%= form_with url: (@game ? game_patches_path(@game) : patches_path), method: :get, local: true, class: "patches-index__filter-form" do %>
+      <% form_action = @game ? game_patches_path(@game) : patches_path %>
+
+      <%= form_with url: form_action, method: :get, local: true, class: "patches-index__filter-form" do %>
+        <%= hidden_field_tag :sort, @sort %>
+        <% unless @game %>
+          <%= label_tag :game, "Game", class: "patches-index__filter-label" %>
+          <%= select_tag :game,
+                options_for_select([["All games", ""]] + @games.map { |game| [game.name, game.id] }, params[:game]),
+                class: "patches-index__filter-select",
+                onchange: "this.form.requestSubmit()" %>
+        <% end %>
         <%= label_tag :date_filter, "Filter by date", class: "patches-index__filter-label" %>
         <%= select_tag :date_filter,
               options_for_select(Patch::DATE_FILTERS.map { |value, label| [label, value] }, @date_filter),
               class: "patches-index__filter-select",
               onchange: "this.form.requestSubmit()" %>
       <% end %>
+
+      <div class="patches-index__sort-group">
+        <%= link_to "Recommended", (@game ? game_patches_path(@game, date_filter: @date_filter, sort: "recommended") : patches_path(game: params[:game], date_filter: @date_filter, sort: "recommended")), class: "filter-btn #{@sort == 'recommended' ? 'active' : ''}" %>
+        <%= link_to "Newest", (@game ? game_patches_path(@game, date_filter: @date_filter, sort: "newest") : patches_path(game: params[:game], date_filter: @date_filter, sort: "newest")), class: "filter-btn #{@sort == 'newest' ? 'active' : ''}" %>
+        <%= link_to "Oldest", (@game ? game_patches_path(@game, date_filter: @date_filter, sort: "oldest") : patches_path(game: params[:game], date_filter: @date_filter, sort: "oldest")), class: "filter-btn #{@sort == 'oldest' ? 'active' : ''}" %>
+      </div>
     </div>
 
     <% if @patches.any? %>
@@ -26,7 +42,7 @@
                 <div class="card-body">
                   <p class="text-muted small mb-1"><%= patch.game.name %></p>
                   <h5 class="card-title"><%= patch.title %></h5>
-                  <p class="patches-index__date"><%= patch.effective_published_at.to_date.to_fs(:long) %></p>
+                  <p class="patches-index__date"><%= patch.display_published_at.to_date.to_fs(:long) %></p>
                   <p class="card-text text-muted small"><%= patch.content.truncate(100) %></p>
                 </div>
               </div>

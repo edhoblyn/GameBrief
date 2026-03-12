@@ -35,14 +35,14 @@
   ]
 
   mock_communities = [
-    { name: "Elden Ring Lore Masters", description: "Deep dives into FromSoft lore, patch analysis, and build theory.",       members: 24800, joined: true,  icon: "🏰", color: "#7c5cfc" },
-    { name: "Speedrun Central",        description: "Any% to 100%, all games welcome. Share routes, splits, and PBs.",        members: 8300,  joined: false, icon: "⚡", color: "#FFC65A" },
-    { name: "Indie Dev Watchers",      description: "Track indie studios, wishlists, and upcoming patch previews.",           members: 5100,  joined: true,  icon: "🎮", color: "#1EDD88" },
-    { name: "Competitive FPS Hub",     description: "CS2, Valorant, Overwatch — strategy, pro play and patch breakdowns.",    members: 41200, joined: false, icon: "🎯", color: "#FD1015" },
-    { name: "JRPG Travellers",         description: "Story discussion, tier lists, and patch notes for JRPGs.",               members: 12700, joined: false, icon: "✨", color: "#4f9cf9" },
-    { name: "Patch Notes Nerds",       description: "We read every single patch note so you don't have to.",                 members: 3900,  joined: true,  icon: "📋", color: "#E67E22" },
-    { name: "Couch Co-op Crew",        description: "Local and online co-op recommendations and event organization.",         members: 7600,  joined: false, icon: "🛋️", color: "#7c5cfc" },
-    { name: "Roguelike Runners",       description: "Hades, Dead Cells, Slay the Spire — runs, builds and meta discussion.", members: 15400, joined: false, icon: "🎲", color: "#4f9cf9" },
+    { name: "Elden Ring Lore Masters", description: "Deep dives into FromSoft lore, patch analysis, and build theory.",       members: 24800, joined: true,  icon: "🏰", color: "#7c5cfc", friends: [] },
+    { name: "Speedrun Central",        description: "Any% to 100%, all games welcome. Share routes, splits, and PBs.",        members: 8300,  joined: false, icon: "⚡", color: "#FFC65A", friends: [mock_profiles[1], mock_profiles[6], mock_profiles[8]] },
+    { name: "Indie Dev Watchers",      description: "Track indie studios, wishlists, and upcoming patch previews.",           members: 5100,  joined: true,  icon: "🎮", color: "#1EDD88", friends: [] },
+    { name: "Competitive FPS Hub",     description: "CS2, Valorant, Overwatch — strategy, pro play and patch breakdowns.",    members: 41200, joined: false, icon: "🎯", color: "#FD1015", friends: [mock_profiles[0], mock_profiles[4], mock_profiles[5]] },
+    { name: "JRPG Travellers",         description: "Story discussion, tier lists, and patch notes for JRPGs.",               members: 12700, joined: false, icon: "✨", color: "#4f9cf9", friends: [mock_profiles[7], mock_profiles[9]] },
+    { name: "Patch Notes Nerds",       description: "We read every single patch note so you don't have to.",                 members: 3900,  joined: true,  icon: "📋", color: "#E67E22", friends: [] },
+    { name: "Couch Co-op Crew",        description: "Local and online co-op recommendations and event organization.",         members: 7600,  joined: false, icon: "🛋️", color: "#7c5cfc", friends: [mock_profiles[2], mock_profiles[11]] },
+    { name: "Roguelike Runners",       description: "Hades, Dead Cells, Slay the Spire — runs, builds and meta discussion.", members: 15400, joined: false, icon: "🎲", color: "#4f9cf9", friends: [mock_profiles[3], mock_profiles[10], mock_profiles[0]] },
   ]
 
   profile_name   = current_user.username.presence || current_user.email.split("@").first
@@ -152,12 +152,6 @@
       <button class="social-tab-btn"
               data-action="click->social-feed#switchTab"
               data-social-feed-target="tabBtn"
-              data-tab="discover">
-        Discover
-      </button>
-      <button class="social-tab-btn"
-              data-action="click->social-feed#switchTab"
-              data-social-feed-target="tabBtn"
               data-tab="communities">
         Communities
       </button>
@@ -201,7 +195,56 @@
           </div>
         </article>
       <% end %>
-    </section>
+    </div>
+
+    <!-- Communities panel -->
+    <div class="social-tab-panel d-none" data-social-feed-target="tabPanel" data-panel="communities">
+      <div class="communities-suggestions-header">
+        <span class="communities-suggestions-label">
+          <i class="fa fa-users"></i> Suggested for you &middot; Based on your friends
+        </span>
+      </div>
+      <% suggested = mock_communities.select { |c| !c[:joined] && c[:friends].any? } %>
+      <% suggested.each do |community| %>
+        <div class="community-suggestion-card">
+          <div class="community-suggestion-card__icon" style="background: <%= community[:color] %>22;">
+            <%= community[:icon] %>
+          </div>
+          <div class="community-suggestion-card__body">
+            <div class="community-suggestion-card__name"><%= community[:name] %></div>
+            <p class="community-suggestion-card__desc"><%= community[:description] %></p>
+            <div class="community-suggestion-card__friends">
+              <div class="friend-avatars">
+                <% community[:friends].first(3).each do |friend| %>
+                  <div class="friend-avatar" style="background: <%= friend[:color] %>;" title="<%= friend[:name] %>">
+                    <%= friend[:initials] %>
+                  </div>
+                <% end %>
+              </div>
+              <span class="community-suggestion-card__friends-label">
+                <% names = community[:friends].first(2).map { |f| f[:name].split.first } %>
+                <% rest  = community[:friends].size - 2 %>
+                <% if rest > 0 %>
+                  <%= names.join(", ") %> and <%= rest %> other<%= rest > 1 ? "s" : "" %> you follow are members
+                <% else %>
+                  <%= names.join(" and ") %> <%= names.size > 1 ? "are" : "is" %> a member
+                <% end %>
+              </span>
+            </div>
+            <div class="community-suggestion-card__footer">
+              <span class="community-suggestion-card__members">
+                <i class="fa fa-users"></i> <%= fmt.(community[:members]) %> members
+              </span>
+              <button class="btn-community"
+                      style="--accent: <%= community[:color] %>;"
+                      data-action="click->social-feed#toggleCommunity">
+                Join
+              </button>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
 
     <section id="my-patches" class="profile-section">
       <h2 class="profile-section__title">My Game's Patches</h2>
@@ -215,7 +258,7 @@
                   <div class="card-body">
                     <p class="text-muted small mb-1"><%= patch.game.name %></p>
                     <h5 class="card-title"><%= patch.title %></h5>
-                    <p class="text-muted small mb-2"><%= patch.effective_published_at.to_date.to_fs(:long) %></p>
+                    <p class="text-muted small mb-2"><%= patch.display_published_at.to_date.to_fs(:long) %></p>
                   </div>
                 </div>
               <% end %>

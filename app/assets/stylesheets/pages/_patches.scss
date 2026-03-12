@@ -16,6 +16,11 @@
 
   &__filters {
     margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
   }
 
   &__filter-form {
@@ -45,6 +50,13 @@
     font-size: 0.8rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
+  }
+
+  &__sort-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
   }
 }
 

@@ -33,10 +33,11 @@ class Scrapers::WarzoneScraper
     doc = Nokogiri::HTML(URI.open(url, HEADERS))
     title = doc.at("h1")&.text&.squish
     content = extract_content(doc)
+    published_at = extract_published_at(doc) || extract_published_at_from_url(url)
 
     return nil if title.blank? || content.blank?
 
-    { title: title, content: content, source_url: url, published_at: extract_published_at(doc) }
+    { title: title, content: content, source_url: url, published_at: published_at }
   rescue OpenURI::HTTPError => e
     Rails.logger.warn "WarzoneScraper: failed to fetch #{url} - #{e.message}"
     nil
@@ -63,5 +64,18 @@ class Scrapers::WarzoneScraper
     return href if href.start_with?("http")
 
     URI.join(INDEX_URL, href).to_s
+  end
+
+  def extract_published_at_from_url(url)
+    match = url.match(%r{/patchnotes/(\d{4})/(\d{2})(?:/(\d{2}))?/})
+    return if match.nil?
+
+    year = match[1].to_i
+    month = match[2].to_i
+    day = match[3].presence&.to_i || 1
+
+    Time.zone.local(year, month, day)
+  rescue ArgumentError
+    nil
   end
 end

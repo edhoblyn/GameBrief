@@ -1,3 +1,5 @@
+require "zlib"
+
 class Patch < ApplicationRecord
   DATE_FILTERS = {
     "all" => "All time",
@@ -44,7 +46,54 @@ class Patch < ApplicationRecord
     "CASE WHEN #{table_name}.source_url IS NULL THEN 1 ELSE 0 END"
   end
 
+  def self.known_published_date_sql
+    <<~SQL.squish
+      CASE
+      WHEN #{table_name}.published_at IS NULL THEN NULL
+      WHEN #{table_name}.published_at > CURRENT_TIMESTAMP THEN NULL
+      WHEN #{table_name}.source_url IS NOT NULL AND #{table_name}.published_at = #{table_name}.created_at THEN NULL
+      ELSE #{table_name}.published_at
+      END
+    SQL
+  end
+
+  def self.known_published_date_first_sql
+    "CASE WHEN #{known_published_date_sql} IS NULL THEN 1 ELSE 0 END"
+  end
+
+  def self.normalize_imported_published_at(published_at, source_url:)
+    return if published_at.blank?
+    return published_at unless published_at > Time.zone.now.end_of_day
+
+    inferred_published_at = infer_published_at_from_source_url(source_url)
+    return inferred_published_at if inferred_published_at.present? && inferred_published_at <= Time.zone.now.end_of_day
+
+    nil
+  end
+
+  def self.infer_published_at_from_source_url(source_url)
+    return if source_url.blank?
+
+    full_date_match = source_url.match(%r{/(20\d{2})[/-](\d{2})[/-](\d{2})(?:/|$)})
+    return Time.zone.local(full_date_match[1].to_i, full_date_match[2].to_i, full_date_match[3].to_i) if full_date_match
+
+    compact_date_match = source_url.match(%r{/(20\d{2})(\d{2})(\d{2})(?:/|$)})
+    return Time.zone.local(compact_date_match[1].to_i, compact_date_match[2].to_i, compact_date_match[3].to_i) if compact_date_match
+
+    year_month_match = source_url.match(%r{/(20\d{2})[/-](\d{2})(?:/|$)})
+    return Time.zone.local(year_month_match[1].to_i, year_month_match[2].to_i, 1) if year_month_match
+  rescue ArgumentError
+    nil
+  end
+
   def self.import_attributes(data, game:, existing_patch:)
+    resolved_published_at = if published_at_column?
+      normalize_imported_published_at(
+        data[:published_at] || existing_patch&.stored_published_at_for_reimport,
+        source_url: data[:source_url] || existing_patch&.source_url
+      )
+    end
+
     attributes = {
       game: game,
       title: data[:title],
@@ -52,15 +101,48 @@ class Patch < ApplicationRecord
     }
 
     if published_at_column?
-      attributes[:published_at] = data[:published_at] || existing_patch&.then { |patch| patch[:published_at] }
+      attributes[:published_at] = resolved_published_at
     end
 
     attributes
+  end
+
+  def self.known_newest_first
+    order(Arel.sql(known_published_date_first_sql), Arel.sql("#{known_published_date_sql} DESC"))
+  end
+
+  def self.known_oldest_first
+    order(Arel.sql(known_published_date_first_sql), Arel.sql("#{known_published_date_sql} ASC"))
   end
 
   def effective_published_at
     return created_at unless self.class.published_at_column?
 
     self[:published_at] || created_at
+  end
+
+  def display_published_at
+    stored_published_at_for_reimport || demo_fallback_published_at
+  end
+
+  def stored_published_at_for_reimport
+    return unless self.class.published_at_column?
+    return if self[:published_at].blank?
+    normalized_published_at = self.class.normalize_imported_published_at(self[:published_at], source_url: source_url)
+    return if normalized_published_at.blank?
+    return normalized_published_at if source_url.blank?
+    return normalized_published_at if created_at.blank?
+    return if self[:published_at].to_i == created_at.to_i
+
+    normalized_published_at
+  end
+
+  def demo_fallback_published_at
+    return if persisted?.blank?
+
+    seed = Zlib.crc32([id, source_url, title].join("|"))
+    days_back = seed % 180
+
+    Time.zone.now.beginning_of_day - days_back.days
   end
 end
