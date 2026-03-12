@@ -72,6 +72,10 @@
 - A first mobile responsiveness pass is now reflected in code: My Profile, games, patches, and events layouts have improved small-screen spacing, button stacking, and card behaviour for demo use
 - Games index free-to-play support is now reflected in code: `games` has a real `free_to_play` flag, the current tracked titles are classified, and the games index exposes a working `Free-to-play` filter
 - Games index filter UX was tightened after that change: active game filter chips can now be clicked again to clear just that filter while preserving the rest of the current browse state
+- Edit Profile is now a usable account editor linked from `My Profile`, with clearer separation between public profile updates and login/security changes
+- Users can now upload avatar and cover images with Active Storage, and those uploads now render back into the profile header/sidebar after saving
+- Profile/account update rules were tightened so username and profile image changes can be saved without a password, while email/password changes still require the current password
+- Small stability fixes landed around nil-safe navigation counts and public game show handling
 
 ## Completed Tasks Moved From The Task Board
 
@@ -123,6 +127,14 @@
 
 **Done?** ✅
 
+### Completed Task G - Bianca / Ed
+
+**Profile Identity** 🩵
+
+**Task:** **Edit profile and image upload pass** — make the profile edit flow usable from `My Profile`, add avatar/cover uploads, and clarify when the current password is required
+
+**Done?** ✅
+
 ## Remaining Gaps
 
 - Events index still has no game/time filters
@@ -130,3 +142,4 @@
 - Social/community areas on My Profile are mostly mock UI and not backed by real persisted data
 - My Profile recommendations still need a first real recommendation block instead of placeholder content
 - Notifications still imply a destination page that does not yet exist in-app
+- Admin scrape access still needs a clean end-to-end check against the current `current_user.admin?` gate

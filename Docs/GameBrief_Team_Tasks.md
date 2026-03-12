@@ -1,6 +1,6 @@
 # GameBrief — Team Tasks
 
-> Last updated: 2026-03-12 | Focus: keep 2 active rounds of work with one main task per teammate in each round
+> Last updated: 2026-03-12 | Focus: keep 2 active rounds of work with one main task per teammate in each round after the latest profile/account work moved into progress
 
 ---
 
@@ -87,7 +87,7 @@ These are the next 4 active tasks once Round 1 is underway or finished.
 
 **Reminder Copy** 📝
 
-**Task:** **Reminder confirmation and empty-state polish** — tighten the reminder success messaging and make the no-reminders state feel more intentional
+**Task:** **Reminder confirmation and empty-state polish** — tighten reminder success messaging and make the no-reminders state feel more intentional
 
 **Why it matters:** It is a compact UX task that improves the reminders flow without needing new backend work.
 
@@ -140,4 +140,4 @@ By the end of the next cycle, the team should aim to have:
 2. Recommendation placeholder content replaced with a first real block
 3. Summary buttons protected against duplicate submits
 4. Admin scrape access checked and working for the intended admin path
-5. At least one polish/follow-up task started after the current round
+5. At least one events/reminders polish task started after the current round

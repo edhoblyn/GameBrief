@@ -23,7 +23,9 @@
 
 - Games index with search by name
 - Genre filters on the index (`Shooter`, `Battle Royale`, `Strategy`, `Sports`, `Sandbox`, `Simulation`, `Mobile`)
+- Free-to-play filter on the index
 - Sort options for A-Z and most followed
+- Active game filters can be clicked again to clear just that filter while keeping the rest of the current browse state
 - Game detail page with follow/unfollow action
 - Game detail page lists latest patches and upcoming events
 - Cover art imported from IGDB and lazy-loaded in game grids
@@ -44,6 +46,7 @@
 - Recommended ordering prioritises followed games first
 - Patch detail page shows full notes and published date
 - `published_at` support added to patches
+- Visible `New` badge for recently published patches across patch cards and related patch lists
 - Patch date fallback logic handles imported data, seeded demo content, and missing dates
 - Scraped patches are prioritised ahead of placeholder/manual patches on game pages
 
@@ -77,6 +80,9 @@
 - `My Profile` page rebuilt into a social-style layout
 - Sidebar navigation for Home, My Profile, My Games, My Patches, My Events, Recommendations, and Find Friends
 - Local notification toggle UI for patch alerts, event reminders, and recommendation updates
+- `Edit Profile` is linked from the profile page and opens a dedicated account editor
+- Users can upload avatar and cover images, which then render on profile surfaces
+- Username and profile image updates can be saved without a password, while email/password changes still require the current password
 - `My Patches` page for followed games with date filters and newest/oldest sorting
 - `Find Friends` search page for users by username or email
 - Basic `Players` index page
@@ -86,11 +92,13 @@
 - Custom hover-gradient main navigation
 - Custom 404 and 500 pages
 - App footer with team GitHub profile links
+- Mobile responsiveness pass across My Profile, games, patches, and events pages
 - Dedicated Stimulus controllers for featured gamers carousel, social feed interactions, and profile notification toggles
 
 ## Data + Infrastructure
 
 - IGDB client for game search/import using Twitch credentials
+- Active Storage configured for uploaded profile media
 - Seed data for demo user plus featured gamer accounts
 - Seed strategy preserves real scraped patches and removes placeholder patches when live scraped data exists
 - Scraper/import pipeline expanded across multiple games

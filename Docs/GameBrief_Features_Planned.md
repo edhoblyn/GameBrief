@@ -9,18 +9,18 @@
 These still look like the clearest missing demo features based on the current codebase.
 
 - Events index filters by game and time range (`This Week`, `This Month`, `Future`, `All`)
-- Visible `NEW` badge for recent patches using `published_at`
+- Admin scrape access check/fix against the current `current_user.admin?` gate
 - Loading / disabled states on patch and event summary buttons
-- Mobile responsiveness pass across My Profile, games, patches, and events pages
+- Real recommendation logic behind the My Profile recommendation area
 
 ## Strong Next Features
 
 - Saved AI chats so users can revisit older patch conversations
-- Real recommendation engine behind the current My Profile recommendation area
 - Notification centre or inbox for reminders, patch drops, and recommendation updates
 - Reminder digest emails or event reminder confirmation emails
-- Free-to-play filter on the games index
 - Pagination on games, patches, and events
+- Events page empty-state and filter-layout polish once filtering exists
+- Reminder confirmation and no-reminders empty-state polish
 
 ## Product / UX Enhancements
 
@@ -31,6 +31,7 @@ These still look like the clearest missing demo features based on the current co
 - Colour-coded patch/update categories on game pages
 - Platform tags on game cards and game pages
 - Player onboarding quiz for genres and platform preferences
+- Richer profile editing fields such as bio and optional profile stats customization
 
 ## Social / Community Ideas
 
@@ -49,5 +50,5 @@ These still look like the clearest missing demo features based on the current co
 
 ## Notes
 
-- The My Profile page already contains recommendation, community, and social-feed style UI, but those areas are currently presentation-first and not backed by real persisted social data.
-- `published_at` now exists on patches, so the patch freshness badge should be a relatively small follow-up rather than a schema project.
+- The My Profile page already contains recommendation, community, and social-feed style UI, but recommendation/community areas are still presentation-first and not backed by real persisted social data.
+- Profile editing is now usable for names and images, so the next profile-related work should focus on real recommendation/social data rather than more shell UI.
