@@ -17,7 +17,8 @@
       "Bash(rails g:*)",
       "Bash(rails db:migrate)",
       "Bash(bundle install:*)",
-      "Bash(git checkout:*)"
+      "Bash(git checkout:*)",
+      "Bash(git remote:*)"
     ],
     "deny": []
   }
