@@ -7,7 +7,38 @@
     <div class="app-settings-menu__panel">
       <p class="app-settings-menu__eyebrow">Settings</p>
       <h2 class="app-settings-menu__title">Display</h2>
-      <p class="app-settings-menu__copy">Theme presets are coming next. This menu is ready for the next step.</p>
+      <p class="app-settings-menu__copy">Choose a site-wide theme. Your selection stays active across pages.</p>
+
+      <div class="app-settings-menu__themes">
+        <button type="button" class="app-settings-menu__theme-option" data-action="click->theme#select" data-theme-name="nebula" data-theme-target="option" aria-pressed="false">
+          <span class="app-settings-menu__theme-swatch app-settings-menu__theme-swatch--nebula" aria-hidden="true"></span>
+          <span>
+            <strong>Nebula</strong>
+            <small>Purple core</small>
+          </span>
+        </button>
+        <button type="button" class="app-settings-menu__theme-option" data-action="click->theme#select" data-theme-name="ion" data-theme-target="option" aria-pressed="false">
+          <span class="app-settings-menu__theme-swatch app-settings-menu__theme-swatch--ion" aria-hidden="true"></span>
+          <span>
+            <strong>Ion</strong>
+            <small>Electric blue</small>
+          </span>
+        </button>
+        <button type="button" class="app-settings-menu__theme-option" data-action="click->theme#select" data-theme-name="toxic" data-theme-target="option" aria-pressed="false">
+          <span class="app-settings-menu__theme-swatch app-settings-menu__theme-swatch--toxic" aria-hidden="true"></span>
+          <span>
+            <strong>Toxic</strong>
+            <small>Neon green</small>
+          </span>
+        </button>
+        <button type="button" class="app-settings-menu__theme-option" data-action="click->theme#select" data-theme-name="ember" data-theme-target="option" aria-pressed="false">
+          <span class="app-settings-menu__theme-swatch app-settings-menu__theme-swatch--ember" aria-hidden="true"></span>
+          <span>
+            <strong>Ember</strong>
+            <small>Red-orange</small>
+          </span>
+        </button>
+      </div>
     </div>
   </details>
 </div>

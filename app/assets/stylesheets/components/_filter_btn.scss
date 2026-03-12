@@ -4,21 +4,21 @@
   border-radius: 2rem;
   font-size: 0.8rem;
   font-weight: 600;
-  background: $dark-surface;
-  color: $dark-muted;
-  border: 1px solid $dark-border;
+  background: var(--gb-surface);
+  color: var(--gb-muted);
+  border: 1px solid var(--gb-border);
   text-decoration: none;
   transition: background 0.15s, color 0.15s, border-color 0.15s;
 
   &:hover {
-    background: $dark-card;
-    color: $dark-text;
-    border-color: $accent-purple;
+    background: var(--gb-card);
+    color: var(--gb-text);
+    border-color: var(--gb-accent);
   }
 
   &.active {
-    background: rgba(124, 92, 252, 0.15);
-    color: $accent-purple;
-    border-color: $accent-purple;
+    background: color-mix(in srgb, var(--gb-accent) 14%, transparent);
+    color: var(--gb-accent);
+    border-color: var(--gb-accent);
   }
 }

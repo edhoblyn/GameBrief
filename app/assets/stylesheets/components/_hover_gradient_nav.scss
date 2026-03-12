@@ -4,8 +4,8 @@
   left: 0;
   width: 100%;
   z-index: 1050;
-  background: rgba(15, 15, 20, 0.95);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--gb-nav);
+  border-bottom: 1px solid var(--gb-border-soft);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
@@ -16,7 +16,7 @@
     transform: translateX(-50%);
     width: auto;
     border-radius: 1.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--gb-border-soft);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
     padding: 0.75rem 1rem;
   }
@@ -61,14 +61,14 @@
     padding: 0.5rem 1rem;
     border-radius: inherit;
     text-decoration: none;
-    color: #a1a1aa;
+    color: var(--gb-muted);
     font-size: 0.875rem;
     font-weight: 500;
     white-space: nowrap;
     transition: color 0.2s ease;
 
     &:hover {
-      color: #a855f7;
+      color: var(--gb-accent-strong);
     }
   }
 
@@ -86,14 +86,14 @@
   align-items: center;
   cursor: pointer;
   list-style: none;
-  color: #a1a1aa;
+  color: var(--gb-muted);
   font-size: 0.9rem;
   padding: 0 0.35rem 0 0;
   transition: color 0.2s;
 }
 
 .hn-dashboard-summary:hover {
-  color: #a855f7;
+  color: var(--gb-accent-strong);
 }
 
 .hn-dashboard-summary::-webkit-details-marker {

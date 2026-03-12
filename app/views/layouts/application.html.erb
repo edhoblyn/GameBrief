@@ -10,6 +10,12 @@
     <%= csp_meta_tag %>
 
     <%= yield :head %>
+    <script>
+      (function() {
+        var savedTheme = localStorage.getItem("gamebrief-theme");
+        if (savedTheme) document.documentElement.setAttribute("data-theme", savedTheme);
+      })();
+    </script>
 
     <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
     <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
@@ -23,7 +29,7 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body data-controller="theme">
     <%= render "shared/hover_gradient_nav" unless content_for?(:hide_navbar) %>
     <%= render "shared/settings_menu" %>
     <%= render "shared/flashes" %>
