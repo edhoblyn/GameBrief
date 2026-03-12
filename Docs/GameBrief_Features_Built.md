@@ -28,6 +28,7 @@
 - Active game filters can be clicked again to clear just that filter while keeping the rest of the current browse state
 - Game detail page with follow/unfollow action
 - Game detail page lists latest patches and upcoming events
+- Admin-only `Run Patch Scrape` action available directly from supported game pages
 - Cover art imported from IGDB and lazy-loaded in game grids
 
 ## Follows + Personal Library
@@ -73,6 +74,7 @@
 - Google Calendar add link on each event
 - Set and remove reminders
 - `My Events` page lists saved reminders
+- `My Events` page includes reminder counts plus an empty state when no reminders exist
 - One-sentence AI event summaries generated and stored on the event record
 
 ## My Profile + Discovery
@@ -86,8 +88,7 @@
 - Username and profile image updates can be saved without a password, while email/password changes still require the current password
 - `My Patches` page for followed games with date filters and newest/oldest sorting
 - `Find Friends` search page for users by username or email
-- Basic `Players` index page
-- `My Events` page includes reminder counts plus an empty state when no reminders exist
+- `Players` index plus individual player profile pages with basic activity counts
 
 ## UI / Frontend Polish
 
