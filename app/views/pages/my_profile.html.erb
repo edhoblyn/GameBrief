@@ -242,42 +242,129 @@
 
     <!-- For You panel -->
     <div class="social-tab-panel" data-social-feed-target="tabPanel" data-panel="for-you">
-      <% mock_posts.each do |post| %>
-        <article class="social-post">
-          <div class="social-post__avatar" style="background: <%= post[:user][:color] %>">
-            <%= post[:user][:initials] %>
-          </div>
-          <div class="social-post__body">
-            <div class="social-post__header">
-              <span class="social-post__name"><%= post[:user][:name] %></span>
-              <span class="social-post__handle">@<%= post[:user][:handle] %></span>
-              <span class="social-post__dot">·</span>
-              <span class="social-post__time"><%= post[:timestamp] %></span>
+      <div class="for-you-layout">
+        <div class="for-you-feed">
+          <% mock_posts.each do |post| %>
+            <article class="social-post">
+              <div class="social-post__avatar" style="background: <%= post[:user][:color] %>">
+                <%= post[:user][:initials] %>
+              </div>
+              <div class="social-post__body">
+                <div class="social-post__header">
+                  <span class="social-post__name"><%= post[:user][:name] %></span>
+                  <span class="social-post__handle">@<%= post[:user][:handle] %></span>
+                  <span class="social-post__dot">·</span>
+                  <span class="social-post__time"><%= post[:timestamp] %></span>
+                </div>
+                <p class="social-post__text"><%= post[:text] %></p>
+                <div class="social-post__actions">
+                  <button class="post-action post-action--reply">
+                    <i class="fa fa-comment-o"></i>
+                    <span class="interaction-count"><%= post[:replies] %></span>
+                  </button>
+                  <button class="post-action post-action--repost <%= 'is-reposted' if post[:reposted] %>"
+                          data-action="click->social-feed#toggleRepost">
+                    <i class="fa fa-retweet"></i>
+                    <span class="interaction-count"><%= fmt.(post[:reposts]) %></span>
+                  </button>
+                  <button class="post-action post-action--like <%= 'is-liked' if post[:liked] %>"
+                          data-action="click->social-feed#toggleLike">
+                    <i class="fa fa-heart<%= '-o' unless post[:liked] %>"></i>
+                    <span class="interaction-count"><%= fmt.(post[:likes]) %></span>
+                  </button>
+                  <button class="post-action post-action--views">
+                    <i class="fa fa-bar-chart"></i>
+                    <span class="interaction-count"><%= fmt.(post[:views]) %></span>
+                  </button>
+                </div>
+              </div>
+            </article>
+          <% end %>
+        </div>
+
+        <aside class="for-you-sidebar">
+          <section class="profile-rail-card">
+            <div class="profile-rail-card__header">
+              <h3 class="profile-rail-card__title">Overview</h3>
+              <span class="profile-rail-card__eyebrow">Today</span>
             </div>
-            <p class="social-post__text"><%= post[:text] %></p>
-            <div class="social-post__actions">
-              <button class="post-action post-action--reply">
-                <i class="fa fa-comment-o"></i>
-                <span class="interaction-count"><%= post[:replies] %></span>
-              </button>
-              <button class="post-action post-action--repost <%= 'is-reposted' if post[:reposted] %>"
-                      data-action="click->social-feed#toggleRepost">
-                <i class="fa fa-retweet"></i>
-                <span class="interaction-count"><%= fmt.(post[:reposts]) %></span>
-              </button>
-              <button class="post-action post-action--like <%= 'is-liked' if post[:liked] %>"
-                      data-action="click->social-feed#toggleLike">
-                <i class="fa fa-heart<%= '-o' unless post[:liked] %>"></i>
-                <span class="interaction-count"><%= fmt.(post[:likes]) %></span>
-              </button>
-              <button class="post-action post-action--views">
-                <i class="fa fa-bar-chart"></i>
-                <span class="interaction-count"><%= fmt.(post[:views]) %></span>
-              </button>
+            <div class="profile-rail-metrics">
+              <% profile_highlights.each do |item| %>
+                <div class="profile-rail-metric">
+                  <span class="profile-rail-metric__label"><%= item[:label] %></span>
+                  <span class="profile-rail-metric__value"><%= item[:value] %></span>
+                </div>
+              <% end %>
             </div>
-          </div>
-        </article>
-      <% end %>
+          </section>
+
+          <section id="my-events" class="profile-rail-card">
+            <div class="profile-rail-card__header">
+              <h3 class="profile-rail-card__title">Upcoming Event</h3>
+              <%= link_to "All events", my_events_path, class: "profile-rail-card__link" %>
+            </div>
+            <% if next_reminder.present? %>
+              <%= link_to event_path(next_reminder.event), class: "profile-rail-feature" do %>
+                <span class="profile-rail-feature__eyebrow"><%= next_reminder.event.game.name %></span>
+                <h4 class="profile-rail-feature__title"><%= next_reminder.event.title %></h4>
+                <p class="profile-rail-feature__meta">
+                  <i class="fa fa-calendar"></i>
+                  <%= next_reminder.event.start_date.strftime("%-d %b %Y") %>
+                </p>
+              <% end %>
+            <% else %>
+              <p class="profile-rail-card__empty">No reminders set yet. <%= link_to "Browse events", events_path %>.</p>
+            <% end %>
+          </section>
+
+          <section id="my-patches" class="profile-rail-card">
+            <div class="profile-rail-card__header">
+              <h3 class="profile-rail-card__title">Latest Patch</h3>
+              <%= link_to "View patches", my_patches_path, class: "profile-rail-card__link" %>
+            </div>
+            <% if latest_patch.present? %>
+              <%= link_to patch_path(latest_patch), class: "profile-rail-feature" do %>
+                <span class="profile-rail-feature__eyebrow"><%= latest_patch.game.name %></span>
+                <h4 class="profile-rail-feature__title"><%= latest_patch.title %></h4>
+                <p class="profile-rail-feature__meta">
+                  <i class="fa fa-clock-o"></i>
+                  <%= latest_patch.display_published_at.to_date.to_fs(:long) %>
+                </p>
+              <% end %>
+            <% else %>
+              <p class="profile-rail-card__empty">No recent patches for your followed games.</p>
+            <% end %>
+          </section>
+
+          <section id="recommendations" class="profile-rail-card">
+            <div class="profile-rail-card__header">
+              <h3 class="profile-rail-card__title">Recommendations</h3>
+            </div>
+            <div class="profile-rail-callout"
+                 data-notification-toggles-target="recommendationCallout">
+              <p class="profile-rail-callout__text"
+                 data-notification-toggles-target="recommendationText">Recommendation updates are off right now. Turn them on in the sidebar to start building this feed.</p>
+              <%= link_to games_path,
+                          class: "profile-rail-callout__action d-none",
+                          data: { "notification-toggles-target": "recommendationAction" } do %>
+                <i class="fa fa-compass"></i>
+                Explore more games
+              <% end %>
+            </div>
+          </section>
+
+          <section class="profile-rail-card profile-rail-card--action">
+            <div class="profile-rail-card__header">
+              <h3 class="profile-rail-card__title">Play With Friends</h3>
+            </div>
+            <p class="profile-rail-card__empty">Jump into a session and start finding people who follow the same games.</p>
+            <%= link_to users_path, class: "social-profile-action social-profile-action--primary social-profile-action--full" do %>
+              <i class="fa fa-users"></i>
+              Start Session
+            <% end %>
+          </section>
+        </aside>
+      </div>
     </div>
 
     <!-- Communities panel -->
@@ -329,87 +416,4 @@
       <% end %>
     </div>
   </main>
-
-  <aside class="profile-rail">
-    <section class="profile-rail-card">
-      <div class="profile-rail-card__header">
-        <h3 class="profile-rail-card__title">Overview</h3>
-        <span class="profile-rail-card__eyebrow">Today</span>
-      </div>
-      <div class="profile-rail-metrics">
-        <% profile_highlights.each do |item| %>
-          <div class="profile-rail-metric">
-            <span class="profile-rail-metric__label"><%= item[:label] %></span>
-            <span class="profile-rail-metric__value"><%= item[:value] %></span>
-          </div>
-        <% end %>
-      </div>
-    </section>
-
-    <section id="my-events" class="profile-rail-card">
-      <div class="profile-rail-card__header">
-        <h3 class="profile-rail-card__title">Upcoming Event</h3>
-        <%= link_to "All events", my_events_path, class: "profile-rail-card__link" %>
-      </div>
-      <% if next_reminder.present? %>
-        <%= link_to event_path(next_reminder.event), class: "profile-rail-feature" do %>
-          <span class="profile-rail-feature__eyebrow"><%= next_reminder.event.game.name %></span>
-          <h4 class="profile-rail-feature__title"><%= next_reminder.event.title %></h4>
-          <p class="profile-rail-feature__meta">
-            <i class="fa fa-calendar"></i>
-            <%= next_reminder.event.start_date.strftime("%-d %b %Y") %>
-          </p>
-        <% end %>
-      <% else %>
-        <p class="profile-rail-card__empty">No reminders set yet. <%= link_to "Browse events", events_path %>.</p>
-      <% end %>
-    </section>
-
-    <section id="my-patches" class="profile-rail-card">
-      <div class="profile-rail-card__header">
-        <h3 class="profile-rail-card__title">Latest Patch</h3>
-        <%= link_to "View patches", my_patches_path, class: "profile-rail-card__link" %>
-      </div>
-      <% if latest_patch.present? %>
-        <%= link_to patch_path(latest_patch), class: "profile-rail-feature" do %>
-          <span class="profile-rail-feature__eyebrow"><%= latest_patch.game.name %></span>
-          <h4 class="profile-rail-feature__title"><%= latest_patch.title %></h4>
-          <p class="profile-rail-feature__meta">
-            <i class="fa fa-clock-o"></i>
-            <%= latest_patch.display_published_at.to_date.to_fs(:long) %>
-          </p>
-        <% end %>
-      <% else %>
-        <p class="profile-rail-card__empty">No recent patches for your followed games.</p>
-      <% end %>
-    </section>
-
-    <section id="recommendations" class="profile-rail-card">
-      <div class="profile-rail-card__header">
-        <h3 class="profile-rail-card__title">Recommendations</h3>
-      </div>
-      <div class="profile-rail-callout"
-           data-notification-toggles-target="recommendationCallout">
-        <p class="profile-rail-callout__text"
-           data-notification-toggles-target="recommendationText">Recommendation updates are off right now. Turn them on in the sidebar to start building this feed.</p>
-        <%= link_to games_path,
-                    class: "profile-rail-callout__action d-none",
-                    data: { "notification-toggles-target": "recommendationAction" } do %>
-          <i class="fa fa-compass"></i>
-          Explore more games
-        <% end %>
-      </div>
-    </section>
-
-    <section class="profile-rail-card profile-rail-card--action">
-      <div class="profile-rail-card__header">
-        <h3 class="profile-rail-card__title">Play With Friends</h3>
-      </div>
-      <p class="profile-rail-card__empty">Jump into a session and start finding people who follow the same games.</p>
-      <%= link_to users_path, class: "social-profile-action social-profile-action--primary social-profile-action--full" do %>
-        <i class="fa fa-users"></i>
-        Start Session
-      <% end %>
-    </section>
-  </aside>
 </div>

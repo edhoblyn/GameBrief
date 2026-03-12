@@ -232,7 +232,6 @@ $sidebar-width: 260px;
 .social-main {
   flex: 1 1 auto;
   min-width: 0;
-  border-right: 1px solid $dark-border;
   min-height: 100vh;
   overflow-y: auto;
   background: rgba(8, 10, 18, 0.72);
@@ -600,17 +599,25 @@ $sidebar-width: 260px;
 
 .interaction-count { font-variant-numeric: tabular-nums; }
 
-.profile-rail {
-  flex: 0 0 340px;
-  width: 340px;
-  min-width: 340px;
-  padding: 0 1.25rem 1.5rem;
+.for-you-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(280px, 360px);
+  align-items: start;
+}
+
+.for-you-feed {
+  min-width: 0;
+  border-right: 1px solid $dark-border;
+}
+
+.for-you-sidebar {
+  padding: 1rem 1.25rem 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
   position: sticky;
-  top: 4.5rem;
-  max-height: calc(100vh - 4.5rem);
+  top: 4rem;
+  max-height: calc(100vh - 4rem);
   overflow-y: auto;
 }
 
@@ -1155,12 +1162,19 @@ $sidebar-width: 260px;
     top: 0;
   }
 
-  .profile-rail {
-    width: 100%;
-    min-width: 0;
+  .for-you-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .for-you-feed {
+    border-right: none;
+  }
+
+  .for-you-sidebar {
     max-height: none;
     position: static;
     padding: 1rem;
+    width: 100%;
   }
 
   .communities-grid { grid-template-columns: 1fr; }
@@ -1177,28 +1191,11 @@ $sidebar-width: 260px;
     top: 6rem;
     height: calc(100vh - 6rem);
   }
-
-  .profile-rail {
-    top: 6rem;
-    max-height: calc(100vh - 6rem);
-  }
 }
 
 @media (max-width: 1200px) {
-  .my-profile-layout {
-    flex-wrap: wrap;
-  }
-
-  .social-main {
-    max-width: none;
-  }
-
-  .profile-rail {
-    width: calc(100% - #{$sidebar-width});
-    min-width: 0;
-    position: static;
-    max-height: none;
-    padding-top: 1rem;
+  .for-you-layout {
+    grid-template-columns: minmax(0, 1fr) 300px;
   }
 }
 
@@ -1207,8 +1204,17 @@ $sidebar-width: 260px;
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .profile-rail {
-    width: 100%;
+  .for-you-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .for-you-feed {
+    border-right: none;
+  }
+
+  .for-you-sidebar {
+    position: static;
+    max-height: none;
     padding-top: 1rem;
   }
 }
