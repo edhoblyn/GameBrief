@@ -79,7 +79,8 @@
     border: none;
     border-radius: 16px;
     background: linear-gradient(135deg, var(--gb-accent), var(--gb-accent-strong));
-    color: #fff;
+    color: var(--gb-button-text);
+    text-shadow: var(--gb-button-text-shadow);
     box-shadow: 0 0 18px color-mix(in srgb, var(--gb-accent) 30%, transparent);
   }
 

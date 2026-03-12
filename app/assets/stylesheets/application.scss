@@ -26,6 +26,8 @@ html[data-theme="nebula"] {
   --gb-accent-strong: #a855f7;
   --gb-accent-secondary: #4f9cf9;
   --gb-theme-gradient: radial-gradient(circle at top, rgba(124, 92, 252, 0.16), transparent 34%);
+  --gb-button-text: #ffffff;
+  --gb-button-text-shadow: 0 1px 0 rgba(8, 10, 18, 0.72), 0 0 1px rgba(8, 10, 18, 0.65);
 }
 
 html[data-theme="ion"] {
@@ -42,6 +44,8 @@ html[data-theme="ion"] {
   --gb-accent-strong: #7bd8ff;
   --gb-accent-secondary: #7bd8ff;
   --gb-theme-gradient: radial-gradient(circle at top, rgba(53, 184, 255, 0.18), transparent 36%);
+  --gb-button-text: #ffffff;
+  --gb-button-text-shadow: 0 1px 0 rgba(5, 16, 26, 0.78), 0 0 2px rgba(5, 16, 26, 0.72);
 }
 
 html[data-theme="toxic"] {
@@ -58,6 +62,8 @@ html[data-theme="toxic"] {
   --gb-accent-strong: #b6ff8d;
   --gb-accent-secondary: #42d6a4;
   --gb-theme-gradient: radial-gradient(circle at top, rgba(125, 255, 107, 0.16), transparent 34%);
+  --gb-button-text: #ffffff;
+  --gb-button-text-shadow: 0 1px 0 rgba(6, 18, 10, 0.88), 0 0 2px rgba(6, 18, 10, 0.84), 0 0 8px rgba(6, 18, 10, 0.28);
 }
 
 html[data-theme="ember"] {
@@ -74,6 +80,8 @@ html[data-theme="ember"] {
   --gb-accent-strong: #ffb067;
   --gb-accent-secondary: #ffd166;
   --gb-theme-gradient: radial-gradient(circle at top, rgba(255, 123, 84, 0.16), transparent 34%);
+  --gb-button-text: #ffffff;
+  --gb-button-text-shadow: 0 1px 0 rgba(28, 10, 5, 0.82), 0 0 2px rgba(28, 10, 5, 0.72);
 }
 
 html,

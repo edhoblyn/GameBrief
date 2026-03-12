@@ -64,10 +64,11 @@
     &--primary {
       background: linear-gradient(135deg, var(--gb-accent), var(--gb-accent-strong));
       border-color: transparent;
-      color: #fff;
+      color: var(--gb-button-text);
+      text-shadow: var(--gb-button-text-shadow);
 
       &:hover {
-        color: #fff;
+        color: var(--gb-button-text);
       }
     }
   }
