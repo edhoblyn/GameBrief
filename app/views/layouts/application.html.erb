@@ -29,7 +29,13 @@
     <%= yield %>
 
     <footer class="app-footer">
-      <p>GameBrief &copy; <%= Time.current.year %> &mdash; Ed, Hortense, Baptiste, Bianca</p>
+      <p class="app-footer__copy">GameBrief &copy; <%= Time.current.year %></p>
+      <div class="app-footer__links">
+        <%= link_to "Ed", "https://github.com/edhoblyn", class: "app-footer__link", target: "_blank", rel: "noopener noreferrer" %>
+        <%= link_to "Hortense", "https://github.com/Hfvtt", class: "app-footer__link", target: "_blank", rel: "noopener noreferrer" %>
+        <%= link_to "Baptiste", "https://github.com/Baptistesrd", class: "app-footer__link", target: "_blank", rel: "noopener noreferrer" %>
+        <%= link_to "Bianca", "https://github.com/biancacorreia", class: "app-footer__link", target: "_blank", rel: "noopener noreferrer" %>
+      </div>
     </footer>
   </body>
 </html>
