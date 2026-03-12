@@ -1,53 +1,58 @@
 <% content_for :title, "Find Friends" %>
 
-<div class="container" style="padding-top: 100px;">
-  <div class="mb-4">
-    <%= link_to my_profile_path, class: "btn btn-outline-secondary mb-3" do %>
-      <i class="fa fa-arrow-left"></i> Back to Profile
-    <% end %>
-    <h1 class="mb-0">Find Friends</h1>
+<div class="find-friends-page container">
+  <div class="find-friends-page__header">
+    <div>
+      <%= link_to my_profile_path, class: "find-friends-page__back" do %>
+        <i class="fa fa-arrow-left"></i> Back to Profile
+      <% end %>
+      <p class="find-friends-page__eyebrow">Social</p>
+      <h1 class="find-friends-page__title">Find Friends</h1>
+      <p class="find-friends-page__subtitle">Search for players by username and jump into shared interests faster.</p>
+    </div>
   </div>
 
-  <%= form_with url: find_friends_path, method: :get, local: true, class: "mb-4" do |f| %>
-    <div class="input-group" style="max-width: 480px;">
+  <%= form_with url: find_friends_path, method: :get, local: true, class: "find-friends-page__search" do |f| %>
+    <div class="find-friends-page__search-row">
       <%= f.text_field :q, value: params[:q], placeholder: "Search by username…",
-            class: "form-control form-control-lg", autofocus: true %>
-      <button type="submit" class="btn btn-primary">
+            class: "find-friends-page__search-input", autofocus: true %>
+      <button type="submit" class="find-friends-page__search-button">
         <i class="fa fa-search"></i>
       </button>
     </div>
   <% end %>
 
   <% if params[:q].present? %>
-    <p class="text-muted mb-3">
+    <p class="find-friends-page__results">
       <%= @users.count %> result<%= "s" if @users.count != 1 %> for "<%= params[:q] %>"
     </p>
   <% end %>
 
   <% if @users.any? %>
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+    <div class="find-friends-page__grid">
       <% @users.each do |user| %>
-        <div class="col">
-          <div class="card h-100">
-            <div class="card-body d-flex align-items-center gap-3">
-              <div class="profile-sidebar__avatar-placeholder flex-shrink-0"
-                   style="width: 48px; height: 48px; font-size: 1.2rem; border-radius: 50%;">
-                <%= (user.username.presence || user.email).first.upcase %>
-              </div>
-              <div>
-                <h6 class="mb-0 fw-semibold"><%= user.username.presence || user.email %></h6>
-                <% if user.username.present? %>
-                  <small class="text-muted"><%= user.email %></small>
-                <% end %>
-              </div>
+        <div class="find-friends-page__card">
+          <div class="find-friends-page__card-body">
+            <div class="find-friends-page__avatar">
+              <%= (user.username.presence || user.email).first.upcase %>
+            </div>
+            <div>
+              <h2 class="find-friends-page__name"><%= user.username.presence || user.email %></h2>
+              <% if user.username.present? %>
+                <p class="find-friends-page__email"><%= user.email %></p>
+              <% end %>
             </div>
           </div>
         </div>
       <% end %>
     </div>
   <% elsif params[:q].present? %>
-    <p class="text-muted">No users found for "<%= params[:q] %>".</p>
+    <div class="find-friends-page__empty">
+      <p>No users found for "<%= params[:q] %>".</p>
+    </div>
   <% else %>
-    <p class="text-muted">Search for a username above to find friends.</p>
+    <div class="find-friends-page__empty">
+      <p>Search for a username above to find friends.</p>
+    </div>
   <% end %>
 </div>
