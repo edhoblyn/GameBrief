@@ -17,7 +17,7 @@
 
 These were explicitly suggested by the team for tomorrow, so they should be treated as the first priority unless something blocking appears.
 
-### Task 1
+### Task 1 - Baptiste
 
 **Brand Pass** 🔵
 
@@ -27,7 +27,7 @@ These were explicitly suggested by the team for tomorrow, so they should be trea
 
 **Done?** ⬜
 
-### Task 2
+### Task 2 - Bianaca
 
 **Hero Polish** 🟣
 
@@ -37,7 +37,7 @@ These were explicitly suggested by the team for tomorrow, so they should be trea
 
 **Done?** ⬜
 
-### Task 3
+### Task 3 - Hortense
 
 **Profile Flow** 🔴
 
@@ -47,7 +47,7 @@ These were explicitly suggested by the team for tomorrow, so they should be trea
 
 **Done?** ⬜
 
-### Task 4
+### Task 4 - Ed
 
 **Sidebar Shift** 🟠
 
