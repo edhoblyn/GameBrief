@@ -5,6 +5,7 @@ $sidebar-width: 260px;
   display: flex;
   min-height: 100vh;
   background: $dark-bg;
+  padding-top: 4.5rem;
 }
 
 // ── Sidebar ─────────────────────────────────────────────────────────────────
@@ -16,8 +17,8 @@ $sidebar-width: 260px;
   display: flex;
   flex-direction: column;
   position: sticky;
-  top: 0;
-  height: 100vh;
+  top: 4.5rem;
+  height: calc(100vh - 4.5rem);
   overflow-y: auto;
 
   &__user {
@@ -851,4 +852,15 @@ $sidebar-width: 260px;
   .communities-grid { grid-template-columns: 1fr; }
 
   .social-post__actions { gap: 1rem; }
+}
+
+@media (min-width: 768px) {
+  .my-profile-layout {
+    padding-top: 6rem;
+  }
+
+  .profile-sidebar {
+    top: 6rem;
+    height: calc(100vh - 6rem);
+  }
 }
