@@ -1,6 +1,13 @@
-<%= form_with url: patch_chat_messages_path(@patch, chat), model: message, method: :post do |f| %>
-  <%= f.text_field :content, placeholder: "Ask a question...", class: "form-control mb-2", required: true, autocomplete: "off" %>
-  <div class="d-flex justify-content-end">
-    <%= f.submit "Ask Chat", class: "btn btn-primary btn-sm", style: "color: #fff;" %>
+<%= form_with model: [patch, chat, message] do |f| %>
+  <%= f.text_field :content,
+        placeholder: "Ask a question...",
+        class: "form-control mb-2",
+        required: true,
+        autocomplete: "off" %>
+
+  <div class="d-flex justify-content-end mb-2 me-1">
+    <%= f.submit "Ask Chat",
+        class: "btn btn-primary btn-sm",
+        style: "color: #fff;" %>
   </div>
 <% end %>
