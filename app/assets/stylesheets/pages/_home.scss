@@ -79,14 +79,14 @@
     left: 0;
     width: 100%;
     height: 180px;
-    background: linear-gradient(to bottom, transparent, $dark-bg);
+    background: linear-gradient(to bottom, transparent, var(--gb-bg));
     z-index: 2;
     pointer-events: none;
   }
 
   &__subtitle {
     font-size: 1rem;
-    color: #a1a1aa;
+    color: var(--gb-muted);
     margin: 0;
     max-width: 480px;
   }
@@ -97,29 +97,46 @@
     margin-top: 1rem;
     flex-wrap: wrap;
     justify-content: center;
+  }
 
-    .btn {
-      transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  &__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 180px;
+    padding: 0.95rem 1.35rem;
+    border-radius: 999px;
+    border: 1px solid var(--gb-border-soft);
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 
-      &:hover {
-        transform: scale(1.07);
-      }
+    &:hover {
+      transform: scale(1.04);
+      text-decoration: none;
     }
+  }
 
-    .btn-outline-light {
-      &:hover {
-        background-color: rgba(124, 92, 252, 0.15);
-        border-color: $accent-purple;
-        color: #c4b5fd;
-      }
+  &__button--primary {
+    background: linear-gradient(135deg, var(--gb-accent), var(--gb-accent-strong));
+    border-color: transparent;
+    color: #fff;
+
+    &:hover {
+      color: #fff;
+      box-shadow: 0 0 18px color-mix(in srgb, var(--gb-accent) 42%, transparent);
     }
+  }
 
-    .btn-primary {
-      &:hover {
-        background-color: lighten($accent-purple, 8%);
-        border-color: lighten($accent-purple, 8%);
-        box-shadow: 0 0 16px rgba(124, 92, 252, 0.45);
-      }
+  &__button--secondary {
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--gb-text);
+
+    &:hover {
+      background-color: color-mix(in srgb, var(--gb-accent) 14%, transparent);
+      border-color: var(--gb-accent);
+      color: var(--gb-text);
     }
   }
 
@@ -135,10 +152,10 @@
     align-items: center;
     gap: 0.4rem;
     font-size: 0.75rem;
-    color: #71717a;
+    color: var(--gb-muted);
     letter-spacing: 0.02em;
 
-    i { font-size: 0.7rem; color: #a855f7; }
+    i { font-size: 0.7rem; color: var(--gb-accent); }
   }
 
   &__stat-divider {
@@ -167,7 +184,7 @@
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: #52525b;
+    color: var(--gb-muted);
     margin-bottom: 1.25rem;
   }
 
@@ -191,13 +208,13 @@
     align-items: center;
     gap: 0.35rem;
     padding: 1.25rem 1rem 1.25rem;
-    background: $dark-card;
-    border: 1px solid $dark-border;
+    background: var(--gb-card);
+    border: 1px solid var(--gb-border);
     border-radius: 1rem;
     transition: border-color 0.2s ease;
 
     &:hover {
-      border-color: rgba(124, 92, 252, 0.4);
+      border-color: var(--gb-accent);
     }
   }
 
@@ -206,7 +223,7 @@
     height: 4rem;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid $accent-purple;
+    border: 2px solid var(--gb-accent);
     margin-bottom: 0.25rem;
   }
 
@@ -226,13 +243,13 @@
 
   &__handle {
     font-size: 0.72rem;
-    color: $accent-purple;
+    color: var(--gb-accent);
     opacity: 0.8;
   }
 
   &__followers {
     font-size: 0.75rem;
-    color: #71717a;
+    color: var(--gb-muted);
     margin-top: 0.15rem;
 
     i { font-size: 0.65rem; margin-right: 0.2rem; }
@@ -247,10 +264,10 @@
   &__btn {
     width: 2rem;
     height: 2rem;
-    background: rgba(124, 92, 252, 0.12);
-    border: 1px solid rgba(124, 92, 252, 0.25);
+    background: color-mix(in srgb, var(--gb-accent) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--gb-accent) 28%, transparent);
     border-radius: 50%;
-    color: $accent-purple;
+    color: var(--gb-accent);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -260,8 +277,8 @@
     i { font-size: 0.65rem; }
 
     &:hover {
-      background: rgba(124, 92, 252, 0.25);
-      border-color: rgba(124, 92, 252, 0.5);
+      background: color-mix(in srgb, var(--gb-accent) 22%, transparent);
+      border-color: var(--gb-accent);
     }
   }
 }
@@ -271,7 +288,7 @@
   background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 0.5rem;
-  color: $dark-muted;
+  color: var(--gb-muted);
   font-size: 0.8rem;
   font-weight: 500;
   letter-spacing: 0.03em;
@@ -296,7 +313,7 @@
   width: 100%;
   margin: 0;
   border: none;
-  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  border-top: 1px solid var(--gb-border-soft);
   z-index: 1049;
 
   @media (min-width: 768px) {
@@ -357,22 +374,22 @@
 
   &__search-input {
     flex: 1;
-    background: $dark-surface;
-    border: 1px solid $dark-border;
+    background: var(--gb-surface);
+    border: 1px solid var(--gb-border);
     border-radius: 0.5rem;
-    color: $dark-text;
+    color: var(--gb-text);
     padding: 0.5rem 0.9rem;
     font-size: 0.9rem;
 
-    &::placeholder { color: $dark-muted; }
+    &::placeholder { color: var(--gb-muted); }
     &:focus {
       outline: none;
-      border-color: $accent-purple;
+      border-color: var(--gb-accent);
     }
   }
 
   &__search-btn {
-    background: $accent-purple;
+    background: linear-gradient(135deg, var(--gb-accent), var(--gb-accent-strong));
     color: #fff;
     border: none;
     border-radius: 0.5rem;
@@ -381,7 +398,7 @@
     font-weight: 600;
     cursor: pointer;
 
-    &:hover { background: lighten($accent-purple, 8%); }
+    &:hover { box-shadow: 0 0 18px color-mix(in srgb, var(--gb-accent) 42%, transparent); }
   }
 
   &__filters {
@@ -404,7 +421,7 @@
     font-family: $headers-font;
     font-size: 1.1rem;
     font-weight: 700;
-    color: $dark-muted;
+    color: var(--gb-muted);
     text-transform: uppercase;
     letter-spacing: 0.08em;
     margin-bottom: 1.5rem;

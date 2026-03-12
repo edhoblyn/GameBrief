@@ -10,3 +10,98 @@
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
+
+:root,
+html[data-theme="nebula"] {
+  --gb-bg: #0d0d14;
+  --gb-surface: #16161f;
+  --gb-card: #1a1a27;
+  --gb-panel: rgba(18, 18, 26, 0.97);
+  --gb-nav: rgba(15, 15, 20, 0.95);
+  --gb-border: #2a2a3e;
+  --gb-border-soft: rgba(255, 255, 255, 0.12);
+  --gb-text: #e0e0ef;
+  --gb-muted: #8c8ca8;
+  --gb-accent: #7c5cfc;
+  --gb-accent-strong: #a855f7;
+  --gb-accent-secondary: #4f9cf9;
+  --gb-theme-gradient: radial-gradient(circle at top, rgba(124, 92, 252, 0.16), transparent 34%);
+}
+
+html[data-theme="ion"] {
+  --gb-bg: #08121c;
+  --gb-surface: #0f1c28;
+  --gb-card: #122333;
+  --gb-panel: rgba(10, 24, 36, 0.97);
+  --gb-nav: rgba(8, 18, 28, 0.95);
+  --gb-border: #1f3c57;
+  --gb-border-soft: rgba(138, 204, 255, 0.2);
+  --gb-text: #e3f4ff;
+  --gb-muted: #8db5cf;
+  --gb-accent: #35b8ff;
+  --gb-accent-strong: #7bd8ff;
+  --gb-accent-secondary: #7bd8ff;
+  --gb-theme-gradient: radial-gradient(circle at top, rgba(53, 184, 255, 0.18), transparent 36%);
+}
+
+html[data-theme="toxic"] {
+  --gb-bg: #0b1510;
+  --gb-surface: #122018;
+  --gb-card: #16261d;
+  --gb-panel: rgba(16, 30, 22, 0.97);
+  --gb-nav: rgba(11, 21, 16, 0.95);
+  --gb-border: #254230;
+  --gb-border-soft: rgba(169, 255, 120, 0.18);
+  --gb-text: #ebf7ea;
+  --gb-muted: #99b69d;
+  --gb-accent: #7dff6b;
+  --gb-accent-strong: #b6ff8d;
+  --gb-accent-secondary: #42d6a4;
+  --gb-theme-gradient: radial-gradient(circle at top, rgba(125, 255, 107, 0.16), transparent 34%);
+}
+
+html[data-theme="ember"] {
+  --gb-bg: #18100f;
+  --gb-surface: #251715;
+  --gb-card: #2b1b19;
+  --gb-panel: rgba(34, 21, 19, 0.97);
+  --gb-nav: rgba(24, 16, 15, 0.95);
+  --gb-border: #4a2b27;
+  --gb-border-soft: rgba(255, 166, 120, 0.18);
+  --gb-text: #fff1eb;
+  --gb-muted: #d2a59a;
+  --gb-accent: #ff7b54;
+  --gb-accent-strong: #ffb067;
+  --gb-accent-secondary: #ffd166;
+  --gb-theme-gradient: radial-gradient(circle at top, rgba(255, 123, 84, 0.16), transparent 34%);
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  background-color: var(--gb-bg);
+  background-image: var(--gb-theme-gradient);
+  background-repeat: no-repeat;
+  color: var(--gb-text);
+}
+
+a {
+  color: var(--gb-accent);
+}
+
+a:hover {
+  color: var(--gb-accent-strong);
+}
+
+.card {
+  background: var(--gb-card);
+  border-color: var(--gb-border);
+  color: var(--gb-text);
+}
+
+.text-muted {
+  color: var(--gb-muted) !important;
+}
