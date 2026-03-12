@@ -1,13 +1,13 @@
 .admin-panel-page {
-  padding-top: 7rem;
-  padding-bottom: 3rem;
+  padding-top: 6.4rem;
+  padding-bottom: 2.25rem;
 
   &__hero {
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
-    gap: 1.5rem;
-    margin-bottom: 1.75rem;
+    gap: 1rem;
+    margin-bottom: 1.1rem;
     flex-wrap: wrap;
   }
 
@@ -22,9 +22,9 @@
   }
 
   &__title {
-    margin: 0 0 0.35rem;
+    margin: 0 0 0.2rem;
     color: $dark-text;
-    font-size: clamp(2.2rem, 4vw, 3rem);
+    font-size: clamp(1.85rem, 3vw, 2.45rem);
     font-weight: 800;
   }
 
@@ -32,18 +32,18 @@
   &__copy {
     margin: 0;
     color: $dark-muted;
-    font-size: 0.95rem;
-    line-height: 1.6;
+    font-size: 0.88rem;
+    line-height: 1.45;
   }
 
   &__hero-actions {
     display: flex;
-    gap: 0.75rem;
+    gap: 0.55rem;
     flex-wrap: wrap;
   }
 
   &__toolbar {
-    margin-top: 1rem;
+    margin-top: 0.75rem;
   }
 
   &__action,
@@ -51,14 +51,15 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.55rem;
-    padding: 0.8rem 1.1rem;
+    gap: 0.4rem;
+    padding: 0.55rem 0.85rem;
     border-radius: 999px;
     border: 1px solid $dark-border;
     background: rgba(255, 255, 255, 0.03);
     color: $dark-text;
-    font-size: 0.88rem;
+    font-size: 0.78rem;
     font-weight: 600;
+    line-height: 1.2;
     text-decoration: none;
     transition: transform 0.15s, background 0.15s, border-color 0.15s;
 
@@ -84,13 +85,13 @@
   &__grid {
     display: grid;
     grid-template-columns: minmax(0, 1.5fr) minmax(280px, 1fr);
-    gap: 1.25rem;
+    gap: 0.9rem;
   }
 
   &__card {
-    padding: 1.5rem;
+    padding: 1.1rem;
     border: 1px solid $dark-border;
-    border-radius: 24px;
+    border-radius: 20px;
     background:
       radial-gradient(circle at top right, rgba(53, 196, 106, 0.14), transparent 35%),
       rgba(255, 255, 255, 0.03);
@@ -101,55 +102,50 @@
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    gap: 1rem;
-    margin-bottom: 1rem;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
 
     h2 {
       margin: 0;
       color: $dark-text;
-      font-size: 1.45rem;
+      font-size: 1.15rem;
       font-weight: 750;
     }
   }
 
   &__pill {
-    padding: 0.35rem 0.75rem;
+    padding: 0.28rem 0.6rem;
     border: 1px solid rgba(126, 231, 135, 0.35);
     border-radius: 999px;
     background: rgba(126, 231, 135, 0.08);
     color: #7ee787;
-    font-size: 0.78rem;
+    font-size: 0.7rem;
     font-weight: 700;
     white-space: nowrap;
   }
 
   &__scrapes {
     display: grid;
-    gap: 0.9rem;
-    margin-top: 1.25rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+    margin-top: 0.8rem;
   }
 
   &__scrape {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1rem;
-    padding: 1rem 1.1rem;
+    gap: 0.75rem;
+    padding: 0.7rem 0.8rem;
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 18px;
+    border-radius: 14px;
     background: rgba(7, 12, 18, 0.45);
 
     h3 {
-      margin: 0 0 0.25rem;
+      margin: 0 0 0.2rem;
       color: $dark-text;
-      font-size: 1rem;
+      font-size: 0.92rem;
       font-weight: 700;
-    }
-
-    p {
-      margin: 0.15rem 0 0;
-      color: $dark-muted;
-      font-size: 0.84rem;
     }
 
     code {
@@ -157,8 +153,25 @@
     }
   }
 
+  &__scrape-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+
+    span {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.15rem 0.4rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      color: $dark-muted;
+      font-size: 0.74rem;
+      line-height: 1.2;
+    }
+  }
+
   &__button {
-    min-width: 130px;
+    min-width: 96px;
     background: linear-gradient(135deg, #1f8f52, #35c46a);
     border: 0;
     color: #fff;
@@ -166,7 +179,7 @@
   }
 
   &__button--wide {
-    min-width: 180px;
+    min-width: 140px;
   }
 
   &__button--danger {
@@ -174,36 +187,37 @@
   }
 
   &__admin-form {
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
   }
 
   &__inline-form {
     display: flex;
-    gap: 0.75rem;
+    gap: 0.55rem;
     flex-wrap: wrap;
   }
 
   &__input {
     flex: 1 1 220px;
-    min-height: 48px;
-    padding: 0.8rem 1rem;
+    min-height: 40px;
+    padding: 0.6rem 0.85rem;
     border: 1px solid $dark-border;
-    border-radius: 14px;
+    border-radius: 12px;
     background: rgba(7, 12, 18, 0.65);
     color: $dark-text;
+    font-size: 0.84rem;
   }
 
   &__admins,
   &__logs {
     display: grid;
-    gap: 0.9rem;
+    gap: 0.65rem;
   }
 
   &__admin-row,
   &__log-entry {
-    padding: 1rem 1.1rem;
+    padding: 0.75rem 0.85rem;
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 18px;
+    border-radius: 14px;
     background: rgba(7, 12, 18, 0.45);
   }
 
@@ -214,9 +228,9 @@
     gap: 1rem;
 
     p {
-      margin: 0.2rem 0 0;
+      margin: 0.12rem 0 0;
       color: $dark-muted;
-      font-size: 0.84rem;
+      font-size: 0.78rem;
     }
   }
 
@@ -224,6 +238,7 @@
     color: $dark-text;
     font-weight: 700;
     text-decoration: none;
+    font-size: 0.9rem;
 
     &:hover {
       color: #7ee787;
@@ -242,17 +257,18 @@
   }
 
   &__note {
-    margin-top: 1.5rem;
-    padding: 1rem 1.1rem;
+    margin-top: 1rem;
+    padding: 0.75rem 0.9rem;
     border-left: 3px solid #35c46a;
-    border-radius: 14px;
+    border-radius: 12px;
     background: rgba(53, 196, 106, 0.08);
     color: $dark-muted;
-    line-height: 1.6;
+    line-height: 1.45;
+    font-size: 0.82rem;
   }
 
   &__card--log {
-    margin-top: 1.25rem;
+    margin-top: 0.9rem;
   }
 
   &__log-entry--error {
@@ -264,24 +280,25 @@
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    margin-bottom: 0.45rem;
+    margin-bottom: 0.3rem;
     color: $dark-text;
+    font-size: 0.78rem;
   }
 
   &__log-entry p {
     margin: 0;
     color: $dark-muted;
-    font-size: 0.88rem;
+    font-size: 0.8rem;
   }
 
   &__log-error {
-    margin: 0.75rem 0 0;
-    padding: 0.85rem 1rem;
-    border-radius: 14px;
+    margin: 0.55rem 0 0;
+    padding: 0.65rem 0.8rem;
+    border-radius: 12px;
     background: rgba(0, 0, 0, 0.32);
     color: #ffd7d7;
     white-space: pre-wrap;
-    font-size: 0.82rem;
+    font-size: 0.76rem;
   }
 
   &__empty-copy {
@@ -293,6 +310,10 @@
 @media (max-width: 992px) {
   .admin-panel-page {
     &__grid {
+      grid-template-columns: 1fr;
+    }
+
+    &__scrapes {
       grid-template-columns: 1fr;
     }
   }

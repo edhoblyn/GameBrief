@@ -36,10 +36,12 @@
           <article class="admin-panel-page__scrape">
             <div>
               <h3><%= scrape[:label] %></h3>
-              <p>Source key: <code><%= scrape[:source] %></code></p>
-              <% if scrape[:game_slugs].any? %>
-                <p>Game slug: <code><%= scrape[:game_slugs].join(", ") %></code></p>
-              <% end %>
+              <div class="admin-panel-page__scrape-meta">
+                <span><code><%= scrape[:source] %></code></span>
+                <% if scrape[:game_slugs].any? %>
+                  <span><code><%= scrape[:game_slugs].join(", ") %></code></span>
+                <% end %>
+              </div>
             </div>
 
             <%= button_to "Run scrape",
