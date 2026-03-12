@@ -41,23 +41,29 @@ These are done and should stay out of the active rounds unless bugs appear.
 
 **Done?** ✅
 
+### Completed Task D - Ed
+
+**Fresh Badge** 🩷
+
+**Task:** **"New" badge on patches** — use `published_at` and show a visible badge on recent patches from the last 7 days on patch cards and relevant views
+
+**Done?** ✅
+
+### Completed Task E - Ed
+
+**Mobile Sweep** ⭐️
+
+**Task:** **Mobile responsiveness pass** — check and fix My Profile, patches, events, and games pages on small screens
+
+**Done?** ✅
+
 ---
 
 ## Round 1 — Team Priority Tasks
 
 These should be treated as the first active round.
 
-### Task 1 - Ed
-
-**Fresh Badge** 🩷
-
-**Task:** **"New" badge on patches** — use `published_at` and show a visible badge on recent patches from the last 7 days on patch cards and relevant views
-
-**Why it matters:** The backend support already exists, so this is a fast demo-quality win with low implementation risk.
-
-**Done?** ⬜
-
-### Task 2 - Baptiste
+### Task 1 - Baptiste
 
 **Event Lens** 🟡
 
@@ -67,17 +73,7 @@ These should be treated as the first active round.
 
 **Done?** ⬜
 
-### Task 3 - Hortense
-
-**Mobile Sweep** ⭐️
-
-**Task:** **Mobile responsiveness pass** — check and fix My Profile, patches, events, and games pages on small screens
-
-**Why it matters:** The current layouts are much richer now, so they need a proper phone-size pass before demo use.
-
-**Done?** ⬜
-
-### Task 4 - Bianca
+### Task 2 - Bianca
 
 **Real Recs** 🟣
 
@@ -87,13 +83,7 @@ These should be treated as the first active round.
 
 **Done?** ⬜
 
----
-
-## Round 2 — Important Follow-Up Tasks
-
-These are the next 4 active tasks once Round 1 is underway or finished.
-
-### Task 1 - Ed
+### Task 3 - Ed
 
 **Free Queue** 💙
 
@@ -103,17 +93,7 @@ These are the next 4 active tasks once Round 1 is underway or finished.
 
 **Done?** ⬜
 
-### Task 2 - Baptiste
-
-**Safe Clicks** 🟤
-
-**Task:** **Loading / disabled states on Generate Summary buttons** — prevent double submits on patch and event summary actions
-
-**Why it matters:** This closes a known UX gap and reduces accidental duplicate AI requests during demos.
-
-**Done?** ⬜
-
-### Task 3 - Hortense
+### Task 4 - Hortense
 
 **Event Polish** 🧡
 
@@ -123,13 +103,49 @@ These are the next 4 active tasks once Round 1 is underway or finished.
 
 **Done?** ⬜
 
-### Task 4 - Bianca
+---
+
+## Round 2 — Important Follow-Up Tasks
+
+These are the next 4 active tasks once Round 1 is underway or finished.
+
+### Task 1 - Baptiste
+
+**Safe Clicks** 🟤
+
+**Task:** **Loading / disabled states on Generate Summary buttons** — prevent double submits on patch and event summary actions
+
+**Why it matters:** This closes a known UX gap and reduces accidental duplicate AI requests during demos.
+
+**Done?** ⬜
+
+### Task 2 - Bianca
 
 **Notify Hub** 📣
 
 **Task:** **Notification centre placeholder page** — add a simple in-app notifications page tied to patch drops, reminders, and recommendation updates
 
 **Why it matters:** The profile already implies notification settings, so this gives those controls a clearer destination.
+
+**Done?** ⬜
+
+### Task 3 - Ed
+
+**Scrape Gate** 🛠️
+
+**Task:** **Admin scrape access check / fix** — review the admin scrape route and make sure access works correctly with the current `current_user.admin?` requirement
+
+**Why it matters:** The scrape tooling is high-value for demo freshness, and this path is currently fragile if admin checks are misconfigured.
+
+**Done?** ⬜
+
+### Task 4 - Hortense
+
+**Card Glow** 💜
+
+**Task:** **Patch/event card refinement pass** — tighten spacing, hover states, and consistency across the patch and event card system after the mobile pass
+
+**Why it matters:** It is a focused polish task that builds directly on the recent responsiveness work and helps the main feeds feel more finished.
 
 **Done?** ⬜
 
@@ -143,8 +159,9 @@ Use these if someone finishes early or gets blocked.
 | --- | --- | --- |
 | **Chat Archive** 🩵 — **Saved AI chats** | **Baptiste** | Good extension of the chat system that already exists |
 | **Patch Palette** ❤️ — **Colour-coded update categories on game pages** | **Bianca** | Best fit for user-facing game page presentation |
-| **Scrape Gate** 🛠️ — **Admin scrape access check / fix** | **Ed** | Important because the current admin scrape route depends on `current_user.admin?` |
-| **Card Glow** 💜 — **Patch/event card refinement pass** | **Hortense** | Best fit for consistency after the main mobile pass |
+| **Friends Feed** 🤝 — **Activity snippets from followed players** | **Hortense** | Good follow-on if the social/profile pages need one more lightweight enhancement |
+| **Reminder Copy** 📝 — **Reminder confirmation and empty-state polish** | **Ed** | Small UX win that supports the events/reminders flow without larger backend work |
+| **Summary Labels** 🧾 — **Clearer summary type labels and helper text** | **Baptiste** | Useful polish for the AI summary experience already in place |
 
 ---
 
@@ -166,7 +183,7 @@ Use this only as guidance if the team wants a quick starting point.
 By the end of the next cycle, the team should aim to have:
 
 1. Events filters shipped
-2. Patch freshness badge shipped
+2. Recommendation placeholder content replaced with a first real block
 3. Summary buttons protected against duplicate submits
-4. A proper mobile pass completed on the major user-facing pages
-5. At least one Round 2 follow-up task started or completed
+4. Free-to-play game filtering shipped
+5. At least one polish/follow-up task started after the current round
