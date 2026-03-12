@@ -51,7 +51,9 @@
         </div>
         <div class="game-card__body">
           <h3 class="game-card__name"><%= game.name %></h3>
-          <span class="game-card__cta">View updates <i class="fa fa-arrow-right"></i></span>
+          <span class="game-card__cta">
+            <%= favourite ? "View updates" : "See details" %> <i class="fa fa-arrow-right"></i>
+          </span>
         </div>
         <div class="game-card__follow">
           <% if favourite %>
