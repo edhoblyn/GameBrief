@@ -43,6 +43,7 @@
 
 - Dashboard was renamed and reshaped into `My Profile`
 - My Profile now includes profile highlights, reminder/patch spotlight cards, notification toggle UI, find-friends entry points, and social/community placeholder sections
+- My Profile also now includes a tabbed For You / Communities presentation layer, though that content is still mock/demo-first
 - Dedicated `My Games`, `My Patches`, `My Events`, `Find Friends`, and `Players` pages exist
 
 ### Scraping + Imports
@@ -51,6 +52,15 @@
 - `source_url` de-duplication prevents duplicate patch imports
 - Multiple game sources are now configured through dedicated scrapers/importers
 - Seeds preserve real scraped data where available
+
+### Admin + Account Management
+
+- Admin-only dashboard exists for manual scrape actions
+- Admins can run single-source scrapes or a run-all action from the UI
+- Scrape results are surfaced back into the dashboard as a log feed
+- Admin role management exists in-app with add/remove actions
+- The last remaining admin cannot be removed
+- Account updates now support avatar/cover uploads and no-password profile updates for non-credential changes
 
 ## Recent Progress By Session
 
@@ -75,6 +85,8 @@
 - Edit Profile is now a usable account editor linked from `My Profile`, with clearer separation between public profile updates and login/security changes
 - Users can now upload avatar and cover images with Active Storage, and those uploads now render back into the profile header/sidebar after saving
 - Profile/account update rules were tightened so username and profile image changes can be saved without a password, while email/password changes still require the current password
+- Admin tooling is now reflected in code: the admin dashboard exposes manual scrape triggers, scrape logs, and admin role management behind the `current_user.admin?` gate
+- `My Events` now has a clearer dedicated empty state when a user has no reminders saved
 - Small stability fixes landed around nil-safe navigation counts and public game show handling
 
 ## Completed Tasks Moved From The Task Board
@@ -141,5 +153,4 @@
 - Summary buttons do not yet show loading/disabled states
 - Social/community areas on My Profile are mostly mock UI and not backed by real persisted data
 - My Profile recommendations still need a first real recommendation block instead of placeholder content
-- Notifications still imply a destination page that does not yet exist in-app
-- Admin scrape access still needs a clean end-to-end check against the current `current_user.admin?` gate
+- Notification toggles are still local UI state rather than persisted preferences or a real notifications destination

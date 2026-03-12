@@ -9,9 +9,9 @@
 These still look like the clearest missing demo features based on the current codebase.
 
 - Events index filters by game and time range (`This Week`, `This Month`, `Future`, `All`)
-- Admin scrape access check/fix against the current `current_user.admin?` gate
 - Loading / disabled states on patch and event summary buttons
 - Real recommendation logic behind the My Profile recommendation area
+- Persisted notification preferences instead of local UI-only toggles
 
 ## Strong Next Features
 
@@ -20,7 +20,7 @@ These still look like the clearest missing demo features based on the current co
 - Reminder digest emails or event reminder confirmation emails
 - Pagination on games, patches, and events
 - Events page empty-state and filter-layout polish once filtering exists
-- Reminder confirmation and no-reminders empty-state polish
+- Editable profile bio or richer persisted profile fields so `My Profile` is not partly hard-coded
 
 ## Product / UX Enhancements
 
@@ -50,5 +50,6 @@ These still look like the clearest missing demo features based on the current co
 
 ## Notes
 
-- The My Profile page already contains recommendation, community, and social-feed style UI, but recommendation/community areas are still presentation-first and not backed by real persisted social data.
+- The My Profile page already contains recommendation, community, and social-feed style UI, but recommendation/community/feed areas are still presentation-first and not backed by real persisted social data.
 - Profile editing is now usable for names and images, so the next profile-related work should focus on real recommendation/social data rather than more shell UI.
+- The admin scrape gate now exists in code, so the next admin work should be about robustness and workflow improvements rather than basic access wiring.

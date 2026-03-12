@@ -79,6 +79,7 @@
 
 - `My Profile` page rebuilt into a social-style layout
 - Sidebar navigation for Home, My Profile, My Games, My Patches, My Events, Recommendations, and Find Friends
+- For You / Communities tabbed social-style mock feed on `My Profile`
 - Local notification toggle UI for patch alerts, event reminders, and recommendation updates
 - `Edit Profile` is linked from the profile page and opens a dedicated account editor
 - Users can upload avatar and cover images, which then render on profile surfaces
@@ -86,6 +87,7 @@
 - `My Patches` page for followed games with date filters and newest/oldest sorting
 - `Find Friends` search page for users by username or email
 - Basic `Players` index page
+- `My Events` page includes reminder counts plus an empty state when no reminders exist
 
 ## UI / Frontend Polish
 
@@ -106,3 +108,11 @@
 - Shared `PatchScrapeRunner` service for manual and scheduled imports
 - `admin/patch_scrapes#create` route for triggering configured scrape jobs
 - Deployed on Heroku with config-var based environment management
+
+## Admin Tools
+
+- Admin-only dashboard protected by `current_user.admin?`
+- Manual single-source and run-all patch scrape actions from the admin dashboard
+- In-app scrape log output stored in session and rendered after runs
+- Admin management UI to promote users by email and remove admins
+- Guard to prevent removing the last active admin
