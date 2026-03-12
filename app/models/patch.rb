@@ -125,6 +125,14 @@ class Patch < ApplicationRecord
     stored_published_at_for_reimport || demo_fallback_published_at
   end
 
+  def freshly_published?
+    published_at_for_badge.present? && published_at_for_badge >= 7.days.ago.beginning_of_day
+  end
+
+  def published_at_for_badge
+    stored_published_at_for_reimport
+  end
+
   def stored_published_at_for_reimport
     return unless self.class.published_at_column?
     return if self[:published_at].blank?

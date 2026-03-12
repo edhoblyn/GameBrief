@@ -40,7 +40,12 @@
             <%= link_to patch_path(patch), class: "text-decoration-none" do %>
               <div class="card h-100">
                 <div class="card-body">
-                  <p class="text-muted small mb-1"><%= patch.game.name %></p>
+                  <div class="patches-index__meta">
+                    <p class="text-muted small mb-1"><%= patch.game.name %></p>
+                    <% if patch.freshly_published? %>
+                      <span class="patch-fresh-badge">New</span>
+                    <% end %>
+                  </div>
                   <h5 class="card-title"><%= patch.title %></h5>
                   <p class="patches-index__date"><%= patch.display_published_at.to_date.to_fs(:long) %></p>
                   <p class="card-text text-muted small"><%= patch.content.truncate(100) %></p>
