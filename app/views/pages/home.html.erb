@@ -17,7 +17,7 @@
 
       <div class="home-landing__actions">
         <% if user_signed_in? %>
-          <%= link_to "See My Profile", my_profile_path, class: "btn btn-primary btn-lg" %>
+          <%= link_to "See My Profile", my_profile_path, class: "btn btn-primary btn-lg", style: "color: #fff;" %>
         <% else %>
           <%= link_to "Get Started", new_user_registration_path, class: "btn btn-primary btn-lg" %>
         <% end %>
