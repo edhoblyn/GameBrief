@@ -3,6 +3,7 @@ require "nokogiri"
 
 class Scrapers::EaSportsFc26Scraper
   include Scrapers::PublishedAtExtraction
+  include Scrapers::StructuredContentExtraction
 
   INDEX_URL = "https://www.ea.com/games/ea-sports-fc/fc-26/news"
   HEADERS = { "User-Agent" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36" }
@@ -33,7 +34,7 @@ class Scrapers::EaSportsFc26Scraper
   def fetch_patch(url)
     doc = Nokogiri::HTML(URI.open(url, HEADERS))
     title = doc.at("h1")&.text&.squish
-    content = extract_content(doc)
+    content = extract_content(doc, title: title)
 
     return nil if title.blank? || content.blank?
     return nil unless title.match?(TITLE_PATTERN)
@@ -44,21 +45,13 @@ class Scrapers::EaSportsFc26Scraper
     nil
   end
 
-  def extract_content(doc)
-    selectors = [
+  def extract_content(doc, title:)
+    extract_structured_content(doc, selectors: [
       "main",
       "article",
       "[class*='article']",
       "[class*='content']"
-    ]
-
-    selectors.each do |selector|
-      node = doc.at(selector)
-      text = node&.text&.squish
-      return text if text.present?
-    end
-
-    doc.text.to_s.squish
+    ], title: title)
   end
 
   def normalize_url(href)
