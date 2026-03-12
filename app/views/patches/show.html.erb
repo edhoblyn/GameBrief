@@ -16,7 +16,9 @@
     <div class="row g-4">
       <div class="col-lg-6">
         <h2 class="patch-show__section-title">Patch Notes</h2>
-        <pre class="patch-show__raw-notes"><%= @patch.content %></pre>
+        <div class="patch-show__notes">
+          <%= render_patch_notes(@patch.content) %>
+        </div>
       </div>
 
       <% if user_signed_in? && @chat %>

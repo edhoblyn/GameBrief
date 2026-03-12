@@ -176,24 +176,38 @@
     border-bottom: 1px solid $dark-border;
   }
 
-  &__raw-notes {
-    background: $dark-surface;
-    border: 1px solid $dark-border;
-    border-radius: 0.75rem;
-    padding: 1.25rem 1.5rem;
-    font-family: monospace;
-    font-size: 0.875rem;
-    color: #fff;
-    white-space: pre-wrap;
-    word-break: break-word;
+  &__notes {
+    color: $dark-text;
+    line-height: 1.75;
     margin-bottom: 2rem;
-    max-height: 400px;
-    max-width: 100%;
-    overflow-y: auto;
 
-    &::-webkit-scrollbar { width: 6px; }
-    &::-webkit-scrollbar-track { background: transparent; }
-    &::-webkit-scrollbar-thumb { background: $dark-border; border-radius: 3px; }
+    > *:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__notes-heading {
+    font-family: $headers-font;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 1.75rem 0 0.75rem;
+  }
+
+  &__notes-paragraph {
+    font-size: 0.98rem;
+    color: $dark-text;
+    margin: 0 0 1rem;
+  }
+
+  &__notes-list {
+    margin: 0 0 1.25rem 1.25rem;
+    padding: 0;
+
+    li {
+      margin-bottom: 0.6rem;
+      padding-left: 0.2rem;
+    }
   }
 }
 
