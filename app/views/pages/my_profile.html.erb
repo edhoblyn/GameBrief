@@ -364,9 +364,9 @@
               <h3 class="profile-rail-card__title">Play With Friends</h3>
             </div>
             <p class="profile-rail-card__empty">Jump into a session and start finding people who follow the same games.</p>
-            <%= link_to users_path, class: "social-profile-action social-profile-action--primary social-profile-action--full" do %>
+            <%= link_to(current_user.admin? ? users_path : find_friends_path, class: "social-profile-action social-profile-action--primary social-profile-action--full") do %>
               <i class="fa fa-users"></i>
-              Start Session
+              <%= current_user.admin? ? "Start Session" : "Find Friends" %>
             <% end %>
           </section>
         </aside>
