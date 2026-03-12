@@ -1,4 +1,5 @@
 <% content_for :title, "My Profile" %>
+<% content_for :on_dashboard, true %>
 
 <%
   fmt = ->(n) { n >= 1000 ? "#{(n / 1000.0).round(1).to_s.sub(/\.0$/, '')}K" : n.to_s }
@@ -58,7 +59,7 @@
 <div class="my-profile-layout">
 
   <!-- Sidebar -->
-  <aside class="profile-sidebar">
+  <aside class="profile-sidebar profile-sidebar--hidden" id="profile-sidebar">
     <div class="profile-sidebar__user">
       <div class="profile-sidebar__avatar">
         <% if current_user.avatar_url.present? %>
@@ -73,32 +74,7 @@
       <div class="profile-sidebar__handle">@<%= profile_handle %></div>
     </div>
 
-    <nav class="profile-sidebar__nav">
-      <a href="<%= root_path %>" class="profile-sidebar__nav-link">
-        <i class="fa fa-home"></i> Home
-      </a>
-      <a href="#" class="profile-sidebar__nav-link profile-sidebar__nav-link--active">
-        <i class="fa fa-user"></i> My Profile
-      </a>
-      <a href="<%= games_path %>" class="profile-sidebar__nav-link">
-        <i class="fa fa-gamepad"></i> My Games
-        <span class="badge bg-secondary ms-auto"><%= @followed_games.count %></span>
-      </a>
-      <a href="#" class="profile-sidebar__nav-link">
-        <i class="fa fa-file-text"></i> My Patches
-        <span class="badge bg-secondary ms-auto"><%= @recent_patches.count %></span>
-      </a>
-      <a href="#" class="profile-sidebar__nav-link">
-        <i class="fa fa-calendar"></i> My Events
-        <span class="badge bg-secondary ms-auto"><%= @reminders.count %></span>
-      </a>
-      <a href="#recommendations" class="profile-sidebar__nav-link">
-        <i class="fa fa-star"></i> My Recommendations
-      </a>
-      <%= link_to find_friends_path, class: "profile-sidebar__nav-link" do %>
-        <i class="fa fa-users"></i> Find friends
-      <% end %>
-    </nav>
+
 
     <section class="profile-sidebar__section">
       <div class="profile-sidebar__section-header">
