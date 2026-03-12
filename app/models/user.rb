@@ -13,8 +13,10 @@ class User < ApplicationRecord
   has_many :favourite_games, through: :favourites, source: :game
   has_many :reminders, dependent: :destroy
 
+  validates :role, inclusion: { in: %w[user admin] }
+
   def admin?
-    has_attribute?(:role) && self[:role] == "admin"
+    role == "admin"
   end
 
   def self.from_omniauth(auth)
