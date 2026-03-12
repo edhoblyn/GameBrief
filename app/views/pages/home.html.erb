@@ -50,9 +50,15 @@
       <div class="gamers-carousel__track" data-gamers-carousel-target="track">
         <% @featured_gamers.each do |gamer| %>
           <div class="gamers-carousel__card">
-            <img src="<%= gamer.avatar_url %>" alt="<%= gamer.username %>" class="gamers-carousel__avatar">
-            <span class="gamers-carousel__name"><%= gamer.username %></span>
-            <span class="gamers-carousel__handle">@<%= gamer.username %></span>
+            <% if gamer.avatar_image.attached? %>
+              <%= image_tag gamer.avatar_image, alt: gamer.display_name, class: "gamers-carousel__avatar" %>
+            <% elsif gamer.avatar_url.present? %>
+              <%= image_tag gamer.avatar_url, alt: gamer.display_name, class: "gamers-carousel__avatar" %>
+            <% else %>
+              <div class="gamers-carousel__avatar gamers-carousel__avatar--placeholder"><%= gamer.display_name.first.upcase %></div>
+            <% end %>
+            <span class="gamers-carousel__name"><%= gamer.display_name %></span>
+            <span class="gamers-carousel__handle">@<%= gamer.profile_handle %></span>
             <span class="gamers-carousel__followers">
               <i class="fa fa-users"></i> <%= number_with_delimiter(gamer.follower_count) %>
             </span>

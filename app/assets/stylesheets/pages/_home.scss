@@ -210,6 +210,14 @@
     margin-bottom: 0.25rem;
   }
 
+  &__avatar--placeholder {
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, #7c5cfc, #4f9cf9);
+    color: #fff;
+    font-weight: 800;
+  }
+
   &__name {
     font-size: 0.875rem;
     font-weight: 700;
