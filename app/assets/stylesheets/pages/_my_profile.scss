@@ -16,12 +16,26 @@ $sidebar-width: 260px;
   min-width: $sidebar-width;
   background: $dark-surface;
   border-right: 1px solid $dark-border;
+  border-bottom: 1px solid $dark-border;
+  border-bottom-right-radius: 16px;
   display: flex;
   flex-direction: column;
-  position: sticky;
+  position: fixed;
   top: 4.5rem;
+  left: 0;
   height: calc(100vh - 4.5rem);
   overflow-y: auto;
+  z-index: 1040;
+  transform: translateY(0);
+  opacity: 1;
+  box-shadow: 4px 8px 32px rgba(0, 0, 0, 0.45);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
+
+  &--hidden {
+    transform: translateX(-100%);
+    opacity: 0;
+    pointer-events: none;
+  }
 
   &__user {
     padding: 2rem 1.5rem 1.5rem;
@@ -1250,8 +1264,8 @@ $sidebar-width: 260px;
   }
 
   .profile-sidebar {
-    top: 6rem;
-    height: calc(100vh - 6rem);
+    top: 5.5rem;
+    height: calc(100vh - 5.5rem);
   }
 }
 
