@@ -21,35 +21,35 @@
 
     <% if user_signed_in? %>
       <li class="hn-item">
-        <div class="hn-card<%= ' hn-card--dashboard' if content_for?(:on_dashboard) %>">
+        <div class="hn-card<%= ' hn-card--dashboard' if loadout_section_active? %>">
           <details class="hn-sidebar-toggle-details">
-            <summary class="hn-front hn-dashboard-summary">
+            <summary class="hn-front hn-dashboard-summary<%= ' hn-dashboard-summary--active' if loadout_section_active? %>">
               Loadout
             </summary>
             <nav class="dropdown-menu profile-sidebar__nav">
-              <a href="<%= my_profile_path %>" class="profile-sidebar__nav-link profile-sidebar__nav-link--active">
+              <a href="<%= my_profile_path %>" class="<%= loadout_nav_link_class(my_profile_path) %>">
                 <i class="fa fa-user"></i> My Profile
               </a>
-              <a href="<%= my_games_path %>" class="profile-sidebar__nav-link">
+              <a href="<%= my_games_path %>" class="<%= loadout_nav_link_class(my_games_path) %>">
                 <i class="fa fa-gamepad"></i> My Games
                 <span class="profile-sidebar__count-badge ms-auto"><%= @followed_games&.count || current_user.favourite_games.count %></span>
               </a>
-              <a href="<%= my_patches_path %>" class="profile-sidebar__nav-link">
+              <a href="<%= my_patches_path %>" class="<%= loadout_nav_link_class(my_patches_path) %>">
                 <i class="fa fa-file-text"></i> My Patches
                 <span class="profile-sidebar__count-badge ms-auto"><%= @recent_patches&.count || 0 %></span>
               </a>
-              <a href="<%= my_events_path %>" class="profile-sidebar__nav-link">
+              <a href="<%= my_events_path %>" class="<%= loadout_nav_link_class(my_events_path) %>">
                 <i class="fa fa-calendar"></i> My Events
                 <span class="profile-sidebar__count-badge ms-auto"><%= @reminders&.count || current_user.reminders.count %></span>
               </a>
               <a href="#recommendations" class="profile-sidebar__nav-link">
                 <i class="fa fa-star"></i> My Recommendations
               </a>
-              <%= link_to find_friends_path, class: "profile-sidebar__nav-link" do %>
+              <%= link_to find_friends_path, class: loadout_nav_link_class(find_friends_path) do %>
                 <i class="fa fa-users"></i> Find friends
               <% end %>
               <% if current_user.admin? %>
-                <%= link_to admin_dashboard_path, class: "profile-sidebar__nav-link" do %>
+                <%= link_to admin_dashboard_path, class: loadout_nav_link_class(admin_dashboard_path) do %>
                   <i class="fa fa-shield"></i> Admin Panel
                 <% end %>
               <% end %>

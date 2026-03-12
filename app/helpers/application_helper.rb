@@ -1,4 +1,21 @@
 module ApplicationHelper
+  def loadout_section_active?
+    return false unless user_signed_in?
+
+    current_page?(my_profile_path) ||
+      current_page?(my_games_path) ||
+      current_page?(my_patches_path) ||
+      current_page?(my_events_path) ||
+      current_page?(find_friends_path) ||
+      current_page?(admin_dashboard_path)
+  end
+
+  def loadout_nav_link_class(path)
+    classes = ["profile-sidebar__nav-link"]
+    classes << "profile-sidebar__nav-link--active" if current_page?(path)
+    classes.join(" ")
+  end
+
   def render_markdown(text)
     renderer = Redcarpet::Render::HTML.new(hard_wrap: true)
     markdown = Redcarpet::Markdown.new(renderer, autolink: true, tables: true, fenced_code_blocks: true)
