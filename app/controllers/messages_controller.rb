@@ -19,7 +19,8 @@ class MessagesController < ApplicationController
     respond_to do |format|
       format.turbo_stream do
         render turbo_stream: [
-          turbo_stream.append("messages", partial: "messages/messages", locals: { messages: [@message, @assistant_message].compact }),
+          turbo_stream.append("messages", partial: "messages/message", locals: { message: @message }),
+          turbo_stream.append("messages", partial: "messages/message", locals: { message: @assistant_message }),
           turbo_stream.replace("new_message_container", partial: "messages/form", locals: { patch: @patch, chat: @chat, message: Message.new })
         ]
       end

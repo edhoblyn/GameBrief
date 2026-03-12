@@ -1,15 +1,13 @@
-<% messages.each do |message| %>
-  <% if message.role == "user" %>
-    <div class="d-flex justify-content-end mb-2">
-      <div class="px-3 pb-0 pt-3 rounded-pill" style="background: rgba(168, 85, 247, 0.25); color: #e4e4e7;">
-        <%= raw(render_markdown(message.content)) %>
-      </div>
+<% if message.role == "user" %>
+  <div class="d-flex justify-content-end mb-2">
+    <div class="px-3 pb-0 pt-3 rounded-pill" style="background: rgba(168, 85, 247, 0.25); color: #e4e4e7;">
+      <%= raw(render_markdown(message.content)) %>
     </div>
-  <% elsif message.role == "assistant" %>
-    <div class="d-flex justify-content-start mb-5">
-      <div class="px-3 pb-0 pt-3">
-        <%= raw(render_markdown(message.content)) %>
-      </div>
+  </div>
+<% else %>
+  <div class="d-flex justify-content-start mb-5">
+    <div class="px-3 pb-0 pt-3">
+      <%= raw(render_markdown(message.content)) %>
     </div>
-  <% end %>
+  </div>
 <% end %>

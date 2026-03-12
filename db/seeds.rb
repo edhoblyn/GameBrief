@@ -44,16 +44,24 @@ user = upsert_user(
 
 puts "Creating featured gamers..."
 
-upsert_user(email: "edhomey@gamebrief.gg",    password: "password123", username: "Ed Homey",    avatar_url: "https://randomuser.me/api/portraits/men/46.jpg",   follower_count: 84200)
-upsert_user(email: "biancastar@gamebrief.gg", password: "password123", username: "Bianca Star", avatar_url: "https://randomuser.me/api/portraits/women/73.jpg", follower_count: 61500)
-upsert_user(email: "hortgamer@gamebrief.gg",  password: "password123", username: "Hort Gamer",  avatar_url: "https://randomuser.me/api/portraits/women/44.jpg", follower_count: 43900)
-upsert_user(email: "baptistex@gamebrief.gg",  password: "password123", username: "BaptisteX",   avatar_url: "https://randomuser.me/api/portraits/men/78.jpg",   follower_count: 29300)
+upsert_user(email: "edhomey@gamebrief.gg",      password: "password123", username: "Ed Homey",      avatar_url: "https://randomuser.me/api/portraits/men/46.jpg",    follower_count: 84200)
+upsert_user(email: "biancastar@gamebrief.gg",   password: "password123", username: "Bianca Star",   avatar_url: "https://randomuser.me/api/portraits/women/73.jpg",  follower_count: 61500)
+upsert_user(email: "hortgamer@gamebrief.gg",    password: "password123", username: "Hort Gamer",    avatar_url: "https://randomuser.me/api/portraits/women/44.jpg",  follower_count: 43900)
+upsert_user(email: "baptistex@gamebrief.gg",    password: "password123", username: "BaptisteX",     avatar_url: "https://randomuser.me/api/portraits/men/78.jpg",    follower_count: 29300)
+upsert_user(email: "zerolagguru@gamebrief.gg",  password: "password123", username: "ZeroLagGuru",   avatar_url: "https://randomuser.me/api/portraits/men/11.jpg",    follower_count: 25100)
+upsert_user(email: "pixelqueenv@gamebrief.gg",  password: "password123", username: "PixelQueenV",   avatar_url: "https://randomuser.me/api/portraits/women/15.jpg",  follower_count: 22700)
+upsert_user(email: "snipersage@gamebrief.gg",   password: "password123", username: "SniperSage",    avatar_url: "https://randomuser.me/api/portraits/men/22.jpg",    follower_count: 19400)
+upsert_user(email: "nightowlnova@gamebrief.gg", password: "password123", username: "NightOwlNova",  avatar_url: "https://randomuser.me/api/portraits/women/28.jpg",  follower_count: 17800)
+upsert_user(email: "vortexking@gamebrief.gg",   password: "password123", username: "VortexKing",    avatar_url: "https://randomuser.me/api/portraits/men/32.jpg",    follower_count: 15200)
+upsert_user(email: "glitchhunter@gamebrief.gg", password: "password123", username: "GlitchHunter",  avatar_url: "https://randomuser.me/api/portraits/men/55.jpg",    follower_count: 12600)
+upsert_user(email: "crystalrift@gamebrief.gg",  password: "password123", username: "CrystalRift",   avatar_url: "https://randomuser.me/api/portraits/women/50.jpg",  follower_count: 10900)
+upsert_user(email: "apexdaddy@gamebrief.gg",    password: "password123", username: "ApexDaddy",     avatar_url: "https://randomuser.me/api/portraits/men/65.jpg",    follower_count: 8500)
 
 puts "Importing games from IGDB..."
 
 client = IgdbClient.new
 
-def import_game(client, query)
+def import_game(client, query, free_to_play: false)
   results = client.search_games(query)
   match = results.find { |g| g["name"]&.downcase == query.downcase && g["cover"] }
   match ||= results.find { |g| g["cover"] }
@@ -69,24 +77,25 @@ def import_game(client, query)
   game.update!(
     name: match["name"],
     slug: match["slug"],
-    cover_image: cover_url
+    cover_image: cover_url,
+    free_to_play: free_to_play
   )
 
   game
 end
 
-fortnite  = import_game(client, "Fortnite")
-warzone   = import_game(client, "Call of Duty: Warzone")
-apex      = import_game(client, "Apex Legends")
-destiny   = import_game(client, "Destiny 2")
-fifa      = import_game(client, "EA Sports FC 26")
-roblox    = import_game(client, "Roblox")
-clash     = import_game(client, "Clash Royale")
-coc       = import_game(client, "Clash of Clans")
-minecraft = import_game(client, "Minecraft")
-valorant  = import_game(client, "Valorant")
-marvel    = import_game(client, "Marvel Rivals")
-helldivers = import_game(client, "Helldivers 2")
+fortnite  = import_game(client, "Fortnite", free_to_play: true)
+warzone   = import_game(client, "Call of Duty: Warzone", free_to_play: true)
+apex      = import_game(client, "Apex Legends", free_to_play: true)
+destiny   = import_game(client, "Destiny 2", free_to_play: false)
+fifa      = import_game(client, "EA Sports FC 26", free_to_play: false)
+roblox    = import_game(client, "Roblox", free_to_play: true)
+clash     = import_game(client, "Clash Royale", free_to_play: true)
+coc       = import_game(client, "Clash of Clans", free_to_play: true)
+minecraft = import_game(client, "Minecraft", free_to_play: false)
+valorant  = import_game(client, "Valorant", free_to_play: true)
+marvel    = import_game(client, "Marvel Rivals", free_to_play: true)
+helldivers = import_game(client, "Helldivers 2", free_to_play: false)
 
 puts "Setting game genres..."
 

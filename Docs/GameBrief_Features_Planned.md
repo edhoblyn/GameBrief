@@ -1,68 +1,53 @@
-# GameBrief — Planned & Stretch Features
+# GameBrief — Features Planned
+
+> Last updated: 2026-03-12
 
 ---
 
-## Planned Features
-*In scope for the demo — build these before presenting.*
+## Highest Priority Gaps
 
-### Highest Demo Priority
+These still look like the clearest missing demo features based on the current codebase.
 
-- **Activity feed** — personalised feed of recent patches and events from followed games
-- **Events page filters** — game filter plus time period filter (This Week / This Month / Future / All)
-- **"New" badge on patches** — add `published_at` and show a green "NEW" badge for the last 7 days
-- **Live streamers on game page** — show currently live Twitch streamers for that game
-- **Colour-coded update categories on game pages** — assign colours to different update types, show a key at the top of the page, and let users click a category to filter updates by type
-- **Email confirmation for reminders** — send a confirmation email with event details and a link back
-- **Patch comparison view** — compare the newest patch with the previous one so users can see what changed quickly
-- **Patch difficulty meter** — label updates as low, medium, or high impact for casual players
-- **Trending now section** — surface the most-followed or most-viewed games, patches, and events
+- Events index filters by game and time range (`This Week`, `This Month`, `Future`, `All`)
+- Visible `NEW` badge for recent patches using `published_at`
+- Loading / disabled states on patch and event summary buttons
+- Mobile responsiveness pass across My Profile, games, patches, and events pages
 
-### Strong Demo Enhancements
+## Strong Next Features
 
-- **Saved AI chats** — let users revisit past patch conversations instead of starting over each time
-- **Reminder digest emails** — send a weekly email with upcoming followed-game events and fresh patch summaries
-- **Notification centre** — an in-app page for new patches, reminders, and recommendation updates
-- **"For You" recommendations** — suggest games similar to ones the user follows, based on genre or popularity
-- **Game suggestion section on games page** — let users suggest a game to be added, and add games once enough users request them
-- **Player onboarding quiz** — ask users what genres and platforms they like, then pre-fill recommendations
-- **Notification preferences** — choose what to get alerted for: new patches, upcoming events, or both
-- **Release countdowns** — countdown cards for upcoming game launches, seasons, and major events
+- Saved AI chats so users can revisit older patch conversations
+- Real recommendation engine behind the current My Profile recommendation area
+- Notification centre or inbox for reminders, patch drops, and recommendation updates
+- Reminder digest emails or event reminder confirmation emails
+- Free-to-play filter on the games index
+- Pagination on games, patches, and events
 
-### Polish + Utility
+## Product / UX Enhancements
 
-- **Platform tags** — label each game as PC, Console, or Mobile
-- **Free to play filter** — filter the games index to show only free-to-play titles
-- **Pagination** — paginate games, patches, and events list pages
-- **Age verification on signup** — collect date of birth; hide 18+ rated games from underage users
-- Styled patch summary cards (one card per summary type)
-- Loading/disabled state on Generate Summary buttons to prevent double-clicks
-- Mobile responsiveness — all pages checked and fixed for small screens
+- Trending or activity feed for followed games
+- Patch comparison view between the latest and previous patch
+- Patch difficulty / impact meter for casual players
+- Live Twitch streamer module on game pages
+- Colour-coded patch/update categories on game pages
+- Platform tags on game cards and game pages
+- Player onboarding quiz for genres and platform preferences
 
-### Stretch Features
+## Social / Community Ideas
 
-- **Follow other users** — see what games friends are following
-- **Public player profiles** — followed games, recent activity, bio
-- **Patch comments** — leave reactions or tips on a patch page
-- **Patch sentiment reactions** — simple reactions like Hype, Neutral, or Concerned to measure community response
-- **Share a patch** — share via a link or in-app share button
-- **Achievements and badges** — earn badges for milestones like "Followed 5 games" or "Set your first reminder"
-- **Streak tracking** — reward users who check in daily or weekly to read patch notes
-- **Community collections** — curated lists like "Best games for quick matches" or "Top active live-service games"
-- Dedicated section showing unreleased games sourced from IGDB
-- Users can follow upcoming games and get notified at launch
+- Follow other users
+- Public player profiles with real social data
+- Patch comments or reactions
+- Shareable patch links / share UI
+- Real community pages instead of the current My Profile mock community cards
 
----
+## Longer-Term Ideas
 
-## Product Ideas
-*Not features to build now — ideas for how the app could grow.*
+- Unreleased games section sourced from IGDB
+- Follow upcoming games and notify users at launch
+- Achievements / streaks / badges
+- Developer-facing analytics or retention dashboard
 
-### Developer-Facing Features
+## Notes
 
-- GameBrief marketed to game developers as a discovery and retention tool
-- New players can find games through the platform
-- Existing players more likely to return when patch notes are easy to understand
-- Potential developer dashboard showing follower counts and patch read rates
-
----
-
-Last updated: Day 3
+- The My Profile page already contains recommendation, community, and social-feed style UI, but those areas are currently presentation-first and not backed by real persisted social data.
+- `published_at` now exists on patches, so the patch freshness badge should be a relatively small follow-up rather than a schema project.

@@ -88,6 +88,32 @@
   }
 }
 
+.home-games {
+  &__search {
+    form {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+  }
+
+  &__filters {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+
+  &__filter-group,
+  &__sort-group {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+}
+
 // ── Patch list card ─────────────────────────────────────────────────────────
 .patch-list-card {
   display: flex;
@@ -127,6 +153,14 @@
     font-weight: 600;
     font-size: 0.95rem;
     margin: 0;
+  }
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 0.2rem;
   }
 
   &__arrow {
@@ -190,5 +224,43 @@
     margin-left: auto;
     color: $dark-muted;
     font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .home-games {
+    &__search {
+      form {
+        flex-direction: column;
+      }
+    }
+
+    &__search-btn,
+    &__search-input {
+      width: 100%;
+    }
+
+    &__filters {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
+
+  .patch-list-card,
+  .event-list-card {
+    align-items: flex-start;
+    padding: 1rem;
+  }
+
+  .patch-list-card {
+    &__arrow {
+      display: none;
+    }
+  }
+
+  .event-list-card {
+    &__arrow {
+      display: none;
+    }
   }
 }

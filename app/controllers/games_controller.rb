@@ -1,9 +1,11 @@
 class GamesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :show]
+
   def index
     @games = Game.all
-    @games = @games.where("name ILIKE ?", "%#{params[:query]}%") if params[:query].present?
-    @games = @games.where("? = ANY(genre::text[])", params[:genre]) if params[:genre].present?
+    @games = @games.search_by_name(params[:query])
+    @games = @games.with_genre(params[:genre])
+    @games = @games.free_to_play_only(params[:free_to_play])
     @games = case params[:sort]
              when "name"     then @games.order(name: :asc)
              when "followed" then @games.left_joins(:favourites).group("games.id").order("COUNT(favourites.id) DESC")

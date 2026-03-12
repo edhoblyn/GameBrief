@@ -1,0 +1,293 @@
+.my-patches-page {
+  padding-top: 7rem;
+  padding-bottom: 3rem;
+
+  &__header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  &__eyebrow {
+    margin: 0 0 0.35rem;
+    color: $accent-blue;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  &__title {
+    margin: 0 0 0.35rem;
+    color: $dark-text;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 800;
+  }
+
+  &__subtitle {
+    margin: 0;
+    color: $dark-muted;
+    font-size: 0.95rem;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  &__action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    border-radius: 999px;
+    border: 1px solid $dark-border;
+    background: rgba(255, 255, 255, 0.03);
+    color: $dark-text;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.15s, background 0.15s, border-color 0.15s;
+
+    &:hover {
+      color: $dark-text;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba($accent-purple, 0.4);
+      transform: translateY(-1px);
+    }
+
+    &--primary {
+      background: linear-gradient(135deg, $accent-purple, lighten($accent-purple, 8%));
+      border-color: transparent;
+      color: #fff;
+
+      &:hover {
+        color: #fff;
+      }
+    }
+  }
+
+  &__summary {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+
+  &__summary-card {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    min-width: 180px;
+    padding: 1rem 1.2rem;
+    border: 1px solid $dark-border;
+    border-radius: 20px;
+    background: linear-gradient(180deg, rgba($accent-purple, 0.18), rgba(255, 255, 255, 0.03));
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.18);
+  }
+
+  &__summary-value {
+    color: $dark-text;
+    font-size: 1.8rem;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  &__summary-label {
+    color: $dark-muted;
+    font-size: 0.82rem;
+  }
+
+  &__filters {
+    margin-bottom: 1.5rem;
+    padding: 1rem 1.2rem;
+    border: 1px solid $dark-border;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  &__filter-form {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  &__filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  &__filter-label {
+    color: $dark-muted;
+    font-size: 0.78rem;
+    font-weight: 600;
+  }
+
+  &__filter-select {
+    min-width: 190px;
+    padding: 0.65rem 0.8rem;
+    border: 1px solid $dark-border;
+    border-radius: 12px;
+    background: $dark-card;
+    color: $dark-text;
+  }
+
+  &__sort-group {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    min-height: 220px;
+    padding: 1.25rem;
+    border: 1px solid $dark-border;
+    border-radius: 22px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.015));
+    color: inherit;
+    text-decoration: none;
+    transition: transform 0.15s, border-color 0.15s, background 0.15s;
+
+    &:hover {
+      color: inherit;
+      text-decoration: none;
+      border-color: rgba($accent-purple, 0.35);
+      background: rgba(255, 255, 255, 0.05);
+      transform: translateY(-2px);
+    }
+  }
+
+  &__card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  &__card-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  &__game {
+    color: lighten($accent-blue, 10%);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  &__date {
+    color: $dark-muted;
+    font-size: 0.77rem;
+  }
+
+  &__card-title {
+    margin: 0;
+    color: $dark-text;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  &__card-copy {
+    margin: 0;
+    color: $dark-muted;
+    font-size: 0.86rem;
+    line-height: 1.55;
+  }
+
+  &__card-cta {
+    margin-top: auto;
+    color: $dark-text;
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+
+  &__empty {
+    padding: 3rem 1.5rem;
+    border: 1px solid $dark-border;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.03);
+    text-align: center;
+  }
+
+  &__empty-icon {
+    width: 68px;
+    height: 68px;
+    margin: 0 auto 1rem;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba($accent-purple, 0.16);
+    color: lighten($accent-purple, 12%);
+    font-size: 1.6rem;
+  }
+
+  &__empty-title {
+    margin: 0 0 0.5rem;
+    color: $dark-text;
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
+
+  &__empty-copy {
+    margin: 0 0 1.25rem;
+    color: $dark-muted;
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+}
+
+@media (max-width: 768px) {
+  .my-patches-page {
+    padding-top: 6rem;
+
+    &__actions {
+      width: 100%;
+    }
+
+    &__action {
+      width: 100%;
+      justify-content: center;
+    }
+
+    &__summary-card {
+      width: 100%;
+    }
+
+    &__grid {
+      grid-template-columns: 1fr;
+    }
+
+    &__filter-form {
+      align-items: stretch;
+    }
+
+    &__filter-group,
+    &__filter-select {
+      width: 100%;
+    }
+  }
+}
