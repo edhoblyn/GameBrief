@@ -510,7 +510,7 @@ $sidebar-width: 260px;
 .social-post {
   display: flex;
   gap: 0.875rem;
-  padding: 1.1rem 1.5rem;
+  padding: 0.95rem 1.15rem;
   border-bottom: 1px solid $dark-border;
   transition: background 0.12s;
 
@@ -542,27 +542,27 @@ $sidebar-width: 260px;
   &__name {
     color: $dark-text;
     font-weight: 600;
-    font-size: 0.88rem;
+    font-size: 0.84rem;
   }
 
   &__handle,
   &__dot,
   &__time {
     color: $dark-muted;
-    font-size: 0.82rem;
+    font-size: 0.78rem;
   }
 
   &__text {
     color: $dark-text;
-    font-size: 0.9rem;
+    font-size: 0.86rem;
     line-height: 1.55;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.65rem;
     word-break: break-word;
   }
 
   &__actions {
     display: flex;
-    gap: 1.5rem;
+    gap: 1rem;
   }
 }
 
@@ -601,13 +601,15 @@ $sidebar-width: 260px;
 
 .for-you-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1.7fr) minmax(280px, 360px);
+  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 420px);
   align-items: start;
 }
 
 .for-you-feed {
   min-width: 0;
   border-right: 1px solid $dark-border;
+  max-width: 620px;
+  justify-self: end;
 }
 
 .for-you-sidebar {
@@ -1195,7 +1197,7 @@ $sidebar-width: 260px;
 
 @media (max-width: 1200px) {
   .for-you-layout {
-    grid-template-columns: minmax(0, 1fr) 300px;
+    grid-template-columns: minmax(0, 0.95fr) 320px;
   }
 }
 
