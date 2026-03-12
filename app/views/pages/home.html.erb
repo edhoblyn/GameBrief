@@ -42,38 +42,6 @@
     </div>
   </div>
 
-  <div class="gamers-carousel" data-controller="gamers-carousel">
-    <p class="gamers-carousel__label">Featured Gamers</p>
-    <div class="gamers-carousel__viewport">
-      <div class="gamers-carousel__track" data-gamers-carousel-target="track">
-        <% @featured_gamers.each do |gamer| %>
-          <div class="gamers-carousel__card">
-            <% if gamer.avatar_image.attached? %>
-              <%= image_tag gamer.avatar_image, alt: gamer.display_name, class: "gamers-carousel__avatar" %>
-            <% elsif gamer.avatar_url.present? %>
-              <%= image_tag gamer.avatar_url, alt: gamer.display_name, class: "gamers-carousel__avatar" %>
-            <% else %>
-              <div class="gamers-carousel__avatar gamers-carousel__avatar--placeholder"><%= gamer.display_name.first.upcase %></div>
-            <% end %>
-            <span class="gamers-carousel__name"><%= gamer.display_name %></span>
-            <span class="gamers-carousel__handle">@<%= gamer.profile_handle %></span>
-            <span class="gamers-carousel__followers">
-              <i class="fa fa-users"></i> <%= number_with_delimiter(gamer.follower_count) %>
-            </span>
-          </div>
-        <% end %>
-      </div>
-    </div>
-    <div class="gamers-carousel__controls">
-      <button class="gamers-carousel__btn" data-action="click->gamers-carousel#prev">
-        <i class="fa fa-chevron-left"></i>
-      </button>
-      <button class="gamers-carousel__btn" data-action="click->gamers-carousel#next">
-        <i class="fa fa-chevron-right"></i>
-      </button>
-    </div>
-  </div>
-
 <% if user_signed_in? %>
     <div class="home-landing__logout">
       <%= button_to destroy_user_session_path, method: :delete, class: "logout-btn" do %>
