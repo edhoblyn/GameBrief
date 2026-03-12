@@ -1,143 +1,51 @@
 # GameBrief — Team Tasks
 
-> Last updated: 2026-03-12 | Focus: Task 1 (Brand Pass) done — tab icon updated, GameBrief logo on homepage, featured gamers carousel
+> Last updated: 2026-03-12
 
 ---
 
-## How To Use This Task Sheet
+## Completed In Current Pass
 
-- There are 2 rounds of work for the next day
-- The team has 4 members, so each round contains 4 main tasks
-- No one is assigned by default
-- The "Suggested owner" is based on who has already built the closest area in [GameBrief_Team_Progress.md](/Users/edhoblyn/GameBrief/Docs/GameBrief_Team_Progress.md)
+These items are reflected in the current codebase and should no longer be treated as open.
 
----
-
-## Round 1 — Team Priority Tasks
-
-These were explicitly suggested by the team for tomorrow, so they should be treated as the first priority unless something blocking appears.
-
-### Task 1 - Baptiste
-
-**Brand Pass** 🔵
-
-**Task:** **Change the browser tab icon and add the GameBrief logo on the homepage**
-
-**Why it matters:** This is a quick visual polish win that improves first impressions immediately and makes the app feel more finished.
-
-**Done?** ✅
-
-### Task 2 - Bianaca
-
-**Hero Polish** 🟣
-
-**Task:** **Homepage polish** — make `"See my profile"` white and review the log in button styling/state so the hero actions are visually clear
-
-**Why it matters:** The homepage is one of the main demo entry points, so these small changes have outsized presentation value.
-
-**Done?** ⬜
-
-### Task 3 - Hortense
-
-**Profile Flow** 🔴
-
-**Task:** **My Profile layout pass** — reduce the large empty areas, fill out unused space, and improve the overall page structure
-
-**Why it matters:** My Profile is currently one of the biggest screens in the app, so layout imbalance is very noticeable during demos.
-
-**Done?** ⬜
-
-### Task 4 - Ed
-
-**Sidebar Shift** 🟠
-
-**Task:** **My Profile sidebar updates** — change the notification buttons/sidebar controls and make them fit the revised profile layout
-
-**Why it matters:** This directly follows the team feedback and will make the profile page feel more intentional instead of placeholder-heavy.
-
-**Done?** ⬜
-
----
-
-## Round 2 — Important Follow-Up Tasks
-
-These are still worth doing next, but they come after the team-priority UI changes above.
-
-### Task 1
-
-**Event Lens** 🟡
-
-**Task:** **Events page filters** — add game filter plus time filter (`This Week`, `This Month`, `Future`, `All`) on the events index
-
-**Why it matters:** This is still one of the clearest missing demo features and matches the filtering work already present on patches.
-
-**Done?** ⬜
-
-### Task 2
-
-**Fresh Badge** 🩷
-
-**Task:** **"New" badge on patches** — use `published_at` and show a visible badge on recent patches from the last 7 days
-
-**Why it matters:** The backend support now exists, so this is a strong demo win with limited scope.
-
-**Done?** ⬜
-
-### Task 3
-
-**Safe Clicks** 🟤
-
-**Task:** **Loading / disabled state on Generate Summary buttons** — prevent double submits on patch and event summary actions
-
-**Why it matters:** This closes a known UX gap and reduces accidental duplicate requests during demos.
-
-**Done?** ⬜
-
-### Task 4
-
-**Mobile Sweep** ⭐️
-
-**Task:** **Mobile responsiveness pass** — check and fix My Profile, patches, events, and games pages on small screens
-
-**Why it matters:** This is still important before any live presentation, especially if the profile layout is changing again tomorrow.
-
-**Done?** ⬜
-
----
-
-## Suggested Backup Tasks
-
-Use these if someone finishes early or gets blocked.
-
-| Backup task | Suggested owner | Why |
+| Task | Status | Notes |
 | --- | --- | --- |
-| **Chat Archive** 🩵 — **Saved AI chats** | **Baptiste** | Good extension of the chat system that already exists |
-| **Patch Palette** ❤️ — **Colour-coded update categories on game pages** | **Bianca** | Best fit for user-facing game page layout and presentation |
-| **Free Queue** 💙 — **Free to play filter** on games index | **Ed** | Closest to games index queries and filtering logic |
-| **Card Glow** 💜 — **Styled patch summary cards** refinement pass | **Hortense** | Best fit for visual consistency and card polish |
-| **Notify Hub** 📣 — **Notification centre** placeholder page | **Bianca** | Good fit with profile/social-style UI work |
+| Brand pass | ✅ Done | Favicon links added in the layout, homepage logo added, featured gamers carousel added |
+| My Profile layout pass | ✅ Done | Profile page rebuilt into a fuller social-style layout with populated side panels |
+| My Profile sidebar updates | ✅ Done | Notification controls and sidebar navigation now exist in the revised profile layout |
+| Dedicated profile sub-pages | ✅ Done | `My Games`, `My Patches`, and `My Events` now have their own pages |
 
----
+## Current Priority Tasks
 
-## Suggested Split By Strength
+These are the clearest remaining tasks based on what is still missing in the app.
 
-Use this only as guidance if the team wants a quick starting point.
+| Priority | Task | Suggested owner | Why it matters | Status |
+| --- | --- | --- | --- | --- |
+| 1 | Events page filters (`game`, `This Week`, `This Month`, `Future`, `All`) | Baptiste or Ed | Still one of the biggest obvious feature gaps on the events flow | ⬜ |
+| 2 | Patch `NEW` badge using `published_at` | Ed | Backend support exists already, so this should be a quick high-visibility win | ⬜ |
+| 3 | Loading / disabled states on patch and event summary buttons | Baptiste | Prevents duplicate requests and makes AI actions feel more finished | ⬜ |
+| 4 | Mobile responsiveness sweep | Hortense | The profile and detail pages still need a proper small-screen pass before demo use | ⬜ |
 
-| Team strength area | Best fit based on progress so far |
-| --- | --- |
-| Scrapers, importers, game data, infra | **Ed** |
-| Styling, responsive checks, page polish | **Hortense** |
-| Patches, summaries, chatbot, event logic | **Baptiste** |
-| Profile page, reminders, social/discovery UI | **Bianca** |
+## Secondary Tasks
 
----
+Use these once the priority items above are underway.
+
+| Task | Suggested owner | Why |
+| --- | --- | --- |
+| Free-to-play filter on games index | Ed | Fits the existing games filtering/query work |
+| Saved AI chats | Baptiste | Extends the chat system that already exists |
+| Recommendation engine behind My Profile callouts | Bianca | The UI is present but the data is still placeholder-level |
+| Events page visual polish after filters land | Hortense | Best handled after the page structure is final |
+
+## Watchouts
+
+- The My Profile page now contains social-feed and community UI, but most of that content is mock data rather than real app data.
+- `admin/patch_scrapes#create` exists, but admin gating depends on `current_user.admin?`; confirm the user model supports that before relying on it for demo/admin workflows.
+- The homepage hero/button styling request looks partially addressed in code, but the original task wording was vague enough that it should be visually checked rather than blindly marked as a separate completed item.
 
 ## End-of-Day Goal
 
-By the end of the next day, the team should aim to have:
-
-1. The tab icon updated and the homepage logo added
-2. Homepage CTA/button styling cleaned up
-3. My Profile layout improved with less empty space
-4. My Profile sidebar / notification controls updated
-5. At least one Round 2 follow-up task started or completed
+1. Ship events filters.
+2. Add the patch freshness badge.
+3. Remove duplicate-submit risk from AI summary buttons.
+4. Close the main mobile layout issues on profile, games, patches, and events.
