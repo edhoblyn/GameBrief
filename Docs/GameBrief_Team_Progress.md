@@ -68,11 +68,13 @@
 - Homepage brand pass is reflected in code: favicon links in the layout, GameBrief logo on the homepage, and a featured gamers carousel
 - My Profile refresh is reflected in code: social-style header/content layout, sidebar notification controls, and recommendation/community placeholder panels
 - `My Games`, `My Patches`, and `My Events` are now proper standalone pages rather than just sections on one screen
+- Patch freshness badge work is now reflected in code: recent patches with a real `published_at` from the last 7 days now surface a visible `New` badge across patch cards and related patch lists
+- A first mobile responsiveness pass is now reflected in code: My Profile, games, patches, and events layouts have improved small-screen spacing, button stacking, and card behaviour for demo use
 
 ## Remaining Gaps
 
 - Events index still has no game/time filters
-- Patch pages do not yet show a `NEW` badge even though `published_at` now exists
 - Summary buttons do not yet show loading/disabled states
-- Mobile QA / responsive cleanup still looks unfinished
 - Social/community areas on My Profile are mostly mock UI and not backed by real persisted data
+- My Profile recommendations still need a first real recommendation block instead of placeholder content
+- Notifications still imply a destination page that does not yet exist in-app
