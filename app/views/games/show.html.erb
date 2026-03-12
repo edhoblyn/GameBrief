@@ -17,24 +17,34 @@
       <div class="game-show__meta">
         <%= link_to "← All games", games_path, class: "d-block mb-2", style: "font-size:0.82rem; color: rgba(255,255,255,0.45); text-decoration:none;" %>
         <h1><%= @game.name %></h1>
-        <div class="game-show__stat-row">
-          <span class="game-show__stat-pill">
-            <i class="fa fa-file-text-o"></i>
-            <%= pluralize(@game.patches.count, "patch") %>
-          </span>
-          <span class="game-show__stat-pill">
-            <i class="fa fa-calendar"></i>
-            <%= pluralize(@events.count, "upcoming event") %>
-          </span>
-          <span class="game-show__stat-pill">
-            <i class="fa fa-users"></i>
-            <%= pluralize(@followers_count, "follower") %>
-          </span>
-          <% Array(@game.genre).reject(&:blank?).each do |genre| %>
-            <span class="game-show__stat-pill game-show__stat-pill--ghost"><%= genre %></span>
-          <% end %>
-          <% if @game.free_to_play? %>
-            <span class="game-show__stat-pill game-show__stat-pill--success">Free to play</span>
+        <div class="game-show__meta-grid">
+          <div class="game-show__stat-row">
+            <span class="game-show__stat-pill">
+              <i class="fa fa-file-text-o"></i>
+              <%= pluralize(@game.patches.count, "patch") %>
+            </span>
+            <span class="game-show__stat-pill">
+              <i class="fa fa-calendar"></i>
+              <%= pluralize(@events.count, "upcoming event") %>
+            </span>
+            <span class="game-show__stat-pill">
+              <i class="fa fa-users"></i>
+              <%= pluralize(@followers_count, "follower") %>
+            </span>
+          </div>
+
+          <% if @game.genre_tags.any? || @game.free_to_play? %>
+            <div class="game-show__taxonomy">
+              <p class="game-show__taxonomy-label">Categories</p>
+              <div class="game-show__taxonomy-row">
+                <% @game.genre_tags.each do |genre| %>
+                  <span class="game-show__genre-pill"><%= genre %></span>
+                <% end %>
+                <% if @game.free_to_play? %>
+                  <span class="game-show__genre-pill game-show__genre-pill--success">Free to play</span>
+                <% end %>
+              </div>
+            </div>
           <% end %>
         </div>
         <div class="d-flex gap-2 flex-wrap mt-2">
