@@ -1,5 +1,6 @@
 class PatchScrapeRunner
   Result = Struct.new(:source, :label, :imported, :skipped, keyword_init: true)
+  Diagnostic = Struct.new(:source, :label, :imported, :skipped, :success, :error_message, :timestamp, keyword_init: true)
 
   SOURCES = {
     "marvel_rivals" => {
@@ -102,6 +103,52 @@ class PatchScrapeRunner
 
   def self.run_all
     sources.map { |source| run(source) }
+  end
+
+  def self.diagnostic_for_result(result)
+    Diagnostic.new(
+      source: result.source,
+      label: result.label,
+      imported: result.imported,
+      skipped: result.skipped,
+      success: true,
+      error_message: nil,
+      timestamp: Time.current
+    )
+  end
+
+  def self.diagnostic_for_error(source, error)
+    label = fetch(source)[:label]
+
+    Diagnostic.new(
+      source: source.to_s,
+      label: label,
+      imported: 0,
+      skipped: 0,
+      success: false,
+      error_message: error.message,
+      timestamp: Time.current
+    )
+  rescue KeyError
+    Diagnostic.new(
+      source: source.to_s,
+      label: source.to_s.humanize,
+      imported: 0,
+      skipped: 0,
+      success: false,
+      error_message: error.message,
+      timestamp: Time.current
+    )
+  end
+
+  def self.run_with_diagnostics(source)
+    diagnostic_for_result(run(source))
+  rescue StandardError => e
+    diagnostic_for_error(source, e)
+  end
+
+  def self.run_all_with_diagnostics
+    sources.map { |source| run_with_diagnostics(source) }
   end
 
   def self.source_for_game(game)

@@ -13,6 +13,8 @@ class User < ApplicationRecord
   has_many :favourite_games, through: :favourites, source: :game
   has_many :reminders, dependent: :destroy
 
+  scope :admins, -> { where(role: "admin") }
+
   validates :role, inclusion: { in: %w[user admin] }
 
   def admin?

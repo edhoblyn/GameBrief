@@ -27,6 +27,9 @@
         <span class="admin-panel-page__pill"><%= @scrape_sources.count %> sources</span>
       </div>
       <p class="admin-panel-page__copy">Use the same shared runner as the scheduled and rake-driven scrape pipeline.</p>
+      <div class="admin-panel-page__toolbar">
+        <%= button_to "Run all scrapes", run_all_admin_patch_scrapes_path, class: "admin-panel-page__button admin-panel-page__button--wide" %>
+      </div>
 
       <div class="admin-panel-page__scrapes">
         <% @scrape_sources.each do |scrape| %>
@@ -51,20 +54,69 @@
     <section class="admin-panel-page__card">
       <div class="admin-panel-page__section-header">
         <div>
-          <p class="admin-panel-page__kicker">Admin Workspace</p>
-          <h2>Next admin activities</h2>
+          <p class="admin-panel-page__kicker">Active Admin</p>
+          <h2>Admin access</h2>
         </div>
       </div>
 
-      <ul class="admin-panel-page__todo-list">
-        <li>Manage admin users and role assignments.</li>
-        <li>Review scrape failures and missing game mappings.</li>
-        <li>Add moderation and content management tools here as they land.</li>
-      </ul>
+      <div class="admin-panel-page__admin-form">
+        <%= form_with url: admin_users_path, method: :post, local: true, class: "admin-panel-page__inline-form" do |form| %>
+          <%= form.email_field :email, placeholder: "Add admin by email", class: "admin-panel-page__input", required: true %>
+          <%= form.submit "Add admin", class: "admin-panel-page__button" %>
+        <% end %>
+      </div>
+
+      <div class="admin-panel-page__admins">
+        <% @admins.each do |admin| %>
+          <article class="admin-panel-page__admin-row">
+            <div>
+              <%= link_to admin.display_name, user_path(admin), class: "admin-panel-page__admin-link" %>
+              <p><%= admin.email %></p>
+            </div>
+
+            <%= button_to "Remove",
+                          admin_user_path(admin),
+                          method: :delete,
+                          class: "admin-panel-page__button admin-panel-page__button--danger" %>
+          </article>
+        <% end %>
+      </div>
 
       <div class="admin-panel-page__note">
         This page is intentionally the single entry point for admin-only tools so future actions do not get scattered across the product.
       </div>
     </section>
   </div>
+
+  <section class="admin-panel-page__card admin-panel-page__card--log">
+    <div class="admin-panel-page__section-header">
+      <div>
+        <p class="admin-panel-page__kicker">Scrape Log</p>
+        <h2>Latest run output</h2>
+      </div>
+    </div>
+
+    <% if @scrape_logs.any? %>
+      <div class="admin-panel-page__logs">
+        <% @scrape_logs.each do |entry| %>
+          <article class="admin-panel-page__log-entry <%= "admin-panel-page__log-entry--error" unless entry["success"] %>">
+            <div class="admin-panel-page__log-topline">
+              <strong><%= entry["label"] %></strong>
+              <span><%= Time.zone.parse(entry["timestamp"]).strftime("%d %b %Y %H:%M") %></span>
+            </div>
+            <p>
+              <%= entry["success"] ? "Success" : "Failed" %>:
+              <%= entry["imported"] %> imported,
+              <%= entry["skipped"] %> skipped
+            </p>
+            <% if entry["error_message"].present? %>
+              <pre class="admin-panel-page__log-error"><%= entry["error_message"] %></pre>
+            <% end %>
+          </article>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="admin-panel-page__empty-copy">No scrape logs yet. Run a source or use Run all scrapes to populate this panel.</p>
+    <% end %>
+  </section>
 </div>

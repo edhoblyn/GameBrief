@@ -42,6 +42,10 @@
     flex-wrap: wrap;
   }
 
+  &__toolbar {
+    margin-top: 1rem;
+  }
+
   &__action,
   &__button {
     display: inline-flex;
@@ -161,6 +165,71 @@
     cursor: pointer;
   }
 
+  &__button--wide {
+    min-width: 180px;
+  }
+
+  &__button--danger {
+    background: linear-gradient(135deg, #a63b3b, #d45555);
+  }
+
+  &__admin-form {
+    margin-bottom: 1rem;
+  }
+
+  &__inline-form {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  &__input {
+    flex: 1 1 220px;
+    min-height: 48px;
+    padding: 0.8rem 1rem;
+    border: 1px solid $dark-border;
+    border-radius: 14px;
+    background: rgba(7, 12, 18, 0.65);
+    color: $dark-text;
+  }
+
+  &__admins,
+  &__logs {
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  &__admin-row,
+  &__log-entry {
+    padding: 1rem 1.1rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    background: rgba(7, 12, 18, 0.45);
+  }
+
+  &__admin-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    p {
+      margin: 0.2rem 0 0;
+      color: $dark-muted;
+      font-size: 0.84rem;
+    }
+  }
+
+  &__admin-link {
+    color: $dark-text;
+    font-weight: 700;
+    text-decoration: none;
+
+    &:hover {
+      color: #7ee787;
+    }
+  }
+
   &__todo-list {
     margin: 0;
     padding-left: 1.1rem;
@@ -180,6 +249,44 @@
     background: rgba(53, 196, 106, 0.08);
     color: $dark-muted;
     line-height: 1.6;
+  }
+
+  &__card--log {
+    margin-top: 1.25rem;
+  }
+
+  &__log-entry--error {
+    border-color: rgba(212, 85, 85, 0.45);
+  }
+
+  &__log-topline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.45rem;
+    color: $dark-text;
+  }
+
+  &__log-entry p {
+    margin: 0;
+    color: $dark-muted;
+    font-size: 0.88rem;
+  }
+
+  &__log-error {
+    margin: 0.75rem 0 0;
+    padding: 0.85rem 1rem;
+    border-radius: 14px;
+    background: rgba(0, 0, 0, 0.32);
+    color: #ffd7d7;
+    white-space: pre-wrap;
+    font-size: 0.82rem;
+  }
+
+  &__empty-copy {
+    margin: 0;
+    color: $dark-muted;
   }
 }
 
@@ -201,9 +308,19 @@
       width: 100%;
     }
 
+    &__inline-form {
+      flex-direction: column;
+    }
+
     &__scrape {
       flex-direction: column;
       align-items: stretch;
+    }
+
+    &__admin-row,
+    &__log-topline {
+      flex-direction: column;
+      align-items: flex-start;
     }
   }
 }
