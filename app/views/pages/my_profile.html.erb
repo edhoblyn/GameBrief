@@ -94,6 +94,39 @@
       <% end %>
     </nav>
 
+    <section class="profile-sidebar__section">
+      <div class="profile-sidebar__section-header">
+        <h3 class="profile-sidebar__section-title">Notifications</h3>
+        <span class="profile-sidebar__section-badge">Live</span>
+      </div>
+
+      <div class="profile-sidebar__control-list">
+        <button type="button" class="profile-sidebar__control">
+          <span class="profile-sidebar__control-copy">
+            <span class="profile-sidebar__control-label">Patch alerts</span>
+            <span class="profile-sidebar__control-meta">Major game updates and fresh patch drops</span>
+          </span>
+          <span class="profile-sidebar__control-state profile-sidebar__control-state--active">On</span>
+        </button>
+
+        <button type="button" class="profile-sidebar__control">
+          <span class="profile-sidebar__control-copy">
+            <span class="profile-sidebar__control-label">Event reminders</span>
+            <span class="profile-sidebar__control-meta">Upcoming events from games you follow</span>
+          </span>
+          <span class="profile-sidebar__control-state profile-sidebar__control-state--active">On</span>
+        </button>
+
+        <button type="button" class="profile-sidebar__control">
+          <span class="profile-sidebar__control-copy">
+            <span class="profile-sidebar__control-label">Recommendation updates</span>
+            <span class="profile-sidebar__control-meta">Suggestions based on your activity</span>
+          </span>
+          <span class="profile-sidebar__control-state">Off</span>
+        </button>
+      </div>
+    </section>
+
     <div class="profile-sidebar__footer">
       <%= link_to "Sign out", destroy_user_session_path, data: { "turbo-method": :delete }, class: "profile-sidebar__signout" %>
     </div>
