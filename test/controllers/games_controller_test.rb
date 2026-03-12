@@ -20,6 +20,26 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "shows admin scrape button for supported games" do
+    @user.update!(role: "admin")
+    game = Game.create!(name: "Apex Legends", slug: "apex-legends")
+
+    get game_url(game)
+
+    assert_response :success
+    assert_select "form[action='#{admin_patch_scrapes_path}']"
+    assert_includes @response.body, "Run Patch Scrape"
+  end
+
+  test "does not show admin scrape button for non-admin users" do
+    game = Game.create!(name: "Apex Legends", slug: "apex-legends")
+
+    get game_url(game)
+
+    assert_response :success
+    assert_select "form[action='#{admin_patch_scrapes_path}']", count: 0
+  end
+
   test "filters games by free-to-play flag" do
     free_game = Game.create!(name: "Fortnite", slug: "fortnite", free_to_play: true)
     paid_game = Game.create!(name: "Minecraft", slug: "minecraft", free_to_play: false)
