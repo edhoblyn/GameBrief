@@ -129,6 +129,14 @@
     margin: 0;
   }
 
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 0.2rem;
+  }
+
   &__arrow {
     margin-left: auto;
     color: $dark-muted;
