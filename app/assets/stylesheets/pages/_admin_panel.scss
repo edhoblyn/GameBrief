@@ -186,6 +186,24 @@
     background: linear-gradient(135deg, #a63b3b, #d45555);
   }
 
+  &__badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 64px;
+    padding: 0.45rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.74rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  &__badge--api {
+    border: 1px solid rgba(141, 194, 255, 0.4);
+    background: rgba(79, 156, 249, 0.14);
+    color: #8dc2ff;
+  }
+
   &__admin-form {
     margin-bottom: 0.75rem;
   }

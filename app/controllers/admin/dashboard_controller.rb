@@ -6,7 +6,8 @@ class Admin::DashboardController < Admin::BaseController
       {
         source: source,
         label: config[:label],
-        game_slugs: config.fetch(:game_slugs, [])
+        game_slugs: config.fetch(:game_slugs, []),
+        manual_trigger_enabled: config.fetch(:manual_trigger_enabled, true)
       }
     end
     @admins = User.admins.order(Arel.sql("COALESCE(NULLIF(username, ''), email) ASC"))

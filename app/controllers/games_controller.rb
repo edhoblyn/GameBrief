@@ -19,6 +19,6 @@ class GamesController < ApplicationController
     @patches = @game.patches.scraped_first_recent_first
     @events = @game.events.order(start_date: :asc)
     @favourite = current_user&.favourites&.find_by(game: @game)
-    @scrape_source = PatchScrapeRunner.source_for_game(@game)
+    @scrape_source_config = PatchScrapeRunner.config_for_game(@game)
   end
 end

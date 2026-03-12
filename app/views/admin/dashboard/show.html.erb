@@ -44,10 +44,14 @@
               </div>
             </div>
 
-            <%= button_to "Run scrape",
-                          admin_patch_scrapes_path,
-                          params: { source: scrape[:source] },
-                          class: "admin-panel-page__button" %>
+            <% if scrape.fetch(:manual_trigger_enabled, true) %>
+              <%= button_to "Run scrape",
+                            admin_patch_scrapes_path,
+                            params: { source: scrape[:source] },
+                            class: "admin-panel-page__button" %>
+            <% else %>
+              <span class="admin-panel-page__badge admin-panel-page__badge--api">API</span>
+            <% end %>
           </article>
         <% end %>
       </div>

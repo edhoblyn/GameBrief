@@ -48,6 +48,17 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
     assert_includes @response.body, "Run Patch Scrape"
   end
 
+  test "shows api badge instead of scrape button for blocked sources" do
+    @user.update!(role: "admin")
+    game = Game.create!(name: "Fortnite", slug: "fortnite")
+
+    get game_url(game)
+
+    assert_response :success
+    assert_select "form[action='#{admin_patch_scrapes_path}']", count: 0
+    assert_includes @response.body, "API"
+  end
+
   test "does not show admin scrape button for non-admin users" do
     game = Game.create!(name: "Apex Legends", slug: "apex-legends")
 

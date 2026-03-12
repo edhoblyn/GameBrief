@@ -72,7 +72,7 @@ class Admin::PatchScrapesControllerTest < ActionDispatch::IntegrationTest
     original_run_all = PatchScrapeRunner.method(:run_all_with_diagnostics)
     diagnostics = [
       PatchScrapeRunner::Diagnostic.new(source: "apex_legends", label: "Apex Legends", imported: 2, skipped: 1, success: true, error_message: nil, timestamp: Time.current),
-      PatchScrapeRunner::Diagnostic.new(source: "fortnite", label: "Fortnite", imported: 0, skipped: 0, success: false, error_message: "403 Forbidden", timestamp: Time.current)
+      PatchScrapeRunner::Diagnostic.new(source: "minecraft", label: "Minecraft", imported: 1, skipped: 0, success: true, error_message: nil, timestamp: Time.current)
     ]
 
     PatchScrapeRunner.singleton_class.define_method(:run_all_with_diagnostics) do
@@ -88,6 +88,6 @@ class Admin::PatchScrapesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to admin_dashboard_path
     follow_redirect!
     assert_includes @response.body, "Latest run output"
-    assert_includes @response.body, "403 Forbidden"
+    assert_includes @response.body, "Minecraft"
   end
 end

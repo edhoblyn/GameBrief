@@ -21,6 +21,8 @@ class PatchScrapeRunner
       label: "Fortnite",
       importer: PatchImporters::FortniteImporter,
       game_slugs: ["fortnite"],
+      ingestion_method: "api",
+      manual_trigger_enabled: false,
       missing_game_error: "Fortnite game not found in the database.",
       missing_game_hint: "Expected an existing Game named 'Fortnite' or slugged 'fortnite'."
     },
@@ -49,6 +51,8 @@ class PatchScrapeRunner
       label: "Destiny 2",
       importer: PatchImporters::Destiny2Importer,
       game_slugs: ["destiny-2"],
+      ingestion_method: "api",
+      manual_trigger_enabled: false,
       missing_game_error: "Destiny 2 game not found in the database.",
       missing_game_hint: "Expected an existing Game named 'Destiny 2' or slugged 'destiny-2'."
     },
@@ -93,6 +97,12 @@ class PatchScrapeRunner
     SOURCES.keys
   end
 
+  def self.runnable_sources
+    SOURCES.filter_map do |source, config|
+      source if config.fetch(:manual_trigger_enabled, true)
+    end
+  end
+
   def self.fetch(source)
     SOURCES.fetch(source.to_s)
   end
@@ -102,7 +112,7 @@ class PatchScrapeRunner
   end
 
   def self.run_all
-    sources.map { |source| run(source) }
+    runnable_sources.map { |source| run(source) }
   end
 
   def self.diagnostic_for_result(result)
@@ -148,7 +158,18 @@ class PatchScrapeRunner
   end
 
   def self.run_all_with_diagnostics
-    sources.map { |source| run_with_diagnostics(source) }
+    runnable_sources.map { |source| run_with_diagnostics(source) }
+  end
+
+  def self.manual_trigger_enabled?(source)
+    fetch(source).fetch(:manual_trigger_enabled, true)
+  end
+
+  def self.config_for_game(game)
+    source = source_for_game(game)
+    return nil if source.nil?
+
+    fetch(source).merge(source: source)
   end
 
   def self.source_for_game(game)
