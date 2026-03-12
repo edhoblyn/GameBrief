@@ -2,7 +2,7 @@ class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: [ :home ]
 
   def home
-    @featured_gamers = User.where.not(username: nil).order(follower_count: :desc).limit(12)
+    @featured_gamers = User.where.not(username: nil).order(follower_count: :desc).limit(4)
   end
 
   def find_friends
