@@ -54,7 +54,7 @@
             <h3 class="game-card__name"><%= game.name %></h3>
             <div class="game-card__follow">
               <% if favourite %>
-                <%= button_to favourite_path(favourite), method: :delete, class: "game-card__follow-btn game-card__follow-btn--active", aria: { label: "Unfollow #{game.name}" }, title: "Unfollow #{game.name}" do %>
+                <%= button_to favourite_path(favourite), method: :delete, class: "game-card__follow-btn game-card__follow-btn--active", aria: { label: "Unfollow #{game.name}" }, title: "Unfollow #{game.name}", form: { data: { controller: "unfollow-animation", action: "submit->unfollow-animation#submit" } } do %>
                   <i class="fa fa-star" aria-hidden="true"></i>
                 <% end %>
               <% else %>

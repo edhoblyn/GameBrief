@@ -1,8 +1,14 @@
 .alert {
   position: fixed;
-  bottom: 16px;
+  top: 16px;
   right: 16px;
+  bottom: auto;
   z-index: 1000;
+
+  @media (max-width: 576px) {
+    top: auto;
+    bottom: 16px;
+  }
 }
 
 .alert-gb-success {
