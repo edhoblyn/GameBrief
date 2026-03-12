@@ -1,5 +1,4 @@
-class Admin::PatchScrapesController < ApplicationController
-  before_action :require_admin!
+class Admin::PatchScrapesController < Admin::BaseController
 
   def create
     result = PatchScrapeRunner.run(params.require(:source))
@@ -15,9 +14,4 @@ class Admin::PatchScrapesController < ApplicationController
     redirect_back(fallback_location: games_path, alert: "#{config[:missing_game_error]} #{config[:missing_game_hint]}")
   end
 
-  private
-
-  def require_admin!
-    head :forbidden unless current_user&.admin?
-  end
 end

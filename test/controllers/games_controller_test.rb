@@ -20,6 +20,23 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "shows admin panel link in dashboard menu for admins" do
+    @user.update!(role: "admin")
+
+    get games_url
+
+    assert_response :success
+    assert_includes @response.body, "Admin Panel"
+    assert_includes @response.body, admin_dashboard_path
+  end
+
+  test "does not show admin panel link in dashboard menu for non-admin users" do
+    get games_url
+
+    assert_response :success
+    assert_not_includes @response.body, admin_dashboard_path
+  end
+
   test "shows admin scrape button for supported games" do
     @user.update!(role: "admin")
     game = Game.create!(name: "Apex Legends", slug: "apex-legends")

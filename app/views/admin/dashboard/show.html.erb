@@ -1,0 +1,70 @@
+<div class="admin-panel-page container">
+  <div class="admin-panel-page__hero">
+    <div>
+      <p class="admin-panel-page__eyebrow">Admin</p>
+      <h1 class="admin-panel-page__title">Admin Panel</h1>
+      <p class="admin-panel-page__subtitle">Run manual patch scrapes and keep core admin workflows in one place.</p>
+    </div>
+    <div class="admin-panel-page__hero-actions">
+      <%= link_to games_path, class: "admin-panel-page__action" do %>
+        <i class="fa fa-gamepad"></i>
+        Back to Games
+      <% end %>
+      <%= link_to my_profile_path, class: "admin-panel-page__action admin-panel-page__action--primary" do %>
+        <i class="fa fa-user"></i>
+        Profile
+      <% end %>
+    </div>
+  </div>
+
+  <div class="admin-panel-page__grid">
+    <section class="admin-panel-page__card">
+      <div class="admin-panel-page__section-header">
+        <div>
+          <p class="admin-panel-page__kicker">Manual Imports</p>
+          <h2>Patch scrapes</h2>
+        </div>
+        <span class="admin-panel-page__pill"><%= @scrape_sources.count %> sources</span>
+      </div>
+      <p class="admin-panel-page__copy">Use the same shared runner as the scheduled and rake-driven scrape pipeline.</p>
+
+      <div class="admin-panel-page__scrapes">
+        <% @scrape_sources.each do |scrape| %>
+          <article class="admin-panel-page__scrape">
+            <div>
+              <h3><%= scrape[:label] %></h3>
+              <p>Source key: <code><%= scrape[:source] %></code></p>
+              <% if scrape[:game_slugs].any? %>
+                <p>Game slug: <code><%= scrape[:game_slugs].join(", ") %></code></p>
+              <% end %>
+            </div>
+
+            <%= button_to "Run scrape",
+                          admin_patch_scrapes_path,
+                          params: { source: scrape[:source] },
+                          class: "admin-panel-page__button" %>
+          </article>
+        <% end %>
+      </div>
+    </section>
+
+    <section class="admin-panel-page__card">
+      <div class="admin-panel-page__section-header">
+        <div>
+          <p class="admin-panel-page__kicker">Admin Workspace</p>
+          <h2>Next admin activities</h2>
+        </div>
+      </div>
+
+      <ul class="admin-panel-page__todo-list">
+        <li>Manage admin users and role assignments.</li>
+        <li>Review scrape failures and missing game mappings.</li>
+        <li>Add moderation and content management tools here as they land.</li>
+      </ul>
+
+      <div class="admin-panel-page__note">
+        This page is intentionally the single entry point for admin-only tools so future actions do not get scattered across the product.
+      </div>
+    </section>
+  </div>
+</div>

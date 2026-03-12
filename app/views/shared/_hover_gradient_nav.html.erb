@@ -57,6 +57,11 @@
               <%= link_to find_friends_path, class: "profile-sidebar__nav-link" do %>
                 <i class="fa fa-users"></i> Find friends
               <% end %>
+              <% if current_user.admin? %>
+                <%= link_to admin_dashboard_path, class: "profile-sidebar__nav-link" do %>
+                  <i class="fa fa-shield"></i> Admin Panel
+                <% end %>
+              <% end %>
             </nav>
           </details>
         </div>

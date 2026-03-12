@@ -1,0 +1,209 @@
+.admin-panel-page {
+  padding-top: 7rem;
+  padding-bottom: 3rem;
+
+  &__hero {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-bottom: 1.75rem;
+    flex-wrap: wrap;
+  }
+
+  &__eyebrow,
+  &__kicker {
+    margin: 0 0 0.35rem;
+    color: #7ee787;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  &__title {
+    margin: 0 0 0.35rem;
+    color: $dark-text;
+    font-size: clamp(2.2rem, 4vw, 3rem);
+    font-weight: 800;
+  }
+
+  &__subtitle,
+  &__copy {
+    margin: 0;
+    color: $dark-muted;
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  &__hero-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  &__action,
+  &__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    padding: 0.8rem 1.1rem;
+    border-radius: 999px;
+    border: 1px solid $dark-border;
+    background: rgba(255, 255, 255, 0.03);
+    color: $dark-text;
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.15s, background 0.15s, border-color 0.15s;
+
+    &:hover {
+      color: $dark-text;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(126, 231, 135, 0.5);
+      transform: translateY(-1px);
+    }
+  }
+
+  &__action--primary {
+    background: linear-gradient(135deg, #1f8f52, #35c46a);
+    border-color: transparent;
+    color: #fff;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(280px, 1fr);
+    gap: 1.25rem;
+  }
+
+  &__card {
+    padding: 1.5rem;
+    border: 1px solid $dark-border;
+    border-radius: 24px;
+    background:
+      radial-gradient(circle at top right, rgba(53, 196, 106, 0.14), transparent 35%),
+      rgba(255, 255, 255, 0.03);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+  }
+
+  &__section-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+
+    h2 {
+      margin: 0;
+      color: $dark-text;
+      font-size: 1.45rem;
+      font-weight: 750;
+    }
+  }
+
+  &__pill {
+    padding: 0.35rem 0.75rem;
+    border: 1px solid rgba(126, 231, 135, 0.35);
+    border-radius: 999px;
+    background: rgba(126, 231, 135, 0.08);
+    color: #7ee787;
+    font-size: 0.78rem;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  &__scrapes {
+    display: grid;
+    gap: 0.9rem;
+    margin-top: 1.25rem;
+  }
+
+  &__scrape {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.1rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    background: rgba(7, 12, 18, 0.45);
+
+    h3 {
+      margin: 0 0 0.25rem;
+      color: $dark-text;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    p {
+      margin: 0.15rem 0 0;
+      color: $dark-muted;
+      font-size: 0.84rem;
+    }
+
+    code {
+      color: #b7f7ca;
+    }
+  }
+
+  &__button {
+    min-width: 130px;
+    background: linear-gradient(135deg, #1f8f52, #35c46a);
+    border: 0;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  &__todo-list {
+    margin: 0;
+    padding-left: 1.1rem;
+    color: $dark-text;
+
+    li {
+      margin-bottom: 0.75rem;
+      line-height: 1.5;
+    }
+  }
+
+  &__note {
+    margin-top: 1.5rem;
+    padding: 1rem 1.1rem;
+    border-left: 3px solid #35c46a;
+    border-radius: 14px;
+    background: rgba(53, 196, 106, 0.08);
+    color: $dark-muted;
+    line-height: 1.6;
+  }
+}
+
+@media (max-width: 992px) {
+  .admin-panel-page {
+    &__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-panel-page {
+    padding-top: 6rem;
+
+    &__hero-actions,
+    &__action,
+    &__button {
+      width: 100%;
+    }
+
+    &__scrape {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
+}
