@@ -47,4 +47,13 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
     assert_not_includes @response.body, "Helldivers 2"
     assert_not_includes @response.body, "Clash Royale"
   end
+
+  test "active filters link back to the same page with that filter removed" do
+    get games_url, params: { genre: "Shooter", free_to_play: "true", sort: "name", query: "apex" }
+
+    assert_response :success
+    assert_select "a[href='#{games_path(query: "apex", sort: "name", free_to_play: "true")}']", text: "Shooter"
+    assert_select "a[href='#{games_path(genre: "Shooter", query: "apex", sort: "name")}']", text: "Free-to-play"
+    assert_select "a[href='#{games_path(genre: "Shooter", query: "apex", free_to_play: "true")}']", text: "A–Z"
+  end
 end
