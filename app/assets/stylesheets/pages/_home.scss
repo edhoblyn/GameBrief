@@ -121,10 +121,11 @@
   &__button--primary {
     background: linear-gradient(135deg, var(--gb-accent), var(--gb-accent-strong));
     border-color: transparent;
-    color: #fff;
+    color: var(--gb-button-text);
+    text-shadow: var(--gb-button-text-shadow);
 
     &:hover {
-      color: #fff;
+      color: var(--gb-button-text);
       box-shadow: 0 0 18px color-mix(in srgb, var(--gb-accent) 42%, transparent);
     }
   }
@@ -305,22 +306,6 @@
   }
 }
 
-// ── Nav divider ───────────────────────────────────────────────────────────────
-.nav-divider {
-  position: fixed;
-  top: 3.75rem;
-  left: 0;
-  width: 100%;
-  margin: 0;
-  border: none;
-  border-top: 1px solid var(--gb-border-soft);
-  z-index: 1049;
-
-  @media (min-width: 768px) {
-    top: 4.25rem;
-  }
-}
-
 // ── Hero ────────────────────────────────────────────────────────────────────
 .home-hero {
   padding: 5rem 0 4rem;
@@ -390,7 +375,8 @@
 
   &__search-btn {
     background: linear-gradient(135deg, var(--gb-accent), var(--gb-accent-strong));
-    color: #fff;
+    color: var(--gb-button-text);
+    text-shadow: var(--gb-button-text-shadow);
     border: none;
     border-radius: 0.5rem;
     padding: 0.5rem 1.1rem;
