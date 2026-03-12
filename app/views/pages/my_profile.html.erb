@@ -1,4 +1,3 @@
-<% content_for :hide_navbar, true %>
 <% content_for :title, "My Profile" %>
 
 <%
@@ -47,6 +46,13 @@
 
   profile_name   = current_user.username.presence || current_user.email.split("@").first
   profile_handle = profile_name.downcase.gsub(/\s+/, "_")
+  profile_highlights = [
+    { label: "Following games", value: @followed_games.count, icon: "fa-gamepad" },
+    { label: "Patch drops", value: @recent_patches.count, icon: "fa-file-text" },
+    { label: "Event reminders", value: @reminders.count, icon: "fa-calendar" }
+  ]
+  next_reminder = @reminders.first
+  latest_patch = @recent_patches.first
 %>
 
 <div class="my-profile-layout">
@@ -94,6 +100,39 @@
       <% end %>
     </nav>
 
+    <section class="profile-sidebar__section">
+      <div class="profile-sidebar__section-header">
+        <h3 class="profile-sidebar__section-title">Notifications</h3>
+        <span class="profile-sidebar__section-badge">Live</span>
+      </div>
+
+      <div class="profile-sidebar__control-list">
+        <button type="button" class="profile-sidebar__control">
+          <span class="profile-sidebar__control-copy">
+            <span class="profile-sidebar__control-label">Patch alerts</span>
+            <span class="profile-sidebar__control-meta">Major game updates and fresh patch drops</span>
+          </span>
+          <span class="profile-sidebar__control-state profile-sidebar__control-state--active">On</span>
+        </button>
+
+        <button type="button" class="profile-sidebar__control">
+          <span class="profile-sidebar__control-copy">
+            <span class="profile-sidebar__control-label">Event reminders</span>
+            <span class="profile-sidebar__control-meta">Upcoming events from games you follow</span>
+          </span>
+          <span class="profile-sidebar__control-state profile-sidebar__control-state--active">On</span>
+        </button>
+
+        <button type="button" class="profile-sidebar__control">
+          <span class="profile-sidebar__control-copy">
+            <span class="profile-sidebar__control-label">Recommendation updates</span>
+            <span class="profile-sidebar__control-meta">Suggestions based on your activity</span>
+          </span>
+          <span class="profile-sidebar__control-state">Off</span>
+        </button>
+      </div>
+    </section>
+
     <div class="profile-sidebar__footer">
       <%= link_to "Sign out", destroy_user_session_path, data: { "turbo-method": :delete }, class: "profile-sidebar__signout" %>
     </div>
@@ -124,6 +163,29 @@
           <span class="social-profile-handle">@<%= profile_handle %></span>
         </div>
         <p class="social-profile-bio">Casual gamer. Patch notes enthusiast. Always one update behind.</p>
+        <div class="social-profile-highlights">
+          <% profile_highlights.each do |item| %>
+            <div class="profile-highlight-card">
+              <div class="profile-highlight-card__icon">
+                <i class="fa <%= item[:icon] %>"></i>
+              </div>
+              <div class="profile-highlight-card__body">
+                <span class="profile-highlight-card__value"><%= item[:value] %></span>
+                <span class="profile-highlight-card__label"><%= item[:label] %></span>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <div class="social-profile-actions">
+          <%= link_to games_path, class: "social-profile-action social-profile-action--primary" do %>
+            <i class="fa fa-gamepad"></i>
+            Manage Games
+          <% end %>
+          <%= link_to events_path, class: "social-profile-action" do %>
+            <i class="fa fa-calendar"></i>
+            Browse Events
+          <% end %>
+        </div>
         <div class="social-profile-stats">
           <a href="#" class="social-stat">
             <span class="social-stat__count">248</span>
@@ -245,69 +307,80 @@
         </div>
       <% end %>
     </div>
-
-    <section id="my-patches" class="profile-section">
-      <h2 class="profile-section__title">My Game's Patches</h2>
-
-      <% if @recent_patches.any? %>
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-          <% @recent_patches.each do |patch| %>
-            <div class="col">
-              <%= link_to patch_path(patch), class: "text-decoration-none" do %>
-                <div class="card h-100">
-                  <div class="card-body">
-                    <p class="text-muted small mb-1"><%= patch.game.name %></p>
-                    <h5 class="card-title"><%= patch.title %></h5>
-                    <p class="text-muted small mb-2"><%= patch.display_published_at.to_date.to_fs(:long) %></p>
-                  </div>
-                </div>
-              <% end %>
-            </div>
-          <% end %>
-        </div>
-      <% else %>
-        <p class="profile-section__empty">No patches yet for your followed games.</p>
-      <% end %>
-    </section>
-
-
-    <section id="my-events" class="profile-section">
-      <h2 class="profile-section__title">
-        My Events
-        <span class="badge bg-secondary ms-2"><%= @reminders.count %></span>
-      </h2>
-
-      <% if @reminders.any? %>
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-          <% @reminders.each do |reminder| %>
-            <div class="col">
-              <%= link_to event_path(reminder.event), class: "text-decoration-none" do %>
-                <div class="card h-100">
-                  <div class="card-body">
-                    <p class="text-muted small mb-1"><%= reminder.event.game.name %></p>
-                    <h5 class="card-title"><%= reminder.event.title %></h5>
-                    <p class="card-text text-muted small">
-                      <i class="fa fa-calendar me-1"></i>
-                      <%= reminder.event.start_date.strftime("%-d %b %Y") %>
-                    </p>
-                  </div>
-                </div>
-              <% end %>
-            </div>
-          <% end %>
-        </div>
-      <% else %>
-        <p class="profile-section__empty">No reminders set. <%= link_to "Browse events", events_path %>.</p>
-      <% end %>
-    </section>
-
-    <section id="recommendations" class="profile-section">
-      <h2 class="profile-section__title">My Recommendations</h2>
-      <p class="profile-section__empty">Recommendations coming soon.</p>
-    </section>
-
-      <%= link_to users_path, class: "btn btn-primary" do %>
-        <i class="fa fa-users me-2"></i> Start Session
-      <% end %>
   </main>
+
+  <aside class="profile-rail">
+    <section class="profile-rail-card">
+      <div class="profile-rail-card__header">
+        <h3 class="profile-rail-card__title">Overview</h3>
+        <span class="profile-rail-card__eyebrow">Today</span>
+      </div>
+      <div class="profile-rail-metrics">
+        <% profile_highlights.each do |item| %>
+          <div class="profile-rail-metric">
+            <span class="profile-rail-metric__label"><%= item[:label] %></span>
+            <span class="profile-rail-metric__value"><%= item[:value] %></span>
+          </div>
+        <% end %>
+      </div>
+    </section>
+
+    <section id="my-events" class="profile-rail-card">
+      <div class="profile-rail-card__header">
+        <h3 class="profile-rail-card__title">Upcoming Event</h3>
+        <%= link_to "All events", events_path, class: "profile-rail-card__link" %>
+      </div>
+      <% if next_reminder.present? %>
+        <%= link_to event_path(next_reminder.event), class: "profile-rail-feature" do %>
+          <span class="profile-rail-feature__eyebrow"><%= next_reminder.event.game.name %></span>
+          <h4 class="profile-rail-feature__title"><%= next_reminder.event.title %></h4>
+          <p class="profile-rail-feature__meta">
+            <i class="fa fa-calendar"></i>
+            <%= next_reminder.event.start_date.strftime("%-d %b %Y") %>
+          </p>
+        <% end %>
+      <% else %>
+        <p class="profile-rail-card__empty">No reminders set yet. <%= link_to "Browse events", events_path %>.</p>
+      <% end %>
+    </section>
+
+    <section id="my-patches" class="profile-rail-card">
+      <div class="profile-rail-card__header">
+        <h3 class="profile-rail-card__title">Latest Patch</h3>
+        <%= link_to "View patches", patches_path, class: "profile-rail-card__link" %>
+      </div>
+      <% if latest_patch.present? %>
+        <%= link_to patch_path(latest_patch), class: "profile-rail-feature" do %>
+          <span class="profile-rail-feature__eyebrow"><%= latest_patch.game.name %></span>
+          <h4 class="profile-rail-feature__title"><%= latest_patch.title %></h4>
+          <p class="profile-rail-feature__meta">
+            <i class="fa fa-clock-o"></i>
+            <%= latest_patch.display_published_at.to_date.to_fs(:long) %>
+          </p>
+        <% end %>
+      <% else %>
+        <p class="profile-rail-card__empty">No recent patches for your followed games.</p>
+      <% end %>
+    </section>
+
+    <section id="recommendations" class="profile-rail-card">
+      <div class="profile-rail-card__header">
+        <h3 class="profile-rail-card__title">Recommendations</h3>
+      </div>
+      <div class="profile-rail-callout">
+        <p class="profile-rail-callout__text">Recommendation updates are off right now. Turn them on in the sidebar to start building this feed.</p>
+      </div>
+    </section>
+
+    <section class="profile-rail-card profile-rail-card--action">
+      <div class="profile-rail-card__header">
+        <h3 class="profile-rail-card__title">Play With Friends</h3>
+      </div>
+      <p class="profile-rail-card__empty">Jump into a session and start finding people who follow the same games.</p>
+      <%= link_to users_path, class: "social-profile-action social-profile-action--primary social-profile-action--full" do %>
+        <i class="fa fa-users"></i>
+        Start Session
+      <% end %>
+    </section>
+  </aside>
 </div>
