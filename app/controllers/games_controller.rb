@@ -11,6 +11,7 @@ class GamesController < ApplicationController
              when "followed" then @games.left_joins(:favourites).group("games.id").order("COUNT(favourites.id) DESC")
              else @games
              end
+    @favourites_by_game_id = current_user&.favourites&.where(game_id: @games.select(:id))&.index_by(&:game_id) || {}
   end
 
   def show
