@@ -3,7 +3,7 @@
   padding-bottom: 4rem;
 
   &__header {
-    padding: 2.5rem 0 1.5rem;
+    padding: 6rem 0 1.5rem;
 
     h1 {
       font-family: $headers-font;
@@ -11,6 +11,62 @@
       font-weight: 800;
       color: #fff;
       margin-bottom: 0;
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-height: 180px;
+    padding: 1.15rem 1.2rem;
+    border: 1px solid $dark-border;
+    border-radius: 20px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.015));
+    color: inherit;
+    text-decoration: none;
+    transition: transform 0.15s, border-color 0.15s, background 0.15s;
+
+    &:hover {
+      color: inherit;
+      text-decoration: none;
+      border-color: rgba($accent-blue, 0.35);
+      background: rgba(255, 255, 255, 0.05);
+      transform: translateY(-2px);
+    }
+  }
+
+  &__game {
+    margin: 0;
+    color: lighten($accent-blue, 10%);
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  &__title {
+    margin: 0;
+    color: $dark-text;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.45;
+  }
+
+  &__date {
+    margin: auto 0 0;
+    color: $dark-muted;
+    font-size: 0.84rem;
+
+    i {
+      margin-right: 0.35rem;
+      color: $accent-blue;
     }
   }
 }
@@ -103,5 +159,29 @@
   i {
     font-size: 1rem;
     color: #4285f4;
+  }
+}
+
+@media (max-width: 768px) {
+  .events-index {
+    &__header {
+      padding-top: 5.5rem;
+    }
+
+    &__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .event-show {
+    &__header {
+      padding-top: 2rem;
+    }
+
+    &__badge {
+      width: 100%;
+      justify-content: center;
+      text-align: center;
+    }
   }
 }

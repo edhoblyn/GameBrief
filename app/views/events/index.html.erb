@@ -1,22 +1,20 @@
-<div class="container" style="padding-top: 6rem; padding-bottom: 4rem;">
-  <h1 class="mb-4">Upcoming Events</h1>
+<div class="events-index">
+  <div class="events-index__header container">
+    <h1>Upcoming Events</h1>
+  </div>
 
-  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-    <% @events.each do |event| %>
-      <div class="col">
-        <%= link_to event_path(event), class: "text-decoration-none" do %>
-          <div class="card h-100">
-            <div class="card-body">
-              <p class="text-muted small mb-1"><%= event.game.name %></p>
-              <h5 class="card-title"><%= event.title %></h5>
-              <p class="card-text text-muted small">
-                <i class="fa fa-calendar me-1"></i>
-                <%= event.start_date.strftime("%-d %b %Y") %>
-              </p>
-            </div>
-          </div>
+  <div class="container">
+    <div class="events-index__grid">
+      <% @events.each do |event| %>
+        <%= link_to event_path(event), class: "events-index__card" do %>
+          <p class="events-index__game"><%= event.game.name %></p>
+          <h2 class="events-index__title"><%= event.title %></h2>
+          <p class="events-index__date">
+            <i class="fa fa-calendar"></i>
+            <%= event.start_date.strftime("%-d %b %Y") %>
+          </p>
         <% end %>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </div>
 </div>

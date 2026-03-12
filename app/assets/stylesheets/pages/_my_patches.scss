@@ -264,12 +264,30 @@
   .my-patches-page {
     padding-top: 6rem;
 
+    &__actions {
+      width: 100%;
+    }
+
+    &__action {
+      width: 100%;
+      justify-content: center;
+    }
+
+    &__summary-card {
+      width: 100%;
+    }
+
     &__grid {
       grid-template-columns: 1fr;
     }
 
     &__filter-form {
       align-items: stretch;
+    }
+
+    &__filter-group,
+    &__filter-select {
+      width: 100%;
     }
   }
 }
