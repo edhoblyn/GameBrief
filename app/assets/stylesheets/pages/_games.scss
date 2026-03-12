@@ -1,6 +1,7 @@
 // ── Game show page ──────────────────────────────────────────────────────────
 .game-show {
   padding-bottom: 4rem;
+  --game-show-list-offset: 4.75rem;
 
   &__header {
     position: relative;
@@ -199,6 +200,15 @@
     color: var(--gb-muted);
     font-size: 0.84rem;
     margin-bottom: 1rem;
+  }
+
+  &__list-offset {
+    min-height: var(--game-show-list-offset);
+    margin-bottom: 1rem;
+  }
+
+  &__list-offset--empty {
+    display: block;
   }
 
   &__empty {
@@ -451,11 +461,22 @@
   }
 
   .game-show {
+    --game-show-list-offset: auto;
+
     &__section-headline,
     &__patch-controls,
     &__section-meta {
       flex-direction: column;
       align-items: flex-start;
+    }
+
+    &__list-offset {
+      min-height: 0;
+      margin-bottom: 1rem;
+    }
+
+    &__list-offset--empty {
+      display: none;
     }
   }
 
