@@ -37,7 +37,7 @@
           <h2 class="game-show__section-title">Latest Patches</h2>
           <% if @patches.any? %>
             <% @patches.each do |patch| %>
-              <%= link_to patch_path(patch), class: "patch-list-card" do %>
+              <%= link_to patch_path(patch, return_to: request.fullpath), class: "patch-list-card" do %>
                 <div class="patch-list-card__icon"><i class="fa fa-file-text-o"></i></div>
                 <span class="patch-list-card__title">
                   <%= patch.title %>
