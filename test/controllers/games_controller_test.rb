@@ -100,6 +100,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
     get games_url
 
     assert_response :success
+    assert_includes @response.body, "See details"
     assert_select "form[action='#{favourites_path}'] input[name='game_id'][value='#{game.id}']", count: 1
     assert_select "button[aria-label='Follow #{game.name}'] .fa-star-o", count: 1
   end
@@ -111,6 +112,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
     get games_url
 
     assert_response :success
+    assert_includes @response.body, "View updates"
     assert_select "form[action='#{favourite_path(favourite)}'] input[name='_method'][value='delete']", count: 1
     assert_select "button[aria-label='Unfollow #{game.name}'].game-card__follow-btn--active .fa-star", count: 1
   end
