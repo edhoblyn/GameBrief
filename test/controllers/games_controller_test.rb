@@ -39,6 +39,45 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
     assert_operator @response.body.index(newer_patch.title), :<, @response.body.index(older_patch.title)
   end
 
+  test "filters game patches by selected date range on show page" do
+    game = Game.create!(name: "Patch Filter Test", slug: "patch-filter-test")
+    recent_patch = game.patches.create!(
+      title: "Recent Update",
+      content: "Recent content",
+      published_at: 5.days.ago
+    )
+    older_patch = game.patches.create!(
+      title: "Older Update",
+      content: "Older content",
+      published_at: 45.days.ago
+    )
+
+    get game_url(game), params: { date_filter: "last_30_days" }
+
+    assert_response :success
+    assert_includes @response.body, recent_patch.title
+    assert_not_includes @response.body, older_patch.title
+  end
+
+  test "orders game patches oldest first when requested" do
+    game = Game.create!(name: "Patch Sort Test", slug: "patch-sort-test")
+    older_patch = game.patches.create!(
+      title: "Version 1.0",
+      content: "Older content",
+      published_at: 40.days.ago
+    )
+    newer_patch = game.patches.create!(
+      title: "Version 2.0",
+      content: "Newer content",
+      published_at: 3.days.ago
+    )
+
+    get game_url(game), params: { sort: "oldest" }
+
+    assert_response :success
+    assert_operator @response.body.index(older_patch.title), :<, @response.body.index(newer_patch.title)
+  end
+
   test "shows admin panel link in dashboard menu for admins" do
     @user.update!(role: "admin")
 

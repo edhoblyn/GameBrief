@@ -65,8 +65,47 @@
     }
   }
 
+  &__stat-row {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin-top: 0.9rem;
+  }
+
+  &__stat-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(8, 10, 18, 0.48);
+    color: rgba(255, 255, 255, 0.84);
+    font-size: 0.78rem;
+    font-weight: 600;
+    backdrop-filter: blur(10px);
+  }
+
+  &__stat-pill--ghost {
+    color: rgba(255, 255, 255, 0.68);
+  }
+
+  &__stat-pill--success {
+    border-color: rgba(126, 231, 135, 0.28);
+    background: rgba(52, 199, 89, 0.14);
+    color: #9df2ab;
+  }
+
   &__section {
     margin-bottom: 2.5rem;
+  }
+
+  &__section-headline {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
   }
 
   &__section-title {
@@ -79,6 +118,51 @@
     margin-bottom: 1rem;
     padding-bottom: 0.5rem;
     border-bottom: 1px solid $dark-border;
+  }
+
+  &__section-copy {
+    color: $dark-muted;
+    margin: -0.4rem 0 0;
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+
+  &__section-link,
+  &__reset-link {
+    color: $accent-purple;
+    font-size: 0.84rem;
+    font-weight: 600;
+    text-decoration: none;
+
+    &:hover {
+      color: lighten($accent-purple, 8%);
+      text-decoration: none;
+    }
+  }
+
+  &__patch-controls {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.9rem;
+  }
+
+  &__filter-group {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  &__section-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    color: $dark-muted;
+    font-size: 0.84rem;
+    margin-bottom: 1rem;
   }
 
   &__empty {
@@ -327,6 +411,15 @@
     &__filters {
       flex-direction: column;
       align-items: stretch;
+    }
+  }
+
+  .game-show {
+    &__section-headline,
+    &__patch-controls,
+    &__section-meta {
+      flex-direction: column;
+      align-items: flex-start;
     }
   }
 
