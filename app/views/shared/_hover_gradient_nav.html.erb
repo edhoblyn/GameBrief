@@ -41,15 +41,15 @@
               </a>
               <a href="<%= games_path %>" class="profile-sidebar__nav-link">
                 <i class="fa fa-gamepad"></i> My Games
-                <span class="badge bg-secondary ms-auto"><%= @followed_games.count %></span>
+                <span class="badge bg-secondary ms-auto"><%= @followed_games&.count || current_user.favourite_games.count %></span>
               </a>
               <a href="#" class="profile-sidebar__nav-link">
                 <i class="fa fa-file-text"></i> My Patches
-                <span class="badge bg-secondary ms-auto"><%= @recent_patches.count %></span>
+                <span class="badge bg-secondary ms-auto"><%= @recent_patches&.count || 0 %></span>
               </a>
               <a href="#" class="profile-sidebar__nav-link">
                 <i class="fa fa-calendar"></i> My Events
-                <span class="badge bg-secondary ms-auto"><%= @reminders.count %></span>
+                <span class="badge bg-secondary ms-auto"><%= @reminders&.count || current_user.reminders.count %></span>
               </a>
               <a href="#recommendations" class="profile-sidebar__nav-link">
                 <i class="fa fa-star"></i> My Recommendations
