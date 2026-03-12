@@ -251,6 +251,8 @@ $sidebar-width: 260px;
     rgba(30, 221, 136, 0.35) 100%
   );
   position: relative;
+  background-size: cover;
+  background-position: center;
 
   &::after {
     content: "";

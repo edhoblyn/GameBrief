@@ -86,6 +86,33 @@
   background: linear-gradient(135deg, rgba(124, 92, 252, 0.22), rgba(46, 196, 182, 0.14));
 }
 
+.edit-profile-card__cover-preview {
+  margin-bottom: 1.4rem;
+}
+
+.edit-profile-card__cover-image,
+.edit-profile-card__cover-fallback {
+  width: 100%;
+  min-height: 148px;
+  border-radius: 22px;
+}
+
+.edit-profile-card__cover-image {
+  display: block;
+  object-fit: cover;
+  border: 1px solid rgba(164, 179, 255, 0.16);
+}
+
+.edit-profile-card__cover-fallback {
+  display: grid;
+  place-items: center;
+  background:
+    linear-gradient(135deg, rgba(124, 92, 252, 0.32), rgba(79, 156, 249, 0.22)),
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.14), transparent 44%);
+  color: rgba(243, 246, 255, 0.72);
+  font-weight: 600;
+}
+
 .edit-profile-card__avatar {
   width: 68px;
   height: 68px;
@@ -174,6 +201,20 @@
   color: #f8faff;
   padding: 0.85rem 1rem;
   box-shadow: none;
+}
+
+.edit-profile-form__input--file {
+  padding: 0.7rem 0.8rem;
+}
+
+.edit-profile-form input[type="file"]::file-selector-button {
+  margin-right: 0.9rem;
+  border: none;
+  border-radius: 999px;
+  padding: 0.55rem 0.95rem;
+  background: rgba(124, 92, 252, 0.18);
+  color: #f8faff;
+  font-weight: 700;
 }
 
 .edit-profile-form__input:focus,

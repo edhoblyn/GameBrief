@@ -2,6 +2,7 @@ require "test_helper"
 
 class Users::RegistrationsControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
+  include ActionDispatch::TestProcess::FixtureFile
 
   setup do
     @user = User.create!(
@@ -35,5 +36,22 @@ class Users::RegistrationsControllerTest < ActionDispatch::IntegrationTest
     @user.reload
     assert_equal "UpdatedName", @user.username
     assert_equal "https://example.com/updated.png", @user.avatar_url
+  end
+
+  test "uploads avatar and cover images without requiring current password" do
+    patch user_registration_url, params: {
+      user: {
+        email: @user.email,
+        current_password: "",
+        avatar_image: fixture_file_upload("profile-upload.txt", "text/plain"),
+        cover_image: fixture_file_upload("profile-upload.txt", "text/plain")
+      }
+    }
+
+    assert_redirected_to root_path
+
+    @user.reload
+    assert @user.avatar_image.attached?
+    assert @user.cover_image.attached?
   end
 end

@@ -44,8 +44,8 @@
     { name: "Roguelike Runners",       description: "Hades, Dead Cells, Slay the Spire — runs, builds and meta discussion.", members: 15400, joined: false, icon: "🎲", color: "#4f9cf9", friends: [mock_profiles[3], mock_profiles[10], mock_profiles[0]] },
   ]
 
-  profile_name   = current_user.username.presence || current_user.email.split("@").first
-  profile_handle = profile_name.downcase.gsub(/\s+/, "_")
+  profile_name   = current_user.display_name
+  profile_handle = current_user.profile_handle
   profile_highlights = [
     { label: "Following games", value: @followed_games.count, icon: "fa-gamepad" },
     { label: "Patch drops", value: @recent_patches.count, icon: "fa-file-text" },
@@ -61,7 +61,9 @@
   <aside class="profile-sidebar">
     <div class="profile-sidebar__user">
       <div class="profile-sidebar__avatar">
-        <% if current_user.avatar_url.present? %>
+        <% if current_user.avatar_image.attached? %>
+          <%= image_tag current_user.avatar_image, class: "profile-sidebar__avatar-img" %>
+        <% elsif current_user.avatar_url.present? %>
           <%= image_tag current_user.avatar_url, class: "profile-sidebar__avatar-img" %>
         <% else %>
           <div class="profile-sidebar__avatar-placeholder">
@@ -164,11 +166,14 @@
 
     <!-- Profile header -->
     <div class="social-profile-header">
-      <div class="social-profile-banner"></div>
+      <% banner_style = current_user.cover_image.attached? ? "background-image: linear-gradient(rgba(7, 10, 22, 0.18), rgba(7, 10, 22, 0.52)), url('#{url_for(current_user.cover_image)}');" : nil %>
+      <div class="social-profile-banner"<%= banner_style.present? ? " style=\"#{banner_style}\"".html_safe : "" %>></div>
       <div class="social-profile-info">
         <div class="social-profile-top-row">
           <div class="social-profile-avatar-wrap">
-            <% if current_user.avatar_url.present? %>
+            <% if current_user.avatar_image.attached? %>
+              <%= image_tag current_user.avatar_image, class: "social-profile-avatar social-profile-avatar--img" %>
+            <% elsif current_user.avatar_url.present? %>
               <%= image_tag current_user.avatar_url, class: "social-profile-avatar social-profile-avatar--img" %>
             <% else %>
               <div class="social-profile-avatar">
