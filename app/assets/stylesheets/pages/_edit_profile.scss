@@ -247,6 +247,44 @@
   color: #e5edff;
 }
 
+.edit-profile-password-panel {
+  margin-top: 1.25rem;
+  border: 1px solid rgba(164, 179, 255, 0.14);
+  border-radius: 22px;
+  background: rgba(15, 20, 34, 0.88);
+  overflow: hidden;
+}
+
+.edit-profile-password-panel__summary {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.1rem;
+  cursor: pointer;
+  color: #f8faff;
+  font-size: 0.98rem;
+  font-weight: 700;
+}
+
+.edit-profile-password-panel__summary::-webkit-details-marker {
+  display: none;
+}
+
+.edit-profile-password-panel__summary i {
+  transition: transform 0.2s ease;
+}
+
+.edit-profile-password-panel[open] .edit-profile-password-panel__summary i {
+  transform: rotate(180deg);
+}
+
+.edit-profile-password-panel__body {
+  padding: 0 1.1rem 1.1rem;
+  border-top: 1px solid rgba(164, 179, 255, 0.12);
+}
+
 .edit-profile-form__actions {
   margin-top: 1.5rem;
   display: flex;

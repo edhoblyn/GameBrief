@@ -109,22 +109,35 @@
                 Waiting for confirmation for <strong><%= resource.unconfirmed_email %></strong>.
               </div>
             <% end %>
-
-            <%= f.input :password,
-                        hint: "Leave blank to keep your current password.",
-                        required: false,
-                        input_html: { autocomplete: "new-password", class: "edit-profile-form__input" },
-                        wrapper_html: { class: "edit-profile-form__field" } %>
-            <%= f.input :password_confirmation,
-                        required: false,
-                        input_html: { autocomplete: "new-password", class: "edit-profile-form__input" },
-                        wrapper_html: { class: "edit-profile-form__field" } %>
-            <%= f.input :current_password,
-                        hint: "Only required when changing your email or password.",
-                        required: false,
-                        input_html: { autocomplete: "current-password", class: "edit-profile-form__input" },
-                        wrapper_html: { class: "edit-profile-form__field edit-profile-form__field--full" } %>
           </div>
+
+          <details class="edit-profile-password-panel">
+            <summary class="edit-profile-password-panel__summary">
+              <span>Change password</span>
+              <i class="fa fa-chevron-down"></i>
+            </summary>
+
+            <div class="edit-profile-password-panel__body">
+              <div class="edit-profile-form__grid">
+                <%= f.input :password,
+                            label: "New Password",
+                            hint: "Leave blank to keep your current password.",
+                            required: false,
+                            input_html: { autocomplete: "new-password", class: "edit-profile-form__input" },
+                            wrapper_html: { class: "edit-profile-form__field" } %>
+                <%= f.input :password_confirmation,
+                            label: "New Password Confirmation",
+                            required: false,
+                            input_html: { autocomplete: "new-password", class: "edit-profile-form__input" },
+                            wrapper_html: { class: "edit-profile-form__field" } %>
+                <%= f.input :current_password,
+                            hint: "Required when changing your email or setting a new password.",
+                            required: false,
+                            input_html: { autocomplete: "current-password", class: "edit-profile-form__input" },
+                            wrapper_html: { class: "edit-profile-form__field edit-profile-form__field--full" } %>
+              </div>
+            </div>
+          </details>
         </section>
 
         <div class="edit-profile-form__actions">
