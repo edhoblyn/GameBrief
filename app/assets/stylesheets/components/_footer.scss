@@ -5,4 +5,28 @@
   margin-top: 4rem;
   color: $dark-muted;
   font-size: 0.82rem;
+
+  &__copy {
+    margin: 0 0 0.65rem;
+  }
+
+  &__links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.9rem;
+    flex-wrap: wrap;
+  }
+
+  &__link {
+    color: $dark-text;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.15s ease;
+
+    &:hover {
+      color: $accent-purple;
+      text-decoration: none;
+    }
+  }
 }
