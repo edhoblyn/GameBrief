@@ -747,11 +747,32 @@ $sidebar-width: 260px;
   background: rgba($accent-purple, 0.1);
   border: 1px solid rgba($accent-purple, 0.18);
 
+  &--active {
+    background: rgba(#1EDD88, 0.1);
+    border-color: rgba(#1EDD88, 0.22);
+  }
+
   &__text {
     margin: 0;
     color: $dark-text;
     font-size: 0.82rem;
     line-height: 1.55;
+  }
+
+  &__action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-top: 0.85rem;
+    color: #73efb5;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-decoration: none;
+
+    &:hover {
+      color: #9df5ca;
+      text-decoration: none;
+    }
   }
 }
 
