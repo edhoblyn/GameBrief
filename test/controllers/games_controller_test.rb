@@ -20,6 +20,25 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "orders game patches newest first on show page" do
+    game = Game.create!(name: "Patch Order Test", slug: "patch-order-test")
+    older_patch = game.patches.create!(
+      title: "Older Update",
+      content: "Older content",
+      published_at: 10.days.ago
+    )
+    newer_patch = game.patches.create!(
+      title: "Newer Update",
+      content: "Newer content",
+      published_at: 2.days.ago
+    )
+
+    get game_url(game)
+
+    assert_response :success
+    assert_operator @response.body.index(newer_patch.title), :<, @response.body.index(older_patch.title)
+  end
+
   test "shows admin panel link in dashboard menu for admins" do
     @user.update!(role: "admin")
 
