@@ -18,8 +18,12 @@
           <% else %>
             <%= button_to "☆ Follow", favourites_path, params: { game_id: @game.id }, class: "btn btn-sm", style: "background: #16161f; color: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.15); border-radius: 2rem; padding: 0.3rem 1rem; font-weight:600; font-size:0.82rem;" %>
           <% end %>
-          <% if current_user&.admin? && @scrape_source.present? %>
-            <%= button_to "Run Patch Scrape", admin_patch_scrapes_path, params: { source: @scrape_source }, class: "btn btn-sm", style: "background: rgba(52,199,89,0.16); color: #7ee787; border: 1px solid rgba(126,231,135,0.45); border-radius: 2rem; padding: 0.3rem 1rem; font-weight:600; font-size:0.82rem;" %>
+          <% if current_user&.admin? && @scrape_source_config.present? %>
+            <% if @scrape_source_config.fetch(:manual_trigger_enabled, true) %>
+              <%= button_to "Run Patch Scrape", admin_patch_scrapes_path, params: { source: @scrape_source_config[:source] }, class: "btn btn-sm", style: "background: rgba(52,199,89,0.16); color: #7ee787; border: 1px solid rgba(126,231,135,0.45); border-radius: 2rem; padding: 0.3rem 1rem; font-weight:600; font-size:0.82rem;" %>
+            <% else %>
+              <button class="btn btn-sm" disabled style="background: rgba(79,156,249,0.14); color: #8dc2ff; border: 1px solid rgba(141,194,255,0.4); border-radius: 2rem; padding: 0.3rem 1rem; font-weight:600; font-size:0.82rem; opacity: 1; cursor: default;">API</button>
+            <% end %>
           <% end %>
         </div>
       </div>
