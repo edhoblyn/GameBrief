@@ -36,4 +36,11 @@ class GameTest < ActiveSupport::TestCase
     assert_includes filtered_games, free_game
     assert_includes filtered_games, paid_game
   end
+
+  test "genre_tags parses postgres array strings into clean labels" do
+    game = Game.new(name: "Warzone", slug: "warzone")
+    game[:genre] = "{\"Shooter\",\"Battle Royale\"}"
+
+    assert_equal ["Shooter", "Battle Royale"], game.genre_tags
+  end
 end
