@@ -16,7 +16,8 @@
       "WebFetch(domain:marvelrivals.gg)",
       "Bash(rails g:*)",
       "Bash(rails db:migrate)",
-      "Bash(bundle install:*)"
+      "Bash(bundle install:*)",
+      "Bash(git checkout:*)"
     ],
     "deny": []
   }

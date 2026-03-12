@@ -17,6 +17,6 @@ class GamesController < ApplicationController
     @game = Game.find(params[:id])
     @patches = @game.patches.scraped_first_recent_first
     @events = @game.events.order(start_date: :asc)
-    @favourite = current_user.favourites.find_by(game: @game)
+    @favourite = current_user&.favourites&.find_by(game: @game)
   end
 end
