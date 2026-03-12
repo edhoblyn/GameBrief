@@ -8,54 +8,8 @@
 
 - There are 2 rounds of work
 - The team has 4 members, so each round contains 4 main tasks
-- Completed tasks are moved out of the rounds so the board stays current
+- Completed tasks are moved to `Docs/GameBrief_Team_Progress.md` so the board stays current
 - Each task keeps a unique colour/symbol label so it is easy to reference in standups and chat
-
----
-
-## Recently Completed
-
-These are done and should stay out of the active rounds unless bugs appear.
-
-### Completed Task A - Baptiste
-
-**Brand Pass** 🔵
-
-**Task:** **Change the browser tab icon and add the GameBrief logo on the homepage**
-
-**Done?** ✅
-
-### Completed Task B - Hortense / Bianca / Ed
-
-**Profile Refresh** 🔴
-
-**Task:** **My Profile layout and sidebar updates** — reduce empty space, rebuild the profile layout, and make the sidebar / notification controls fit the new structure
-
-**Done?** ✅
-
-### Completed Task C - Team
-
-**Profile Split** 🟢
-
-**Task:** **Dedicated profile sub-pages** — move My Games, My Patches, and My Events into proper standalone pages
-
-**Done?** ✅
-
-### Completed Task D - Ed
-
-**Fresh Badge** 🩷
-
-**Task:** **"New" badge on patches** — use `published_at` and show a visible badge on recent patches from the last 7 days on patch cards and relevant views
-
-**Done?** ✅
-
-### Completed Task E - Ed
-
-**Mobile Sweep** ⭐️
-
-**Task:** **Mobile responsiveness pass** — check and fix My Profile, patches, events, and games pages on small screens
-
-**Done?** ✅
 
 ---
 
@@ -85,11 +39,11 @@ These should be treated as the first active round.
 
 ### Task 3 - Ed
 
-**Free Queue** 💙
+**Scrape Gate** 🛠️
 
-**Task:** **Free-to-play filter** — add a real free-to-play filter on the games index, including any data support needed for the current tracked games
+**Task:** **Admin scrape access check / fix** — review the admin scrape route and make sure access works correctly with the current `current_user.admin?` requirement
 
-**Why it matters:** It extends the existing games filtering system cleanly and adds a useful browse shortcut.
+**Why it matters:** The scrape tooling is high-value for demo freshness, and this path is currently fragile if admin checks are misconfigured.
 
 **Done?** ⬜
 
@@ -131,11 +85,11 @@ These are the next 4 active tasks once Round 1 is underway or finished.
 
 ### Task 3 - Ed
 
-**Scrape Gate** 🛠️
+**Reminder Copy** 📝
 
-**Task:** **Admin scrape access check / fix** — review the admin scrape route and make sure access works correctly with the current `current_user.admin?` requirement
+**Task:** **Reminder confirmation and empty-state polish** — tighten the reminder success messaging and make the no-reminders state feel more intentional
 
-**Why it matters:** The scrape tooling is high-value for demo freshness, and this path is currently fragile if admin checks are misconfigured.
+**Why it matters:** It is a compact UX task that improves the reminders flow without needing new backend work.
 
 **Done?** ⬜
 
@@ -160,7 +114,7 @@ Use these if someone finishes early or gets blocked.
 | **Chat Archive** 🩵 — **Saved AI chats** | **Baptiste** | Good extension of the chat system that already exists |
 | **Patch Palette** ❤️ — **Colour-coded update categories on game pages** | **Bianca** | Best fit for user-facing game page presentation |
 | **Friends Feed** 🤝 — **Activity snippets from followed players** | **Hortense** | Good follow-on if the social/profile pages need one more lightweight enhancement |
-| **Reminder Copy** 📝 — **Reminder confirmation and empty-state polish** | **Ed** | Small UX win that supports the events/reminders flow without larger backend work |
+| **Filter Count** 🧭 — **Games/events active filter count or summary text** | **Ed** | Useful small UX improvement once the filtering surfaces are a bit richer |
 | **Summary Labels** 🧾 — **Clearer summary type labels and helper text** | **Baptiste** | Useful polish for the AI summary experience already in place |
 
 ---
@@ -185,5 +139,5 @@ By the end of the next cycle, the team should aim to have:
 1. Events filters shipped
 2. Recommendation placeholder content replaced with a first real block
 3. Summary buttons protected against duplicate submits
-4. Free-to-play game filtering shipped
+4. Admin scrape access checked and working for the intended admin path
 5. At least one polish/follow-up task started after the current round

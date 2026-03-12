@@ -70,6 +70,58 @@
 - `My Games`, `My Patches`, and `My Events` are now proper standalone pages rather than just sections on one screen
 - Patch freshness badge work is now reflected in code: recent patches with a real `published_at` from the last 7 days now surface a visible `New` badge across patch cards and related patch lists
 - A first mobile responsiveness pass is now reflected in code: My Profile, games, patches, and events layouts have improved small-screen spacing, button stacking, and card behaviour for demo use
+- Games index free-to-play support is now reflected in code: `games` has a real `free_to_play` flag, the current tracked titles are classified, and the games index exposes a working `Free-to-play` filter
+- Games index filter UX was tightened after that change: active game filter chips can now be clicked again to clear just that filter while preserving the rest of the current browse state
+
+## Completed Tasks Moved From The Task Board
+
+### Completed Task A - Baptiste
+
+**Brand Pass** 🔵
+
+**Task:** **Change the browser tab icon and add the GameBrief logo on the homepage**
+
+**Done?** ✅
+
+### Completed Task B - Hortense / Bianca / Ed
+
+**Profile Refresh** 🔴
+
+**Task:** **My Profile layout and sidebar updates** — reduce empty space, rebuild the profile layout, and make the sidebar / notification controls fit the new structure
+
+**Done?** ✅
+
+### Completed Task C - Team
+
+**Profile Split** 🟢
+
+**Task:** **Dedicated profile sub-pages** — move My Games, My Patches, and My Events into proper standalone pages
+
+**Done?** ✅
+
+### Completed Task D - Ed
+
+**Fresh Badge** 🩷
+
+**Task:** **"New" badge on patches** — use `published_at` and show a visible badge on recent patches from the last 7 days on patch cards and relevant views
+
+**Done?** ✅
+
+### Completed Task E - Ed
+
+**Mobile Sweep** ⭐️
+
+**Task:** **Mobile responsiveness pass** — check and fix My Profile, patches, events, and games pages on small screens
+
+**Done?** ✅
+
+### Completed Task F - Ed
+
+**Free Queue** 💙
+
+**Task:** **Free-to-play filter** — add a real free-to-play filter on the games index, including any data support needed for the current tracked games
+
+**Done?** ✅
 
 ## Remaining Gaps
 
