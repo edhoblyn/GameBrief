@@ -88,7 +88,7 @@
         <i class="fa fa-file-text"></i> My Patches
         <span class="badge bg-secondary ms-auto"><%= @recent_patches.count %></span>
       </a>
-      <a href="#" class="profile-sidebar__nav-link">
+      <a href="<%= my_events_path %>" class="profile-sidebar__nav-link">
         <i class="fa fa-calendar"></i> My Events
         <span class="badge bg-secondary ms-auto"><%= @reminders.count %></span>
       </a>
@@ -181,9 +181,9 @@
             <i class="fa fa-gamepad"></i>
             Manage Games
           <% end %>
-          <%= link_to events_path, class: "social-profile-action" do %>
+          <%= link_to my_events_path, class: "social-profile-action" do %>
             <i class="fa fa-calendar"></i>
-            Browse Events
+            My Events
           <% end %>
         </div>
         <div class="social-profile-stats">
@@ -328,7 +328,7 @@
     <section id="my-events" class="profile-rail-card">
       <div class="profile-rail-card__header">
         <h3 class="profile-rail-card__title">Upcoming Event</h3>
-        <%= link_to "All events", events_path, class: "profile-rail-card__link" %>
+        <%= link_to "All events", my_events_path, class: "profile-rail-card__link" %>
       </div>
       <% if next_reminder.present? %>
         <%= link_to event_path(next_reminder.event), class: "profile-rail-feature" do %>

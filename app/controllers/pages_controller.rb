@@ -40,4 +40,10 @@ class PagesController < ApplicationController
                else @patches.known_newest_first
                end
   end
+
+  def my_events
+    @events = current_user.reminders
+                          .includes(event: :game)
+                          .order("events.start_date asc")
+  end
 end
