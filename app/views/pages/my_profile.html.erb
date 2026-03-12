@@ -80,7 +80,7 @@
       <a href="#" class="profile-sidebar__nav-link profile-sidebar__nav-link--active">
         <i class="fa fa-user"></i> My Profile
       </a>
-      <a href="<%= games_path %>" class="profile-sidebar__nav-link">
+      <a href="<%= my_games_path %>" class="profile-sidebar__nav-link">
         <i class="fa fa-gamepad"></i> My Games
         <span class="badge bg-secondary ms-auto"><%= @followed_games.count %></span>
       </a>
@@ -177,7 +177,7 @@
           <% end %>
         </div>
         <div class="social-profile-actions">
-          <%= link_to games_path, class: "social-profile-action social-profile-action--primary" do %>
+          <%= link_to my_games_path, class: "social-profile-action social-profile-action--primary" do %>
             <i class="fa fa-gamepad"></i>
             Manage Games
           <% end %>

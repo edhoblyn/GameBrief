@@ -21,4 +21,8 @@ class PagesController < ApplicationController
                            .limit(10)
                            .includes(:game)
   end
+
+  def my_games
+    @games = current_user.favourite_games.order(:name)
+  end
 end

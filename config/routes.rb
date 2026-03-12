@@ -38,6 +38,7 @@ Rails.application.routes.draw do
   end
 
   get "find-friends", to: "pages#find_friends", as: :find_friends
+  get "my-games", to: "pages#my_games", as: :my_games
   get "my-profile", to: "pages#my_profile", as: :my_profile
   get "home", to: "pages#home"
 
