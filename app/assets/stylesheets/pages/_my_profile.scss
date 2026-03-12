@@ -1107,7 +1107,10 @@ $sidebar-width: 260px;
 
 // ── Mobile ───────────────────────────────────────────────────────────────────
 @media (max-width: 768px) {
-  .my-profile-layout { flex-direction: column; }
+  .my-profile-layout {
+    flex-direction: column;
+    padding-top: 4rem;
+  }
 
   .profile-sidebar {
     width: 100%;
@@ -1117,31 +1120,42 @@ $sidebar-width: 260px;
     border-right: none;
     border-bottom: 1px solid $dark-border;
 
+    &__user {
+      align-items: flex-start;
+      padding: 1.25rem 1rem 1rem;
+    }
+
     &__nav {
-      flex-direction: row;
-      flex-wrap: wrap;
-      padding: 0.5rem;
-      gap: 0.25rem;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      padding: 0.75rem;
+      gap: 0.5rem;
     }
 
     &__nav-link {
+      justify-content: space-between;
       padding: 0.5rem 0.75rem;
-      border-radius: 6px;
+      border-radius: 12px;
       font-size: 0.78rem;
+      min-height: 44px;
 
       &--active {
         border-left: none;
-        border-bottom: 2px solid $accent-purple;
         padding-left: 0.75rem;
       }
     }
 
     &__section {
-      margin-top: 0;
+      margin: 0 0.75rem 0.75rem;
+      padding: 0.85rem;
     }
 
     &__control {
       align-items: center;
+    }
+
+    &__footer {
+      padding: 0.85rem 1rem 1rem;
     }
   }
 
@@ -1150,17 +1164,60 @@ $sidebar-width: 260px;
     border-right: none;
   }
 
+  .social-profile-banner {
+    height: 132px;
+  }
+
+  .social-profile-info {
+    padding: 0 1rem 1.25rem;
+  }
+
   .social-profile-top-row {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .social-profile-avatar-wrap {
+    margin-top: -34px;
+  }
+
+  .social-profile-avatar {
+    width: 76px;
+    height: 76px;
+    font-size: 1.7rem;
   }
 
   .social-profile-highlights {
     grid-template-columns: 1fr;
   }
 
+  .social-profile-actions {
+    flex-direction: column;
+  }
+
+  .social-profile-action {
+    width: 100%;
+  }
+
+  .social-profile-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+
+  .social-stat {
+    justify-content: center;
+    padding: 0.65rem 0.45rem;
+    text-align: center;
+  }
+
   .social-tabs-nav {
     top: 0;
+  }
+
+  .social-tab-btn {
+    font-size: 0.84rem;
+    padding: 0.9rem 0.5rem;
   }
 
   .for-you-layout {
@@ -1181,6 +1238,10 @@ $sidebar-width: 260px;
   .communities-grid { grid-template-columns: 1fr; }
 
   .social-post__actions { gap: 1rem; }
+
+  .post-action {
+    min-width: 0;
+  }
 }
 
 @media (min-width: 768px) {
