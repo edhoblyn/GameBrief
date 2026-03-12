@@ -61,7 +61,7 @@ puts "Importing games from IGDB..."
 
 client = IgdbClient.new
 
-def import_game(client, query)
+def import_game(client, query, free_to_play: false)
   results = client.search_games(query)
   match = results.find { |g| g["name"]&.downcase == query.downcase && g["cover"] }
   match ||= results.find { |g| g["cover"] }
@@ -77,24 +77,25 @@ def import_game(client, query)
   game.update!(
     name: match["name"],
     slug: match["slug"],
-    cover_image: cover_url
+    cover_image: cover_url,
+    free_to_play: free_to_play
   )
 
   game
 end
 
-fortnite  = import_game(client, "Fortnite")
-warzone   = import_game(client, "Call of Duty: Warzone")
-apex      = import_game(client, "Apex Legends")
-destiny   = import_game(client, "Destiny 2")
-fifa      = import_game(client, "EA Sports FC 26")
-roblox    = import_game(client, "Roblox")
-clash     = import_game(client, "Clash Royale")
-coc       = import_game(client, "Clash of Clans")
-minecraft = import_game(client, "Minecraft")
-valorant  = import_game(client, "Valorant")
-marvel    = import_game(client, "Marvel Rivals")
-helldivers = import_game(client, "Helldivers 2")
+fortnite  = import_game(client, "Fortnite", free_to_play: true)
+warzone   = import_game(client, "Call of Duty: Warzone", free_to_play: true)
+apex      = import_game(client, "Apex Legends", free_to_play: true)
+destiny   = import_game(client, "Destiny 2", free_to_play: false)
+fifa      = import_game(client, "EA Sports FC 26", free_to_play: false)
+roblox    = import_game(client, "Roblox", free_to_play: true)
+clash     = import_game(client, "Clash Royale", free_to_play: true)
+coc       = import_game(client, "Clash of Clans", free_to_play: true)
+minecraft = import_game(client, "Minecraft", free_to_play: false)
+valorant  = import_game(client, "Valorant", free_to_play: true)
+marvel    = import_game(client, "Marvel Rivals", free_to_play: true)
+helldivers = import_game(client, "Helldivers 2", free_to_play: false)
 
 puts "Setting game genres..."
 
