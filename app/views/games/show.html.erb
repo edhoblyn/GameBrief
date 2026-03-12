@@ -79,24 +79,26 @@
             <%= link_to "View all patches", all_patches_path, class: "game-show__section-link" %>
           </div>
 
-          <div class="game-show__patch-controls">
-            <div class="game-show__filter-group">
-              <%= link_to "All time", game_path(@game, clear_date_filter_params), class: "filter-btn #{@patch_date_filter == 'all' ? 'active' : ''}" %>
-              <% Patch::DATE_FILTERS.except("all").each do |value, label| %>
-                <%= link_to label, game_path(@game, filter_base_params.merge(date_filter: value, sort: (@patch_sort == "newest" ? nil : @patch_sort)).compact), class: "filter-btn #{@patch_date_filter == value ? 'active' : ''}" %>
+          <div class="game-show__list-offset">
+            <div class="game-show__patch-controls">
+              <div class="game-show__filter-group">
+                <%= link_to "All time", game_path(@game, clear_date_filter_params), class: "filter-btn #{@patch_date_filter == 'all' ? 'active' : ''}" %>
+                <% Patch::DATE_FILTERS.except("all").each do |value, label| %>
+                  <%= link_to label, game_path(@game, filter_base_params.merge(date_filter: value, sort: (@patch_sort == "newest" ? nil : @patch_sort)).compact), class: "filter-btn #{@patch_date_filter == value ? 'active' : ''}" %>
+                <% end %>
+              </div>
+              <div class="game-show__filter-group">
+                <%= link_to "Newest", game_path(@game, clear_sort_params), class: "filter-btn #{@patch_sort == 'newest' ? 'active' : ''}" %>
+                <%= link_to "Oldest", game_path(@game, { date_filter: (@patch_date_filter == 'all' ? nil : @patch_date_filter), sort: 'oldest' }.compact), class: "filter-btn #{@patch_sort == 'oldest' ? 'active' : ''}" %>
+              </div>
+            </div>
+
+            <div class="game-show__section-meta">
+              <span><%= pluralize(@patches.size, "patch") %> in this view</span>
+              <% unless @patch_date_filter == "all" && @patch_sort == "newest" %>
+                <%= link_to "Reset filters", game_path(@game), class: "game-show__reset-link" %>
               <% end %>
             </div>
-            <div class="game-show__filter-group">
-              <%= link_to "Newest", game_path(@game, clear_sort_params), class: "filter-btn #{@patch_sort == 'newest' ? 'active' : ''}" %>
-              <%= link_to "Oldest", game_path(@game, { date_filter: (@patch_date_filter == 'all' ? nil : @patch_date_filter), sort: 'oldest' }.compact), class: "filter-btn #{@patch_sort == 'oldest' ? 'active' : ''}" %>
-            </div>
-          </div>
-
-          <div class="game-show__section-meta">
-            <span><%= pluralize(@patches.size, "patch") %> in this view</span>
-            <% unless @patch_date_filter == "all" && @patch_sort == "newest" %>
-              <%= link_to "Reset filters", game_path(@game), class: "game-show__reset-link" %>
-            <% end %>
           </div>
 
           <% if @patches.any? %>
@@ -131,6 +133,7 @@
               </p>
             </div>
           </div>
+          <div class="game-show__list-offset game-show__list-offset--empty" aria-hidden="true"></div>
           <% if @events.any? %>
             <% @events.each do |event| %>
               <%= link_to event_path(event), class: "event-list-card" do %>
