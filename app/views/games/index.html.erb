@@ -50,21 +50,23 @@
           <div class="game-card__overlay"></div>
         </div>
         <div class="game-card__body">
-          <h3 class="game-card__name"><%= game.name %></h3>
+          <div class="game-card__body-top">
+            <h3 class="game-card__name"><%= game.name %></h3>
+            <div class="game-card__follow">
+              <% if favourite %>
+                <%= button_to favourite_path(favourite), method: :delete, class: "game-card__follow-btn game-card__follow-btn--active", aria: { label: "Unfollow #{game.name}" }, title: "Unfollow #{game.name}" do %>
+                  <i class="fa fa-star" aria-hidden="true"></i>
+                <% end %>
+              <% else %>
+                <%= button_to favourites_path, params: { game_id: game.id }, class: "game-card__follow-btn", aria: { label: "Follow #{game.name}" }, title: "Follow #{game.name}", data: { controller: "follow-sound", action: "click->follow-sound#play" } do %>
+                  <i class="fa fa-star-o" aria-hidden="true"></i>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
           <span class="game-card__cta">
             <%= favourite ? "View updates" : "See details" %> <i class="fa fa-arrow-right"></i>
           </span>
-        </div>
-        <div class="game-card__follow">
-          <% if favourite %>
-            <%= button_to favourite_path(favourite), method: :delete, class: "game-card__follow-btn game-card__follow-btn--active", aria: { label: "Unfollow #{game.name}" }, title: "Unfollow #{game.name}" do %>
-              <i class="fa fa-star" aria-hidden="true"></i>
-            <% end %>
-          <% else %>
-            <%= button_to favourites_path, params: { game_id: game.id }, class: "game-card__follow-btn", aria: { label: "Follow #{game.name}" }, title: "Follow #{game.name}", data: { controller: "follow-sound", action: "click->follow-sound#play" } do %>
-              <i class="fa fa-star-o" aria-hidden="true"></i>
-            <% end %>
-          <% end %>
         </div>
       </article>
     <% end %>

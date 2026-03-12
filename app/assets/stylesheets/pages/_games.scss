@@ -131,14 +131,16 @@
     pointer-events: none;
   }
 
-  &__body {
-    padding-bottom: 4.25rem;
+  &__body-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
   }
 
   &__follow {
-    position: absolute;
-    right: 1rem;
-    bottom: 1rem;
+    flex-shrink: 0;
+    pointer-events: auto;
     z-index: 2;
   }
 
