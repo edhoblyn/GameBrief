@@ -1,14 +1,24 @@
 <% if notice %>
   <div class="alert alert-info alert-dismissible fade show m-1" role="alert" data-controller="flash">
     <%= notice %>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-    </button>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
 <% end %>
 <% if alert %>
   <div class="alert alert-warning alert-dismissible fade show m-1" role="alert" data-controller="flash">
     <%= alert %>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-    </button>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>
+<% if flash[:success] %>
+  <div class="alert alert-gb-success alert-dismissible fade show m-1" role="alert" data-controller="flash">
+    <%= flash[:success] %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>
+<% if flash[:danger] %>
+  <div class="alert alert-gb-danger alert-dismissible fade show m-1" role="alert" data-controller="flash">
+    <%= flash[:danger] %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
 <% end %>

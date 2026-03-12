@@ -124,21 +124,29 @@
     border-radius: inherit;
   }
 
-  &__cover,
-  &__body {
+  &__cover {
     position: relative;
     z-index: 0;
     pointer-events: none;
   }
 
   &__body {
-    padding-bottom: 4.25rem;
+    position: relative;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  &__body-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
   }
 
   &__follow {
-    position: absolute;
-    right: 1rem;
-    bottom: 1rem;
+    flex-shrink: 0;
+    pointer-events: auto;
+    position: relative;
     z-index: 2;
   }
 
@@ -177,6 +185,17 @@
     border-color: rgba(255, 215, 97, 0.55);
     background: rgba(255, 215, 97, 0.14);
   }
+
+  &__follow-btn--falling {
+    animation: gb-star-fall 0.45s cubic-bezier(0.4, 0, 1, 1) forwards;
+    pointer-events: none;
+  }
+}
+
+@keyframes gb-star-fall {
+  0%   { transform: translateY(0)    rotate(0deg);  opacity: 1; }
+  30%  { transform: translateY(8px)  rotate(15deg); opacity: 1; }
+  100% { transform: translateY(80px) rotate(60deg); opacity: 0; }
 }
 
 // ── Patch list card ─────────────────────────────────────────────────────────
