@@ -1,4 +1,5 @@
 <% content_for :title, "My Profile" %>
+<% content_for :on_dashboard, true %>
 
 <%
   fmt = ->(n) { n >= 1000 ? "#{(n / 1000.0).round(1).to_s.sub(/\.0$/, '')}K" : n.to_s }
@@ -58,7 +59,7 @@
 <div class="my-profile-layout" data-controller="notification-toggles">
 
   <!-- Sidebar -->
-  <aside class="profile-sidebar">
+  <aside class="profile-sidebar profile-sidebar--hidden" id="profile-sidebar">
     <div class="profile-sidebar__user">
       <div class="profile-sidebar__avatar">
         <% if current_user.avatar_image.attached? %>

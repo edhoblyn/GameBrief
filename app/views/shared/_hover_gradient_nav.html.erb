@@ -27,8 +27,38 @@
 
     <% if user_signed_in? %>
       <li class="hn-item">
-        <div class="hn-card">
-          <a href="<%= my_profile_path %>" class="hn-front">Dashboard</a>
+        <div class="hn-card<%= ' hn-card--dashboard' if content_for?(:on_dashboard) %>">
+          <details class="hn-sidebar-toggle-details">
+            <summary class="hn-front hn-dashboard-summary">
+              Dashboard
+            </summary>
+            <nav class="dropdown-menu profile-sidebar__nav">
+              <a href="<%= root_path %>" class="profile-sidebar__nav-link">
+                <i class="fa fa-home"></i> Home
+              </a>
+              <a href="#" class="profile-sidebar__nav-link profile-sidebar__nav-link--active">
+                <i class="fa fa-user"></i> My Profile
+              </a>
+              <a href="<%= games_path %>" class="profile-sidebar__nav-link">
+                <i class="fa fa-gamepad"></i> My Games
+                <span class="badge bg-secondary ms-auto"><%= @followed_games.count %></span>
+              </a>
+              <a href="#" class="profile-sidebar__nav-link">
+                <i class="fa fa-file-text"></i> My Patches
+                <span class="badge bg-secondary ms-auto"><%= @recent_patches.count %></span>
+              </a>
+              <a href="#" class="profile-sidebar__nav-link">
+                <i class="fa fa-calendar"></i> My Events
+                <span class="badge bg-secondary ms-auto"><%= @reminders.count %></span>
+              </a>
+              <a href="#recommendations" class="profile-sidebar__nav-link">
+                <i class="fa fa-star"></i> My Recommendations
+              </a>
+              <%= link_to find_friends_path, class: "profile-sidebar__nav-link" do %>
+                <i class="fa fa-users"></i> Find friends
+              <% end %>
+            </nav>
+          </details>
         </div>
       </li>
     <% else %>
@@ -41,3 +71,17 @@
 
   </ul>
 </nav>
+
+<% if content_for?(:on_dashboard) %>
+  <script>
+    function toggleProfileSidebar(btn) {
+      const sidebar = document.getElementById('profile-sidebar__nav');
+      if (!sidebar) return;
+      sidebar.classList.toggle('d-none');
+      const icon = document.getElementById('sidebar-toggle-icon');
+      icon.className = sidebar.classList.contains('profile-sidebar--hidden')
+        ? 'fa fa-chevron-down'
+        : 'fa fa-chevron-up';
+    }
+  </script>
+<% end %>
