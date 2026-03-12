@@ -21,6 +21,7 @@ These still look like the clearest missing demo features based on the current co
 - Pagination on games, patches, and events
 - Events page empty-state and filter-layout polish once filtering exists
 - Editable profile bio or richer persisted profile fields so `My Profile` is not partly hard-coded
+- Better player profiles beyond the current basic stats view
 
 ## Product / UX Enhancements
 
@@ -36,7 +37,7 @@ These still look like the clearest missing demo features based on the current co
 ## Social / Community Ideas
 
 - Follow other users
-- Public player profiles with real social data
+- Rich public player profiles with real social data
 - Patch comments or reactions
 - Shareable patch links / share UI
 - Real community pages instead of the current My Profile mock community cards
@@ -51,5 +52,6 @@ These still look like the clearest missing demo features based on the current co
 ## Notes
 
 - The My Profile page already contains recommendation, community, and social-feed style UI, but recommendation/community/feed areas are still presentation-first and not backed by real persisted social data.
+- The app does already have a basic `Players` index and user show page, so the remaining profile/community work is about making those pages meaningfully social rather than creating them from scratch.
 - Profile editing is now usable for names and images, so the next profile-related work should focus on real recommendation/social data rather than more shell UI.
 - The admin scrape gate now exists in code, so the next admin work should be about robustness and workflow improvements rather than basic access wiring.

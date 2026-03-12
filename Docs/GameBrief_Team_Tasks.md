@@ -1,123 +1,137 @@
 # GameBrief — Team Tasks
 
-> Last updated: 2026-03-12 | Focus: keep the current end-of-day board intact, reflect what already landed in code, and leave completed items visible for tomorrow's team reset
+> Last updated: 2026-03-12 | Focus: flexible task queue for a team that does not all finish work at the same pace
 
 ---
 
 ## How To Use This Task Sheet
 
-- There are 2 rounds of work
-- The team has 4 members, so each round contains 4 main tasks
+- Use `Now` for the most important active work currently assigned
+- Use `Next Up` for work that should be picked up as soon as someone finishes
+- Use `Backlog / Backup` for lower-pressure tasks or overflow work
+- Each task should include an owner, a status, and a short why-it-matters line
 - Completed tasks are moved to `Docs/GameBrief_Team_Progress.md` so the board stays current
 - Each task keeps a unique colour/symbol label so it is easy to reference in standups and chat
 
 ---
 
-## Round 1 — Team Priority Tasks
+## Now — Active Priority Tasks
 
-These should be treated as the first active round.
+Use this section for the team's current live work. Add or remove cards based on actual pace instead of forcing one task per person.
 
-### Task 1 - Baptiste
+### Task 1
 
-**Event Lens** 🟡
+**Open Slot** ⬜
 
-**Task:** **Events page filters** — add game filter plus time filter (`This Week`, `This Month`, `Future`, `All`) on the events index
+**Owner:** TBD
 
-**Why it matters:** This is one of the clearest missing product features and brings the events flow closer to the patches experience.
+**Task:** To be assigned after the next team meeting
 
-**Done?** ⬜
+**Status:** Not started
 
-### Task 2 - Bianca
+**Why it matters:** Reserve this slot for the highest-priority active task.
 
-**Real Recs** 🟣
+### Task 2
 
-**Task:** **My Profile recommendations pass** — replace the current placeholder recommendation state with a first real recommendation block based on followed games or genres
+**Open Slot** ⬜
 
-**Why it matters:** The UI is already there, but it still reads as placeholder content until some real logic is behind it.
+**Owner:** TBD
 
-**Done?** ⬜
+**Task:** To be assigned after the next team meeting
 
-### Task 3 - Ed
+**Status:** Not started
 
-**Scrape Gate** 🛠️
+**Why it matters:** Reserve this slot for the next highest-priority active task.
 
-**Task:** **Admin scrape access check / fix** — review the admin scrape route and make sure access works correctly with the current `current_user.admin?` requirement
+### Task 3
 
-**Why it matters:** The scrape tooling is high-value for demo freshness, and this path is currently fragile if admin checks are misconfigured.
+**Open Slot** ⬜
 
-**Done?** ✅
+**Owner:** TBD
 
-**Note:** Admin gating, manual scrape actions, scrape logs, and admin role management are now present in the app, so this can be treated as completed and left on the board for end-of-day visibility.
+**Task:** To be assigned after the next team meeting
 
-### Task 4 - Hortense
+**Status:** Not started
 
-**Event Polish** 🧡
+**Why it matters:** Reserve this slot for another active task if capacity allows.
 
-**Task:** **Events page visual pass** — once filters exist, tighten card layout, filter spacing, and empty states so the events page feels finished
+### Task 4
 
-**Why it matters:** The events page is functional, but still lighter on polish than the newer profile and patches views.
+**Open Slot** ⬜
 
-**Done?** ⬜
+**Owner:** TBD
 
----
+**Task:** To be assigned after the next team meeting
 
-## Round 2 — Important Follow-Up Tasks
+**Status:** Not started
 
-These are the next 4 active tasks once Round 1 is underway or finished.
-
-### Task 1 - Baptiste
-
-**Safe Clicks** 🟤
-
-**Task:** **Loading / disabled states on Generate Summary buttons** — prevent double submits on patch and event summary actions
-
-**Why it matters:** This closes a known UX gap and reduces accidental duplicate AI requests during demos.
-
-**Done?** ⬜
-
-### Task 2 - Bianca
-
-**Notify Hub** 📣
-
-**Task:** **Notification centre placeholder page** — add a simple in-app notifications page tied to patch drops, reminders, and recommendation updates
-
-**Why it matters:** The profile already implies notification settings, so this gives those controls a clearer destination.
-
-**Done?** ⬜
-
-### Task 3 - Ed
-
-**Reminder Copy** 📝
-
-**Task:** **Reminder confirmation and empty-state polish** — tighten reminder success messaging and make the no-reminders state feel more intentional
-
-**Why it matters:** It is a compact UX task that improves the reminders flow without needing new backend work.
-
-**Done?** ⬜
-
-### Task 4 - Hortense
-
-**Card Glow** 💜
-
-**Task:** **Patch/event card refinement pass** — tighten spacing, hover states, and consistency across the patch and event card system after the mobile pass
-
-**Why it matters:** It is a focused polish task that builds directly on the recent responsiveness work and helps the main feeds feel more finished.
-
-**Done?** ⬜
+**Why it matters:** Keep one extra active slot available if the team wants four live tasks.
 
 ---
 
-## Suggested Backup Tasks
+## Next Up — Ready Queue
 
-Use these if someone finishes early or gets blocked.
+These are the next tasks to pull when someone finishes early or an active task is completed.
 
-| Backup task | Suggested owner | Why |
+### Queue Item 1
+
+**Open Slot** ⬜
+
+**Suggested owner:** TBD
+
+**Task:** To be assigned after the next team meeting
+
+**Status:** Ready next
+
+**Why it matters:** Reserve this slot for the first follow-up task.
+
+### Queue Item 2
+
+**Open Slot** ⬜
+
+**Suggested owner:** TBD
+
+**Task:** To be assigned after the next team meeting
+
+**Status:** Ready next
+
+**Why it matters:** Reserve this slot for the second follow-up task.
+
+### Queue Item 3
+
+**Open Slot** ⬜
+
+**Suggested owner:** TBD
+
+**Task:** To be assigned after the next team meeting
+
+**Status:** Ready next
+
+**Why it matters:** Reserve this slot for another queued task if needed.
+
+### Queue Item 4
+
+**Open Slot** ⬜
+
+**Suggested owner:** TBD
+
+**Task:** To be assigned after the next team meeting
+
+**Status:** Ready next
+
+**Why it matters:** Keep one more queued option ready if the team wants deeper coverage.
+
+---
+
+## Backlog / Backup Tasks
+
+Use this section for stretch work, optional polish, or tasks to pull if priorities change.
+
+| Backup task | Suggested owner | Status | Why |
 | --- | --- | --- |
-| **Chat Archive** 🩵 — **Saved AI chats** | **Baptiste** | Good extension of the chat system that already exists |
-| **Patch Palette** ❤️ — **Colour-coded update categories on game pages** | **Bianca** | Best fit for user-facing game page presentation |
-| **Friends Feed** 🤝 — **Activity snippets from followed players** | **Hortense** | Good follow-on if the social/profile pages need one more lightweight enhancement |
-| **Filter Count** 🧭 — **Games/events active filter count or summary text** | **Ed** | Useful small UX improvement once the filtering surfaces are a bit richer |
-| **Summary Labels** 🧾 — **Clearer summary type labels and helper text** | **Baptiste** | Useful polish for the AI summary experience already in place |
+| To be assigned | TBD | Backlog | Add backup work here if someone finishes early |
+| To be assigned | TBD | Backlog | Add backup work here if someone finishes early |
+| To be assigned | TBD | Backlog | Add backup work here if someone finishes early |
 
 ---
 
@@ -136,10 +150,11 @@ Use this only as guidance if the team wants a quick starting point.
 
 ## End-of-Day Goal
 
-By the end of the next cycle, the team should aim to have:
+This board is now intentionally clear for the end of the day.
 
-1. Events filters shipped
-2. Recommendation placeholder content replaced with a first real block
-3. Summary buttons protected against duplicate submits
-4. Notification / reminder UX moved beyond placeholder controls and basic flashes
-5. At least one events/reminders polish task started after the current round
+Tomorrow's planning session should:
+
+1. Fill the `Now` section with only the tasks the team can actively carry
+2. Add owners to those tasks, but allow reassignment if someone finishes faster than expected
+3. Fill `Next Up` with the next best tasks in priority order rather than by person
+4. Add backup tasks only if the core queue is clear
