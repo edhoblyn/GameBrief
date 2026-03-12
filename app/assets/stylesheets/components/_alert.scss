@@ -4,3 +4,25 @@
   right: 16px;
   z-index: 1000;
 }
+
+.alert-gb-success {
+  background-color: rgba($green, 0.15);
+  border: 1px solid rgba($green, 0.4);
+  color: $green;
+
+  .btn-close {
+    filter: invert(1) sepia(1) saturate(3) hue-rotate(90deg);
+    opacity: 0.6;
+  }
+}
+
+.alert-gb-danger {
+  background-color: rgba($red, 0.15);
+  border: 1px solid rgba($red, 0.4);
+  color: $red;
+
+  .btn-close {
+    filter: invert(1) sepia(1) saturate(5) hue-rotate(310deg);
+    opacity: 0.6;
+  }
+}
