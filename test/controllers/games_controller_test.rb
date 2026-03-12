@@ -93,4 +93,25 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
     assert_select "a[href='#{games_path(genre: "Shooter", query: "apex", sort: "name")}']", text: "Free-to-play"
     assert_select "a[href='#{games_path(genre: "Shooter", query: "apex", free_to_play: "true")}']", text: "A–Z"
   end
+
+  test "shows follow button on game cards for unfollowed games" do
+    game = Game.create!(name: "Fortnite", slug: "fortnite")
+
+    get games_url
+
+    assert_response :success
+    assert_select "form[action='#{favourites_path}'] input[name='game_id'][value='#{game.id}']", count: 1
+    assert_select "button[aria-label='Follow #{game.name}'] .fa-star-o", count: 1
+  end
+
+  test "shows active follow button on game cards for followed games" do
+    game = Game.create!(name: "Apex Legends", slug: "apex-legends")
+    favourite = @user.favourites.create!(game: game)
+
+    get games_url
+
+    assert_response :success
+    assert_select "form[action='#{favourite_path(favourite)}'] input[name='_method'][value='delete']", count: 1
+    assert_select "button[aria-label='Unfollow #{game.name}'].game-card__follow-btn--active .fa-star", count: 1
+  end
 end

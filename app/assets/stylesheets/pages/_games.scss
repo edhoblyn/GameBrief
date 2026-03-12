@@ -114,6 +114,71 @@
   }
 }
 
+.game-card {
+  position: relative;
+
+  &__link {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
+  }
+
+  &__cover,
+  &__body {
+    position: relative;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  &__body {
+    padding-bottom: 4.25rem;
+  }
+
+  &__follow {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 2;
+  }
+
+  &__follow-btn {
+    width: 2.75rem;
+    height: 2.75rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(14, 16, 24, 0.88);
+    color: rgba(255, 255, 255, 0.72);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+    transition: transform 0.18s ease, border-color 0.18s ease, color 0.18s ease, background 0.18s ease;
+
+    &:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255, 215, 97, 0.55);
+      color: #ffd761;
+      background: rgba(22, 24, 34, 0.96);
+    }
+
+    &:focus-visible {
+      outline: 2px solid #ffd761;
+      outline-offset: 2px;
+    }
+
+    i {
+      font-size: 1rem;
+    }
+  }
+
+  &__follow-btn--active {
+    color: #ffd761;
+    border-color: rgba(255, 215, 97, 0.55);
+    background: rgba(255, 215, 97, 0.14);
+  }
+}
+
 // ── Patch list card ─────────────────────────────────────────────────────────
 .patch-list-card {
   display: flex;
