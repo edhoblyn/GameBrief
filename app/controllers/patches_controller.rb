@@ -24,6 +24,7 @@ class PatchesController < ApplicationController
   def show
     @patch = Patch.includes(:patch_summaries, :game).find(params[:id])
     @summaries_by_type = @patch.patch_summaries.index_by(&:summary_type)
+    @back_to_patches_path = safe_return_to_path || game_patches_path(@patch.game)
     if user_signed_in?
       @chat = @patch.chats.find_by(user: current_user, id: params[:chat_id]) ||
               @patch.chats.find_or_create_by(user: current_user)
@@ -41,10 +42,20 @@ class PatchesController < ApplicationController
     rescue => e
       flash[:alert] = "Failed to generate summary. Please try again."
     end
-    redirect_to patch_path(@patch)
+    redirect_to patch_path(@patch, return_to: safe_return_to_path)
   end
 
   private
+
+  def safe_return_to_path
+    return if params[:return_to].blank?
+
+    return_to = params[:return_to].to_s
+    return unless return_to.start_with?("/")
+    return if return_to.start_with?("//")
+
+    return_to
+  end
 
   def apply_game_filter(scope)
     return scope if params[:game].blank?
