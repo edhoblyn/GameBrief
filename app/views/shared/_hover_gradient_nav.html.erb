@@ -24,7 +24,7 @@
         <div class="hn-card<%= ' hn-card--dashboard' if loadout_section_active? %>">
           <details class="hn-sidebar-toggle-details">
             <summary class="hn-front hn-dashboard-summary<%= ' hn-dashboard-summary--active' if loadout_section_active? %>">
-              Loadout
+              <span class="hn-dashboard-summary__label">Loadout</span>
             </summary>
             <nav class="dropdown-menu profile-sidebar__nav">
               <a href="<%= my_profile_path %>" class="<%= loadout_nav_link_class(my_profile_path) %>">
