@@ -9,13 +9,21 @@ class GenerateEventSummaryJob < ApplicationJob
 
     summary = EventSummaryService.new(event).call
     if summary.blank?
-      event.update_column(:summary_requested_at, nil)
+      clear_summary_request(event)
       return
     end
 
     event.update!(summary: summary)
   rescue StandardError
-    event&.update_column(:summary_requested_at, nil)
+    clear_summary_request(event)
     raise
+  end
+
+  private
+
+  def clear_summary_request(event)
+    return unless event&.has_attribute?(:summary_requested_at)
+
+    event.update_column(:summary_requested_at, nil)
   end
 end

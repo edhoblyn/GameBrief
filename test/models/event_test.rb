@@ -49,4 +49,21 @@ class EventTest < ActiveSupport::TestCase
     assert_not event.request_ai_summary!
     assert_no_enqueued_jobs only: GenerateEventSummaryJob
   end
+
+  test "does not raise when summary tracking column is unavailable" do
+    game = Game.create!(name: "Legacy Event Game", slug: "legacy-event-game")
+    event = game.events.create!(
+      title: "Spring Finals",
+      description: "A large competitive event with new in-game drops, watch rewards, featured matches, and a full weekend schedule.",
+      start_date: 4.days.from_now
+    )
+
+    original_has_attribute = event.method(:has_attribute?)
+    event.define_singleton_method(:has_attribute?) do |name|
+      name.to_sym == :summary_requested_at ? false : original_has_attribute.call(name)
+    end
+
+    assert_not event.ai_summary_pending?
+    assert_not event.request_ai_summary!
+  end
 end
