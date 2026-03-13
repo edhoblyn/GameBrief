@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_12_133000) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_13_110036) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -70,6 +70,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_12_133000) do
     t.bigint "user_id", null: false
     t.index ["game_id"], name: "index_favourites_on_game_id"
     t.index ["user_id"], name: "index_favourites_on_user_id"
+  end
+
+  create_table "friendships", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "friend_id", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["friend_id"], name: "index_friendships_on_friend_id"
+    t.index ["user_id", "friend_id"], name: "index_friendships_on_user_id_and_friend_id", unique: true
+    t.index ["user_id"], name: "index_friendships_on_user_id"
   end
 
   create_table "games", force: :cascade do |t|
@@ -149,6 +159,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_12_133000) do
   add_foreign_key "events", "games"
   add_foreign_key "favourites", "games"
   add_foreign_key "favourites", "users"
+  add_foreign_key "friendships", "users"
+  add_foreign_key "friendships", "users", column: "friend_id"
   add_foreign_key "messages", "chats"
   add_foreign_key "patch_summaries", "patches"
   add_foreign_key "patches", "games"

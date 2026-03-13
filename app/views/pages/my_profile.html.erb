@@ -214,13 +214,9 @@
           <% end %>
         </div>
         <div class="social-profile-stats">
-          <a href="#" class="social-stat">
-            <span class="social-stat__count">248</span>
-            <span class="social-stat__label">Following</span>
-          </a>
-          <a href="#" class="social-stat">
-            <span class="social-stat__count"><%= current_user.follower_count || 0 %></span>
-            <span class="social-stat__label">Followers</span>
+          <a href="<%= find_friends_path %>" class="social-stat">
+            <span class="social-stat__count"><%= current_user.friends.count %></span>
+            <span class="social-stat__label"><%= pluralize(current_user.friends.count, "Friend").split.first == "1" ? "Friend" : "Friends" %></span>
           </a>
           <a href="#" class="social-stat">
             <span class="social-stat__count">89</span>

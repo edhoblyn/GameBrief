@@ -13,10 +13,17 @@ class PagesController < ApplicationController
     respond_to do |format|
       format.html
       format.json do
+        friendship_map = current_user.friendships
+                                     .where(friend_id: @users.map(&:id))
+                                     .index_by(&:friend_id)
         render json: @users.map { |u|
-          { display: u.username.presence || u.email,
+          friendship = friendship_map[u.id]
+          { id: u.id,
+            display: u.username.presence || u.email,
             email: u.username.present? ? u.email : nil,
-            initial: (u.username.presence || u.email).first.upcase }
+            initial: (u.username.presence || u.email).first.upcase,
+            is_friend: friendship.present?,
+            friendship_id: friendship&.id }
         }
       end
     end
