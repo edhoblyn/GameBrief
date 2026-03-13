@@ -275,7 +275,7 @@
 
   &__sidebar {
     position: sticky;
-    top: 1.5rem;
+    top: var(--gb-sticky-offset);
   }
 
   &__notes-heading {
