@@ -1,160 +1,123 @@
 # GameBrief — Team Tasks
 
-> Last updated: 2026-03-12 | Focus: flexible task queue for a team that does not all finish work at the same pace
+> Last updated: 2026-03-13 | Focus: flexible task queue ordered by priority, not by person
 
 ---
 
 ## How To Use This Task Sheet
 
 - Use `Now` for the most important active work currently assigned
-- Use `Next Up` for work that should be picked up as soon as someone finishes
-- Use `Backlog / Backup` for lower-pressure tasks or overflow work
-- Each task should include an owner, a status, and a short why-it-matters line
-- Completed tasks are moved to `Docs/GameBrief_Team_Progress.md` so the board stays current
-- Each task keeps a unique colour/symbol label so it is easy to reference in standups and chat
+- Use `Next Up` for work that should be pulled as soon as someone frees up
+- Use `Backlog / Backup` for lower-pressure polish or stretch work
+- Completed tasks should move to `Docs/GameBrief_Team_Progress.md`
+- Keep statuses tied to what is actually in the code, not what was intended
+- Do not assign tasks to specific people here; the board should stay flexible for a four-person team with different pacing and interests
 
 ---
 
 ## Now — Active Priority Tasks
 
-Use this section for the team's current live work. Add or remove cards based on actual pace instead of forcing one task per person.
-
 ### Task 1
 
-**Open Slot** ⬜
+**Event Filters** 🟣
 
-**Owner:** TBD
-
-**Task:** To be assigned after the next team meeting
+**Task:** Add events index filters for game and time range (`This Week`, `This Month`, `Future`, `All`) and reflect the active filter state in the UI
 
 **Status:** Not started
 
-**Why it matters:** Reserve this slot for the highest-priority active task.
+**Why it matters:** The events page exists, but it is still missing the main browse controls users need to narrow upcoming events quickly.
 
 ### Task 2
 
-**Open Slot** ⬜
+**Notification Prefs** 🟠
 
-**Owner:** TBD
-
-**Task:** To be assigned after the next team meeting
+**Task:** Replace `My Profile` notification toggles backed by `localStorage` with persisted user preferences in the database and wire the page to them
 
 **Status:** Not started
 
-**Why it matters:** Reserve this slot for the next highest-priority active task.
+**Why it matters:** The notification controls currently look real but do not save to the account, which makes the feature misleading.
 
 ### Task 3
 
-**Open Slot** ⬜
+**Real Recommendations** 🟢
 
-**Owner:** TBD
-
-**Task:** To be assigned after the next team meeting
+**Task:** Replace the placeholder recommendations panel on `My Profile` with a first real recommendation block derived from followed games, genres, or free-to-play preferences
 
 **Status:** Not started
 
-**Why it matters:** Reserve this slot for another active task if capacity allows.
+**Why it matters:** Recommendations are one of the clearest product promises in the current UI, but the panel is still placeholder-first.
 
 ### Task 4
 
-**Open Slot** ⬜
+**AI Action States** 🔵
 
-**Owner:** TBD
-
-**Task:** To be assigned after the next team meeting
+**Task:** Add loading, disabled, and success/error feedback states to patch summary and event summary actions
 
 **Status:** Not started
 
-**Why it matters:** Keep one extra active slot available if the team wants four live tasks.
+**Why it matters:** The AI actions work, but the current UI gives weak feedback while a request is in flight.
 
 ---
 
 ## Next Up — Ready Queue
 
-These are the next tasks to pull when someone finishes early or an active task is completed.
-
 ### Queue Item 1
 
-**Open Slot** ⬜
+**Saved Chats** 🩵
 
-**Suggested owner:** TBD
-
-**Task:** To be assigned after the next team meeting
+**Task:** Surface persisted patch chats in the UI so users can reopen previous conversations instead of only continuing the current patch thread
 
 **Status:** Ready next
 
-**Why it matters:** Reserve this slot for the first follow-up task.
+**Why it matters:** The data model already stores chats/messages, so the missing work is mostly product surface rather than backend invention.
 
 ### Queue Item 2
 
-**Open Slot** ⬜
+**Profile Data Pass** 🩷
 
-**Suggested owner:** TBD
-
-**Task:** To be assigned after the next team meeting
+**Task:** Add editable bio and replace hard-coded `My Profile` stats with real stored values where possible
 
 **Status:** Ready next
 
-**Why it matters:** Reserve this slot for the second follow-up task.
+**Why it matters:** The account editor exists, but parts of the profile header are still static filler text.
 
 ### Queue Item 3
 
-**Open Slot** ⬜
+**Events Polish** ⭐️
 
-**Suggested owner:** TBD
-
-**Task:** To be assigned after the next team meeting
+**Task:** Improve events empty states, filter layout, and mobile spacing after event filtering lands
 
 **Status:** Ready next
 
-**Why it matters:** Reserve this slot for another queued task if needed.
+**Why it matters:** The events feature will still feel unfinished if the browse surface is not cleaned up after the filter work.
 
 ### Queue Item 4
 
-**Open Slot** ⬜
+**Pagination Pass** 💙
 
-**Suggested owner:** TBD
-
-**Task:** To be assigned after the next team meeting
+**Task:** Add pagination to the biggest browse surfaces (`games`, `patches`, `events`, and possibly `find-friends`)
 
 **Status:** Ready next
 
-**Why it matters:** Keep one more queued option ready if the team wants deeper coverage.
+**Why it matters:** Current index pages work for demo data, but they will not scale cleanly once imports grow.
 
 ---
 
 ## Backlog / Backup Tasks
 
-Use this section for stretch work, optional polish, or tasks to pull if priorities change.
-
-| Backup task | Suggested owner | Status | Why |
+| Backup task | Status | Why |
 | --- | --- | --- |
-| To be assigned | TBD | Backlog | Add backup work here if someone finishes early |
-| To be assigned | TBD | Backlog | Add backup work here if someone finishes early |
-| To be assigned | TBD | Backlog | Add backup work here if someone finishes early |
-
----
-
-## Suggested Split By Strength
-
-Use this only as guidance if the team wants a quick starting point.
-
-| Team strength area | Best fit based on progress so far |
-| --- | --- |
-| Scrapers, importers, game data, infra | **Ed** |
-| Styling, responsive checks, page polish | **Hortense** |
-| Patches, summaries, chatbot, event logic | **Baptiste** |
-| Profile page, reminders, social/discovery UI | **Bianca** |
+| Replace mock `For You` / `Communities` data with persisted social/community data | Backlog | This is important product work, but it is larger than the current polish gaps |
+| Add notification centre / inbox for reminders, patch drops, and recommendation updates | Backlog | This becomes more useful once notification preferences are persisted |
+| Add patch comparison and share actions on patch pages | Backlog | Good demo value, but not as important as finishing the core browse/recommendation flows |
 
 ---
 
 ## End-of-Day Goal
 
-This board is now intentionally clear for the end of the day.
+By the next planning pass, the board should aim to:
 
-Tomorrow's planning session should:
-
-1. Fill the `Now` section with only the tasks the team can actively carry
-2. Add owners to those tasks, but allow reassignment if someone finishes faster than expected
-3. Fill `Next Up` with the next best tasks in priority order rather than by person
-4. Add backup tasks only if the core queue is clear
+1. Ship event filtering
+2. Make notification toggles real and persisted
+3. Replace at least one recommendation placeholder with live app data
+4. Improve AI action feedback so summary generation feels reliable
