@@ -1,4 +1,5 @@
 <div class="home-page">
+  <div style="height: 4rem;"></div>
   <div class="home-landing__corner">
     <%= image_tag "logo.svg", alt: "GameBrief", class: "home-landing__logo", height: "36" %>
   </div>
@@ -39,6 +40,42 @@
           <span>10K+ Games Tracked</span>
         </div>
       </div>
+
+      <% if @trending_games.any? %>
+        <div class="trending-carousel">
+          <p class="trending-carousel__title">Trending Games</p>
+          <div class="trending-carousel__wrapper">
+            <button class="trending-carousel__btn" onclick="trendingScroll(-1)">&#8249;</button>
+            <div class="trending-carousel__viewport">
+              <div class="trending-carousel__track" id="trendingTrack">
+                <% @trending_games.each do |game| %>
+                  <%= link_to game_path(game), class: "trending-carousel__card" do %>
+                    <% if game.cover_image.present? %>
+                      <%= image_tag game.cover_image, alt: game.name, class: "trending-carousel__img" %>
+                    <% else %>
+                      <div class="trending-carousel__placeholder">
+                        <i class="fa fa-gamepad"></i>
+                      </div>
+                    <% end %>
+                    <p class="trending-carousel__name"><%= game.name %></p>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+            <button class="trending-carousel__btn" onclick="trendingScroll(1)">&#8250;</button>
+          </div>
+        </div>
+
+        <script>
+          function trendingScroll(dir) {
+            var track = document.getElementById("trendingTrack");
+            var card = track.querySelector(".trending-carousel__card");
+            var cardWidth = card.offsetWidth + 16; // card + gap
+            track.scrollBy({ left: dir * cardWidth * 5, behavior: "smooth" });
+          }
+        </script>
+      <% end %>
+
     </div>
   </div>
 
