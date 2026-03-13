@@ -2,6 +2,7 @@ class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:home]
 
   def home
+    @trending_games = Game.joins(:patches).group(:id).order("COUNT(patches.id) DESC").limit(12)
   end
 
   def find_friends
