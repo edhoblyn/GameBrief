@@ -6,6 +6,8 @@ class EventSummaryService
   end
 
   def call
+    return if @event.ai_summary_source.blank?
+
     client = Anthropic::Client.new
 
     message = client.messages.create(
@@ -14,11 +16,11 @@ class EventSummaryService
       messages: [
         {
           role: "user",
-          content: "Write a single sentence summarising this gaming event for a casual player. Be concise and exciting.\n\nEvent: #{@event.title}\n#{@event.description}"
+          content: "Write a short 1-2 sentence summary of this gaming event for a casual player. Focus on why it matters and avoid hypey filler.\n\n#{@event.ai_summary_source}"
         }
       ]
     )
 
-    message.content.find { |block| block.type == :text }&.text
+    message.content.find { |block| block.type == :text }&.text&.strip
   end
 end
