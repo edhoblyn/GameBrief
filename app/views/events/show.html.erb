@@ -1,7 +1,6 @@
 <div class="event-show">
   <% game = @event.game %>
   <% quick_take = @event.summary.presence || @event.description.presence || "Keep this event on your radar for #{game.name}." %>
-  <% next_step = @reminder.present? ? "Your reminder is already set, so you are covered when the event gets close." : "Set a reminder or add this to your calendar so the event does not slip past you." %>
   <% gcal_url = "https://calendar.google.com/calendar/render?" + {
     action: "TEMPLATE",
     text: @event.title,
@@ -43,6 +42,19 @@
             <strong><%= link_to game.name, game_path(game) %></strong>
           </div>
         </div>
+
+        <section class="event-show__section event-show__section--compact">
+          <div class="event-show__section-head">
+            <h2>What is happening</h2>
+            <span><%= @event_status[:label] %></span>
+          </div>
+          <p class="event-show__copy">
+            <%= @event.description.presence || "Details have not been added for this event yet, but the start date is already being tracked." %>
+          </p>
+          <% unless @event.summary.present? %>
+            <%= button_to "Generate AI Summary", generate_summary_event_path(@event), method: :post, class: "event-show__inline-action" %>
+          <% end %>
+        </section>
 
         <div class="event-show__hero-actions">
           <%= link_to gcal_url, target: "_blank", rel: "noopener noreferrer", class: "event-show__action event-show__action--light" do %>
@@ -86,48 +98,7 @@
             </div>
           </dl>
         </div>
-      </aside>
-    </div>
-  </div>
-
-  <div class="container event-show__body">
-    <div class="event-show__main">
-      <section class="event-show__section">
-        <div class="event-show__section-head">
-          <h2>What is happening</h2>
-          <span><%= @event_status[:label] %></span>
-        </div>
-        <p class="event-show__copy">
-          <%= @event.description.presence || "Details have not been added for this event yet, but the start date is already being tracked." %>
-        </p>
-      </section>
-
-      <section class="event-show__insights">
-        <article class="event-show__insight-card">
-          <p class="event-show__insight-label">Quick take</p>
-          <h3><%= @event.summary.present? ? "AI Summary" : "Event snapshot" %></h3>
-          <p><%= quick_take %></p>
-          <% unless @event.summary.present? %>
-            <%= button_to "Generate AI Summary", generate_summary_event_path(@event), method: :post, class: "event-show__inline-action" %>
-          <% end %>
-        </article>
-        <article class="event-show__insight-card">
-          <p class="event-show__insight-label">Why it matters</p>
-          <h3>Why players should care</h3>
-          <p>
-            This event adds a fresh reason to check back in on <%= game.name %>, especially with <%= @related_events.any? ? "more upcoming beats already on the calendar" : "supporting updates still building around it" %>.
-          </p>
-        </article>
-        <article class="event-show__insight-card">
-          <p class="event-show__insight-label">Next step</p>
-          <h3>What to do now</h3>
-          <p><%= next_step %></p>
-        </article>
-      </section>
-    </div>
-
-    <aside class="event-show__sidebar">
-      <section class="event-show__sidebar-card">
+        <section class="event-show__sidebar-card">
         <div class="event-show__section-head event-show__section-head--compact">
           <h2>More from <%= game.name %></h2>
           <%= link_to "Game page", game_path(game) %>
@@ -148,9 +119,9 @@
         <% else %>
           <p class="event-show__sidebar-copy">No other upcoming events are scheduled for this game yet.</p>
         <% end %>
-      </section>
+        </section>
 
-      <section class="event-show__sidebar-card">
+        <section class="event-show__sidebar-card">
         <div class="event-show__section-head event-show__section-head--compact">
           <h2>Latest patch</h2>
           <% if @latest_patch %>
@@ -169,7 +140,8 @@
         <% else %>
           <p class="event-show__sidebar-copy">No patch notes are available for this game yet.</p>
         <% end %>
-      </section>
-    </aside>
+        </section>
+      </aside>
+    </div>
   </div>
 </div>
