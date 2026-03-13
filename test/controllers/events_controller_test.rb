@@ -124,15 +124,21 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
     assert_includes response.body, event.summary
   end
 
-  test "event detail page offers summary generation when summary is missing" do
+  test "event detail page requests a background summary when enough detail is available" do
     game = Game.create!(name: "No Summary Game", slug: "no-summary-game")
-    event = game.events.create!(title: "Fresh Start", description: "New event", start_date: 5.days.from_now)
+    event = game.events.create!(
+      title: "Fresh Start",
+      description: "A new seasonal event is landing with reward tracks, limited playlists, and a refreshed set of challenges for returning players.",
+      start_date: 5.days.from_now
+    )
+    event.update_column(:summary_requested_at, nil)
 
-    get event_url(event)
+    assert_enqueued_with(job: GenerateEventSummaryJob, args: [event.id]) do
+      get event_url(event)
+    end
 
     assert_response :success
-    assert_select "form[action='#{generate_summary_event_path(event)}']"
-    assert_includes response.body, "Generate AI Summary"
+    assert_not_includes response.body, "Generate AI Summary"
   end
 
   private

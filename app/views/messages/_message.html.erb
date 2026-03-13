@@ -1,12 +1,12 @@
 <% if message.role == "user" %>
-  <div class="d-flex justify-content-end mb-2">
-    <div class="px-3 pt-3 pb-0 rounded-pill" style="background: rgba(168, 85, 247, 0.25); color: #e4e4e7;">
+  <div class="chatbot__message chatbot__message--user">
+    <div class="chatbot__bubble">
       <%= raw(render_markdown(message.content)) %>
     </div>
   </div>
 <% else %>
-  <div class="d-flex justify-content-start mb-5">
-    <div class="px-3 pt-3 pb-0">
+  <div class="chatbot__message chatbot__message--assistant">
+    <div class="chatbot__bubble">
       <%= raw(render_markdown(message.content)) %>
     </div>
   </div>

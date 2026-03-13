@@ -2,6 +2,9 @@
   overscroll-behavior-y: none;
 }
 
+.home-trending {
+  padding: 2rem 1rem 0;
+}
 
 .home-landing {
   display: flex;
@@ -204,7 +207,9 @@
 
 // ── Trending carousel ─────────────────────────────────────────────────────────
 .trending-carousel {
-  margin-top: 2rem;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
   text-align: left;
 
   &__title {
@@ -226,8 +231,8 @@
 
   &__viewport {
     overflow: hidden;
-    // 5 cards × 200px + 4 gaps × 16px
-    width: calc(5 * 200px + 4 * 16px);
+    width: 1064px;
+    max-width: calc(100vw - 5rem);
   }
 
   &__track {
@@ -282,6 +287,26 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+}
+
+@media (max-width: 767px) {
+  .home-trending {
+    padding-top: 1.5rem;
+  }
+
+  .trending-carousel {
+    &__title {
+      padding-left: calc(2.5rem + 0.5rem);
+    }
+
+    &__viewport {
+      width: calc(100vw - 6.5rem);
+    }
+
+    &__card {
+      flex-basis: 160px;
+    }
   }
 }
 

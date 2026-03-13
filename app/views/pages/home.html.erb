@@ -39,44 +39,70 @@
           <span>10K+ Games Tracked</span>
         </div>
       </div>
-
-      <% if @trending_games.any? %>
-        <div class="trending-carousel">
-          <p class="trending-carousel__title">Trending Games</p>
-          <div class="trending-carousel__wrapper">
-            <button class="btn btn-dark" onclick="trendingScroll(-1)">&#8249;</button>
-            <div class="trending-carousel__viewport">
-              <div class="trending-carousel__track" id="trendingTrack">
-                <% @trending_games.each do |game| %>
-                  <%= link_to game_path(game), class: "trending-carousel__card" do %>
-                    <% if game.cover_image.present? %>
-                      <%= image_tag game.cover_image, alt: game.name, class: "trending-carousel__img" %>
-                    <% else %>
-                      <div class="trending-carousel__placeholder">
-                        <i class="fa fa-gamepad"></i>
-                      </div>
-                    <% end %>
-                    <p class="trending-carousel__name"><%= game.name %></p>
-                  <% end %>
-                <% end %>
-              </div>
-            </div>
-            <button class="btn btn-dark" onclick="trendingScroll(1)">&#8250;</button>
-          </div>
-        </div>
-
-        <script>
-          function trendingScroll(dir) {
-            var track = document.getElementById("trendingTrack");
-            var card = track.querySelector(".trending-carousel__card");
-            var cardWidth = card.offsetWidth + 16; // card + gap
-            track.scrollBy({ left: dir * cardWidth * 5, behavior: "smooth" });
-          }
-        </script>
-      <% end %>
-
     </div>
   </div>
+
+  <% if @trending_games.any? %>
+    <section class="home-trending">
+      <div class="trending-carousel">
+        <p class="trending-carousel__title">Trending Games</p>
+        <div class="trending-carousel__wrapper">
+          <button class="btn btn-dark" onclick="trendingScroll(-1)">&#8249;</button>
+          <div class="trending-carousel__viewport">
+            <div class="trending-carousel__track" id="trendingTrack">
+              <% @trending_games.each do |game| %>
+                <%= link_to game_path(game), class: "trending-carousel__card" do %>
+                  <% if game.cover_image.present? %>
+                    <%= image_tag game.cover_image, alt: game.name, class: "trending-carousel__img" %>
+                  <% else %>
+                    <div class="trending-carousel__placeholder">
+                      <i class="fa fa-gamepad"></i>
+                    </div>
+                  <% end %>
+                  <p class="trending-carousel__name"><%= game.name %></p>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+          <button class="btn btn-dark" onclick="trendingScroll(1)">&#8250;</button>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      function trendingScroll(dir) {
+        var track = document.getElementById("trendingTrack");
+        if (!track) return;
+
+        var card = track.querySelector(".trending-carousel__card");
+        if (!card) return;
+
+        var cardWidth = card.offsetWidth + 16; // card + gap
+        var scrollAmount = cardWidth * 5;
+        var maxScrollLeft = track.scrollWidth - track.clientWidth;
+
+        if (dir > 0 && track.scrollLeft >= maxScrollLeft - cardWidth) {
+          track.scrollTo({ left: 0, behavior: "smooth" });
+          return;
+        }
+
+        if (dir < 0 && track.scrollLeft <= cardWidth) {
+          track.scrollTo({ left: maxScrollLeft, behavior: "smooth" });
+          return;
+        }
+
+        track.scrollBy({ left: dir * scrollAmount, behavior: "smooth" });
+      }
+
+      if (window.trendingCarouselInterval) {
+        window.clearInterval(window.trendingCarouselInterval);
+      }
+
+      window.trendingCarouselInterval = window.setInterval(function() {
+        trendingScroll(1);
+      }, 10000);
+    </script>
+  <% end %>
 
 <% if user_signed_in? %>
     <div class="home-landing__logout">

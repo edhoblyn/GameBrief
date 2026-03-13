@@ -20,17 +20,14 @@ Rails.application.routes.draw do
   end
   resources :patches, only: [:index, :show] do
     member do
+      get :notes
       post :generate_summary
     end
     resources :chats, only: [:create] do
       resources :messages, only: [:create]
     end
   end
-  resources :events, only: [:index, :show] do
-    member do
-      post :generate_summary
-    end
-  end
+  resources :events, only: [:index, :show]
   resources :favourites, only: [:create, :destroy]
   resources :reminders, only: [:create, :destroy]
   resources :friendships, only: [:create, :destroy]
