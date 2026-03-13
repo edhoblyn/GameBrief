@@ -1,20 +1,117 @@
-<div class="events-index">
-  <div class="events-index__header container">
-    <h1>Upcoming Events</h1>
-  </div>
+<% content_for :title, "Events" %>
 
+<div class="events-index">
   <div class="container">
-    <div class="events-index__grid">
-      <% @events.each do |event| %>
-        <%= link_to event_path(event), class: "events-index__card" do %>
-          <p class="events-index__game"><%= event.game.name %></p>
-          <h2 class="events-index__title"><%= event.title %></h2>
-          <p class="events-index__date">
-            <i class="fa fa-calendar"></i>
-            <%= event.start_date.strftime("%-d %b %Y") %>
-          </p>
+    <div class="events-index__hero">
+      <div class="events-index__hero-copy">
+        <p class="events-index__eyebrow">Events</p>
+        <h1 class="events-index__title">Track what is happening next across the games you care about.</h1>
+        <p class="events-index__subtitle">
+          Browse upcoming events, scan what is happening this week, and jump straight into details for the games you already follow.
+        </p>
+      </div>
+
+      <div class="events-index__actions">
+        <% if user_signed_in? %>
+          <%= link_to my_events_path, class: "events-index__action" do %>
+            <i class="fa fa-bell-o"></i>
+            My Events
+          <% end %>
         <% end %>
+
+        <%= link_to games_path, class: "events-index__action events-index__action--primary" do %>
+          <i class="fa fa-gamepad"></i>
+          Browse Games
+        <% end %>
+      </div>
+    </div>
+
+    <div class="events-index__summary">
+      <% @summary_cards.each do |card| %>
+        <div class="events-index__summary-card">
+          <span class="events-index__summary-value"><%= card[:value] %></span>
+          <span class="events-index__summary-label"><%= card[:label] %></span>
+        </div>
       <% end %>
     </div>
+
+    <div class="events-index__controls">
+      <div class="events-index__filters" aria-label="Filter events by time">
+        <% EventsController::TIME_FILTERS.each do |value, label| %>
+          <%= link_to label, events_path(time_filter: (value == "all" ? nil : value)), class: "filter-btn #{@time_filter == value ? 'active' : ''}" %>
+        <% end %>
+      </div>
+
+      <div class="events-index__results-meta">
+        <span><%= pluralize(@events.size, "event") %> in this view</span>
+        <% if @time_filter != "all" %>
+          <%= link_to "Reset filter", events_path, class: "events-index__reset" %>
+        <% end %>
+      </div>
+    </div>
+
+    <% if @events.any? %>
+      <div class="events-index__timeline">
+        <% @event_groups.each do |group_name, events| %>
+          <section class="events-index__group">
+            <div class="events-index__group-header">
+              <h2 class="events-index__group-title"><%= group_name %></h2>
+              <span class="events-index__group-count"><%= pluralize(events.size, "event") %></span>
+            </div>
+
+            <div class="events-index__group-list">
+              <% events.each do |event| %>
+                <%= link_to event_path(event), class: "events-index__event-card" do %>
+                  <div class="events-index__date-block">
+                    <span class="events-index__date-day"><%= event.start_date.strftime("%-d") %></span>
+                    <span class="events-index__date-month"><%= event.start_date.strftime("%b") %></span>
+                  </div>
+
+                  <div class="events-index__event-body">
+                    <div class="events-index__event-meta">
+                      <span class="events-index__game"><%= event.game.name %></span>
+                      <% if @followed_game_ids.include?(event.game_id) %>
+                        <span class="events-index__badge">Following</span>
+                      <% end %>
+                    </div>
+
+                    <h3 class="events-index__event-title"><%= event.title %></h3>
+
+                    <p class="events-index__event-copy">
+                      <i class="fa fa-calendar"></i>
+                      <%= event.start_date.strftime("%A, %-d %B %Y") %>
+                      <% if event.summary.present? %>
+                        <span class="events-index__event-divider">•</span>
+                        <%= truncate(event.summary, length: 120) %>
+                      <% end %>
+                    </p>
+                  </div>
+
+                  <span class="events-index__event-arrow" aria-hidden="true">
+                    <i class="fa fa-arrow-right"></i>
+                  </span>
+                <% end %>
+              <% end %>
+            </div>
+          </section>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="events-index__empty">
+        <div class="events-index__empty-icon">
+          <i class="fa fa-calendar"></i>
+        </div>
+        <h2 class="events-index__empty-title">No events match this time range</h2>
+        <p class="events-index__empty-copy">
+          Try a broader filter to see more upcoming events, or head to your games list to follow titles you want surfaced first.
+        </p>
+        <div class="events-index__empty-actions">
+          <% if @time_filter != "all" %>
+            <%= link_to "View all upcoming", events_path, class: "events-index__action" %>
+          <% end %>
+          <%= link_to "Browse games", games_path, class: "events-index__action events-index__action--primary" %>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>
