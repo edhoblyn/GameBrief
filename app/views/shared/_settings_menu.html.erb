@@ -7,7 +7,6 @@
     <div class="app-settings-menu__panel">
       <p class="app-settings-menu__eyebrow">Settings</p>
       <h2 class="app-settings-menu__title">Display</h2>
-      <p class="app-settings-menu__copy">Choose a site-wide theme. Your selection stays active across pages.</p>
 
       <div class="app-settings-menu__themes">
         <button type="button" class="app-settings-menu__theme-option" data-action="click->theme#select" data-theme-name="nebula" data-theme-target="option" aria-pressed="false">
@@ -42,9 +41,12 @@
 
       <% if user_signed_in? %>
         <div class="app-settings-menu__footer">
-          <%= button_to destroy_user_session_path, method: :delete, class: "app-settings-menu__logout" do %>
+          <%= button_to destroy_user_session_path,
+                        method: :delete,
+                        class: "app-settings-menu__logout",
+                        aria: { label: "Log out" },
+                        title: "Log out" do %>
             <i class="fa fa-sign-out" aria-hidden="true"></i>
-            <span>Log out</span>
           <% end %>
         </div>
       <% end %>

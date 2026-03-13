@@ -28,6 +28,6 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
     get my_games_url
 
     assert_response :success
-    assert_select "form.button_to[action='#{destroy_user_session_path}'] button.app-settings-menu__logout", text: /Log out/
+    assert_select "form.button_to[action='#{destroy_user_session_path}'] button.app-settings-menu__logout[aria-label='Log out'][title='Log out']"
   end
 end
