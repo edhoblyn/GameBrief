@@ -53,9 +53,57 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
     assert_includes response.body, other_event.title
   end
 
+  test "filters events by selected games" do
+    included_game = Game.create!(name: "Included Game", slug: "included-game")
+    excluded_game = Game.create!(name: "Excluded Game", slug: "excluded-game")
+    included_game.events.create!(title: "Included Event", start_date: 4.days.from_now)
+    excluded_game.events.create!(title: "Excluded Event", start_date: 4.days.from_now)
+
+    get events_url, params: { game_ids: [included_game.id] }
+
+    assert_response :success
+    assert_includes response.body, "Included Event"
+    assert_not_includes response.body, "Excluded Event"
+    assert_select "input[type=checkbox][name='game_ids[]'][value='#{included_game.id}'][checked='checked']", count: 1
+  end
+
+  test "preserves selected games while changing time filters" do
+    game = Game.create!(name: "Persistent Game", slug: "persistent-game")
+    game.events.create!(title: "Persistent Event", start_date: 2.days.from_now)
+
+    get events_url, params: { game_ids: [game.id], time_filter: "week" }
+
+    assert_response :success
+    assert_select "a[href='#{events_path(time_filter: 'week', game_ids: [game.id])}']", text: "This week"
+    assert_select "a", text: "Reset filter"
+  end
+
+  test "orders game filter options with followed games first and alphabetical within groups" do
+    followed_b = Game.create!(name: "Beta Ops", slug: "beta-ops")
+    followed_a = Game.create!(name: "Alpha Quest", slug: "alpha-quest")
+    other_b = Game.create!(name: "Delta Run", slug: "delta-run")
+    other_a = Game.create!(name: "Crimson Drift", slug: "crimson-drift")
+
+    [followed_b, followed_a, other_b, other_a].each do |game|
+      game.events.create!(title: "#{game.name} Event", start_date: 3.days.from_now)
+    end
+
+    @user.favourites.create!(game: followed_b)
+    @user.favourites.create!(game: followed_a)
+
+    get events_url
+
+    assert_response :success
+    assert_equal ["Alpha Quest", "Beta Ops", "Crimson Drift", "Delta Run"], rendered_game_filter_options.first(4)
+  end
+
   private
 
   def rendered_event_titles
     Nokogiri::HTML(response.body).css(".events-index__event-title").map(&:text).map(&:strip)
+  end
+
+  def rendered_game_filter_options
+    Nokogiri::HTML(response.body).css(".events-index__game-filter-option span").map(&:text).map(&:strip)
   end
 end
