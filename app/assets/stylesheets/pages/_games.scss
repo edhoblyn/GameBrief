@@ -242,6 +242,83 @@
     gap: 0.5rem;
     flex-wrap: wrap;
   }
+
+  &__suggestion-wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 2.5rem;
+    padding-bottom: 1rem;
+  }
+
+  &__suggestion {
+    width: 100%;
+    max-width: 42rem;
+    background: linear-gradient(180deg, rgba(12, 16, 27, 0.92), rgba(8, 11, 19, 0.96));
+    border: 1px solid var(--gb-border);
+    border-radius: 1rem;
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.22);
+    overflow: hidden;
+  }
+
+  &__suggestion-toggle {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3.25rem;
+    padding: 0.9rem 1.25rem;
+    cursor: pointer;
+    color: var(--gb-text);
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    transition: background 0.2s ease, color 0.2s ease;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--gb-accent);
+    }
+  }
+
+  &__suggestion-body {
+    padding: 0 1.25rem 1.25rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  &__suggestion-copy {
+    margin: 1rem 0 0.9rem;
+    color: var(--gb-muted);
+    font-size: 0.92rem;
+    text-align: center;
+  }
+
+  &__suggestion-form {
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  &__suggestion-fields {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  &__suggestion-input {
+    flex: 1 1 18rem;
+  }
+
+  &__suggestion-submit {
+    flex: 0 0 auto;
+  }
+
+  &__suggestion-error {
+    margin: 0;
+    color: #ff9f9f;
+    font-size: 0.85rem;
+  }
 }
 
 .game-card {
@@ -483,6 +560,19 @@
     &__filters {
       flex-direction: column;
       align-items: stretch;
+    }
+
+    &__suggestion-wrap {
+      margin-top: 2rem;
+    }
+
+    &__suggestion-fields {
+      flex-direction: column;
+    }
+
+    &__suggestion-submit,
+    &__suggestion-input {
+      width: 100%;
     }
   }
 

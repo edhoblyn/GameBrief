@@ -71,4 +71,30 @@
       </article>
     <% end %>
   </div>
+
+  <div class="home-games__suggestion-wrap">
+    <details class="home-games__suggestion" <%= "open" if @game_suggestion&.errors&.any? %>>
+      <summary class="home-games__suggestion-toggle">
+        Suggest a game
+      </summary>
+
+      <div class="home-games__suggestion-body">
+        <p class="home-games__suggestion-copy">Missing something? Send us a game name and we can review it for the site.</p>
+
+        <%= form_with model: @game_suggestion, url: suggest_games_path, class: "home-games__suggestion-form" do |f| %>
+          <div class="home-games__suggestion-fields">
+            <%= f.text_field :name,
+                             placeholder: "Type a game name",
+                             class: "home-games__search-input home-games__suggestion-input",
+                             aria: { describedby: (@game_suggestion.errors[:name].any? ? "game-suggestion-error" : nil) } %>
+            <%= f.submit "Send", class: "home-games__search-btn home-games__suggestion-submit" %>
+          </div>
+
+          <% if @game_suggestion.errors[:name].any? %>
+            <p id="game-suggestion-error" class="home-games__suggestion-error"><%= @game_suggestion.errors.full_messages_for(:name).to_sentence %></p>
+          <% end %>
+        <% end %>
+      </div>
+    </details>
+  </div>
 </div>
