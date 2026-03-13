@@ -14,6 +14,7 @@ class Event < ApplicationRecord
   def request_ai_summary!
     return false if summary.present?
     return false unless ai_summarizable?
+    return false unless summary_tracking_supported?
     return false if ai_summary_pending?
 
     update_columns(summary_requested_at: Time.current)
@@ -22,7 +23,9 @@ class Event < ApplicationRecord
   end
 
   def ai_summary_pending?
-    summary_requested_at.present? && summary_requested_at >= updated_at
+    return false unless summary_tracking_supported?
+
+    self[:summary_requested_at].present? && self[:summary_requested_at] >= updated_at
   end
 
   private
@@ -33,5 +36,9 @@ class Event < ApplicationRecord
 
   def request_ai_summary_later
     request_ai_summary!
+  end
+
+  def summary_tracking_supported?
+    has_attribute?(:summary_requested_at)
   end
 end
