@@ -323,22 +323,6 @@
             <% end %>
           </section>
 
-          <section id="recommendations" class="profile-rail-card">
-            <div class="profile-rail-card__header">
-              <h3 class="profile-rail-card__title">Recommendations</h3>
-            </div>
-            <div class="profile-rail-callout"
-                 data-notification-toggles-target="recommendationCallout">
-              <p class="profile-rail-callout__text"
-                 data-notification-toggles-target="recommendationText">Recommendation updates are off right now. Turn them on in the sidebar to start building this feed.</p>
-              <%= link_to games_path,
-                          class: "profile-rail-callout__action d-none",
-                          data: { "notification-toggles-target": "recommendationAction" } do %>
-                <i class="fa fa-compass"></i>
-                Explore more games
-              <% end %>
-            </div>
-          </section>
 
           <section class="profile-rail-card profile-rail-card--action">
             <div class="profile-rail-card__header">
