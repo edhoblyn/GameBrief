@@ -66,9 +66,12 @@
   &__heading {
     font-size: 3.25rem;
     font-weight: 700;
-    color: #f4f4f5;
     line-height: 1.2;
     margin: 0;
+    background: linear-gradient(135deg, #f4f4f5 0%, #f4f4f5 40%, var(--gb-accent-strong) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 
     @media (min-width: 768px) { font-size: 4.25rem; }
   }

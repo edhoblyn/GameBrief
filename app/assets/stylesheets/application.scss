@@ -44,8 +44,8 @@ html[data-theme="ion"] {
   --gb-accent-strong: #7bd8ff;
   --gb-accent-secondary: #7bd8ff;
   --gb-theme-gradient: radial-gradient(circle at top, rgba(53, 184, 255, 0.18), transparent 36%);
-  --gb-button-text: #ffffff;
-  --gb-button-text-shadow: 0 1px 0 rgba(5, 16, 26, 0.78), 0 0 2px rgba(5, 16, 26, 0.72);
+  --gb-button-text: #031018;
+  --gb-button-text-shadow: none;
 }
 
 html[data-theme="toxic"] {
@@ -62,8 +62,8 @@ html[data-theme="toxic"] {
   --gb-accent-strong: #b6ff8d;
   --gb-accent-secondary: #42d6a4;
   --gb-theme-gradient: radial-gradient(circle at top, rgba(125, 255, 107, 0.16), transparent 34%);
-  --gb-button-text: #ffffff;
-  --gb-button-text-shadow: 0 1px 0 rgba(6, 18, 10, 0.88), 0 0 2px rgba(6, 18, 10, 0.84), 0 0 8px rgba(6, 18, 10, 0.28);
+  --gb-button-text: #061209;
+  --gb-button-text-shadow: none;
 }
 
 html[data-theme="ember"] {
@@ -77,11 +77,11 @@ html[data-theme="ember"] {
   --gb-text: #fff1eb;
   --gb-muted: #d2a59a;
   --gb-accent: #ff7b54;
-  --gb-accent-strong: #ffb067;
+  --gb-accent-strong: #b88714;
   --gb-accent-secondary: #ffd166;
   --gb-theme-gradient: radial-gradient(circle at top, rgba(255, 123, 84, 0.16), transparent 34%);
-  --gb-button-text: #ffffff;
-  --gb-button-text-shadow: 0 1px 0 rgba(28, 10, 5, 0.82), 0 0 2px rgba(28, 10, 5, 0.72);
+  --gb-button-text: #1c0805;
+  --gb-button-text-shadow: none;
 }
 
 html,
