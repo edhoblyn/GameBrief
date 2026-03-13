@@ -48,7 +48,7 @@
   profile_name   = current_user.display_name
   profile_handle = current_user.profile_handle
   profile_highlights = [
-    { label: "Following games", value: @followed_games.count, icon: "fa-gamepad" },
+    { label: "Favourited games", value: @followed_games.count, icon: "fa-gamepad" },
     { label: "Patch drops", value: @recent_patches.count, icon: "fa-file-text" },
     { label: "Event reminders", value: @reminders.count, icon: "fa-calendar" }
   ]
@@ -134,7 +134,7 @@
                 aria-pressed="true">
           <span class="profile-sidebar__control-copy">
             <span class="profile-sidebar__control-label">Event reminders</span>
-            <span class="profile-sidebar__control-meta">Upcoming events from games you follow</span>
+            <span class="profile-sidebar__control-meta">Upcoming events from your favourited games</span>
           </span>
           <span class="profile-sidebar__control-state profile-sidebar__control-state--active"
                 data-notification-toggles-target="state">On</span>
@@ -338,7 +338,7 @@
                 </p>
               <% end %>
             <% else %>
-              <p class="profile-rail-card__empty">No recent patches for your followed games.</p>
+              <p class="profile-rail-card__empty">No recent patches for your favourited games.</p>
             <% end %>
           </section>
 

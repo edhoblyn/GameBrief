@@ -45,7 +45,7 @@
         <div class="trending-carousel">
           <p class="trending-carousel__title">Trending Games</p>
           <div class="trending-carousel__wrapper">
-            <button class="trending-carousel__btn" onclick="trendingScroll(-1)">&#8249;</button>
+            <button class="btn btn-dark" onclick="trendingScroll(-1)">&#8249;</button>
             <div class="trending-carousel__viewport">
               <div class="trending-carousel__track" id="trendingTrack">
                 <% @trending_games.each do |game| %>
@@ -62,7 +62,7 @@
                 <% end %>
               </div>
             </div>
-            <button class="trending-carousel__btn" onclick="trendingScroll(1)">&#8250;</button>
+            <button class="btn btn-dark" onclick="trendingScroll(1)">&#8250;</button>
           </div>
         </div>
 

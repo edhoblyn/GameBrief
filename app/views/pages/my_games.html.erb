@@ -5,7 +5,7 @@
     <div>
       <p class="my-games-page__eyebrow">Profile</p>
       <h1 class="my-games-page__title">My Games</h1>
-      <p class="my-games-page__subtitle">Games you follow, all in one place.</p>
+      <p class="my-games-page__subtitle">Favourited games, all in one place.</p>
     </div>
     <div class="my-games-page__actions">
       <%= link_to my_profile_path, class: "my-games-page__action" do %>
@@ -22,7 +22,7 @@
   <div class="my-games-page__summary">
     <div class="my-games-page__summary-card">
       <span class="my-games-page__summary-value"><%= @games.count %></span>
-      <span class="my-games-page__summary-label">Followed games</span>
+      <span class="my-games-page__summary-label">Favourited games</span>
     </div>
   </div>
 
@@ -52,8 +52,8 @@
       <div class="my-games-page__empty-icon">
         <i class="fa fa-gamepad"></i>
       </div>
-      <h2 class="my-games-page__empty-title">You are not following any games yet</h2>
-      <p class="my-games-page__empty-copy">Follow games to build your personal dashboard for patches, events, and reminders.</p>
+      <h2 class="my-games-page__empty-title">You have not favourited any games yet</h2>
+      <p class="my-games-page__empty-copy">Favourite games to build your personal dashboard for patches, events, and reminders.</p>
       <%= link_to games_path, class: "my-games-page__action my-games-page__action--primary" do %>
         <i class="fa fa-search"></i>
         Browse Games
