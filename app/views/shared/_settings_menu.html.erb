@@ -39,6 +39,15 @@
           </span>
         </button>
       </div>
+
+      <% if user_signed_in? %>
+        <div class="app-settings-menu__footer">
+          <%= button_to destroy_user_session_path, method: :delete, class: "app-settings-menu__logout" do %>
+            <i class="fa fa-sign-out" aria-hidden="true"></i>
+            <span>Log out</span>
+          <% end %>
+        </div>
+      <% end %>
     </div>
   </details>
 </div>

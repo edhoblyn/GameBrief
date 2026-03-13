@@ -158,4 +158,35 @@
   &__theme-swatch--ember {
     background: linear-gradient(135deg, #ff7b54, #ffd166);
   }
+
+  &__footer {
+    margin-top: 1rem;
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--gb-border);
+  }
+
+  &__footer form {
+    margin: 0;
+  }
+
+  &__logout {
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    padding: 0.78rem 0.9rem;
+    border-radius: 0.9rem;
+    border: 1px solid color-mix(in srgb, #ff7b54 45%, var(--gb-border));
+    background: color-mix(in srgb, #ff7b54 10%, transparent);
+    color: var(--gb-text);
+    font-weight: 700;
+    transition: border-color 0.18s ease, transform 0.18s ease, background 0.18s ease;
+
+    &:hover {
+      border-color: #ff7b54;
+      background: color-mix(in srgb, #ff7b54 16%, transparent);
+      transform: translateY(-1px);
+    }
+  }
 }

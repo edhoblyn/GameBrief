@@ -23,4 +23,11 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
     assert_select "a[href='#{find_friends_path}'].profile-sidebar__nav-link--active", text: /Find friends/
     assert_select "a[href='#{my_profile_path}'].profile-sidebar__nav-link--active", count: 0
   end
+
+  test "shows logout button in the shared top-right settings menu" do
+    get my_games_url
+
+    assert_response :success
+    assert_select "form.button_to[action='#{destroy_user_session_path}'] button.app-settings-menu__logout", text: /Log out/
+  end
 end
