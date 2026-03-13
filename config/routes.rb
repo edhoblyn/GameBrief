@@ -34,11 +34,16 @@ Rails.application.routes.draw do
   resources :favourites, only: [:create, :destroy]
   resources :reminders, only: [:create, :destroy]
 
-  resources :users, only: [:index]
+  resources :users, only: [:index, :show]
 
   namespace :admin do
     resource :dashboard, only: [:show], controller: :dashboard
-    resources :patch_scrapes, only: [:create]
+    resources :patch_scrapes, only: [:create] do
+      collection do
+        post :run_all
+      end
+    end
+    resources :users, only: [:create, :destroy], controller: :users
   end
 
   get "find-friends", to: "pages#find_friends", as: :find_friends

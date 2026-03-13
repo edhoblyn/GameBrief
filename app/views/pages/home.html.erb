@@ -1,6 +1,4 @@
 <div class="home-page">
-  <hr class="nav-divider">
-
   <div class="home-landing__corner">
     <%= image_tag "logo.svg", alt: "GameBrief", class: "home-landing__logo", height: "36" %>
   </div>
@@ -18,11 +16,11 @@
 
       <div class="home-landing__actions">
         <% if user_signed_in? %>
-          <%= link_to "See My Profile", my_profile_path, class: "btn btn-primary btn-lg", style: "color: #fff;" %>
+          <%= link_to "See My Profile", my_profile_path, class: "home-landing__button home-landing__button--primary" %>
         <% else %>
-          <%= link_to "Get Started", new_user_registration_path, class: "btn btn-primary btn-lg" %>
+          <%= link_to "Get Started", new_user_registration_path, class: "home-landing__button home-landing__button--primary" %>
         <% end %>
-        <%= link_to "Explore Games", games_path, class: "btn btn-outline-light btn-lg" %>
+        <%= link_to "Explore Games", games_path, class: "home-landing__button home-landing__button--secondary" %>
       </div>
 
       <div class="home-landing__stats">
@@ -41,38 +39,6 @@
           <span>10K+ Games Tracked</span>
         </div>
       </div>
-    </div>
-  </div>
-
-  <div class="gamers-carousel" data-controller="gamers-carousel">
-    <p class="gamers-carousel__label">Featured Gamers</p>
-    <div class="gamers-carousel__viewport">
-      <div class="gamers-carousel__track" data-gamers-carousel-target="track">
-        <% @featured_gamers.each do |gamer| %>
-          <div class="gamers-carousel__card">
-            <% if gamer.avatar_image.attached? %>
-              <%= image_tag gamer.avatar_image, alt: gamer.display_name, class: "gamers-carousel__avatar" %>
-            <% elsif gamer.avatar_url.present? %>
-              <%= image_tag gamer.avatar_url, alt: gamer.display_name, class: "gamers-carousel__avatar" %>
-            <% else %>
-              <div class="gamers-carousel__avatar gamers-carousel__avatar--placeholder"><%= gamer.display_name.first.upcase %></div>
-            <% end %>
-            <span class="gamers-carousel__name"><%= gamer.display_name %></span>
-            <span class="gamers-carousel__handle">@<%= gamer.profile_handle %></span>
-            <span class="gamers-carousel__followers">
-              <i class="fa fa-users"></i> <%= number_with_delimiter(gamer.follower_count) %>
-            </span>
-          </div>
-        <% end %>
-      </div>
-    </div>
-    <div class="gamers-carousel__controls">
-      <button class="gamers-carousel__btn" data-action="click->gamers-carousel#prev">
-        <i class="fa fa-chevron-left"></i>
-      </button>
-      <button class="gamers-carousel__btn" data-action="click->gamers-carousel#next">
-        <i class="fa fa-chevron-right"></i>
-      </button>
     </div>
   </div>
 

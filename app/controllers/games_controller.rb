@@ -1,5 +1,6 @@
 class GamesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :show]
+  PATCH_SORT_OPTIONS = %w[newest oldest].freeze
 
   def index
     @games = Game.all
@@ -16,9 +17,24 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find(params[:id])
-    @patches = @game.patches.scraped_first_recent_first
+    @patch_date_filter = params[:date_filter].presence_in(Patch::DATE_FILTERS.keys) || "all"
+    @patch_sort = params[:sort].presence_in(PATCH_SORT_OPTIONS) || "newest"
+    @patches = @game.patches.with_date_filter(@patch_date_filter)
+    @patches = apply_patch_sort(@patches)
     @events = @game.events.order(start_date: :asc)
     @favourite = current_user&.favourites&.find_by(game: @game)
-    @scrape_source = PatchScrapeRunner.source_for_game(@game)
+    @scrape_source_config = PatchScrapeRunner.config_for_game(@game)
+    @followers_count = @game.favourites.count
+  end
+
+  private
+
+  def apply_patch_sort(scope)
+    case @patch_sort
+    when "oldest"
+      scope.known_oldest_first
+    else
+      scope.known_newest_first
+    end
   end
 end

@@ -1,5 +1,6 @@
 class PatchScrapeRunner
   Result = Struct.new(:source, :label, :imported, :skipped, keyword_init: true)
+  Diagnostic = Struct.new(:source, :label, :imported, :skipped, :success, :error_message, :timestamp, keyword_init: true)
 
   SOURCES = {
     "marvel_rivals" => {
@@ -20,6 +21,8 @@ class PatchScrapeRunner
       label: "Fortnite",
       importer: PatchImporters::FortniteImporter,
       game_slugs: ["fortnite"],
+      ingestion_method: "api",
+      manual_trigger_enabled: false,
       missing_game_error: "Fortnite game not found in the database.",
       missing_game_hint: "Expected an existing Game named 'Fortnite' or slugged 'fortnite'."
     },
@@ -48,6 +51,8 @@ class PatchScrapeRunner
       label: "Destiny 2",
       importer: PatchImporters::Destiny2Importer,
       game_slugs: ["destiny-2"],
+      ingestion_method: "api",
+      manual_trigger_enabled: false,
       missing_game_error: "Destiny 2 game not found in the database.",
       missing_game_hint: "Expected an existing Game named 'Destiny 2' or slugged 'destiny-2'."
     },
@@ -92,6 +97,12 @@ class PatchScrapeRunner
     SOURCES.keys
   end
 
+  def self.runnable_sources
+    SOURCES.filter_map do |source, config|
+      source if config.fetch(:manual_trigger_enabled, true)
+    end
+  end
+
   def self.fetch(source)
     SOURCES.fetch(source.to_s)
   end
@@ -101,7 +112,64 @@ class PatchScrapeRunner
   end
 
   def self.run_all
-    sources.map { |source| run(source) }
+    runnable_sources.map { |source| run(source) }
+  end
+
+  def self.diagnostic_for_result(result)
+    Diagnostic.new(
+      source: result.source,
+      label: result.label,
+      imported: result.imported,
+      skipped: result.skipped,
+      success: true,
+      error_message: nil,
+      timestamp: Time.current
+    )
+  end
+
+  def self.diagnostic_for_error(source, error)
+    label = fetch(source)[:label]
+
+    Diagnostic.new(
+      source: source.to_s,
+      label: label,
+      imported: 0,
+      skipped: 0,
+      success: false,
+      error_message: error.message,
+      timestamp: Time.current
+    )
+  rescue KeyError
+    Diagnostic.new(
+      source: source.to_s,
+      label: source.to_s.humanize,
+      imported: 0,
+      skipped: 0,
+      success: false,
+      error_message: error.message,
+      timestamp: Time.current
+    )
+  end
+
+  def self.run_with_diagnostics(source)
+    diagnostic_for_result(run(source))
+  rescue StandardError => e
+    diagnostic_for_error(source, e)
+  end
+
+  def self.run_all_with_diagnostics
+    runnable_sources.map { |source| run_with_diagnostics(source) }
+  end
+
+  def self.manual_trigger_enabled?(source)
+    fetch(source).fetch(:manual_trigger_enabled, true)
+  end
+
+  def self.config_for_game(game)
+    source = source_for_game(game)
+    return nil if source.nil?
+
+    fetch(source).merge(source: source)
   end
 
   def self.source_for_game(game)

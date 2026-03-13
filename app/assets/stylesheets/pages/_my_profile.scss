@@ -5,7 +5,7 @@ $sidebar-width: 260px;
   display: flex;
   width: 100%;
   min-height: 100vh;
-  background: $dark-bg;
+  background: var(--gb-bg);
   padding-top: 4.5rem;
   align-items: flex-start;
 }
@@ -14,9 +14,9 @@ $sidebar-width: 260px;
 .profile-sidebar {
   width: $sidebar-width;
   min-width: $sidebar-width;
-  background: $dark-surface;
-  border-right: 1px solid $dark-border;
-  border-bottom: 1px solid $dark-border;
+  background: var(--gb-surface);
+  border-right: 1px solid var(--gb-border);
+  border-bottom: 1px solid var(--gb-border);
   border-bottom-right-radius: 16px;
   display: flex;
   flex-direction: column;
@@ -39,7 +39,7 @@ $sidebar-width: 260px;
 
   &__user {
     padding: 2rem 1.5rem 1.5rem;
-    border-bottom: 1px solid $dark-border;
+    border-bottom: 1px solid var(--gb-border);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -51,14 +51,14 @@ $sidebar-width: 260px;
     height: 56px;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid $accent-purple;
+    border: 2px solid var(--gb-accent);
   }
 
   &__avatar-placeholder {
     width: 56px;
     height: 56px;
     border-radius: 50%;
-    background: $accent-purple;
+    background: linear-gradient(135deg, var(--gb-accent), var(--gb-accent-strong));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -68,7 +68,7 @@ $sidebar-width: 260px;
   }
 
   &__name {
-    color: $dark-text;
+    color: var(--gb-text);
     font-weight: 600;
     font-size: 0.9rem;
     text-align: center;
@@ -76,7 +76,7 @@ $sidebar-width: 260px;
   }
 
   &__handle {
-    color: $dark-muted;
+    color: var(--gb-muted);
     font-size: 0.78rem;
     text-align: center;
   }
@@ -93,7 +93,7 @@ $sidebar-width: 260px;
     align-items: center;
     gap: 0.75rem;
     padding: 0.75rem 1.5rem;
-    color: $dark-muted;
+    color: var(--gb-muted);
     text-decoration: none;
     font-size: 0.88rem;
     transition: background 0.15s, color 0.15s;
@@ -101,23 +101,37 @@ $sidebar-width: 260px;
     i { width: 16px; text-align: center; }
 
     &:hover {
-      background: $dark-card;
-      color: $dark-text;
+      background: var(--gb-card);
+      color: var(--gb-text);
       text-decoration: none;
     }
 
     &--active {
-      color: $dark-text;
-      background: rgba($accent-purple, 0.12);
-      border-left: 3px solid $accent-purple;
+      color: var(--gb-text);
+      background: color-mix(in srgb, var(--gb-accent) 14%, transparent);
+      border-left: 3px solid var(--gb-accent);
       padding-left: calc(1.5rem - 3px);
     }
+  }
+
+  &__count-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.8rem;
+    padding: 0.18rem 0.48rem;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--gb-accent) 16%, transparent);
+    color: var(--gb-text);
+    font-size: 0.72rem;
+    font-weight: 700;
+    line-height: 1;
   }
 
   &__section {
     margin: 0 1rem 1rem;
     padding: 1rem;
-    border: 1px solid $dark-border;
+    border: 1px solid var(--gb-border);
     border-radius: 16px;
     background: rgba(255, 255, 255, 0.02);
   }
@@ -132,7 +146,7 @@ $sidebar-width: 260px;
 
   &__section-title {
     margin: 0;
-    color: $dark-text;
+    color: var(--gb-text);
     font-size: 0.82rem;
     font-weight: 700;
     letter-spacing: 0.04em;
@@ -145,8 +159,8 @@ $sidebar-width: 260px;
     justify-content: center;
     padding: 0.2rem 0.55rem;
     border-radius: 999px;
-    background: rgba($accent-purple, 0.16);
-    color: lighten($accent-purple, 12%);
+    background: color-mix(in srgb, var(--gb-accent) 18%, transparent);
+    color: var(--gb-accent-strong);
     font-size: 0.7rem;
     font-weight: 700;
     letter-spacing: 0.04em;
@@ -163,8 +177,8 @@ $sidebar-width: 260px;
     width: 100%;
     border: 1px solid transparent;
     border-radius: 12px;
-    background: $dark-card;
-    color: $dark-text;
+    background: var(--gb-card);
+    color: var(--gb-text);
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
@@ -177,7 +191,7 @@ $sidebar-width: 260px;
 
     &:hover {
       background: rgba(255, 255, 255, 0.05);
-      border-color: rgba($accent-purple, 0.35);
+      border-color: var(--gb-accent);
       transform: translateY(-1px);
     }
 
@@ -195,14 +209,14 @@ $sidebar-width: 260px;
   }
 
   &__control-label {
-    color: $dark-text;
+    color: var(--gb-text);
     font-size: 0.84rem;
     font-weight: 600;
     line-height: 1.3;
   }
 
   &__control-meta {
-    color: $dark-muted;
+    color: var(--gb-muted);
     font-size: 0.74rem;
     line-height: 1.4;
   }
@@ -224,18 +238,18 @@ $sidebar-width: 260px;
     text-transform: uppercase;
 
     &--active {
-      background: rgba(#1EDD88, 0.18);
+      background: color-mix(in srgb, #1EDD88 18%, transparent);
       color: #73efb5;
     }
   }
 
   &__footer {
     padding: 1rem 1.5rem;
-    border-top: 1px solid $dark-border;
+    border-top: 1px solid var(--gb-border);
   }
 
   &__signout {
-    color: $dark-muted;
+    color: var(--gb-muted);
     font-size: 0.82rem;
     text-decoration: none;
     &:hover { color: $red; }
@@ -248,12 +262,13 @@ $sidebar-width: 260px;
   min-width: 0;
   min-height: 100vh;
   overflow-y: auto;
-  background: rgba(8, 10, 18, 0.72);
+  background: rgba(8, 10, 18, 0.45);
 }
 
 // ── Profile Header ───────────────────────────────────────────────────────────
 .social-profile-header {
-  border-bottom: 1px solid $dark-border;
+  position: relative;
+  border-bottom: 1px solid var(--gb-border);
 }
 
 .social-profile-banner {
@@ -265,6 +280,7 @@ $sidebar-width: 260px;
     rgba(30, 221, 136, 0.35) 100%
   );
   position: relative;
+  z-index: 0;
   background-size: cover;
   background-position: center;
 
@@ -277,6 +293,8 @@ $sidebar-width: 260px;
 }
 
 .social-profile-info {
+  position: relative;
+  z-index: 1;
   padding: 0 1.5rem 1.5rem;
 }
 
@@ -289,6 +307,8 @@ $sidebar-width: 260px;
 }
 
 .social-profile-avatar-wrap {
+  position: relative;
+  z-index: 2;
   margin-top: -44px;
 }
 
@@ -296,14 +316,14 @@ $sidebar-width: 260px;
   width: 88px;
   height: 88px;
   border-radius: 50%;
-  background: $accent-purple;
+  background: linear-gradient(135deg, var(--gb-accent), var(--gb-accent-strong));
   color: #fff;
   font-size: 2rem;
   font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 4px solid $dark-bg;
+  border: 4px solid var(--gb-bg);
 
   &--img {
     object-fit: cover;
@@ -315,19 +335,19 @@ $sidebar-width: 260px;
 }
 
 .social-profile-name {
-  color: $dark-text;
+  color: var(--gb-text);
   font-size: 1.5rem;
   font-weight: 700;
   margin: 0 0 0.15rem;
 }
 
 .social-profile-handle {
-  color: $dark-muted;
+  color: var(--gb-muted);
   font-size: 0.88rem;
 }
 
 .social-profile-bio {
-  color: $dark-text;
+  color: var(--gb-text);
   font-size: 0.92rem;
   margin-bottom: 1rem;
   line-height: 1.6;
@@ -357,8 +377,8 @@ $sidebar-width: 260px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba($accent-purple, 0.18);
-    color: lighten($accent-purple, 12%);
+    background: color-mix(in srgb, var(--gb-accent) 18%, transparent);
+    color: var(--gb-accent-strong);
     font-size: 1rem;
   }
 
@@ -370,14 +390,14 @@ $sidebar-width: 260px;
   }
 
   &__value {
-    color: $dark-text;
+    color: var(--gb-text);
     font-size: 1.15rem;
     font-weight: 700;
     line-height: 1.1;
   }
 
   &__label {
-    color: $dark-muted;
+    color: var(--gb-muted);
     font-size: 0.77rem;
     line-height: 1.35;
   }
@@ -397,9 +417,9 @@ $sidebar-width: 260px;
   gap: 0.5rem;
   padding: 0.7rem 1rem;
   border-radius: 999px;
-  border: 1px solid $dark-border;
+  border: 1px solid var(--gb-border);
   background: rgba(255, 255, 255, 0.03);
-  color: $dark-text;
+  color: var(--gb-text);
   font-size: 0.84rem;
   font-weight: 600;
   text-decoration: none;
@@ -409,18 +429,19 @@ $sidebar-width: 260px;
     color: $dark-text;
     text-decoration: none;
     background: rgba(255, 255, 255, 0.06);
-    border-color: rgba($accent-purple, 0.4);
+    border-color: var(--gb-accent);
     transform: translateY(-1px);
   }
 
   &--primary {
-    background: linear-gradient(135deg, $accent-purple, lighten($accent-purple, 8%));
+    background: linear-gradient(135deg, var(--gb-accent), var(--gb-accent-strong));
     border-color: transparent;
-    color: #fff;
+    color: var(--gb-button-text);
+    text-shadow: var(--gb-button-text-shadow);
 
     &:hover {
-      color: #fff;
-      background: linear-gradient(135deg, lighten($accent-purple, 4%), lighten($accent-purple, 12%));
+      color: var(--gb-button-text);
+      background: linear-gradient(135deg, var(--gb-accent), var(--gb-accent-strong));
     }
   }
 
@@ -440,7 +461,7 @@ $sidebar-width: 260px;
   gap: 0.3rem;
   align-items: baseline;
   text-decoration: none;
-  color: $dark-muted;
+  color: var(--gb-muted);
   font-size: 0.85rem;
   padding: 0.55rem 0.8rem;
   border-radius: 999px;
@@ -457,8 +478,8 @@ $sidebar-width: 260px;
 
 .btn-edit-profile {
   background: transparent;
-  border: 1px solid $dark-border;
-  color: $dark-text;
+  border: 1px solid var(--gb-border);
+  color: var(--gb-text);
   border-radius: 20px;
   padding: 0.35rem 1rem;
   font-size: 0.85rem;
@@ -468,7 +489,7 @@ $sidebar-width: 260px;
 
   &:hover {
     background: rgba(255, 255, 255, 0.05);
-    border-color: $dark-text;
+    border-color: var(--gb-accent);
   }
 }
 

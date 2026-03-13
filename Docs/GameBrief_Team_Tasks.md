@@ -1,143 +1,123 @@
 # GameBrief — Team Tasks
 
-> Last updated: 2026-03-12 | Focus: keep 2 active rounds of work with one main task per teammate in each round after the latest profile/account work moved into progress
+> Last updated: 2026-03-13 | Focus: flexible task queue ordered by priority, not by person
 
 ---
 
 ## How To Use This Task Sheet
 
-- There are 2 rounds of work
-- The team has 4 members, so each round contains 4 main tasks
-- Completed tasks are moved to `Docs/GameBrief_Team_Progress.md` so the board stays current
-- Each task keeps a unique colour/symbol label so it is easy to reference in standups and chat
+- Use `Now` for the most important active work currently assigned
+- Use `Next Up` for work that should be pulled as soon as someone frees up
+- Use `Backlog / Backup` for lower-pressure polish or stretch work
+- Completed tasks should move to `Docs/GameBrief_Team_Progress.md`
+- Keep statuses tied to what is actually in the code, not what was intended
+- Do not assign tasks to specific people here; the board should stay flexible for a four-person team with different pacing and interests
 
 ---
 
-## Round 1 — Team Priority Tasks
+## Now — Active Priority Tasks
 
-These should be treated as the first active round.
+### Task 1
 
-### Task 1 - Baptiste
+**Event Filters** 🟣
 
-**Event Lens** 🟡
+**Task:** Add events index filters for game and time range (`This Week`, `This Month`, `Future`, `All`) and reflect the active filter state in the UI
 
-**Task:** **Events page filters** — add game filter plus time filter (`This Week`, `This Month`, `Future`, `All`) on the events index
+**Status:** Not started
 
-**Why it matters:** This is one of the clearest missing product features and brings the events flow closer to the patches experience.
+**Why it matters:** The events page exists, but it is still missing the main browse controls users need to narrow upcoming events quickly.
 
-**Done?** ⬜
+### Task 2
 
-### Task 2 - Bianca
+**Notification Prefs** 🟠
 
-**Real Recs** 🟣
+**Task:** Replace `My Profile` notification toggles backed by `localStorage` with persisted user preferences in the database and wire the page to them
 
-**Task:** **My Profile recommendations pass** — replace the current placeholder recommendation state with a first real recommendation block based on followed games or genres
+**Status:** Not started
 
-**Why it matters:** The UI is already there, but it still reads as placeholder content until some real logic is behind it.
+**Why it matters:** The notification controls currently look real but do not save to the account, which makes the feature misleading.
 
-**Done?** ⬜
+### Task 3
 
-### Task 3 - Ed
+**Real Recommendations** 🟢
 
-**Scrape Gate** 🛠️
+**Task:** Replace the placeholder recommendations panel on `My Profile` with a first real recommendation block derived from followed games, genres, or free-to-play preferences
 
-**Task:** **Admin scrape access check / fix** — review the admin scrape route and make sure access works correctly with the current `current_user.admin?` requirement
+**Status:** Not started
 
-**Why it matters:** The scrape tooling is high-value for demo freshness, and this path is currently fragile if admin checks are misconfigured.
+**Why it matters:** Recommendations are one of the clearest product promises in the current UI, but the panel is still placeholder-first.
 
-**Done?** ⬜
+### Task 4
 
-### Task 4 - Hortense
+**AI Action States** 🔵
 
-**Event Polish** 🧡
+**Task:** Add loading, disabled, and success/error feedback states to patch summary and event summary actions
 
-**Task:** **Events page visual pass** — once filters exist, tighten card layout, filter spacing, and empty states so the events page feels finished
+**Status:** Not started
 
-**Why it matters:** The events page is functional, but still lighter on polish than the newer profile and patches views.
-
-**Done?** ⬜
+**Why it matters:** The AI actions work, but the current UI gives weak feedback while a request is in flight.
 
 ---
 
-## Round 2 — Important Follow-Up Tasks
+## Next Up — Ready Queue
 
-These are the next 4 active tasks once Round 1 is underway or finished.
+### Queue Item 1
 
-### Task 1 - Baptiste
+**Saved Chats** 🩵
 
-**Safe Clicks** 🟤
+**Task:** Surface persisted patch chats in the UI so users can reopen previous conversations instead of only continuing the current patch thread
 
-**Task:** **Loading / disabled states on Generate Summary buttons** — prevent double submits on patch and event summary actions
+**Status:** Ready next
 
-**Why it matters:** This closes a known UX gap and reduces accidental duplicate AI requests during demos.
+**Why it matters:** The data model already stores chats/messages, so the missing work is mostly product surface rather than backend invention.
 
-**Done?** ⬜
+### Queue Item 2
 
-### Task 2 - Bianca
+**Profile Data Pass** 🩷
 
-**Notify Hub** 📣
+**Task:** Add editable bio and replace hard-coded `My Profile` stats with real stored values where possible
 
-**Task:** **Notification centre placeholder page** — add a simple in-app notifications page tied to patch drops, reminders, and recommendation updates
+**Status:** Ready next
 
-**Why it matters:** The profile already implies notification settings, so this gives those controls a clearer destination.
+**Why it matters:** The account editor exists, but parts of the profile header are still static filler text.
 
-**Done?** ⬜
+### Queue Item 3
 
-### Task 3 - Ed
+**Events Polish** ⭐️
 
-**Reminder Copy** 📝
+**Task:** Improve events empty states, filter layout, and mobile spacing after event filtering lands
 
-**Task:** **Reminder confirmation and empty-state polish** — tighten reminder success messaging and make the no-reminders state feel more intentional
+**Status:** Ready next
 
-**Why it matters:** It is a compact UX task that improves the reminders flow without needing new backend work.
+**Why it matters:** The events feature will still feel unfinished if the browse surface is not cleaned up after the filter work.
 
-**Done?** ⬜
+### Queue Item 4
 
-### Task 4 - Hortense
+**Pagination Pass** 💙
 
-**Card Glow** 💜
+**Task:** Add pagination to the biggest browse surfaces (`games`, `patches`, `events`, and possibly `find-friends`)
 
-**Task:** **Patch/event card refinement pass** — tighten spacing, hover states, and consistency across the patch and event card system after the mobile pass
+**Status:** Ready next
 
-**Why it matters:** It is a focused polish task that builds directly on the recent responsiveness work and helps the main feeds feel more finished.
-
-**Done?** ⬜
+**Why it matters:** Current index pages work for demo data, but they will not scale cleanly once imports grow.
 
 ---
 
-## Suggested Backup Tasks
+## Backlog / Backup Tasks
 
-Use these if someone finishes early or gets blocked.
-
-| Backup task | Suggested owner | Why |
+| Backup task | Status | Why |
 | --- | --- | --- |
-| **Chat Archive** 🩵 — **Saved AI chats** | **Baptiste** | Good extension of the chat system that already exists |
-| **Patch Palette** ❤️ — **Colour-coded update categories on game pages** | **Bianca** | Best fit for user-facing game page presentation |
-| **Friends Feed** 🤝 — **Activity snippets from followed players** | **Hortense** | Good follow-on if the social/profile pages need one more lightweight enhancement |
-| **Filter Count** 🧭 — **Games/events active filter count or summary text** | **Ed** | Useful small UX improvement once the filtering surfaces are a bit richer |
-| **Summary Labels** 🧾 — **Clearer summary type labels and helper text** | **Baptiste** | Useful polish for the AI summary experience already in place |
-
----
-
-## Suggested Split By Strength
-
-Use this only as guidance if the team wants a quick starting point.
-
-| Team strength area | Best fit based on progress so far |
-| --- | --- |
-| Scrapers, importers, game data, infra | **Ed** |
-| Styling, responsive checks, page polish | **Hortense** |
-| Patches, summaries, chatbot, event logic | **Baptiste** |
-| Profile page, reminders, social/discovery UI | **Bianca** |
+| Replace mock `For You` / `Communities` data with persisted social/community data | Backlog | This is important product work, but it is larger than the current polish gaps |
+| Add notification centre / inbox for reminders, patch drops, and recommendation updates | Backlog | This becomes more useful once notification preferences are persisted |
+| Add patch comparison and share actions on patch pages | Backlog | Good demo value, but not as important as finishing the core browse/recommendation flows |
 
 ---
 
 ## End-of-Day Goal
 
-By the end of the next cycle, the team should aim to have:
+By the next planning pass, the board should aim to:
 
-1. Events filters shipped
-2. Recommendation placeholder content replaced with a first real block
-3. Summary buttons protected against duplicate submits
-4. Admin scrape access checked and working for the intended admin path
-5. At least one events/reminders polish task started after the current round
+1. Ship event filtering
+2. Make notification toggles real and persisted
+3. Replace at least one recommendation placeholder with live app data
+4. Improve AI action feedback so summary generation feels reliable

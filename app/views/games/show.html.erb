@@ -1,4 +1,9 @@
 <div class="game-show">
+  <% all_patches_path = game_patches_path(@game) %>
+  <% filter_base_params = {} %>
+  <% clear_date_filter_params = { sort: @patch_sort == "newest" ? nil : @patch_sort }.compact %>
+  <% clear_sort_params = { date_filter: @patch_date_filter == "all" ? nil : @patch_date_filter }.compact %>
+
   <div class="game-show__header">
     <% if @game.cover_image.present? %>
       <div class="game-show__banner-bg" style="background-image: url('<%= @game.cover_image %>')"></div>
@@ -12,14 +17,48 @@
       <div class="game-show__meta">
         <%= link_to "← All games", games_path, class: "d-block mb-2", style: "font-size:0.82rem; color: rgba(255,255,255,0.45); text-decoration:none;" %>
         <h1><%= @game.name %></h1>
+        <div class="game-show__meta-grid">
+          <div class="game-show__stat-row">
+            <span class="game-show__stat-pill">
+              <i class="fa fa-file-text-o"></i>
+              <%= pluralize(@game.patches.count, "patch") %>
+            </span>
+            <span class="game-show__stat-pill">
+              <i class="fa fa-calendar"></i>
+              <%= pluralize(@events.count, "upcoming event") %>
+            </span>
+            <span class="game-show__stat-pill">
+              <i class="fa fa-users"></i>
+              <%= pluralize(@followers_count, "follower") %>
+            </span>
+          </div>
+
+          <% if @game.genre_tags.any? || @game.free_to_play? %>
+            <div class="game-show__taxonomy">
+              <p class="game-show__taxonomy-label">Categories</p>
+              <div class="game-show__taxonomy-row">
+                <% @game.genre_tags.each do |genre| %>
+                  <span class="game-show__genre-pill"><%= genre %></span>
+                <% end %>
+                <% if @game.free_to_play? %>
+                  <span class="game-show__genre-pill game-show__genre-pill--success">Free to play</span>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
         <div class="d-flex gap-2 flex-wrap mt-2">
           <% if @favourite %>
             <%= button_to "★ Following", favourite_path(@favourite), method: :delete, class: "btn btn-sm", style: "background: rgba(124,92,252,0.15); color: #7c5cfc; border: 1px solid rgba(124,92,252,0.4); border-radius: 2rem; padding: 0.3rem 1rem; font-weight:600; font-size:0.82rem;" %>
           <% else %>
-            <%= button_to "☆ Follow", favourites_path, params: { game_id: @game.id }, class: "btn btn-sm", style: "background: #16161f; color: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.15); border-radius: 2rem; padding: 0.3rem 1rem; font-weight:600; font-size:0.82rem;" %>
+            <%= button_to "☆ Follow", favourites_path, params: { game_id: @game.id }, class: "btn btn-sm", style: "background: #16161f; color: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.15); border-radius: 2rem; padding: 0.3rem 1rem; font-weight:600; font-size:0.82rem;", data: { controller: "follow-sound", action: "click->follow-sound#play" } %>
           <% end %>
-          <% if current_user&.admin? && @scrape_source.present? %>
-            <%= button_to "Run Patch Scrape", admin_patch_scrapes_path, params: { source: @scrape_source }, class: "btn btn-sm", style: "background: rgba(52,199,89,0.16); color: #7ee787; border: 1px solid rgba(126,231,135,0.45); border-radius: 2rem; padding: 0.3rem 1rem; font-weight:600; font-size:0.82rem;" %>
+          <% if current_user&.admin? && @scrape_source_config.present? %>
+            <% if @scrape_source_config.fetch(:manual_trigger_enabled, true) %>
+              <%= button_to "Run Patch Scrape", admin_patch_scrapes_path, params: { source: @scrape_source_config[:source] }, class: "btn btn-sm", style: "background: rgba(52,199,89,0.16); color: #7ee787; border: 1px solid rgba(126,231,135,0.45); border-radius: 2rem; padding: 0.3rem 1rem; font-weight:600; font-size:0.82rem;" %>
+            <% else %>
+              <button class="btn btn-sm" disabled style="background: rgba(79,156,249,0.14); color: #8dc2ff; border: 1px solid rgba(141,194,255,0.4); border-radius: 2rem; padding: 0.3rem 1rem; font-weight:600; font-size:0.82rem; opacity: 1; cursor: default;">API</button>
+            <% end %>
           <% end %>
         </div>
       </div>
@@ -30,10 +69,41 @@
     <div class="row g-4">
       <div class="col-lg-7">
         <div class="game-show__section">
-          <h2 class="game-show__section-title">Latest Patches</h2>
+          <div class="game-show__section-headline">
+            <div>
+              <h2 class="game-show__section-title">Patch Feed</h2>
+              <p class="game-show__section-copy">
+                Narrow updates by timeframe and sort order without leaving <%= @game.name %>.
+              </p>
+            </div>
+            <%= link_to "View all patches", all_patches_path, class: "game-show__section-link" %>
+          </div>
+
+          <div class="game-show__list-offset">
+            <div class="game-show__patch-controls">
+              <div class="game-show__filter-group">
+                <%= link_to "All time", game_path(@game, clear_date_filter_params), class: "filter-btn #{@patch_date_filter == 'all' ? 'active' : ''}" %>
+                <% Patch::DATE_FILTERS.except("all").each do |value, label| %>
+                  <%= link_to label, game_path(@game, filter_base_params.merge(date_filter: value, sort: (@patch_sort == "newest" ? nil : @patch_sort)).compact), class: "filter-btn #{@patch_date_filter == value ? 'active' : ''}" %>
+                <% end %>
+              </div>
+              <div class="game-show__filter-group">
+                <%= link_to "Newest", game_path(@game, clear_sort_params), class: "filter-btn #{@patch_sort == 'newest' ? 'active' : ''}" %>
+                <%= link_to "Oldest", game_path(@game, { date_filter: (@patch_date_filter == 'all' ? nil : @patch_date_filter), sort: 'oldest' }.compact), class: "filter-btn #{@patch_sort == 'oldest' ? 'active' : ''}" %>
+              </div>
+            </div>
+
+            <div class="game-show__section-meta">
+              <span><%= pluralize(@patches.size, "patch") %> in this view</span>
+              <% unless @patch_date_filter == "all" && @patch_sort == "newest" %>
+                <%= link_to "Reset filters", game_path(@game), class: "game-show__reset-link" %>
+              <% end %>
+            </div>
+          </div>
+
           <% if @patches.any? %>
             <% @patches.each do |patch| %>
-              <%= link_to patch_path(patch), class: "patch-list-card" do %>
+              <%= link_to patch_path(patch, return_to: request.fullpath), class: "patch-list-card" do %>
                 <div class="patch-list-card__icon"><i class="fa fa-file-text-o"></i></div>
                 <span class="patch-list-card__title">
                   <%= patch.title %>
@@ -48,14 +118,22 @@
               <% end %>
             <% end %>
           <% else %>
-            <p class="game-show__empty">No patches yet.</p>
+            <p class="game-show__empty">No patches found for that date range.</p>
           <% end %>
         </div>
       </div>
 
       <div class="col-lg-5">
         <div class="game-show__section">
-          <h2 class="game-show__section-title">Upcoming Events</h2>
+          <div class="game-show__section-headline">
+            <div>
+              <h2 class="game-show__section-title">Upcoming Events</h2>
+              <p class="game-show__section-copy">
+                Track what is coming up next for <%= @game.name %>.
+              </p>
+            </div>
+          </div>
+          <div class="game-show__list-offset game-show__list-offset--empty" aria-hidden="true"></div>
           <% if @events.any? %>
             <% @events.each do |event| %>
               <%= link_to event_path(event), class: "event-list-card" do %>
