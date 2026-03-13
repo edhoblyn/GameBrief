@@ -50,7 +50,7 @@
   <% if @patches.any? %>
     <div class="my-patches-page__grid">
       <% @patches.each do |patch| %>
-        <%= link_to patch_path(patch), class: "my-patches-page__card" do %>
+        <%= link_to patch_path(patch, return_to: request.fullpath), class: "my-patches-page__card" do %>
           <div class="my-patches-page__card-top">
             <span class="my-patches-page__game"><%= patch.game.name %></span>
             <div class="my-patches-page__card-meta">

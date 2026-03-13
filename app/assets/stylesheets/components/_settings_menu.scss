@@ -1,0 +1,194 @@
+.app-settings-menu {
+  position: fixed;
+  top: 4.6rem;
+  right: 0.9rem;
+  z-index: 1060;
+
+  @media (min-width: 768px) {
+    top: 1.35rem;
+    right: 1.25rem;
+  }
+
+  &__details {
+    position: relative;
+  }
+
+  &__trigger {
+    width: 2.05rem;
+    height: 2.05rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    border: 1px solid var(--gb-border-soft);
+    background: var(--gb-nav);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    color: var(--gb-text);
+    cursor: pointer;
+    list-style: none;
+    transition: transform 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    &:hover {
+      color: var(--gb-accent-strong);
+      border-color: var(--gb-accent);
+      transform: rotate(18deg);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--gb-accent);
+      outline-offset: 2px;
+    }
+  }
+
+  &__trigger::-webkit-details-marker {
+    display: none;
+  }
+
+  &__trigger::marker {
+    content: "";
+  }
+
+  &__panel {
+    position: absolute;
+    top: calc(100% + 0.44rem);
+    right: 0;
+    width: calc(100vw - 1.8rem);
+    max-width: 12.5rem;
+    padding: 0.8rem;
+    border-radius: 0.85rem;
+    border: 1px solid var(--gb-border-soft);
+    background: var(--gb-panel);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.34);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+
+  &__eyebrow {
+    margin: 0 0 0.22rem;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gb-accent);
+  }
+
+  &__title {
+    margin: 0 0 0.32rem;
+    font-size: 0.9rem;
+    color: var(--gb-text);
+  }
+
+  &__copy {
+    margin: 0;
+    font-size: 0.8rem;
+    line-height: 1.35;
+    color: var(--gb-muted);
+  }
+
+  &__themes {
+    display: grid;
+    gap: 0.42rem;
+    margin-top: 0.65rem;
+  }
+
+  &__theme-option {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.58rem;
+    padding: 0.55rem 0.62rem;
+    border-radius: 0.75rem;
+    border: 1px solid var(--gb-border);
+    background: rgba(255, 255, 255, 0.02);
+    color: var(--gb-text);
+    text-align: left;
+    transition: border-color 0.18s ease, transform 0.18s ease, background 0.18s ease;
+
+    &:hover {
+      border-color: var(--gb-accent);
+      background: rgba(255, 255, 255, 0.04);
+      transform: translateY(-1px);
+    }
+
+    strong,
+    small {
+      display: block;
+    }
+
+    strong {
+      font-size: 0.88rem;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    small {
+      display: none;
+    }
+  }
+
+  &__theme-option--active {
+    border-color: var(--gb-accent);
+    background: color-mix(in srgb, var(--gb-accent) 12%, transparent);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--gb-accent) 24%, transparent);
+  }
+
+  &__theme-swatch {
+    width: 1.35rem;
+    height: 1.35rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    flex-shrink: 0;
+  }
+
+  &__theme-swatch--nebula {
+    background: linear-gradient(135deg, #7c5cfc, #a855f7);
+  }
+
+  &__theme-swatch--ion {
+    background: linear-gradient(135deg, #35b8ff, #7bd8ff);
+  }
+
+  &__theme-swatch--toxic {
+    background: linear-gradient(135deg, #7dff6b, #42d6a4);
+  }
+
+  &__theme-swatch--ember {
+    background: linear-gradient(135deg, #ff7b54, #ffd166);
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0.65rem;
+    padding-top: 0.55rem;
+    border-top: 1px solid var(--gb-border);
+  }
+
+  &__footer form {
+    margin: 0;
+  }
+
+  &__logout {
+    width: 1.7rem;
+    height: 1.7rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border-radius: 999px;
+    border: 1px solid var(--gb-border);
+    background: rgba(255, 255, 255, 0.02);
+    color: var(--gb-muted);
+    font-size: 0.82rem;
+    transition: border-color 0.18s ease, transform 0.18s ease, background 0.18s ease, color 0.18s ease;
+
+    &:hover {
+      border-color: var(--gb-border-soft);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--gb-text);
+      transform: translateY(-1px);
+    }
+  }
+}

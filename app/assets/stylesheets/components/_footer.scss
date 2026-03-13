@@ -1,9 +1,9 @@
 .app-footer {
   text-align: center;
   padding: 2rem 1rem;
-  border-top: 1px solid $dark-border;
+  border-top: 1px solid var(--gb-border);
   margin-top: 4rem;
-  color: $dark-muted;
+  color: var(--gb-muted);
   font-size: 0.82rem;
 
   &__copy {
@@ -19,13 +19,13 @@
   }
 
   &__link {
-    color: $dark-text;
+    color: var(--gb-text);
     text-decoration: none;
     font-weight: 600;
     transition: color 0.15s ease;
 
     &:hover {
-      color: $accent-purple;
+      color: var(--gb-accent);
       text-decoration: none;
     }
   }

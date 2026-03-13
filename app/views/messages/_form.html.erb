@@ -1,4 +1,5 @@
 <%= form_with model: [patch, chat, message] do |f| %>
+  <%= hidden_field_tag :return_to, params[:return_to] %>
   <%= f.text_field :content,
         placeholder: "Ask a question...",
         class: "form-control mb-2",

@@ -37,7 +37,7 @@
       <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
         <% @patches.each do |patch| %>
           <div class="col">
-            <%= link_to patch_path(patch), class: "text-decoration-none" do %>
+            <%= link_to patch_path(patch, return_to: request.fullpath), class: "text-decoration-none" do %>
               <div class="card h-100">
                 <div class="card-body">
                   <div class="patches-index__meta">

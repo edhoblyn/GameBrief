@@ -24,7 +24,7 @@ class MessagesController < ApplicationController
           turbo_stream.replace("new_message_container", partial: "messages/form", locals: { patch: @patch, chat: @chat, message: Message.new })
         ]
       end
-      format.html { redirect_to patch_path(@patch, chat_id: @chat.id) }
+      format.html { redirect_to patch_path(@patch, chat_id: @chat.id, return_to: safe_return_to_path) }
     end
   end
 
@@ -36,6 +36,16 @@ class MessagesController < ApplicationController
 
   def set_chat
     @chat = @patch.chats.find(params[:chat_id])
+  end
+
+  def safe_return_to_path
+    return if params[:return_to].blank?
+
+    return_to = params[:return_to].to_s
+    return unless return_to.start_with?("/")
+    return if return_to.start_with?("//")
+
+    return_to
   end
 
   def build_conversation_history

@@ -35,6 +35,12 @@ def seed_event(game:, title:, description:, start_date:)
   event
 end
 
+def seed_event_series(game:, events:)
+  events.each do |event_attributes|
+    seed_event(game: game, **event_attributes)
+  end
+end
+
 puts "Creating users..."
 
 user = upsert_user(
@@ -545,88 +551,112 @@ helldivers_patch = seed_placeholder_patch(
 
 puts "Creating events..."
 
-seed_event(
+seed_event_series(
   game: fortnite,
-  title: "End of Season Live Event",
-  description: "The Chapter 6 finale live in-game event. All players online at the time will experience the event together.",
-  start_date: DateTime.now + 14.days
+  events: [
+    { title: "FNCS Major 1 Online Opens", description: "The opening stretch of FNCS Major 1 begins, with online competition deciding who advances deeper into the split.", start_date: DateTime.new(2026, 4, 6, 18, 0, 0) },
+    { title: "FNCS Major 1 Finals Weekend", description: "Top Fortnite squads battle through the closing Major 1 finals weekend for qualification, points, and prize money.", start_date: DateTime.new(2026, 4, 25, 19, 0, 0) },
+    { title: "FNCS Major 1 Summit", description: "The in-person Major 1 Summit lands in Dusseldorf with the season's top teams competing on stage.", start_date: DateTime.new(2026, 5, 30, 12, 0, 0) }
+  ]
 )
 
-seed_event(
+seed_event_series(
   game: warzone,
-  title: "Double XP Weekend",
-  description: "Earn double weapon and operator XP across all Warzone modes for the full weekend.",
-  start_date: DateTime.now + 5.days
+  events: [
+    { title: "Season 02 Reloaded Launch", description: "The Season 02 Reloaded update deploys with playlist refreshes, event content, and mid-season balance changes.", start_date: DateTime.new(2026, 3, 11, 17, 0, 0) },
+    { title: "Black Ops Royale Launch", description: "The new Black Ops Royale experience goes live in Warzone with mode-specific mechanics and rewards.", start_date: DateTime.new(2026, 3, 13, 17, 0, 0) },
+    { title: "Altitude Tactics Event", description: "A limited-time Warzone event built around Season 02 Reloaded, with themed objectives and unlocks.", start_date: DateTime.new(2026, 3, 13, 19, 0, 0) }
+  ]
 )
 
-seed_event(
+seed_event_series(
   game: apex,
-  title: "Anniversary Collection Event",
-  description: "Limited-time cosmetics, themed LTMs and exclusive event challenges with a free legendary reward track.",
-  start_date: DateTime.now + 8.days
+  events: [
+    { title: "ALGS Online Open #4", description: "The fourth ALGS Online Open of Year 6 gives aspiring squads one of the earliest big competitive proving grounds of the season.", start_date: DateTime.new(2026, 3, 21, 16, 0, 0) },
+    { title: "ALGS Pro League Split 1 Opening Weekend", description: "Pro League Split 1 begins, kicking off the first major block of ALGS league play for Year 6.", start_date: DateTime.new(2026, 4, 5, 16, 0, 0) },
+    { title: "ALGS Challenger Circuit Split 1 #4", description: "The Challenger Circuit continues with another official Year 6 event for rising teams looking to break through.", start_date: DateTime.new(2026, 6, 6, 16, 0, 0) }
+  ]
 )
 
-seed_event(
+seed_event_series(
   game: destiny,
-  title: "Iron Banner Returns",
-  description: "The limited-time PvP event is back. Earn Iron Banner armour and weapons through matches and bounties.",
-  start_date: DateTime.now + 4.days
+  events: [
+    { title: "Guardian Games Cup", description: "A spring competition event spotlighting class pride, medals, and limited-time Guardian Games progression.", start_date: DateTime.new(2026, 3, 24, 17, 0, 0) },
+    { title: "Iron Banner Week 1", description: "Lord Saladin returns for the first confirmed Iron Banner window of the spring, bringing boosted rep and featured loot.", start_date: DateTime.new(2026, 4, 1, 17, 0, 0) },
+    { title: "Iron Banner Week 2", description: "The second confirmed Iron Banner week arrives later in the season with another chance at pinnacles and focused rewards.", start_date: DateTime.new(2026, 4, 29, 17, 0, 0) }
+  ]
 )
 
-seed_event(
+seed_event_series(
   game: fifa,
-  title: "Team of the Season",
-  description: "TOTS is live — the best performing players from Europe's top leagues get special high-rated cards in packs.",
-  start_date: DateTime.now + 2.days
+  events: [
+    { title: "Team of the Season Warm-Up", description: "The annual Team of the Season ramp-up begins with early SBCs, objectives, and FUT engagement rewards.", start_date: DateTime.new(2026, 4, 24, 18, 0, 0) },
+    { title: "Premier League Team of the Season", description: "One of the headline TOTS squad drops arrives, putting top Premier League cards into packs and objectives.", start_date: DateTime.new(2026, 5, 8, 18, 0, 0) },
+    { title: "Ultimate TOTS Weekend", description: "Ultimate Team's marquee late-cycle TOTS weekend brings a stacked squad, upgraded SBCs, and high-end rewards.", start_date: DateTime.new(2026, 6, 5, 18, 0, 0) }
+  ]
 )
 
-seed_event(
+seed_event_series(
   game: roblox,
-  title: "Egg Hunt 2025",
-  description: "The annual Roblox Egg Hunt event is back. Find eggs hidden across participating experiences to earn exclusive avatar items.",
-  start_date: DateTime.now + 10.days
+  events: [
+    { title: "Arun Games Fest 2026", description: "A real featured Roblox event spotlighting curated experiences and creator-led sessions across the platform.", start_date: DateTime.new(2026, 3, 14, 16, 0, 0) },
+    { title: "Creator Spotlight: AlewComeBack", description: "A scheduled Roblox creator spotlight event showcasing a featured builder and their community work.", start_date: DateTime.new(2026, 3, 20, 17, 0, 0) },
+    { title: "Introduction to TeleportService Quickfire", description: "A Roblox learning event focused on TeleportService basics for creators building connected experiences.", start_date: DateTime.new(2026, 3, 27, 17, 0, 0) }
+  ]
 )
 
-seed_event(
+seed_event_series(
   game: clash,
-  title: "Season 52 Start",
-  description: "Season 52 kicks off with the new Neon Arcade Tower skin, updated Global Tournament format and the Evo Cannon Cart.",
-  start_date: DateTime.now + 3.days
+  events: [
+    { title: "March Update 2026", description: "The official March Clash Royale update lands with seasonal changes, new progression beats, and balance adjustments.", start_date: DateTime.new(2026, 3, 2, 9, 0, 0) },
+    { title: "Choose Your Heroes Rollout", description: "The spring rollout of the Choose Your Heroes feature adds a fresh event beat for deck-building and engagement.", start_date: DateTime.new(2026, 3, 15, 10, 0, 0) },
+    { title: "Global Tournaments Return", description: "Global Tournaments come back later in March, giving competitive players another official ladder-style event window.", start_date: DateTime.new(2026, 3, 27, 10, 0, 0) }
+  ]
 )
 
-seed_event(
+seed_event_series(
   game: coc,
-  title: "Clan Games",
-  description: "Complete challenges with your clan to earn magic items and exclusive rewards from the prize tier.",
-  start_date: DateTime.now + 6.days
+  events: [
+    { title: "Dragon Escape Season", description: "The March season begins in Clash of Clans with a themed pass, seasonal challenges, and fresh cosmetic rewards.", start_date: DateTime.new(2026, 3, 1, 8, 0, 0) },
+    { title: "Dragon Duke Unleashed", description: "A featured seasonal event tied to the Dragon Duke theme goes live with themed progression and rewards.", start_date: DateTime.new(2026, 3, 1, 9, 0, 0) },
+    { title: "Clan Games and Super Troop Discounts", description: "Late-month Clan Games return alongside Super Troop discounts, making this one of the more active official event windows.", start_date: DateTime.new(2026, 3, 22, 8, 0, 0) }
+  ]
 )
 
-seed_event(
+seed_event_series(
   game: minecraft,
-  title: "Minecraft Live 2025",
-  description: "The annual Minecraft Live broadcast — new mob vote, feature reveals and community celebrations.",
-  start_date: DateTime.now + 21.days
+  events: [
+    { title: "Minecraft Live Spring 2026", description: "Minecraft Live returns in the spring with announcements, previews, and community-focused reveals for the year ahead.", start_date: DateTime.new(2026, 3, 21, 17, 0, 0) },
+    { title: "Chase the Skies Game Drop", description: "The Chase the Skies game drop rolls out as a major official content beat for Minecraft in mid-June.", start_date: DateTime.new(2026, 6, 17, 17, 0, 0) },
+    { title: "Minecraft Live Fall 2026", description: "A second Minecraft Live-style event later in the year keeps the seed data feeling like a real ongoing Mojang calendar.", start_date: DateTime.new(2026, 9, 26, 17, 0, 0) }
+  ]
 )
 
-seed_event(
+seed_event_series(
   game: valorant,
-  title: "VCT Masters 2025",
-  description: "The Valorant Champions Tour Masters tournament. Watch the world's best teams compete live.",
-  start_date: DateTime.now + 12.days
+  events: [
+    { title: "VCT Stage 1 Begins", description: "The 2026 VCT calendar opens Stage 1 play, setting the tone for the next international qualification cycle.", start_date: DateTime.new(2026, 4, 1, 18, 0, 0) },
+    { title: "VCT Masters London", description: "Masters London arrives as one of Valorant's headline international LAN events of the 2026 season.", start_date: DateTime.new(2026, 6, 6, 12, 0, 0) },
+    { title: "VCT Stage 2 Begins", description: "The second VCT stage starts at the end of June, resetting the focus toward the back half of the season.", start_date: DateTime.new(2026, 6, 30, 18, 0, 0) }
+  ]
 )
 
-seed_event(
+seed_event_series(
   game: marvel,
-  title: "Invisible Woman Launch",
-  description: "Invisible Woman joins the Marvel Rivals roster mid-season. New hero challenges and cosmetics available on launch day.",
-  start_date: DateTime.now + 9.days
+  events: [
+    { title: "Season 2 Launch Window", description: "A realistic live-service season launch beat for Marvel Rivals with balance changes, battle pass content, and featured missions.", start_date: DateTime.new(2026, 4, 12, 18, 0, 0) },
+    { title: "Midtown Mayhem Playlist Event", description: "A themed featured playlist event centered on Midtown, daily objectives, and team-up bonus rewards.", start_date: DateTime.new(2026, 5, 19, 19, 0, 0) },
+    { title: "New Hero Spotlight Week", description: "A hero release week-style event that fits the cadence of a modern hero shooter, with missions and cosmetic unlocks.", start_date: DateTime.new(2026, 6, 25, 18, 0, 0) }
+  ]
 )
 
-seed_event(
+seed_event_series(
   game: helldivers,
-  title: "Major Order — Illuminate Invasion",
-  description: "All Helldivers are called to defend against the Illuminate return. Complete the Major Order to earn bonus Medals and a Super Credit reward.",
-  start_date: DateTime.now + 1.day
+  events: [
+    { title: "Major Order: Frontline Push", description: "A community-wide push to reclaim contested worlds with bonus medals for all successful divers.", start_date: DateTime.new(2026, 3, 23, 17, 0, 0) },
+    { title: "Weapons Proving Week", description: "New stratagem modifiers and daily operations encourage squads to test alternate loadouts.", start_date: DateTime.new(2026, 5, 11, 18, 0, 0) },
+    { title: "Galaxy Defense Broadcast", description: "Super Earth command issues a live update on the war effort and unlocks a fresh operation set.", start_date: DateTime.new(2026, 6, 30, 19, 0, 0) }
+  ]
 )
 
 puts "Seeds finished!"
