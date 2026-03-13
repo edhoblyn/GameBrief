@@ -37,6 +37,8 @@ class GamesController < ApplicationController
     @games = @games.search_by_name(params[:query])
     @games = @games.with_genre(params[:genre])
     @games = @games.free_to_play_only(params[:free_to_play])
+    @games = @games.single_player_only(params[:single_player])
+    @games = @games.multiplayer_only(params[:multiplayer])
     @games = case params[:sort]
              when "name"     then @games.order(name: :asc)
              when "followed" then @games.left_joins(:favourites).group("games.id").order("COUNT(favourites.id) DESC")

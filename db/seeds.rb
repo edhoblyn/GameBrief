@@ -70,7 +70,7 @@ puts "Importing games from IGDB..."
 
 client = IgdbClient.new
 
-def import_game(client, query, free_to_play: false)
+def import_game(client, query, free_to_play: false, single_player: false, multiplayer: false)
   results = client.search_games(query)
   match = results.find { |g| g["name"]&.downcase == query.downcase && g["cover"] }
   match ||= results.find { |g| g["cover"] }
@@ -87,42 +87,44 @@ def import_game(client, query, free_to_play: false)
     name: match["name"],
     slug: match["slug"],
     cover_image: cover_url,
-    free_to_play: free_to_play
+    free_to_play: free_to_play,
+    single_player: single_player,
+    multiplayer: multiplayer
   )
 
   game
 end
 
-fortnite  = import_game(client, "Fortnite", free_to_play: true)
-warzone   = import_game(client, "Call of Duty: Warzone", free_to_play: true)
-apex      = import_game(client, "Apex Legends", free_to_play: true)
-destiny   = import_game(client, "Destiny 2", free_to_play: false)
-fifa      = import_game(client, "EA Sports FC 26", free_to_play: false)
-roblox    = import_game(client, "Roblox", free_to_play: true)
-clash     = import_game(client, "Clash Royale", free_to_play: true)
-coc       = import_game(client, "Clash of Clans", free_to_play: true)
-minecraft = import_game(client, "Minecraft", free_to_play: false)
-valorant  = import_game(client, "Valorant", free_to_play: true)
-marvel    = import_game(client, "Marvel Rivals", free_to_play: true)
-helldivers = import_game(client, "Helldivers 2", free_to_play: false)
-overwatch2    = import_game(client, "Overwatch 2", free_to_play: true)
-re_requiem    = import_game(client, "Resident Evil Requiem", free_to_play: false)
-pokemon_pokopia = import_game(client, "Pokémon Pokopia", free_to_play: false)
-battlefront2  = import_game(client, "Star Wars Battlefront II", free_to_play: false)
-horizon_fw    = import_game(client, "Horizon Forbidden West", free_to_play: false)
-ff7_rebirth   = import_game(client, "Final Fantasy VII Rebirth", free_to_play: false)
-spiderman2    = import_game(client, "Marvel's Spider-Man 2", free_to_play: false)
-gta_online    = import_game(client, "Grand Theft Auto V", free_to_play: false)
-lol           = import_game(client, "League of Legends", free_to_play: true)
-cyberpunk     = import_game(client, "Cyberpunk 2077", free_to_play: false)
-space_marine2 = import_game(client, "Warhammer 40,000: Space Marine 2", free_to_play: false)
-twoxko        = import_game(client, "2XKO", free_to_play: true)
-genshin       = import_game(client, "Genshin Impact", free_to_play: true)
-cs2           = import_game(client, "Counter-Strike 2", free_to_play: true)
-dota2         = import_game(client, "Dota 2", free_to_play: true)
-baldurs_gate3 = import_game(client, "Baldur's Gate 3", free_to_play: false)
-pubg          = import_game(client, "PUBG: Battlegrounds", free_to_play: true)
-battlefield6  = import_game(client, "Battlefield 6", free_to_play: false)
+fortnite  = import_game(client, "Fortnite", free_to_play: true, multiplayer: true)
+warzone   = import_game(client, "Call of Duty: Warzone", free_to_play: true, multiplayer: true)
+apex      = import_game(client, "Apex Legends", free_to_play: true, multiplayer: true)
+destiny   = import_game(client, "Destiny 2", free_to_play: false, single_player: true, multiplayer: true)
+fifa      = import_game(client, "EA Sports FC 26", free_to_play: false, single_player: true, multiplayer: true)
+roblox    = import_game(client, "Roblox", free_to_play: true, single_player: true, multiplayer: true)
+clash     = import_game(client, "Clash Royale", free_to_play: true, multiplayer: true)
+coc       = import_game(client, "Clash of Clans", free_to_play: true, multiplayer: true)
+minecraft = import_game(client, "Minecraft", free_to_play: false, single_player: true, multiplayer: true)
+valorant  = import_game(client, "Valorant", free_to_play: true, multiplayer: true)
+marvel    = import_game(client, "Marvel Rivals", free_to_play: true, multiplayer: true)
+helldivers = import_game(client, "Helldivers 2", free_to_play: false, multiplayer: true)
+overwatch2    = import_game(client, "Overwatch 2", free_to_play: true, multiplayer: true)
+re_requiem    = import_game(client, "Resident Evil Requiem", free_to_play: false, single_player: true)
+pokemon_pokopia = import_game(client, "Pokémon Pokopia", free_to_play: false, single_player: true)
+battlefront2  = import_game(client, "Star Wars Battlefront II", free_to_play: false, single_player: true, multiplayer: true)
+horizon_fw    = import_game(client, "Horizon Forbidden West", free_to_play: false, single_player: true)
+ff7_rebirth   = import_game(client, "Final Fantasy VII Rebirth", free_to_play: false, single_player: true)
+spiderman2    = import_game(client, "Marvel's Spider-Man 2", free_to_play: false, single_player: true)
+gta_online    = import_game(client, "Grand Theft Auto V", free_to_play: false, single_player: true, multiplayer: true)
+lol           = import_game(client, "League of Legends", free_to_play: true, multiplayer: true)
+cyberpunk     = import_game(client, "Cyberpunk 2077", free_to_play: false, single_player: true)
+space_marine2 = import_game(client, "Warhammer 40,000: Space Marine 2", free_to_play: false, single_player: true, multiplayer: true)
+twoxko        = import_game(client, "2XKO", free_to_play: true, multiplayer: true)
+genshin       = import_game(client, "Genshin Impact", free_to_play: true, single_player: true, multiplayer: true)
+cs2           = import_game(client, "Counter-Strike 2", free_to_play: true, multiplayer: true)
+dota2         = import_game(client, "Dota 2", free_to_play: true, multiplayer: true)
+baldurs_gate3 = import_game(client, "Baldur's Gate 3", free_to_play: false, single_player: true, multiplayer: true)
+pubg          = import_game(client, "PUBG: Battlegrounds", free_to_play: true, multiplayer: true)
+battlefield6  = import_game(client, "Battlefield 6", free_to_play: false, single_player: true, multiplayer: true)
 
 puts "Setting game genres..."
 

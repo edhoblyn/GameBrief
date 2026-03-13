@@ -1,13 +1,17 @@
 <div class="home-games container">
-  <% clear_genre_params = { query: params[:query], sort: params[:sort], free_to_play: params[:free_to_play] }.compact %>
-  <% clear_free_to_play_params = { genre: params[:genre], query: params[:query], sort: params[:sort] }.compact %>
-  <% clear_sort_params = { genre: params[:genre], query: params[:query], free_to_play: params[:free_to_play] }.compact %>
+  <% clear_genre_params = { query: params[:query], sort: params[:sort], free_to_play: params[:free_to_play], single_player: params[:single_player], multiplayer: params[:multiplayer] }.compact %>
+  <% clear_free_to_play_params = { genre: params[:genre], query: params[:query], sort: params[:sort], single_player: params[:single_player], multiplayer: params[:multiplayer] }.compact %>
+  <% clear_single_player_params = { genre: params[:genre], query: params[:query], sort: params[:sort], free_to_play: params[:free_to_play], multiplayer: params[:multiplayer] }.compact %>
+  <% clear_multiplayer_params = { genre: params[:genre], query: params[:query], sort: params[:sort], free_to_play: params[:free_to_play], single_player: params[:single_player] }.compact %>
+  <% clear_sort_params = { genre: params[:genre], query: params[:query], free_to_play: params[:free_to_play], single_player: params[:single_player], multiplayer: params[:multiplayer] }.compact %>
 
   <div class="home-games__search">
     <%= form_with url: games_path, method: :get, data: { turbo: false } do |f| %>
       <%= hidden_field_tag :genre, params[:genre] if params[:genre].present? %>
       <%= hidden_field_tag :sort, params[:sort] if params[:sort].present? %>
       <%= hidden_field_tag :free_to_play, params[:free_to_play] if params[:free_to_play].present? %>
+      <%= hidden_field_tag :single_player, params[:single_player] if params[:single_player].present? %>
+      <%= hidden_field_tag :multiplayer, params[:multiplayer] if params[:multiplayer].present? %>
       <%= f.text_field :query, placeholder: "Search games...", value: params[:query], class: "home-games__search-input" %>
       <%= f.submit "Search", class: "home-games__search-btn" %>
     <% end %>
@@ -15,17 +19,21 @@
 
   <div class="home-games__filters">
     <div class="home-games__filter-group">
-      <%= link_to "All", games_path(query: params[:query], sort: params[:sort]), class: "filter-btn #{params[:genre].blank? && params[:free_to_play].blank? ? 'active' : ''}" %>
+      <%= link_to "All", games_path(query: params[:query], sort: params[:sort]), class: "filter-btn #{params[:genre].blank? && params[:free_to_play].blank? && params[:single_player].blank? && params[:multiplayer].blank? ? 'active' : ''}" %>
       <% ["Shooter", "Battle Royale", "Strategy", "Sports", "Sandbox", "Simulation", "Mobile"].each do |genre| %>
-        <% genre_params = params[:genre] == genre ? clear_genre_params : { genre: genre, query: params[:query], sort: params[:sort], free_to_play: params[:free_to_play] }.compact %>
+        <% genre_params = params[:genre] == genre ? clear_genre_params : { genre: genre, query: params[:query], sort: params[:sort], free_to_play: params[:free_to_play], single_player: params[:single_player], multiplayer: params[:multiplayer] }.compact %>
         <%= link_to genre, games_path(genre_params), class: "filter-btn #{params[:genre] == genre ? 'active' : ''}" %>
       <% end %>
-      <% free_to_play_params = params[:free_to_play] == "true" ? clear_free_to_play_params : { genre: params[:genre], query: params[:query], sort: params[:sort], free_to_play: "true" }.compact %>
+      <% free_to_play_params = params[:free_to_play] == "true" ? clear_free_to_play_params : { genre: params[:genre], query: params[:query], sort: params[:sort], free_to_play: "true", single_player: params[:single_player], multiplayer: params[:multiplayer] }.compact %>
       <%= link_to "Free-to-play", games_path(free_to_play_params), class: "filter-btn #{params[:free_to_play] == 'true' ? 'active' : ''}" %>
+      <% single_player_params = params[:single_player] == "true" ? clear_single_player_params : { genre: params[:genre], query: params[:query], sort: params[:sort], free_to_play: params[:free_to_play], single_player: "true", multiplayer: params[:multiplayer] }.compact %>
+      <% multiplayer_params = params[:multiplayer] == "true" ? clear_multiplayer_params : { genre: params[:genre], query: params[:query], sort: params[:sort], free_to_play: params[:free_to_play], single_player: params[:single_player], multiplayer: "true" }.compact %>
+      <%= link_to "Single player", games_path(single_player_params), class: "filter-btn #{params[:single_player] == 'true' ? 'active' : ''}" %>
+      <%= link_to "Multiplayer", games_path(multiplayer_params), class: "filter-btn #{params[:multiplayer] == 'true' ? 'active' : ''}" %>
     </div>
     <div class="home-games__sort-group">
-      <% az_params = params[:sort] == "name" ? clear_sort_params : { genre: params[:genre], query: params[:query], sort: "name", free_to_play: params[:free_to_play] }.compact %>
-      <% followed_params = params[:sort] == "followed" ? clear_sort_params : { genre: params[:genre], query: params[:query], sort: "followed", free_to_play: params[:free_to_play] }.compact %>
+      <% az_params = params[:sort] == "name" ? clear_sort_params : { genre: params[:genre], query: params[:query], sort: "name", free_to_play: params[:free_to_play], single_player: params[:single_player], multiplayer: params[:multiplayer] }.compact %>
+      <% followed_params = params[:sort] == "followed" ? clear_sort_params : { genre: params[:genre], query: params[:query], sort: "followed", free_to_play: params[:free_to_play], single_player: params[:single_player], multiplayer: params[:multiplayer] }.compact %>
       <%= link_to "A–Z", games_path(az_params), class: "filter-btn #{params[:sort] == 'name' ? 'active' : ''}" %>
       <%= link_to "Most Favourited", games_path(followed_params), class: "filter-btn #{params[:sort] == 'followed' ? 'active' : ''}" %>
     </div>
