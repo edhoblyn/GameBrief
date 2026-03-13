@@ -120,7 +120,8 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
     assert_includes response.body, "More from Arena Prime"
     assert_includes response.body, "Qualifier Weekend"
     assert_includes response.body, patch.title
-    assert_includes response.body, "AI Summary"
+    assert_includes response.body, "What is happening"
+    assert_includes response.body, event.summary
   end
 
   test "event detail page offers summary generation when summary is missing" do
