@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   end
   resources :patches, only: [:index, :show] do
     member do
+      get :notes
       post :generate_summary
     end
     resources :chats, only: [:create] do

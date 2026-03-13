@@ -2,10 +2,12 @@ require "test_helper"
 
 class PatchesControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
+  include ActiveJob::TestHelper
 
   setup do
     @user = User.create!(email: "patches-controller@test.com", password: "123456")
     sign_in @user
+    ActiveJob::Base.queue_adapter = :test
   end
 
   test "should get index" do
@@ -47,6 +49,76 @@ class PatchesControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_equal ["Older Patch", "Newer Patch", "Unknown Date Patch"], rendered_patch_titles.first(3)
+  end
+
+  test "shows structured AI sections when available" do
+    game = Game.create!(name: "Structured Game", slug: "structured-game")
+    patch = Patch.create!(
+      game: game,
+      title: "Structured Patch",
+      content: "Original notes",
+      source_url: "https://example.com/patch/structured"
+    )
+    patch.update_columns(
+      formatted_content: "A cleaner overview.",
+      structured_sections: [
+        { "title" => "Weapons", "summary" => "Balance changes", "content" => "- SMG recoil reduced" }
+      ],
+      ai_presentation_generated_at: Time.current
+    )
+
+    get patch_url(patch)
+
+    assert_response :success
+    assert_equal "no-store", response.headers["Cache-Control"]
+    assert_includes response.body, "A cleaner overview."
+    assert_includes response.body, "Weapons"
+    assert_includes response.body, "Ask about this patch"
+  end
+
+  test "shows pending AI message while structured layout is being generated" do
+    game = Game.create!(name: "Pending Structured Game", slug: "pending-structured-game")
+    patch = Patch.create!(
+      game: game,
+      title: "Pending Patch",
+      content: "Original notes",
+      source_url: "https://example.com/patch/pending"
+    )
+
+    patch.update_columns(ai_presentation_requested_at: Time.current, ai_presentation_generated_at: nil)
+
+    get patch_url(patch)
+
+    assert_response :success
+    assert_includes response.body, "AI is reorganising these scraped patch notes into collapsible sections."
+    assert_includes response.body, "15%"
+    assert_includes response.body, 'data-controller="patch-presentation"'
+    assert_includes response.body, 'data-patch-presentation-target="progress"'
+    assert_includes response.body, notes_patch_path(patch)
+  end
+
+  test "notes endpoint renders formatted patch notes fragment" do
+    game = Game.create!(name: "Notes Endpoint Game", slug: "notes-endpoint-game")
+    patch = Patch.create!(
+      game: game,
+      title: "Notes Endpoint Patch",
+      content: "Original notes",
+      source_url: "https://example.com/patch/notes-endpoint"
+    )
+    patch.update_columns(
+      formatted_content: "AI overview.",
+      structured_sections: [
+        { "title" => "Gameplay", "summary" => "Main changes", "content" => "- Movement adjusted" }
+      ],
+      ai_presentation_generated_at: Time.current
+    )
+
+    get notes_patch_url(patch)
+
+    assert_response :success
+    assert_equal "no-store", response.headers["Cache-Control"]
+    assert_includes response.body, "AI overview."
+    assert_includes response.body, "Gameplay"
   end
 
   private

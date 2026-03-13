@@ -77,6 +77,12 @@ module ApplicationHelper
     end
   end
 
+  def render_structured_patch_markdown(text)
+    return "".html_safe if text.blank?
+
+    content_tag(:div, raw(render_markdown(text)), class: "patch-show__structured-markdown")
+  end
+
   private
 
   def section_heading?(line, all_lines)
