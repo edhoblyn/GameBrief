@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   end
   resources :favourites, only: [:create, :destroy]
   resources :reminders, only: [:create, :destroy]
+  resources :friendships, only: [:create, :destroy]
 
   resources :users, only: [:index, :show]
 

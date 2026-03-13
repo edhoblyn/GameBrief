@@ -1,14 +1,28 @@
 <% content_for :title, "Find Friends" %>
 
-<div class="find-friends-page container">
-  <div class="find-friends-page__header">
-    <div>
-      <%= link_to my_profile_path, class: "find-friends-page__back" do %>
-        <i class="fa fa-arrow-left"></i> Back to Profile
-      <% end %>
-      <p class="find-friends-page__eyebrow">Social</p>
-      <h1 class="find-friends-page__title">Find Friends</h1>
-      <p class="find-friends-page__subtitle">Search for players by username and jump into shared interests faster.</p>
+<div class="find-friends-page" id="findFriendsPage">
+  <h1 class="fw-bold mb-3 mt-5">Find Friends</h1>
+
+  <%# Back button -%>
+  <div class="find-friends-header">
+    <%= link_to my_profile_path, class: "btn btn-outline-secondary btn-sm" do %>
+      <i class="fa fa-arrow-left"></i> Back
+    <% end %>
+  </div>
+
+  <%# Search bar -%>
+  <div class="find-friends-search">
+    <div class="input-group input-group-lg shadow-sm">
+      <input
+        type="text"
+        id="friendsSearchInput"
+        class="form-control"
+        placeholder="Search by username…"
+        autocomplete="off"
+      >
+      <span class="input-group-text bg-primary text-white border-primary">
+        <i class="fa fa-search"></i>
+      </span>
     </div>
   </div>
 
@@ -98,6 +112,8 @@
       }, 250);
     });
 
+    var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
     function renderResults(users, q) {
       var count = users.length;
       var label = count + ' result' + (count !== 1 ? 's' : '') + ' for \u201C' + escHtml(q) + '\u201D';
@@ -106,7 +122,9 @@
 
       if (count > 0) {
         html += '<div class="row row-cols-1 row-cols-md-2 g-3">';
-        users.forEach(function (u, i) {
+        users.forEach(function (u) {
+          var btnClass = u.is_friend ? 'btn-follow btn-follow--active' : 'btn-follow';
+          var btnLabel = u.is_friend ? '<i class="fa fa-check"></i>' : '<i class="fa fa-plus"></i>';
           html += '<div class="col ff-result-card">' +
             '<div class="card h-100 border-0 shadow-sm">' +
               '<div class="card-body d-flex align-items-center gap-3">' +
@@ -114,10 +132,17 @@
                      'style="width:48px;height:48px;font-size:1.2rem;border-radius:50%;">' +
                   escHtml(u.initial) +
                 '</div>' +
-                '<div>' +
+                '<div class="flex-grow-1">' +
                   '<h6 class="mb-0 fw-semibold">' + escHtml(u.display) + '</h6>' +
                   (u.email ? '<small class="text-muted">' + escHtml(u.email) + '</small>' : '') +
                 '</div>' +
+                '<button class="' + btnClass + '"' +
+                  ' data-user-id="' + u.id + '"' +
+                  ' data-friendship-id="' + (u.friendship_id || '') + '"' +
+                  ' data-is-friend="' + (u.is_friend ? '1' : '0') + '"' +
+                  ' title="' + (u.is_friend ? 'Remove friend' : 'Add friend') + '">' +
+                  btnLabel +
+                '</button>' +
               '</div>' +
             '</div>' +
           '</div>';
@@ -129,6 +154,44 @@
 
       results.innerHTML = html;
       results.style.display = 'block';
+
+      results.querySelectorAll('.btn-follow').forEach(function (btn) {
+        btn.addEventListener('click', function () { toggleFollow(this); });
+      });
+    }
+
+    function toggleFollow(btn) {
+      var userId       = btn.dataset.userId;
+      var friendshipId = btn.dataset.friendshipId;
+      var isFriend     = btn.dataset.isFriend === '1';
+
+      if (isFriend) {
+        fetch('/friendships/' + friendshipId, {
+          method: 'DELETE',
+          headers: { 'X-CSRF-Token': csrfToken, 'Accept': 'application/json' }
+        })
+        .then(function () {
+          btn.dataset.isFriend = '0';
+          btn.dataset.friendshipId = '';
+          btn.className = 'btn-follow';
+          btn.innerHTML = '<i class="fa fa-plus"></i>';
+          btn.title = 'Add friend';
+        });
+      } else {
+        fetch('/friendships', {
+          method: 'POST',
+          headers: { 'X-CSRF-Token': csrfToken, 'Accept': 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify({ friend_id: userId })
+        })
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          btn.dataset.isFriend = '1';
+          btn.dataset.friendshipId = data.friendship_id;
+          btn.className = 'btn-follow btn-follow--active';
+          btn.innerHTML = '<i class="fa fa-check"></i>';
+          btn.title = 'Remove friend';
+        });
+      }
     }
 
     function escHtml(str) {
