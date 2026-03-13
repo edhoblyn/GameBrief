@@ -11,11 +11,13 @@
   padding-top: 36vh;
   padding-bottom: 4rem;
 
-  // Smooth slide to top on focus
-  transition: padding-top 0.45s cubic-bezier(0.4, 0, 0.2, 1);
-
-  &.is-focused {
+  // When user focuses the search bar, slide everything up
+  &--focused {
     padding-top: 5rem;
+  }
+
+  &--focused .ff-hero {
+    display: none;
   }
 }
 
@@ -45,11 +47,6 @@
   margin-bottom: 2rem;
   overflow: hidden;
 
-  .ff-page.is-focused & {
-    display: none;
-    margin-bottom: 0;
-  }
-
   &__title {
     margin: 0 0 0.5rem;
     color: var(--gb-text);
@@ -70,10 +67,6 @@
   position: relative;
   width: 90vw;
   max-width: 520px;
-
-  .ff-page.is-focused & {
-    max-width: 600px;
-  }
 
   &__input {
     width: 100%;
@@ -234,7 +227,7 @@
   .ff-page {
     padding-top: 32vh;
 
-    &.is-focused {
+    &--focused {
       padding-top: 4rem;
     }
   }
