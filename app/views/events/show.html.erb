@@ -1,54 +1,175 @@
 <div class="event-show">
-  <div class="event-show__header container">
-    <h1><%= @event.title %></h1>
-    <div class="event-show__meta-row">
-      <span class="event-show__badge">
-        <i class="fa fa-calendar"></i>
-        <%= @event.start_date.strftime("%d %b %Y") %>
-      </span>
-      <span class="event-show__badge">
-        <i class="fa fa-gamepad"></i>
-        <%= link_to @event.game.name, game_path(@event.game) %>
-      </span>
+  <% game = @event.game %>
+  <% quick_take = @event.summary.presence || @event.description.presence || "Keep this event on your radar for #{game.name}." %>
+  <% next_step = @reminder.present? ? "Your reminder is already set, so you are covered when the event gets close." : "Set a reminder or add this to your calendar so the event does not slip past you." %>
+  <% gcal_url = "https://calendar.google.com/calendar/render?" + {
+    action: "TEMPLATE",
+    text: @event.title,
+    dates: "#{@event.start_date.strftime('%Y%m%dT%H%M%SZ')}/#{(@event.start_date + 1.hour).strftime('%Y%m%dT%H%M%SZ')}",
+    details: [@event.description, "Track more game updates on GameBrief."].compact.join("\n\n")
+  }.to_query %>
+
+  <div class="event-show__hero">
+    <% if game.cover_image.present? %>
+      <div class="event-show__hero-art" style="background-image: url('<%= game.cover_image %>')"></div>
+    <% end %>
+
+    <div class="container event-show__hero-inner">
+      <div class="event-show__hero-copy">
+        <div class="event-show__eyebrow-row">
+          <span class="event-show__status-pill event-show__status-pill--<%= @event_status[:tone] %>"><%= @event_status[:label] %></span>
+          <% if @favourite.present? %>
+            <span class="event-show__status-pill">Following <%= game.name %></span>
+          <% end %>
+          <% if @reminder.present? %>
+            <span class="event-show__status-pill">Reminder saved</span>
+          <% end %>
+        </div>
+
+        <h1 class="event-show__title"><%= @event.title %></h1>
+        <p class="event-show__subtitle"><%= quick_take %></p>
+
+        <div class="event-show__hero-stats">
+          <div class="event-show__hero-stat">
+            <span class="event-show__hero-label">When</span>
+            <strong><%= @event.start_date.strftime("%A, %-d %B %Y") %></strong>
+          </div>
+          <div class="event-show__hero-stat">
+            <span class="event-show__hero-label">Countdown</span>
+            <strong><%= @countdown_label %></strong>
+          </div>
+          <div class="event-show__hero-stat">
+            <span class="event-show__hero-label">Game</span>
+            <strong><%= link_to game.name, game_path(game) %></strong>
+          </div>
+        </div>
+
+        <div class="event-show__hero-actions">
+          <%= link_to gcal_url, target: "_blank", rel: "noopener noreferrer", class: "event-show__action event-show__action--light" do %>
+            <i class="fa fa-calendar-plus-o"></i>
+            Add to Google Calendar
+          <% end %>
+
+          <% if @reminder %>
+            <%= button_to reminder_path(@reminder), method: :delete, class: "event-show__action event-show__action--danger" do %>
+              <i class="fa fa-bell-slash"></i>
+              Remove Reminder
+            <% end %>
+          <% else %>
+            <%= button_to reminders_path(event_id: @event.id), method: :post, class: "event-show__action event-show__action--primary" do %>
+              <i class="fa fa-bell"></i>
+              Set Reminder
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+
+      <aside class="event-show__hero-panel">
+        <div class="event-show__panel-card">
+          <p class="event-show__panel-title">Event Snapshot</p>
+          <dl class="event-show__facts">
+            <div>
+              <dt>Date</dt>
+              <dd><%= @event.start_date.strftime("%-d %b %Y") %></dd>
+            </div>
+            <div>
+              <dt>Start time</dt>
+              <dd><%= @event.start_date.strftime("%H:%M %Z") %></dd>
+            </div>
+            <div>
+              <dt>Reminder</dt>
+              <dd><%= @reminder.present? ? "Saved" : "Not set" %></dd>
+            </div>
+            <div>
+              <dt>Game</dt>
+              <dd><%= game.name %></dd>
+            </div>
+          </dl>
+        </div>
+      </aside>
     </div>
   </div>
 
-  <div class="container">
-    <% if @event.summary.present? %>
-      <div class="summary-card mb-3">
-        <div class="summary-card__label">
-          <i class="fa fa-magic"></i> AI Summary
+  <div class="container event-show__body">
+    <div class="event-show__main">
+      <section class="event-show__section">
+        <div class="event-show__section-head">
+          <h2>What is happening</h2>
+          <span><%= @event_status[:label] %></span>
         </div>
-        <p class="summary-card__text"><%= @event.summary %></p>
-      </div>
-    <% end %>
+        <p class="event-show__copy">
+          <%= @event.description.presence || "Details have not been added for this event yet, but the start date is already being tracked." %>
+        </p>
+      </section>
 
-    <% if @event.description.present? %>
-      <p class="event-show__description"><%= @event.description %></p>
-    <% end %>
+      <section class="event-show__insights">
+        <article class="event-show__insight-card">
+          <p class="event-show__insight-label">Quick take</p>
+          <h3><%= @event.summary.present? ? "AI Summary" : "Event snapshot" %></h3>
+          <p><%= quick_take %></p>
+          <% unless @event.summary.present? %>
+            <%= button_to "Generate AI Summary", generate_summary_event_path(@event), method: :post, class: "event-show__inline-action" %>
+          <% end %>
+        </article>
+        <article class="event-show__insight-card">
+          <p class="event-show__insight-label">Why it matters</p>
+          <h3>Why players should care</h3>
+          <p>
+            This event adds a fresh reason to check back in on <%= game.name %>, especially with <%= @related_events.any? ? "more upcoming beats already on the calendar" : "supporting updates still building around it" %>.
+          </p>
+        </article>
+        <article class="event-show__insight-card">
+          <p class="event-show__insight-label">Next step</p>
+          <h3>What to do now</h3>
+          <p><%= next_step %></p>
+        </article>
+      </section>
+    </div>
 
+    <aside class="event-show__sidebar">
+      <section class="event-show__sidebar-card">
+        <div class="event-show__section-head event-show__section-head--compact">
+          <h2>More from <%= game.name %></h2>
+          <%= link_to "Game page", game_path(game) %>
+        </div>
 
-    <% gcal_url = "https://calendar.google.com/calendar/render?" + {
-      action: "TEMPLATE",
-      text: @event.title,
-      dates: "#{@event.start_date.strftime('%Y%m%dT%H%M%SZ')}/#{(@event.start_date + 1.hour).strftime('%Y%m%dT%H%M%SZ')}",
-      details: @event.description
-    }.to_query %>
+        <% if @related_events.any? %>
+          <div class="event-show__related-list">
+            <% @related_events.each do |related_event| %>
+              <%= link_to event_path(related_event), class: "event-show__related-card" do %>
+                <div>
+                  <p class="event-show__related-kicker"><%= related_event.start_date.strftime("%-d %b") %></p>
+                  <h3><%= related_event.title %></h3>
+                </div>
+                <span class="event-show__related-arrow"><i class="fa fa-chevron-right"></i></span>
+              <% end %>
+            <% end %>
+          </div>
+        <% else %>
+          <p class="event-show__sidebar-copy">No other upcoming events are scheduled for this game yet.</p>
+        <% end %>
+      </section>
 
-    <h2 class="event-show__section-title">Add to Calendar</h2>
-    <%= link_to gcal_url, target: "_blank", rel: "noopener noreferrer", class: "btn btn-md", style: "background: #ebebeb; color: #080808; border: none;" do %>
-      <i class="fa fa-calendar-plus-o"></i>
-      Add to Google Calendar
-    <% end %>
+      <section class="event-show__sidebar-card">
+        <div class="event-show__section-head event-show__section-head--compact">
+          <h2>Latest patch</h2>
+          <% if @latest_patch %>
+            <%= link_to "Open patch", patch_path(@latest_patch) %>
+          <% end %>
+        </div>
 
-    <% if @reminder %>
-      <%= button_to "Remove Reminder", reminder_path(@reminder), method: :delete, class: "btn btn-md", style: "background: #d10c0c; color: #fff; border: none;" %>
-    <% else %>
-      <%= button_to "Set Reminder", reminders_path(event_id: @event.id), method: :post, class: "btn btn-md", style: "background: #ce1010; color: #fff; border: none; " %>
-    <% end %>
-
-    <%= link_to events_path, class: "btn btn-sm", style: "background: #581c87; color: #fff; border: none;" do %>
-      &larr; Back to events
-    <% end %>
+        <% if @latest_patch %>
+          <%= link_to patch_path(@latest_patch), class: "event-show__patch-card" do %>
+            <p class="event-show__related-kicker">
+              <%= @latest_patch.display_published_at&.to_date&.strftime("%-d %b %Y") || "Recent update" %>
+            </p>
+            <h3><%= @latest_patch.title %></h3>
+            <p>Check the latest patch notes for context around this event and what changed recently.</p>
+          <% end %>
+        <% else %>
+          <p class="event-show__sidebar-copy">No patch notes are available for this game yet.</p>
+        <% end %>
+      </section>
+    </aside>
   </div>
 </div>

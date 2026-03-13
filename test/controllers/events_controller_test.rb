@@ -97,6 +97,43 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
     assert_equal ["Alpha Quest", "Beta Ops", "Crimson Drift", "Delta Run"], rendered_game_filter_options.first(4)
   end
 
+  test "shows a richer event detail page with related content and actions" do
+    game = Game.create!(name: "Arena Prime", slug: "arena-prime", cover_image: "https://example.com/arena-prime.jpg")
+    event = game.events.create!(
+      title: "Spring Clash",
+      description: "Seasonal event with limited-time rewards and playlist updates.",
+      summary: "A fast seasonal beat for players who want fresh rewards and new matches.",
+      start_date: 3.days.from_now
+    )
+    game.events.create!(title: "Qualifier Weekend", start_date: 8.days.from_now)
+    patch = game.patches.create!(title: "Version 1.2", content: "Patch notes", published_at: 1.day.ago)
+    @user.favourites.create!(game: game)
+    @user.reminders.create!(event: event)
+
+    get event_url(event)
+
+    assert_response :success
+    assert_includes response.body, "Spring Clash"
+    assert_includes response.body, "Add to Google Calendar"
+    assert_includes response.body, "Remove Reminder"
+    assert_includes response.body, "Following Arena Prime"
+    assert_includes response.body, "More from Arena Prime"
+    assert_includes response.body, "Qualifier Weekend"
+    assert_includes response.body, patch.title
+    assert_includes response.body, "AI Summary"
+  end
+
+  test "event detail page offers summary generation when summary is missing" do
+    game = Game.create!(name: "No Summary Game", slug: "no-summary-game")
+    event = game.events.create!(title: "Fresh Start", description: "New event", start_date: 5.days.from_now)
+
+    get event_url(event)
+
+    assert_response :success
+    assert_select "form[action='#{generate_summary_event_path(event)}']"
+    assert_includes response.body, "Generate AI Summary"
+  end
+
   private
 
   def rendered_event_titles

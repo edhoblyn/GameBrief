@@ -33,8 +33,19 @@ class EventsController < ApplicationController
   end
 
   def show
-    @event = Event.find(params[:id])
+    @event = Event.includes(:game).find(params[:id])
     @reminder = current_user.reminders.find_by(event: @event)
+    @favourite = current_user.favourites.find_by(game: @event.game)
+
+    now = Time.zone.now
+    @event_status = event_status_for(@event.start_date, now)
+    @countdown_label = countdown_label_for(@event.start_date, now)
+    @related_events = @event.game.events
+                           .where.not(id: @event.id)
+                           .where("start_date >= ?", now.beginning_of_day)
+                           .order(start_date: :asc)
+                           .limit(3)
+    @latest_patch = @event.game.patches.known_newest_first.first
   end
 
   def generate_summary
@@ -96,5 +107,30 @@ class EventsController < ApplicationController
     Array(params[:game_ids]).filter_map do |game_id|
       Integer(game_id, exception: false)
     end.uniq
+  end
+
+  def event_status_for(start_date, now)
+    event_date = start_date.to_date
+    today = now.to_date
+
+    if event_date < today
+      { label: "Past event", tone: "past" }
+    elsif event_date == today
+      { label: "Happening today", tone: "live" }
+    elsif event_date <= today.end_of_week
+      { label: "This week", tone: "soon" }
+    else
+      { label: "Upcoming", tone: "upcoming" }
+    end
+  end
+
+  def countdown_label_for(start_date, now)
+    distance = ActionController::Base.helpers.distance_of_time_in_words(now, start_date)
+
+    if start_date < now
+      "Started #{distance} ago"
+    else
+      "Starts in #{distance}"
+    end
   end
 end
