@@ -13,7 +13,7 @@
 
   &__eyebrow {
     margin: 0 0 0.35rem;
-    color: $accent-blue;
+    color: var(--gb-accent-secondary);
     font-size: 0.78rem;
     font-weight: 700;
     letter-spacing: 0.08em;
@@ -22,14 +22,14 @@
 
   &__title {
     margin: 0 0 0.35rem;
-    color: $dark-text;
+    color: var(--gb-text);
     font-size: clamp(2rem, 4vw, 2.8rem);
     font-weight: 800;
   }
 
   &__subtitle {
     margin: 0;
-    color: $dark-muted;
+    color: var(--gb-muted);
     font-size: 0.95rem;
   }
 
@@ -45,29 +45,30 @@
     gap: 0.5rem;
     padding: 0.75rem 1rem;
     border-radius: 999px;
-    border: 1px solid $dark-border;
+    border: 1px solid var(--gb-border);
     background: rgba(255, 255, 255, 0.03);
-    color: $dark-text;
+    color: var(--gb-text);
     font-size: 0.85rem;
     font-weight: 600;
     text-decoration: none;
     transition: transform 0.15s, background 0.15s, border-color 0.15s;
 
     &:hover {
-      color: $dark-text;
+      color: var(--gb-text);
       text-decoration: none;
       background: rgba(255, 255, 255, 0.06);
-      border-color: rgba($accent-purple, 0.4);
+      border-color: var(--gb-accent);
       transform: translateY(-1px);
     }
 
     &--primary {
-      background: linear-gradient(135deg, $accent-purple, lighten($accent-purple, 8%));
+      background: linear-gradient(135deg, var(--gb-accent), var(--gb-accent-strong));
       border-color: transparent;
-      color: #fff;
+      color: var(--gb-button-text);
+      text-shadow: var(--gb-button-text-shadow);
 
       &:hover {
-        color: #fff;
+        color: var(--gb-button-text);
       }
     }
   }
@@ -85,28 +86,28 @@
     gap: 0.2rem;
     min-width: 180px;
     padding: 1rem 1.2rem;
-    border: 1px solid $dark-border;
+    border: 1px solid var(--gb-border);
     border-radius: 20px;
-    background: linear-gradient(180deg, rgba($accent-purple, 0.18), rgba(255, 255, 255, 0.03));
+    background: linear-gradient(180deg, color-mix(in srgb, var(--gb-accent) 18%, transparent), rgba(255, 255, 255, 0.03));
     box-shadow: 0 14px 30px rgba(0, 0, 0, 0.18);
   }
 
   &__summary-value {
-    color: $dark-text;
+    color: var(--gb-text);
     font-size: 1.8rem;
     font-weight: 800;
     line-height: 1;
   }
 
   &__summary-label {
-    color: $dark-muted;
+    color: var(--gb-muted);
     font-size: 0.82rem;
   }
 
   &__filters {
     margin-bottom: 1.5rem;
     padding: 1rem 1.2rem;
-    border: 1px solid $dark-border;
+    border: 1px solid var(--gb-border);
     border-radius: 20px;
     background: rgba(255, 255, 255, 0.03);
   }
@@ -126,7 +127,7 @@
   }
 
   &__filter-label {
-    color: $dark-muted;
+    color: var(--gb-muted);
     font-size: 0.78rem;
     font-weight: 600;
   }
@@ -134,10 +135,10 @@
   &__filter-select {
     min-width: 190px;
     padding: 0.65rem 0.8rem;
-    border: 1px solid $dark-border;
+    border: 1px solid var(--gb-border);
     border-radius: 12px;
-    background: $dark-card;
-    color: $dark-text;
+    background: var(--gb-card);
+    color: var(--gb-text);
   }
 
   &__sort-group {
@@ -158,7 +159,7 @@
     gap: 0.85rem;
     min-height: 220px;
     padding: 1.25rem;
-    border: 1px solid $dark-border;
+    border: 1px solid var(--gb-border);
     border-radius: 22px;
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.015));
     color: inherit;
@@ -168,7 +169,7 @@
     &:hover {
       color: inherit;
       text-decoration: none;
-      border-color: rgba($accent-purple, 0.35);
+      border-color: var(--gb-accent);
       background: rgba(255, 255, 255, 0.05);
       transform: translateY(-2px);
     }
@@ -190,7 +191,7 @@
   }
 
   &__game {
-    color: lighten($accent-blue, 10%);
+    color: var(--gb-accent-secondary);
     font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 0.05em;
@@ -198,13 +199,13 @@
   }
 
   &__date {
-    color: $dark-muted;
+    color: var(--gb-muted);
     font-size: 0.77rem;
   }
 
   &__card-title {
     margin: 0;
-    color: $dark-text;
+    color: var(--gb-text);
     font-size: 1rem;
     font-weight: 700;
     line-height: 1.4;
@@ -212,21 +213,21 @@
 
   &__card-copy {
     margin: 0;
-    color: $dark-muted;
+    color: var(--gb-muted);
     font-size: 0.86rem;
     line-height: 1.55;
   }
 
   &__card-cta {
     margin-top: auto;
-    color: $dark-text;
+    color: var(--gb-text);
     font-size: 0.82rem;
     font-weight: 600;
   }
 
   &__empty {
     padding: 3rem 1.5rem;
-    border: 1px solid $dark-border;
+    border: 1px solid var(--gb-border);
     border-radius: 24px;
     background: rgba(255, 255, 255, 0.03);
     text-align: center;
@@ -240,21 +241,21 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba($accent-purple, 0.16);
-    color: lighten($accent-purple, 12%);
+    background: color-mix(in srgb, var(--gb-accent) 16%, transparent);
+    color: var(--gb-accent-strong);
     font-size: 1.6rem;
   }
 
   &__empty-title {
     margin: 0 0 0.5rem;
-    color: $dark-text;
+    color: var(--gb-text);
     font-size: 1.2rem;
     font-weight: 700;
   }
 
   &__empty-copy {
     margin: 0 0 1.25rem;
-    color: $dark-muted;
+    color: var(--gb-muted);
     font-size: 0.9rem;
     line-height: 1.55;
   }

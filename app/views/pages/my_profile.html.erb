@@ -85,15 +85,15 @@
       </a>
       <a href="<%= my_games_path %>" class="profile-sidebar__nav-link">
         <i class="fa fa-gamepad"></i> My Games
-        <span class="badge bg-secondary ms-auto"><%= @followed_games.count %></span>
+        <span class="profile-sidebar__count-badge ms-auto"><%= @followed_games.count %></span>
       </a>
       <a href="<%= my_patches_path %>" class="profile-sidebar__nav-link">
         <i class="fa fa-file-text"></i> My Patches
-        <span class="badge bg-secondary ms-auto"><%= @recent_patches.count %></span>
+        <span class="profile-sidebar__count-badge ms-auto"><%= @recent_patches.count %></span>
       </a>
       <a href="<%= my_events_path %>" class="profile-sidebar__nav-link">
         <i class="fa fa-calendar"></i> My Events
-        <span class="badge bg-secondary ms-auto"><%= @reminders.count %></span>
+        <span class="profile-sidebar__count-badge ms-auto"><%= @reminders.count %></span>
       </a>
       <a href="#recommendations" class="profile-sidebar__nav-link">
         <i class="fa fa-star"></i> My Recommendations
@@ -360,9 +360,9 @@
               <h3 class="profile-rail-card__title">Play With Friends</h3>
             </div>
             <p class="profile-rail-card__empty">Jump into a session and start finding people who follow the same games.</p>
-            <%= link_to users_path, class: "social-profile-action social-profile-action--primary social-profile-action--full" do %>
+            <%= link_to(current_user.admin? ? users_path : find_friends_path, class: "social-profile-action social-profile-action--primary social-profile-action--full") do %>
               <i class="fa fa-users"></i>
-              Start Session
+              <%= current_user.admin? ? "Start Session" : "Find Friends" %>
             <% end %>
           </section>
         </aside>

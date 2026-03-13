@@ -1,6 +1,6 @@
 # GameBrief — Features Built
 
-> Last updated: 2026-03-12
+> Last updated: 2026-03-13
 
 ---
 
@@ -17,24 +17,26 @@
 - Video-based landing page with GameBrief logo and CTA buttons
 - Browser tab icons configured in the main layout
 - Featured gamers carousel driven by seeded user profiles
-- Signed-in homepage state includes direct link to My Profile and a logout action
+- Signed-in homepage state includes direct link to `My Profile` and logout
 
 ## Games
 
 - Games index with search by name
-- Genre filters on the index (`Shooter`, `Battle Royale`, `Strategy`, `Sports`, `Sandbox`, `Simulation`, `Mobile`)
+- Genre filters on the index
 - Free-to-play filter on the index
 - Sort options for A-Z and most followed
-- Active game filters can be clicked again to clear just that filter while keeping the rest of the current browse state
+- Active game filters can be clicked again to clear just that filter while preserving the rest of the browse state
 - Game detail page with follow/unfollow action
 - Game detail page lists latest patches and upcoming events
-- Cover art imported from IGDB and lazy-loaded in game grids
+- Admin-only `Run Patch Scrape` action on supported game pages
+- Cover art imported from IGDB and lazy-loaded in the game grid
 
 ## Follows + Personal Library
 
 - Users can follow and unfollow games
-- `My Games` page shows all followed games
-- `My Profile` highlights followed games, latest followed-game patch, and next saved event
+- `My Games` page shows followed games
+- Followed games feed into `My Games`, `My Patches`, `My Events`, and `My Profile`
+- `My Profile` highlights followed games, the latest followed-game patch, and the next saved event
 
 ## Patches
 
@@ -46,7 +48,7 @@
 - Recommended ordering prioritises followed games first
 - Patch detail page shows full notes and published date
 - `published_at` support added to patches
-- Visible `New` badge for recently published patches across patch cards and related patch lists
+- Visible `New` badge for recently published patches
 - Patch date fallback logic handles imported data, seeded demo content, and missing dates
 - Scraped patches are prioritised ahead of placeholder/manual patches on game pages
 
@@ -73,19 +75,21 @@
 - Google Calendar add link on each event
 - Set and remove reminders
 - `My Events` page lists saved reminders
+- `My Events` page includes reminder counts plus an empty state when no reminders exist
 - One-sentence AI event summaries generated and stored on the event record
 
 ## My Profile + Discovery
 
 - `My Profile` page rebuilt into a social-style layout
 - Sidebar navigation for Home, My Profile, My Games, My Patches, My Events, Recommendations, and Find Friends
+- For You / Communities tabbed social-style mock feed on `My Profile`
 - Local notification toggle UI for patch alerts, event reminders, and recommendation updates
 - `Edit Profile` is linked from the profile page and opens a dedicated account editor
-- Users can upload avatar and cover images, which then render on profile surfaces
+- Users can upload avatar and cover images, which render on profile surfaces
 - Username and profile image updates can be saved without a password, while email/password changes still require the current password
 - `My Patches` page for followed games with date filters and newest/oldest sorting
 - `Find Friends` search page for users by username or email
-- Basic `Players` index page
+- Admin-only `Players` index plus individual player profile pages with basic activity counts
 
 ## UI / Frontend Polish
 
@@ -93,7 +97,7 @@
 - Custom 404 and 500 pages
 - App footer with team GitHub profile links
 - Mobile responsiveness pass across My Profile, games, patches, and events pages
-- Dedicated Stimulus controllers for featured gamers carousel, social feed interactions, and profile notification toggles
+- Dedicated Stimulus controllers for the featured gamers carousel, social feed interactions, and profile notification toggles
 
 ## Data + Infrastructure
 
@@ -101,8 +105,16 @@
 - Active Storage configured for uploaded profile media
 - Seed data for demo user plus featured gamer accounts
 - Seed strategy preserves real scraped patches and removes placeholder patches when live scraped data exists
-- Scraper/import pipeline expanded across multiple games
+- Scraper/import pipeline expanded across multiple tracked games
 - `source_url` de-duplication for imported patches
 - Shared `PatchScrapeRunner` service for manual and scheduled imports
 - `admin/patch_scrapes#create` route for triggering configured scrape jobs
-- Deployed on Heroku with config-var based environment management
+- Heroku deployment setup with config-var based environment management
+
+## Admin Tools
+
+- Admin-only dashboard protected by `current_user.admin?`
+- Manual single-source and run-all patch scrape actions from the admin dashboard
+- In-app scrape log output stored in session and rendered after runs
+- Admin management UI to promote users by email and remove admins
+- Guard to prevent removing the last active admin

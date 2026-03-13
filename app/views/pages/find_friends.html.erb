@@ -26,8 +26,49 @@
     </div>
   </div>
 
-  <%# Results -%>
-  <div class="find-friends-results" id="friendsResults" style="display:none;"></div>
+  <%= form_with url: find_friends_path, method: :get, local: true, class: "find-friends-page__search" do |f| %>
+    <div class="find-friends-page__search-row">
+      <%= f.text_field :q, value: params[:q], placeholder: "Search by username…",
+            class: "find-friends-page__search-input", autofocus: true %>
+      <button type="submit" class="find-friends-page__search-button">
+        <i class="fa fa-search"></i>
+      </button>
+    </div>
+  <% end %>
+
+  <% if params[:q].present? %>
+    <p class="find-friends-page__results">
+      <%= @users.count %> result<%= "s" if @users.count != 1 %> for "<%= params[:q] %>"
+    </p>
+  <% end %>
+
+  <% if @users.any? %>
+    <div class="find-friends-page__grid">
+      <% @users.each do |user| %>
+        <div class="find-friends-page__card">
+          <div class="find-friends-page__card-body">
+            <div class="find-friends-page__avatar">
+              <%= (user.username.presence || user.email).first.upcase %>
+            </div>
+            <div>
+              <h2 class="find-friends-page__name"><%= user.username.presence || user.email %></h2>
+              <% if user.username.present? %>
+                <p class="find-friends-page__email"><%= user.email %></p>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% elsif params[:q].present? %>
+    <div class="find-friends-page__empty">
+      <p>No users found for "<%= params[:q] %>".</p>
+    </div>
+  <% else %>
+    <div class="find-friends-page__empty">
+      <p>Search for a username above to find friends.</p>
+    </div>
+  <% end %>
 </div>
 
 <script>
