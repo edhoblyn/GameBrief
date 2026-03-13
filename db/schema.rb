@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_13_110036) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_13_153000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -113,11 +113,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_13_110036) do
   end
 
   create_table "patches", force: :cascade do |t|
+    t.text "ai_presentation_error"
+    t.datetime "ai_presentation_generated_at"
+    t.datetime "ai_presentation_requested_at"
     t.text "content"
     t.datetime "created_at", null: false
+    t.text "formatted_content"
     t.bigint "game_id", null: false
     t.datetime "published_at"
     t.string "source_url"
+    t.jsonb "structured_sections", default: [], null: false
     t.string "title"
     t.datetime "updated_at", null: false
     t.index ["game_id"], name: "index_patches_on_game_id"

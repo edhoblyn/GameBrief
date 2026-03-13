@@ -1,14 +1,12 @@
-<%= form_with model: [patch, chat, message] do |f| %>
+<%= form_with model: [patch, chat, message], html: { class: "chatbot__form" } do |f| %>
   <%= hidden_field_tag :return_to, params[:return_to] %>
-  <%= f.text_field :content,
-        placeholder: "Ask a question...",
-        class: "form-control mb-2",
-        required: true,
-        autocomplete: "off" %>
+  <div class="chatbot__input-row">
+    <%= f.text_field :content,
+          placeholder: "Ask a question about this patch...",
+          class: "chatbot__input",
+          required: true,
+          autocomplete: "off" %>
 
-  <div class="d-flex justify-content-end mb-2 me-1">
-    <%= f.submit "Ask Chat",
-        class: "btn btn-primary btn-sm",
-        style: "color: #fff;" %>
+    <%= f.submit "Ask", class: "chatbot__submit" %>
   </div>
 <% end %>

@@ -14,45 +14,44 @@
     </div>
 
     <div class="row g-4">
-      <div class="col-lg-6">
-        <h2 class="patch-show__section-title">Patch Notes</h2>
-        <div class="patch-show__notes">
-          <%= render_patch_notes(@patch.content) %>
-        </div>
+      <div class="col-lg-7">
+        <%= render "notes", patch: @patch %>
       </div>
 
       <% if user_signed_in? && @chat %>
-        <div class="col-lg-6">
-          <div class="chatbot">
-            <div class="chatbot__header">
-              Ask about this patch
+        <div class="col-lg-5">
+          <div class="patch-show__sidebar">
+            <div class="chatbot">
+              <div class="chatbot__header">
+                Ask about this patch
+              </div>
+
+              <div id="messages" class="chatbot__messages">
+                <%= render partial: "messages/message", collection: @chat.messages, as: :message %>
+                <% if @chat.messages.empty? %>
+                  <p class="chatbot__empty">Ask anything about this patch — e.g. "What changed for snipers?" or "Should I log in?"</p>
+                <% end %>
+              </div>
+
+              <script>
+                (function() {
+                  function scrollToBottom() {
+                    var el = document.getElementById("messages");
+                    if (el) el.scrollTop = el.scrollHeight;
+                  }
+                  scrollToBottom();
+                  document.addEventListener("turbo:after-stream-render", scrollToBottom);
+                })();
+              </script>
+
+              <div id="new_message_container">
+                <%= render "messages/form", patch: @patch, chat: @chat, message: Message.new %>
+              </div>
+
+              <p class="chatbot__limit text-muted small mt-2 text-end">
+                <%= @chat.messages.where(role: "user").count %> / <%= Message::MAX_USER_MESSAGES %> messages used
+              </p>
             </div>
-
-            <div id="messages" class="chatbot__messages">
-              <%= render partial: "messages/message", collection: @chat.messages, as: :message %>
-              <% if @chat.messages.empty? %>
-                <p class="chatbot__empty">Ask anything about this patch — e.g. "What changed for snipers?" or "Should I log in?"</p>
-              <% end %>
-            </div>
-
-            <script>
-              (function() {
-                function scrollToBottom() {
-                  var el = document.getElementById("messages");
-                  if (el) el.scrollTop = el.scrollHeight;
-                }
-                scrollToBottom();
-                document.addEventListener("turbo:after-stream-render", scrollToBottom);
-              })();
-            </script>
-
-            <div id="new_message_form">
-              <%= render "messages/form", patch: @patch, chat: @chat, message: Message.new %>
-            </div>
-
-            <p class="chatbot__limit text-muted small mt-2 text-end">
-              <%= @chat.messages.where(role: "user").count %> / <%= Message::MAX_USER_MESSAGES %> messages used
-            </p>
           </div>
         </div>
       <% end %>

@@ -1,0 +1,46 @@
+<% pending = patch.ai_presentable? && patch.ai_presentation_pending? %>
+
+<%= turbo_frame_tag "patch_notes",
+      data: {
+        controller: ("patch-presentation" if pending),
+        patch_presentation_expected_duration_value: 25,
+        patch_presentation_pending_value: pending,
+        patch_presentation_requested_at_value: (patch.ai_presentation_requested_at&.iso8601 if pending),
+        patch_presentation_url_value: notes_patch_path(patch, chat_id: params[:chat_id], return_to: params[:return_to]),
+        patch_presentation_interval_value: 4000
+      }.compact do %>
+  <h2 class="patch-show__section-title">Patch Notes</h2>
+  <div class="patch-show__notes">
+    <% if patch.ai_presentation_ready? %>
+      <%= render_structured_patch_markdown(patch.formatted_content) %>
+
+      <div class="patch-show__accordions">
+        <% patch.structured_sections.each_with_index do |section, index| %>
+          <details class="patch-show__accordion" <%= "open" if index.zero? %>>
+            <summary class="patch-show__accordion-summary">
+              <span class="patch-show__accordion-title"><%= section["title"] %></span>
+              <% if section["summary"].present? %>
+                <span class="patch-show__accordion-preview"><%= section["summary"] %></span>
+              <% end %>
+            </summary>
+
+            <div class="patch-show__accordion-body">
+              <%= render_structured_patch_markdown(section["content"]) %>
+            </div>
+          </details>
+        <% end %>
+      </div>
+    <% else %>
+      <% if pending %>
+        <p class="patch-show__ai-status">
+          AI is reorganising these scraped patch notes into collapsible sections.
+          <span class="patch-show__ai-progress" data-patch-presentation-target="progress">15%</span>
+        </p>
+      <% elsif patch.ai_presentation_error.present? %>
+        <p class="patch-show__ai-status patch-show__ai-status--error">AI formatting was not available for this patch yet, so the original notes are shown below.</p>
+      <% end %>
+
+      <%= render_patch_notes(patch.formatted_content.presence || patch.content) %>
+    <% end %>
+  </div>
+<% end %>

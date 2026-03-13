@@ -180,10 +180,102 @@
     color: $dark-text;
     line-height: 1.75;
     margin-bottom: 2rem;
+    min-width: 0;
 
     > *:last-child {
       margin-bottom: 0;
     }
+  }
+
+  &__structured-markdown {
+    color: $dark-text;
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    ul,
+    ol {
+      padding-left: 1.25rem;
+    }
+  }
+
+  &__accordions {
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  &__accordion {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 1rem;
+    overflow: hidden;
+  }
+
+  &__accordion-summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 1rem 1.15rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    background: rgba(255, 255, 255, 0.02);
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+  }
+
+  &__accordion-title {
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+  }
+
+  &__accordion-preview {
+    color: $dark-muted;
+    font-size: 0.86rem;
+    line-height: 1.5;
+  }
+
+  &__accordion-body {
+    padding: 0 1.15rem 1.15rem;
+  }
+
+  &__ai-status {
+    margin-bottom: 1rem;
+    padding: 0.9rem 1rem;
+    border-radius: 0.85rem;
+    background: rgba(59, 130, 246, 0.12);
+    border: 1px solid rgba(96, 165, 250, 0.24);
+    color: #bfdbfe;
+    font-size: 0.9rem;
+  }
+
+  &__ai-progress {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 3.2rem;
+    margin-left: 0.45rem;
+    padding: 0.15rem 0.45rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+  }
+
+  &__ai-status--error {
+    background: rgba(248, 113, 113, 0.12);
+    border-color: rgba(248, 113, 113, 0.25);
+    color: #fecaca;
+  }
+
+  &__sidebar {
+    position: sticky;
+    top: 1.5rem;
   }
 
   &__notes-heading {
@@ -207,6 +299,14 @@
     li {
       margin-bottom: 0.6rem;
       padding-left: 0.2rem;
+    }
+  }
+}
+
+@media (max-width: 991.98px) {
+  .patch-show {
+    &__sidebar {
+      position: static;
     }
   }
 }
