@@ -131,15 +131,18 @@
     pointer-events: none;
   }
 
-  &__body {
-    padding-bottom: 4.25rem;
+  &__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
   }
 
   &__follow {
-    position: absolute;
-    right: 1rem;
-    bottom: 1rem;
+    position: relative;
     z-index: 2;
+    pointer-events: auto;
+    flex-shrink: 0;
   }
 
   &__follow-btn {
@@ -329,3 +332,4 @@
     }
   }
 }
+

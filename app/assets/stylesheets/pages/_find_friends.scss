@@ -1,0 +1,61 @@
+.find-friends-page {
+  min-height: calc(100vh - 60px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  // ── Centered state (no search yet) ──────────────────────────────────────
+  &:not(.has-results):not(.is-focused) {
+    justify-content: center;
+    padding-top: 0;
+
+    .find-friends-header {
+      display: none;
+    }
+
+    .find-friends-search {
+      width: 100%;
+      max-width: 520px;
+      padding: 1.5rem;
+    }
+  }
+
+  // ── Focused / active state ───────────────────────────────────────────────
+  &.is-focused,
+  &.has-results {
+    justify-content: flex-start;
+    padding-top: 3rem;
+
+    .find-friends-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      width: 100%;
+      max-width: 700px;
+      margin-bottom: 1.5rem;
+    }
+
+    .find-friends-search {
+      width: 100%;
+      max-width: 520px;
+    }
+  }
+}
+
+// Search wrapper transitions
+.find-friends-search {
+  transition: max-width 0.3s ease;
+}
+
+// Results area
+.find-friends-results {
+  width: 100%;
+  max-width: 700px;
+  margin-top: 1.5rem;
+}
+
+// Result cards — instant appearance
+.ff-result-card {
+  opacity: 1;
+}
+

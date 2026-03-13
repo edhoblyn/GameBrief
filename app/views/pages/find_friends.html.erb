@@ -1,53 +1,115 @@
 <% content_for :title, "Find Friends" %>
 
-<div class="container" style="padding-top: 100px;">
-  <div class="mb-4">
-    <%= link_to my_profile_path, class: "btn btn-outline-secondary mb-3" do %>
-      <i class="fa fa-arrow-left"></i> Back to Profile
+<div class="find-friends-page" id="findFriendsPage">
+
+  <%# Back button + heading — only visible once active %>
+  <div class="find-friends-header mt-5">
+    <%= link_to my_profile_path, class: "btn btn-outline-secondary btn-sm" do %>
+      <i class="fa fa-arrow-left"></i> Back
     <% end %>
-    <h1 class="mb-0">Find Friends</h1>
+    <h4 class="mb-0 fw-semibold">Find Friends</h4>
   </div>
 
-  <%= form_with url: find_friends_path, method: :get, local: true, class: "mb-4" do |f| %>
-    <div class="input-group" style="max-width: 480px;">
-      <%= f.text_field :q, value: params[:q], placeholder: "Search by username…",
-            class: "form-control form-control-lg", autofocus: true %>
-      <button type="submit" class="btn btn-primary">
+  <%# Search bar -%>
+  <div class="find-friends-search">
+    <div class="input-group input-group-lg shadow-sm">
+      <input
+        type="text"
+        id="friendsSearchInput"
+        class="form-control"
+        placeholder="Search by username…"
+        autocomplete="off"
+      >
+      <span class="input-group-text bg-primary text-white border-primary">
         <i class="fa fa-search"></i>
-      </button>
+      </span>
     </div>
-  <% end %>
+  </div>
 
-  <% if params[:q].present? %>
-    <p class="text-muted mb-3">
-      <%= @users.count %> result<%= "s" if @users.count != 1 %> for "<%= params[:q] %>"
-    </p>
-  <% end %>
-
-  <% if @users.any? %>
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
-      <% @users.each do |user| %>
-        <div class="col">
-          <div class="card h-100">
-            <div class="card-body d-flex align-items-center gap-3">
-              <div class="profile-sidebar__avatar-placeholder flex-shrink-0"
-                   style="width: 48px; height: 48px; font-size: 1.2rem; border-radius: 50%;">
-                <%= (user.username.presence || user.email).first.upcase %>
-              </div>
-              <div>
-                <h6 class="mb-0 fw-semibold"><%= user.username.presence || user.email %></h6>
-                <% if user.username.present? %>
-                  <small class="text-muted"><%= user.email %></small>
-                <% end %>
-              </div>
-            </div>
-          </div>
-        </div>
-      <% end %>
-    </div>
-  <% elsif params[:q].present? %>
-    <p class="text-muted">No users found for "<%= params[:q] %>".</p>
-  <% else %>
-    <p class="text-muted">Search for a username above to find friends.</p>
-  <% end %>
+  <%# Results -%>
+  <div class="find-friends-results" id="friendsResults" style="display:none;"></div>
 </div>
+
+<script>
+  (function () {
+    var page    = document.getElementById('findFriendsPage');
+    var input   = document.getElementById('friendsSearchInput');
+    var results = document.getElementById('friendsResults');
+    var timer   = null;
+
+    if (!page || !input) return;
+
+    input.addEventListener('focus', function () {
+      page.classList.add('is-focused');
+    });
+
+    input.addEventListener('blur', function () {
+      if (!input.value.trim()) {
+        page.classList.remove('is-focused');
+        results.style.display = 'none';
+      }
+    });
+
+    input.addEventListener('input', function () {
+      clearTimeout(timer);
+      var q = input.value.trim();
+
+      if (!q) {
+        results.style.display = 'none';
+        results.innerHTML = '';
+        return;
+      }
+
+      timer = setTimeout(function () {
+        fetch('<%= find_friends_path %>.json?q=' + encodeURIComponent(q), {
+          headers: { 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' }
+        })
+        .then(function (r) { return r.json(); })
+        .then(function (users) {
+          renderResults(users, q);
+        });
+      }, 250);
+    });
+
+    function renderResults(users, q) {
+      var count = users.length;
+      var label = count + ' result' + (count !== 1 ? 's' : '') + ' for \u201C' + escHtml(q) + '\u201D';
+
+      var html = '<p class="text-muted small mb-3">' + label + '</p>';
+
+      if (count > 0) {
+        html += '<div class="row row-cols-1 row-cols-md-2 g-3">';
+        users.forEach(function (u, i) {
+          html += '<div class="col ff-result-card">' +
+            '<div class="card h-100 border-0 shadow-sm">' +
+              '<div class="card-body d-flex align-items-center gap-3">' +
+                '<div class="profile-sidebar__avatar-placeholder flex-shrink-0" ' +
+                     'style="width:48px;height:48px;font-size:1.2rem;border-radius:50%;">' +
+                  escHtml(u.initial) +
+                '</div>' +
+                '<div>' +
+                  '<h6 class="mb-0 fw-semibold">' + escHtml(u.display) + '</h6>' +
+                  (u.email ? '<small class="text-muted">' + escHtml(u.email) + '</small>' : '') +
+                '</div>' +
+              '</div>' +
+            '</div>' +
+          '</div>';
+        });
+        html += '</div>';
+      } else {
+        html += '<p class="text-muted">No users found for \u201C' + escHtml(q) + '\u201D.</p>';
+      }
+
+      results.innerHTML = html;
+      results.style.display = 'block';
+    }
+
+    function escHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+  })();
+</script>
