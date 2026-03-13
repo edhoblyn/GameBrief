@@ -27,7 +27,7 @@
       <% az_params = params[:sort] == "name" ? clear_sort_params : { genre: params[:genre], query: params[:query], sort: "name", free_to_play: params[:free_to_play] }.compact %>
       <% followed_params = params[:sort] == "followed" ? clear_sort_params : { genre: params[:genre], query: params[:query], sort: "followed", free_to_play: params[:free_to_play] }.compact %>
       <%= link_to "A–Z", games_path(az_params), class: "filter-btn #{params[:sort] == 'name' ? 'active' : ''}" %>
-      <%= link_to "Most Followed", games_path(followed_params), class: "filter-btn #{params[:sort] == 'followed' ? 'active' : ''}" %>
+      <%= link_to "Most Favourited", games_path(followed_params), class: "filter-btn #{params[:sort] == 'followed' ? 'active' : ''}" %>
     </div>
   </div>
 
@@ -54,11 +54,11 @@
             <h3 class="game-card__name"><%= game.name %></h3>
             <div class="game-card__follow">
               <% if favourite %>
-                <%= button_to favourite_path(favourite), method: :delete, class: "game-card__follow-btn game-card__follow-btn--active", aria: { label: "Unfollow #{game.name}" }, title: "Unfollow #{game.name}", form: { data: { controller: "unfollow-animation", action: "submit->unfollow-animation#submit" } } do %>
+                <%= button_to favourite_path(favourite), method: :delete, class: "game-card__follow-btn game-card__follow-btn--active", aria: { label: "Unfavourite #{game.name}" }, title: "Unfavourite #{game.name}", form: { data: { controller: "unfollow-animation", action: "submit->unfollow-animation#submit" } } do %>
                   <i class="fa fa-star" aria-hidden="true"></i>
                 <% end %>
               <% else %>
-                <%= button_to favourites_path, params: { game_id: game.id }, class: "game-card__follow-btn", aria: { label: "Follow #{game.name}" }, title: "Follow #{game.name}", data: { controller: "follow-sound", action: "click->follow-sound#play" } do %>
+                <%= button_to favourites_path, params: { game_id: game.id }, class: "game-card__follow-btn", aria: { label: "Favourite #{game.name}" }, title: "Favourite #{game.name}", data: { controller: "follow-sound", action: "click->follow-sound#play" } do %>
                   <i class="fa fa-star-o" aria-hidden="true"></i>
                 <% end %>
               <% end %>
