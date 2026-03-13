@@ -274,28 +274,28 @@
   }
 
   &__follow {
-    flex-shrink: 0;
     pointer-events: auto;
-    position: relative;
-    z-index: 2;
+    position: absolute;
+    bottom: 0.75rem;
+    right: 0.75rem;
+    z-index: 3;
   }
 
   &__follow-btn {
-    width: 2.35rem;
-    height: 2.35rem;
+    width: 1.6rem;
+    height: 1.6rem;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    border: none;
     background: rgba(14, 16, 24, 0.88);
     color: rgba(255, 255, 255, 0.72);
     box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
-    transition: transform 0.18s ease, border-color 0.18s ease, color 0.18s ease, background 0.18s ease;
+    transition: transform 0.18s ease, color 0.18s ease, background 0.18s ease;
 
     &:hover {
-      transform: translateY(-1px);
-      border-color: rgba(255, 215, 97, 0.55);
+      transform: translateY(-1px) scale(1.1);
       color: #ffd761;
       background: rgba(22, 24, 34, 0.96);
     }
@@ -306,13 +306,12 @@
     }
 
     i {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
     }
   }
 
   &__follow-btn--active {
     color: #ffd761;
-    border-color: rgba(255, 215, 97, 0.55);
     background: rgba(255, 215, 97, 0.14);
   }
 
