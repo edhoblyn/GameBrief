@@ -27,11 +27,7 @@ Rails.application.routes.draw do
       resources :messages, only: [:create]
     end
   end
-  resources :events, only: [:index, :show] do
-    member do
-      post :generate_summary
-    end
-  end
+  resources :events, only: [:index, :show]
   resources :favourites, only: [:create, :destroy]
   resources :reminders, only: [:create, :destroy]
   resources :friendships, only: [:create, :destroy]
