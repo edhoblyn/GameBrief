@@ -6,8 +6,19 @@ class PagesController < ApplicationController
 
   def find_friends
     @users = User.where.not(id: current_user.id)
-    @users = @users.where("username ILIKE :q OR email ILIKE :q", q: "%#{params[:q]}%") if params[:q].present?
+    @users = @users.where("username ILIKE :q OR email ILIKE :q", q: "#{params[:q]}%") if params[:q].present?
     @users = @users.order(:username, :email)
+
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: @users.map { |u|
+          { display: u.username.presence || u.email,
+            email: u.username.present? ? u.email : nil,
+            initial: (u.username.presence || u.email).first.upcase }
+        }
+      end
+    end
   end
 
   def my_profile
