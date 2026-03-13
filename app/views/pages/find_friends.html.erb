@@ -1,13 +1,13 @@
 <% content_for :title, "Find Friends" %>
 
 <div class="find-friends-page" id="findFriendsPage">
+  <h1 class="fw-bold mb-4 mt-5">Find Friends</h1>
 
-  <%# Back button + heading — only visible once active %>
-  <div class="find-friends-header mt-5">
+  <%# Back button -%>
+  <div class="find-friends-header">
     <%= link_to my_profile_path, class: "btn btn-outline-secondary btn-sm" do %>
       <i class="fa fa-arrow-left"></i> Back
     <% end %>
-    <h4 class="mb-0 fw-semibold">Find Friends</h4>
   </div>
 
   <%# Search bar -%>
