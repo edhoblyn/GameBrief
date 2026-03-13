@@ -154,13 +154,50 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
     assert_not_includes @response.body, "Clash Royale"
   end
 
-  test "active filters link back to the same page with that filter removed" do
-    get games_url, params: { genre: "Shooter", free_to_play: "true", sort: "name", query: "apex" }
+  test "filters games by single-player flag" do
+    solo_game = Game.create!(name: "Resident Evil Requiem", slug: "resident-evil-requiem", single_player: true)
+    multiplayer_game = Game.create!(name: "Marvel Rivals", slug: "marvel-rivals", multiplayer: true)
+
+    get games_url, params: { single_player: "true" }
 
     assert_response :success
-    assert_select "a[href='#{games_path(query: "apex", sort: "name", free_to_play: "true")}']", text: "Shooter"
-    assert_select "a[href='#{games_path(genre: "Shooter", query: "apex", sort: "name")}']", text: "Free-to-play"
-    assert_select "a[href='#{games_path(genre: "Shooter", query: "apex", free_to_play: "true")}']", text: "A–Z"
+    assert_includes @response.body, solo_game.name
+    assert_not_includes @response.body, multiplayer_game.name
+  end
+
+  test "filters games by multiplayer flag" do
+    multiplayer_game = Game.create!(name: "Counter-Strike 2", slug: "counter-strike-2", multiplayer: true)
+    solo_game = Game.create!(name: "Final Fantasy VII Rebirth", slug: "final-fantasy-vii-rebirth", single_player: true)
+
+    get games_url, params: { multiplayer: "true" }
+
+    assert_response :success
+    assert_includes @response.body, multiplayer_game.name
+    assert_not_includes @response.body, solo_game.name
+  end
+
+  test "combines multiplayer and free-to-play filters" do
+    matching_game = Game.create!(name: "Fortnite", slug: "fortnite", free_to_play: true, multiplayer: true)
+    paid_multiplayer_game = Game.create!(name: "Battlefield 6", slug: "battlefield-6", free_to_play: false, multiplayer: true)
+    free_solo_game = Game.create!(name: "Genshin Impact", slug: "genshin-impact", free_to_play: true, single_player: true)
+
+    get games_url, params: { multiplayer: "true", free_to_play: "true" }
+
+    assert_response :success
+    assert_includes @response.body, matching_game.name
+    assert_not_includes @response.body, paid_multiplayer_game.name
+    assert_not_includes @response.body, free_solo_game.name
+  end
+
+  test "active filters link back to the same page with that filter removed" do
+    get games_url, params: { genre: "Shooter", free_to_play: "true", single_player: "true", multiplayer: "true", sort: "name", query: "apex" }
+
+    assert_response :success
+    assert_select "a[href='#{games_path(query: "apex", sort: "name", free_to_play: "true", single_player: "true", multiplayer: "true")}']", text: "Shooter"
+    assert_select "a[href='#{games_path(genre: "Shooter", query: "apex", sort: "name", single_player: "true", multiplayer: "true")}']", text: "Free-to-play"
+    assert_select "a[href='#{games_path(genre: "Shooter", query: "apex", sort: "name", free_to_play: "true", multiplayer: "true")}']", text: "Single player"
+    assert_select "a[href='#{games_path(genre: "Shooter", query: "apex", sort: "name", free_to_play: "true", single_player: "true")}']", text: "Multiplayer"
+    assert_select "a[href='#{games_path(genre: "Shooter", query: "apex", free_to_play: "true", single_player: "true", multiplayer: "true")}']", text: "A–Z"
   end
 
   test "shows follow button on game cards for unfollowed games" do
