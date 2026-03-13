@@ -1,7 +1,7 @@
-// ── Landing ──────────────────────────────────────────────────────────────────
 .home-page {
   overscroll-behavior-y: none;
 }
+
 
 .home-landing {
   display: flex;
@@ -11,9 +11,14 @@
   min-height: 100vh;
   text-align: center;
   gap: 1rem;
+  padding-top: 3.5rem;
   padding-bottom: 2rem;
   position: relative;
   overflow: hidden;
+
+  @media (min-width: 768px) {
+    padding-top: 5rem;
+  }
 
   &__video-bg {
     position: absolute;
@@ -438,4 +443,3 @@
     color: $accent-purple;
   }
 }
-
