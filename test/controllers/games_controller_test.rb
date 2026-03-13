@@ -171,7 +171,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_includes @response.body, "See details"
     assert_select "form[action='#{favourites_path}'] input[name='game_id'][value='#{game.id}']", count: 1
-    assert_select "button[aria-label='Follow #{game.name}'] .fa-star-o", count: 1
+    assert_select "button[aria-label='Favourite #{game.name}'] .fa-star-o", count: 1
   end
 
   test "shows active follow button on game cards for followed games" do
@@ -183,6 +183,27 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_includes @response.body, "View updates"
     assert_select "form[action='#{favourite_path(favourite)}'] input[name='_method'][value='delete']", count: 1
-    assert_select "button[aria-label='Unfollow #{game.name}'].game-card__follow-btn--active .fa-star", count: 1
+    assert_select "button[aria-label='Unfavourite #{game.name}'].game-card__follow-btn--active .fa-star", count: 1
+  end
+
+  test "creates a game suggestion from the games page" do
+    assert_difference("GameSuggestion.count", 1) do
+      post suggest_games_url, params: { game_suggestion: { name: "Stardew Valley" } }
+    end
+
+    assert_redirected_to games_url
+    follow_redirect!
+    assert_includes @response.body, "Thanks. We have saved your game suggestion."
+    assert_equal "Stardew Valley", GameSuggestion.order(:created_at).last.name
+  end
+
+  test "re-renders the games page when a game suggestion is invalid" do
+    assert_no_difference("GameSuggestion.count") do
+      post suggest_games_url, params: { game_suggestion: { name: "" } }
+    end
+
+    assert_response :unprocessable_entity
+    assert_includes @response.body, "Name can&#39;t be blank"
+    assert_select "details[open]"
   end
 end
