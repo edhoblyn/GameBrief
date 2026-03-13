@@ -13,6 +13,8 @@
 
 :root,
 html[data-theme="nebula"] {
+  --gb-navbar-height: 4.5rem;
+  --gb-sticky-offset: calc(var(--gb-navbar-height) + 1.5rem);
   --gb-bg: #0d0d14;
   --gb-surface: #16161f;
   --gb-card: #1a1a27;
