@@ -36,15 +36,55 @@
     </div>
 
     <div class="events-index__controls">
-      <div class="events-index__filters" aria-label="Filter events by time">
+      <div class="events-index__filters-row">
+        <div class="events-index__filters" aria-label="Filter events by time">
         <% EventsController::TIME_FILTERS.each do |value, label| %>
-          <%= link_to label, events_path(time_filter: (value == "all" ? nil : value)), class: "filter-btn #{@time_filter == value ? 'active' : ''}" %>
+            <%= link_to label, events_path(time_filter: (value == "all" ? nil : value), game_ids: (@selected_game_ids.presence if @selected_game_ids.any?)), class: "filter-btn #{@time_filter == value ? 'active' : ''}" %>
         <% end %>
+        </div>
+
+        <details class="events-index__game-filter">
+          <summary class="events-index__game-filter-trigger">
+            <span>
+              <i class="fa fa-filter"></i>
+              Filter by game
+            </span>
+            <% if @selected_game_ids.any? %>
+              <strong><%= pluralize(@selected_game_ids.size, "game") %></strong>
+            <% end %>
+          </summary>
+
+          <div class="events-index__game-filter-menu">
+            <div class="events-index__game-filter-header">
+              <p class="events-index__game-filter-title">Choose games</p>
+              <%= link_to "Clear", events_path(time_filter: (@time_filter == "all" ? nil : @time_filter)), class: "events-index__game-filter-clear" %>
+            </div>
+
+            <%= form_with url: events_path, method: :get, local: true, class: "events-index__game-filter-form" do %>
+              <% if @time_filter != "all" %>
+                <%= hidden_field_tag :time_filter, @time_filter %>
+              <% end %>
+
+              <div class="events-index__game-filter-options">
+                <% @game_filter_options.each do |game| %>
+                  <label class="events-index__game-filter-option">
+                    <%= check_box_tag "game_ids[]", game.id, @selected_game_ids.include?(game.id), class: "events-index__game-filter-checkbox" %>
+                    <span><%= game.name %></span>
+                  </label>
+                <% end %>
+              </div>
+
+              <div class="events-index__game-filter-actions">
+                <%= submit_tag "Apply", class: "events-index__game-filter-apply" %>
+              </div>
+            <% end %>
+          </div>
+        </details>
       </div>
 
       <div class="events-index__results-meta">
         <span><%= pluralize(@events.size, "event") %> in this view</span>
-        <% if @time_filter != "all" %>
+        <% if @time_filter != "all" || @selected_game_ids.any? %>
           <%= link_to "Reset filter", events_path, class: "events-index__reset" %>
         <% end %>
       </div>

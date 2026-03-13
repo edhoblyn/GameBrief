@@ -11,8 +11,14 @@ class EventsController < ApplicationController
     today = now.to_date
     @followed_game_ids = user_signed_in? ? current_user.favourite_games.pluck(:id) : []
     @time_filter = TIME_FILTERS.key?(params[:time_filter]) ? params[:time_filter] : "all"
+    @selected_game_ids = selected_game_ids
 
     upcoming_events = Event.includes(:game).where("start_date >= ?", now.beginning_of_day)
+    @game_filter_options = Game.joins(:events)
+                               .merge(upcoming_events)
+                               .distinct
+                               .to_a
+                               .sort_by { |game| [@followed_game_ids.include?(game.id) ? 0 : 1, game.name.downcase] }
 
     @summary_cards = [
       { label: "Upcoming events", value: upcoming_events.count },
@@ -21,6 +27,7 @@ class EventsController < ApplicationController
     ]
 
     filtered_events = apply_time_filter(upcoming_events, now, today)
+    filtered_events = apply_game_filter(filtered_events)
     @events = order_events(filtered_events)
     @event_groups = @events.group_by { |event| timeline_group_for(event.start_date.to_date, today) }.to_a
   end
@@ -56,6 +63,12 @@ class EventsController < ApplicationController
     end
   end
 
+  def apply_game_filter(scope)
+    return scope if @selected_game_ids.empty?
+
+    scope.where(game_id: @selected_game_ids)
+  end
+
   def order_events(scope)
     if @followed_game_ids.any?
       scope.order(
@@ -77,5 +90,11 @@ class EventsController < ApplicationController
     else
       "Later"
     end
+  end
+
+  def selected_game_ids
+    Array(params[:game_ids]).filter_map do |game_id|
+      Integer(game_id, exception: false)
+    end.uniq
   end
 end
