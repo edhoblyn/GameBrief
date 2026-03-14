@@ -55,7 +55,7 @@
     top: calc(100% + 0.44rem);
     right: 0;
     width: calc(100vw - 1.8rem);
-    max-width: 12.5rem;
+    max-width: 15rem;
     padding: 0.8rem;
     border-radius: 0.85rem;
     border: 1px solid var(--gb-border-soft);
@@ -159,41 +159,28 @@
   }
 
   &__footer {
-    display: flex;
-    justify-content: flex-end;
     margin-top: 0.65rem;
     padding-top: 0.55rem;
     border-top: 1px solid var(--gb-border);
+    text-align: center;
   }
 
-  &__footer form {
+  &__logout-form {
+    display: block;
+    margin: 0 auto;
+    width: 50%;
+    min-width: 8.5rem;
+    max-width: 8.5rem;
+  }
+
+  &__logout.logout-btn {
     margin: 0;
-  }
-
-  &__logout {
-    width: 1.7rem;
-    height: 1.7rem;
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0;
-    border-radius: 999px;
-    border: 1px solid var(--gb-border);
-    background: rgba(255, 255, 255, 0.02);
-    color: var(--gb-muted);
-    font-size: 0.82rem;
-    transition: border-color 0.18s ease, transform 0.18s ease, background 0.18s ease, color 0.18s ease;
-
-    &:hover {
-      border-color: var(--gb-border-soft);
-      background: rgba(255, 255, 255, 0.05);
-      color: var(--gb-text);
-      transform: translateY(-1px);
-    }
-  }
-
-  &__logout-icon {
-    font-size: 0.75rem;
-    line-height: 1;
+    width: 100%;
+    box-sizing: border-box;
+    flex-wrap: nowrap;
+    white-space: nowrap;
   }
 }

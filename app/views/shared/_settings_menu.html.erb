@@ -43,10 +43,15 @@
         <div class="app-settings-menu__footer">
           <%= button_to destroy_user_session_path,
                         method: :delete,
-                        class: "app-settings-menu__logout",
+                        form: {
+                          class: "app-settings-menu__logout-form",
+                          style: "display:block;margin:0 auto;width:50%;min-width:8.5rem;max-width:8.5rem;"
+                        },
+                        class: "app-settings-menu__logout logout-btn",
+                        style: "display:flex;align-items:center;justify-content:center;width:100%;box-sizing:border-box;white-space:nowrap;",
                         aria: { label: "Log out" },
                         title: "Log out" do %>
-            <i class="fa fa-sign-out app-settings-menu__logout-icon"></i>
+            <i class="fa fa-sign-out" aria-hidden="true"></i> Log out
           <% end %>
         </div>
       <% end %>
