@@ -29,5 +29,6 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_select "form.button_to[action='#{destroy_user_session_path}'] button.app-settings-menu__logout[aria-label='Log out'][title='Log out']"
+    assert_select "button.app-settings-menu__logout i.fa.fa-sign-out.app-settings-menu__logout-icon"
   end
 end
