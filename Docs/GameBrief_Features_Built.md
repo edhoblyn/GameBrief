@@ -1,6 +1,6 @@
 # GameBrief — Features Built
 
-> Last updated: 2026-03-13
+> Last updated: 2026-03-14
 
 ---
 
@@ -52,12 +52,15 @@
 - Patch date fallback logic handles imported data, seeded demo content, and missing dates
 - Scraped patches are prioritised ahead of placeholder/manual patches on game pages
 
-## AI Patch Summaries
+## AI Patch Summaries + Presentation
 
 - Three stored patch summary types: `Quick Summary`, `Casual Impact`, and `Should I Log In?`
 - Generate action per summary type on the patch page
 - Existing summary for a type is replaced on regeneration
 - Summary labels and prompts are centralised in `SummaryService`
+- Scraped patch notes can be reformatted into structured AI sections
+- Patch notes view shows a pending/progress state while AI presentation is being generated
+- Structured notes are delivered through a Turbo frame poll flow once ready
 
 ## Patch Chatbot
 
@@ -71,7 +74,9 @@
 ## Events + Reminders
 
 - Events index ordered with followed-game events first
-- Event detail page with title, game link, description, and date
+- Events index filters by time range (`All upcoming`, `This week`, `This month`, `Future`)
+- Events index supports multi-game filtering with preserved filter state
+- Event detail page with title, game link, description, status, countdown, and related content
 - Google Calendar add link on each event
 - Set and remove reminders
 - `My Events` page lists saved reminders
@@ -89,7 +94,8 @@
 - Username and profile image updates can be saved without a password, while email/password changes still require the current password
 - `My Patches` page for followed games with date filters and newest/oldest sorting
 - `Find Friends` search page for users by username or email
-- Admin-only `Players` index plus individual player profile pages with basic activity counts
+- Users can add and remove friendships from the `Find Friends` flow
+- Individual player profile pages exist, and the full `Players` index exists behind admin access
 
 ## UI / Frontend Polish
 
@@ -97,7 +103,7 @@
 - Custom 404 and 500 pages
 - App footer with team GitHub profile links
 - Mobile responsiveness pass across My Profile, games, patches, and events pages
-- Dedicated Stimulus controllers for the featured gamers carousel, social feed interactions, and profile notification toggles
+- Dedicated Stimulus controllers for patch presentation polling, social feed interactions, and profile notification toggles
 
 ## Data + Infrastructure
 
