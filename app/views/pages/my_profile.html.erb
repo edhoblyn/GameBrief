@@ -285,22 +285,7 @@
         </div>
 
         <aside class="for-you-sidebar">
-          <section class="profile-rail-card">
-            <div class="profile-rail-card__header">
-              <h3 class="profile-rail-card__title">Overview</h3>
-              <span class="profile-rail-card__eyebrow">Today</span>
-            </div>
-            <div class="profile-rail-metrics">
-              <% profile_highlights.each do |item| %>
-                <div class="profile-rail-metric">
-                  <span class="profile-rail-metric__label"><%= item[:label] %></span>
-                  <span class="profile-rail-metric__value"><%= item[:value] %></span>
-                </div>
-              <% end %>
-            </div>
-          </section>
-
-          <section id="my-events" class="profile-rail-card">
+<section id="my-events" class="profile-rail-card">
             <div class="profile-rail-card__header">
               <h3 class="profile-rail-card__title">Upcoming Event</h3>
               <%= link_to "All events", my_events_path, class: "profile-rail-card__link" %>
@@ -338,22 +323,6 @@
             <% end %>
           </section>
 
-          <section id="recommendations" class="profile-rail-card">
-            <div class="profile-rail-card__header">
-              <h3 class="profile-rail-card__title">Recommendations</h3>
-            </div>
-            <div class="profile-rail-callout"
-                 data-notification-toggles-target="recommendationCallout">
-              <p class="profile-rail-callout__text"
-                 data-notification-toggles-target="recommendationText">Recommendation updates are off right now. Turn them on in the sidebar to start building this feed.</p>
-              <%= link_to games_path,
-                          class: "profile-rail-callout__action d-none",
-                          data: { "notification-toggles-target": "recommendationAction" } do %>
-                <i class="fa fa-compass"></i>
-                Explore more games
-              <% end %>
-            </div>
-          </section>
 
           <section class="profile-rail-card profile-rail-card--action">
             <div class="profile-rail-card__header">
