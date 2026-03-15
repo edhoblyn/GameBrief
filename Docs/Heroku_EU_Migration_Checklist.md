@@ -32,7 +32,10 @@ Before migration, review these app-specific items:
   - `TWITCH_CLIENT_SECRET`
   - `OPENAI_API_KEY`
 - Google OAuth callback URLs must match the final production hostname
-- [production.rb](/Users/edhoblyn/GameBrief/config/environments/production.rb) still contains placeholder host values and should be corrected for the real production domain
+- [production.rb](/Users/edhoblyn/GameBrief/config/environments/production.rb) still contains placeholder mailer host values and should be corrected for the real production domain
+- [devise.rb](/Users/edhoblyn/GameBrief/config/initializers/devise.rb) hardcodes `OmniAuth.config.full_host` to `https://gamebrief.live`; if the live hostname changes, update that before cutover
+- User avatars and cover images use Active Storage with the local disk service, so a Heroku Postgres backup will not copy uploaded files
+- Scheduled scrape jobs are documented in [recurring.yml](/Users/edhoblyn/GameBrief/config/recurring.yml), but production is configured to use `:async` jobs on Heroku, so any real production scheduling must be recreated explicitly on the new app
 
 ## Suggested Migration Strategy
 
@@ -96,6 +99,11 @@ Confirm the current config includes:
 - `TWITCH_CLIENT_SECRET`
 - `OPENAI_API_KEY`
 
+Also confirm whether the current app relies on:
+
+- Heroku Scheduler or any other operational add-on
+- uploaded Active Storage files that must survive the migration
+
 ## 3. Create The New EU App
 
 Create a new app in Europe:
@@ -120,6 +128,8 @@ heroku addons:create heroku-postgresql:essential-0 -a NEW_APP
 ```
 
 If the old app has other add-ons, recreate them on the new app and verify they support the `eu` region.
+
+If the old app uses Heroku Scheduler for scrape/import tasks, recreate it here before cutover.
 
 Check add-ons again:
 
@@ -194,13 +204,25 @@ After restore, run migrations:
 heroku run bin/rails db:migrate -a NEW_APP
 ```
 
-Only run seeds if they are known to be safe for production:
+Do not run `db:seed` as part of this migration unless you intentionally want demo users and fresh IGDB-imported content mixed into production data.
 
-```bash
-heroku run bin/rails db:seed -a NEW_APP
-```
+The current [seeds.rb](/Users/edhoblyn/GameBrief/db/seeds.rb) script creates demo-style users and fetches data from IGDB, so it is not a normal post-restore step for this app.
 
-## 8. Smoke Test The New EU App Before DNS Changes
+## 8. Copy Any Required Uploaded Files
+
+This app stores Active Storage files on the local disk service in production.
+
+That means:
+
+- `pg:backups` restores database rows only
+- it does not copy files from `/app/storage`
+- user-uploaded avatars or cover images will be missing on the new app unless you migrate them separately or accept losing them
+
+If production data does not rely on uploaded files, you can skip this step.
+
+If production users do rely on uploaded files, plan a separate file copy or storage migration before cutover.
+
+## 9. Smoke Test The New EU App Before DNS Changes
 
 Test the temporary Heroku app URL first.
 
@@ -212,6 +234,7 @@ Recommended checks:
 - games list loads
 - patch pages load
 - events pages load
+- any user-uploaded avatars or cover images that matter still render
 - no production exceptions appear in logs
 
 Tail logs while testing:
@@ -220,7 +243,7 @@ Tail logs while testing:
 heroku logs --tail -a NEW_APP
 ```
 
-## 9. Confirm Google OAuth Settings
+## 10. Confirm Google OAuth Settings
 
 GameBrief uses Google OAuth, so callback URLs must match the final production hostname.
 
@@ -234,7 +257,9 @@ If Google is still using an old `herokuapp.com` callback URL, add the correct pr
 
 If you intend to use both apex and `www`, make sure the exact domain used by users is configured consistently in Google Cloud.
 
-## 10. Review Production Host Configuration
+Also review [devise.rb](/Users/edhoblyn/GameBrief/config/initializers/devise.rb), because `OmniAuth.config.full_host` is currently hardcoded to `https://gamebrief.live`.
+
+## 11. Review Production Host Configuration
 
 Review [production.rb](/Users/edhoblyn/GameBrief/config/environments/production.rb) before or during the migration.
 
@@ -245,7 +270,9 @@ It currently contains placeholder values such as:
 
 These should be updated to the real production hostname so generated URLs and mailer links are correct.
 
-## 11. Move The Custom Domain From The Old App To The New App
+If you want Heroku to enforce HTTPS at the Rails layer, also review the commented `config.assume_ssl` and `config.force_ssl` settings in [production.rb](/Users/edhoblyn/GameBrief/config/environments/production.rb).
+
+## 12. Move The Custom Domain From The Old App To The New App
 
 The public domain can stay the same even though the Heroku app changes.
 
@@ -277,7 +304,7 @@ heroku domains:add YOUR_DOMAIN -a NEW_APP
 heroku domains:wait 'YOUR_DOMAIN' -a NEW_APP
 ```
 
-## 12. Update Namecheap DNS If Heroku Gives A New Target
+## 13. Update Namecheap DNS If Heroku Gives A New Target
 
 After adding the domain to the new app, inspect the DNS target Heroku expects:
 
@@ -295,7 +322,7 @@ Important:
 - use the exact DNS target shown by Heroku for `NEW_APP`
 - do not assume the old target remains valid
 
-## 13. Verify The Live Site On The Real Domain
+## 14. Verify The Live Site On The Real Domain
 
 Once the domain is attached and DNS is updated, verify:
 
@@ -311,7 +338,7 @@ Useful command:
 heroku logs --tail -a NEW_APP
 ```
 
-## 14. Delete The Old US App
+## 15. Delete The Old US App
 
 Only after the new EU app is fully serving live traffic:
 
@@ -319,7 +346,7 @@ Only after the new EU app is fully serving live traffic:
 heroku apps:destroy -a OLD_APP --confirm OLD_APP
 ```
 
-## 15. Optional: Reuse The Old Heroku App Name
+## 16. Optional: Reuse The Old Heroku App Name
 
 This is usually not necessary if users access the site through the custom domain.
 
@@ -337,13 +364,16 @@ Only bother reusing the old Heroku app name if:
 - [ ] New EU app created
 - [ ] New EU app confirmed in `eu` region
 - [ ] Heroku Postgres attached to new app
+- [ ] Any required scheduler add-on recreated on new app
 - [ ] Config vars copied
 - [ ] Code deployed to new app
 - [ ] Database backup captured from old app
 - [ ] Database restored to new app
 - [ ] `bin/rails db:migrate` run on new app
+- [ ] Decision made on Active Storage file migration
 - [ ] New app tested on temporary Heroku URL
 - [ ] Google OAuth callback URLs confirmed
+- [ ] `OmniAuth.config.full_host` reviewed
 - [ ] Production host settings reviewed
 - [ ] Custom domain removed from old app
 - [ ] Custom domain added to new app
