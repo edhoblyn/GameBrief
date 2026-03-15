@@ -160,25 +160,46 @@ heroku config -a NEW_APP
 
 ## 6. Deploy The Current Code To The New App
 
+This repo now includes a [Procfile](/Users/edhoblyn/GameBrief/Procfile) that explicitly boots Puma on Heroku:
+
+```text
+web: bundle exec puma -C config/puma.rb
+```
+
+Before pushing, make sure the code you want to deploy is committed:
+
+```bash
+git status
+git add Procfile
+git commit -m "Add Heroku Procfile"
+```
+
 Option 1: point the default Heroku remote at the new app
 
 ```bash
 heroku git:remote -a NEW_APP
-git push heroku main
+git push heroku master
 ```
 
 Option 2: keep a separate remote for the EU app
 
 ```bash
 git remote add heroku-eu https://git.heroku.com/NEW_APP.git
-git push heroku-eu main
+git push heroku-eu master
 ```
 
 After deploy:
 
 ```bash
+heroku ps:scale web=1 -a NEW_APP
 heroku open -a NEW_APP
 heroku logs --tail -a NEW_APP
+```
+
+If you deploy from a local branch other than `master`, push it explicitly to Heroku's `main` branch:
+
+```bash
+git push heroku YOUR_BRANCH:main
 ```
 
 ## 7. Copy The Production Database
@@ -367,6 +388,7 @@ Only bother reusing the old Heroku app name if:
 - [ ] Any required scheduler add-on recreated on new app
 - [ ] Config vars copied
 - [ ] Code deployed to new app
+- [ ] `web` dyno scaled on new app
 - [ ] Database backup captured from old app
 - [ ] Database restored to new app
 - [ ] `bin/rails db:migrate` run on new app
