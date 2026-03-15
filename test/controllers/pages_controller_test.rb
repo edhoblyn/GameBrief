@@ -31,4 +31,12 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
     assert_select "form.app-settings-menu__logout-form[action='#{destroy_user_session_path}'] button.app-settings-menu__logout.logout-btn[aria-label='Log out'][title='Log out']", text: /Log out/
     assert_select "button.app-settings-menu__logout.logout-btn i.fa.fa-sign-out"
   end
+
+  test "shows a sound effects mute toggle in the shared top-right settings menu" do
+    get my_games_url
+
+    assert_response :success
+    assert_select "button.app-settings-menu__sound-button[data-sound-toggle][aria-label='Sound effects on'][title='Sound effects on'][aria-pressed='false']"
+    assert_select "button.app-settings-menu__sound-button i.app-settings-menu__sound-icon.fa-solid.fa-volume"
+  end
 end
