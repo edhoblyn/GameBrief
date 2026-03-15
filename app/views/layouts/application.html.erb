@@ -29,7 +29,7 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body data-controller="theme">
+  <body class="page-<%= controller.controller_name.dasherize %>-<%= controller.action_name.dasherize %>" data-controller="theme">
     <%= render "shared/hover_gradient_nav" unless content_for?(:hide_navbar) %>
     <%= render "shared/settings_menu" %>
     <%= render "shared/flashes" %>
