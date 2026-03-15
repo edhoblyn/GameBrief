@@ -30,10 +30,6 @@ class PagesController < ApplicationController
   end
 
   def my_profile
-    @recent_patches = Patch.where(game: @followed_games)
-                           .recent_first
-                           .limit(10)
-                           .includes(:game)
   end
 
   def my_games
@@ -52,15 +48,9 @@ class PagesController < ApplicationController
                when "oldest" then @patches.known_oldest_first
                else @patches.known_newest_first
                end
-    @recent_patches = Patch.where(game: @followed_games)
-                           .recent_first
-                           .limit(10)
-                           .includes(:game)
   end
 
   def my_events
-    @events = current_user.reminders
-                          .includes(event: :game)
-                          .order("events.start_date asc")
+    @events = @reminders
   end
 end

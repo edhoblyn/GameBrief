@@ -11,14 +11,4 @@ class ChatsController < ApplicationController
   def set_patch
     @patch = Patch.find(params[:patch_id])
   end
-
-  def safe_return_to_path
-    return if params[:return_to].blank?
-
-    return_to = params[:return_to].to_s
-    return unless return_to.start_with?("/")
-    return if return_to.start_with?("//")
-
-    return_to
-  end
 end
