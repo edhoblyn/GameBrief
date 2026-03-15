@@ -23,7 +23,8 @@ class GamesController < ApplicationController
     @game_suggestion = GameSuggestion.new(game_suggestion_params)
 
     if @game_suggestion.save
-      redirect_to games_path, notice: "Thanks. We have saved your game suggestion."
+      GameSuggestionMailer.game_suggestion_created(@game_suggestion, current_user).deliver_now
+      redirect_to games_path, notice: "Thanks. Your game suggestion has been sent for review."
     else
       load_games_index
       render :index, status: :unprocessable_entity
@@ -33,6 +34,7 @@ class GamesController < ApplicationController
   private
 
   def load_games_index
+    @active_game_filters = active_game_filters
     @games = Game.all
     @games = @games.search_by_name(params[:query])
     @games = @games.with_genre(params[:genre])
@@ -45,6 +47,10 @@ class GamesController < ApplicationController
              else @games
              end
     @favourites_by_game_id = current_user&.favourites&.where(game_id: @games.select(:id))&.index_by(&:game_id) || {}
+  end
+
+  def active_game_filters
+    params.slice(:genre, :free_to_play, :single_player, :multiplayer).values.any?(&:present?)
   end
 
   def game_suggestion_params

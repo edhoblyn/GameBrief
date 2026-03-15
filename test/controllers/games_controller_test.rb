@@ -6,6 +6,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @user = User.create!(email: "games-controller@test.com", password: "123456")
     sign_in @user
+    ActionMailer::Base.deliveries.clear
   end
 
   test "should get index" do
@@ -225,22 +226,56 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
 
   test "creates a game suggestion from the games page" do
     assert_difference("GameSuggestion.count", 1) do
-      post suggest_games_url, params: { game_suggestion: { name: "Stardew Valley" } }
+      assert_difference("ActionMailer::Base.deliveries.size", 1) do
+        post suggest_games_url, params: { game_suggestion: { name: "Stardew Valley" } }
+      end
     end
 
     assert_redirected_to games_url
     follow_redirect!
-    assert_includes @response.body, "Thanks. We have saved your game suggestion."
+    assert_includes @response.body, "Thanks. Your game suggestion has been sent for review."
     assert_equal "Stardew Valley", GameSuggestion.order(:created_at).last.name
+
+    mail = ActionMailer::Base.deliveries.last
+    assert_equal ["gamebrief805@gmail.com"], mail.to
+    assert_includes mail.subject, "Stardew Valley"
+    assert_includes mail.body.encoded, @user.email
   end
 
   test "re-renders the games page when a game suggestion is invalid" do
     assert_no_difference("GameSuggestion.count") do
-      post suggest_games_url, params: { game_suggestion: { name: "" } }
+      assert_no_difference("ActionMailer::Base.deliveries.size") do
+        post suggest_games_url, params: { game_suggestion: { name: "" } }
+      end
     end
 
     assert_response :unprocessable_entity
     assert_includes @response.body, "Name can&#39;t be blank"
-    assert_select "details[open]"
+    assert_select "[data-controller='suggestion-reveal'][data-suggestion-reveal-open-value='true']"
+    assert_select "[data-suggestion-reveal-target='panel']:not([hidden])"
+  end
+
+  test "rejects non-title game suggestion input" do
+    assert_no_difference("GameSuggestion.count") do
+      assert_no_difference("ActionMailer::Base.deliveries.size") do
+        post suggest_games_url, params: { game_suggestion: { name: "please add https://store.example.com/game" } }
+      end
+    end
+
+    assert_response :unprocessable_entity
+    assert_includes @response.body, "must be the game title only"
+  end
+
+  test "rejects suggestions for games already on GameBrief" do
+    Game.create!(name: "Balatro", slug: "balatro")
+
+    assert_no_difference("GameSuggestion.count") do
+      assert_no_difference("ActionMailer::Base.deliveries.size") do
+        post suggest_games_url, params: { game_suggestion: { name: "Balatro" } }
+      end
+    end
+
+    assert_response :unprocessable_entity
+    assert_includes @response.body, "already listed on GameBrief"
   end
 end

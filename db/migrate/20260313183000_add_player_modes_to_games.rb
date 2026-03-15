@@ -49,7 +49,7 @@ class AddPlayerModesToGames < ActiveRecord::Migration[8.1]
             'grand theft auto v',
             'league of legends',
             'warhammer 40,000: space marine 2',
-            '2xko',
+            'arc raiders',
             'genshin impact',
             'counter-strike 2',
             'dota 2',
