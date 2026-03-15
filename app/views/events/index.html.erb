@@ -1,5 +1,4 @@
 <% content_for :title, "Events" %>
-
 <div class="events-index">
   <div class="container">
     <div class="events-index__hero">
@@ -44,7 +43,7 @@
         </div>
 
         <details class="events-index__game-filter">
-          <summary class="events-index__game-filter-trigger">
+          <summary class="events-index__game-filter-trigger <%= 'events-index__game-filter-trigger--active' if @selected_game_ids.any? %>">
             <span>
               <i class="fa fa-filter"></i>
               Filter by game
