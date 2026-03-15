@@ -39,7 +39,15 @@
     </div>
   </div>
 
-  <h2 class="home-games__heading">Games</h2>
+  <div class="home-games__heading-row">
+    <h2 class="home-games__heading">
+      <% if @active_game_filters %>
+        <span class="home-games__results-count"><%= pluralize(@games.size, "Game") %></span>
+      <% else %>
+        All Games
+      <% end %>
+    </h2>
+  </div>
   <div class="home-games__grid" data-controller="glow-card">
     <% @games.each do |game| %>
       <% favourite = @favourites_by_game_id[game.id] %>
@@ -80,29 +88,32 @@
     <% end %>
   </div>
 
-  <div class="home-games__suggestion-wrap">
-    <details class="home-games__suggestion" <%= "open" if @game_suggestion&.errors&.any? %>>
-      <summary class="home-games__suggestion-toggle">
+  <div class="home-games__suggestion-wrap d-flex flex-column align-items-center mt-5" data-controller="suggestion-reveal" data-suggestion-reveal-open-value="<%= @game_suggestion&.errors&.any? %>">
+    <div class="home-games__suggestion-actions d-flex justify-content-center w-100">
+      <button type="button" class="filter-btn home-games__suggestion-trigger" data-suggestion-reveal-target="trigger" data-action="suggestion-reveal#toggle">
+        <i class="fa fa-plus" aria-hidden="true"></i>
         Suggest a game
-      </summary>
+      </button>
+    </div>
 
-      <div class="home-games__suggestion-body">
-        <p class="home-games__suggestion-copy">Missing something? Send us a game name and we can review it for the site.</p>
+    <div class="home-games__suggestion" data-suggestion-reveal-target="panel" <%= "hidden" unless @game_suggestion&.errors&.any? %>>
+      <p class="home-games__suggestion-copy">Submit the exact game title and we will review it for GameBrief.</p>
 
-        <%= form_with model: @game_suggestion, url: suggest_games_path, class: "home-games__suggestion-form" do |f| %>
-          <div class="home-games__suggestion-fields">
-            <%= f.text_field :name,
-                             placeholder: "Type a game name",
-                             class: "home-games__search-input home-games__suggestion-input",
-                             aria: { describedby: (@game_suggestion.errors[:name].any? ? "game-suggestion-error" : nil) } %>
-            <%= f.submit "Send", class: "home-games__search-btn home-games__suggestion-submit" %>
-          </div>
+      <%= form_with model: @game_suggestion, url: suggest_games_path, class: "home-games__suggestion-form", data: { action: "submit->suggestion-reveal#submit" } do |f| %>
+        <div class="home-games__suggestion-fields">
+          <%= f.text_field :name,
+                           placeholder: "Type the full game title",
+                           class: "home-games__search-input home-games__suggestion-input",
+                           data: { "suggestion-reveal-target": "input" },
+                           aria: { describedby: (@game_suggestion.errors[:name].any? ? "game-suggestion-error" : nil) } %>
+          <%= f.submit "Submit", class: "home-games__search-btn home-games__suggestion-submit" %>
+        </div>
+        <p class="home-games__suggestion-note">Title only. Already-listed games, links, and notes are filtered out.</p>
 
-          <% if @game_suggestion.errors[:name].any? %>
-            <p id="game-suggestion-error" class="home-games__suggestion-error"><%= @game_suggestion.errors.full_messages_for(:name).to_sentence %></p>
-          <% end %>
+        <% if @game_suggestion.errors[:name].any? %>
+          <p id="game-suggestion-error" class="home-games__suggestion-error"><%= @game_suggestion.errors.full_messages_for(:name).to_sentence %></p>
         <% end %>
-      </div>
-    </details>
+      <% end %>
+    </div>
   </div>
 </div>
