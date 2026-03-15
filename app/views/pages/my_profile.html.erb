@@ -1,5 +1,4 @@
 <% content_for :title, "My Profile" %>
-<% content_for :on_dashboard, true %>
 
 <%
   fmt = ->(n) { n >= 1000 ? "#{(n / 1000.0).round(1).to_s.sub(/\.0$/, '')}K" : n.to_s }

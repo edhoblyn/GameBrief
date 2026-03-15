@@ -46,7 +46,7 @@ class PatchesController < ApplicationController
       @patch.patch_summaries.where(summary_type: summary_type).destroy_all
       @patch.patch_summaries.create!(summary: summary_text, summary_type: summary_type)
       flash[:notice] = "#{SummaryService::LABELS[summary_type]} generated!"
-    rescue => e
+    rescue StandardError
       flash[:alert] = "Failed to generate summary. Please try again."
     end
     redirect_to patch_path(@patch, return_to: safe_return_to_path)
@@ -60,16 +60,6 @@ class PatchesController < ApplicationController
 
   def disable_store_cache
     response.headers["Cache-Control"] = "no-store"
-  end
-
-  def safe_return_to_path
-    return if params[:return_to].blank?
-
-    return_to = params[:return_to].to_s
-    return unless return_to.start_with?("/")
-    return if return_to.start_with?("//")
-
-    return_to
   end
 
   def apply_game_filter(scope)

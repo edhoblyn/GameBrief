@@ -13,4 +13,14 @@ class ApplicationController < ActionController::Base
                            .limit(10)
                            .includes(:game)
   end
+
+  def safe_return_to_path
+    return if params[:return_to].blank?
+
+    return_to = params[:return_to].to_s
+    return unless return_to.start_with?("/")
+    return if return_to.start_with?("//")
+
+    return_to
+  end
 end

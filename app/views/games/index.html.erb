@@ -48,10 +48,10 @@
       <% end %>
     </h2>
   </div>
-  <div class="home-games__grid" data-controller="glow-card">
+  <div class="home-games__grid">
     <% @games.each do |game| %>
       <% favourite = @favourites_by_game_id[game.id] %>
-      <article class="game-card event-glow-card" data-glow-card-target="card">
+      <article class="game-card event-glow-card">
         <%= link_to game_path(game), class: "game-card__link", aria: { label: "View #{game.name}" } do %>
           <span class="visually-hidden">View <%= game.name %></span>
         <% end %>

@@ -64,17 +64,3 @@
 
   </ul>
 </nav>
-
-<% if content_for?(:on_dashboard) %>
-  <script>
-    function toggleProfileSidebar(btn) {
-      const sidebar = document.getElementById('profile-sidebar__nav');
-      if (!sidebar) return;
-      sidebar.classList.toggle('d-none');
-      const icon = document.getElementById('sidebar-toggle-icon');
-      icon.className = sidebar.classList.contains('profile-sidebar--hidden')
-        ? 'fa fa-chevron-down'
-        : 'fa fa-chevron-up';
-    }
-  </script>
-<% end %>
