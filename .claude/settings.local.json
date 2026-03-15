@@ -18,7 +18,18 @@
       "Bash(rails db:migrate)",
       "Bash(bundle install:*)",
       "Bash(git checkout:*)",
-      "Bash(git remote:*)"
+      "Bash(git remote:*)",
+      "Bash(bin/rails tmp:clear)",
+      "Bash(find . -name *.js -path */follow_sound*)",
+      "Bash(find . -name sprockets-manifest*)",
+      "Bash(find tmp/ -name *.cache)",
+      "Bash(cat tmp/pids/*.pid)",
+      "Bash(kill -USR2 5407)",
+      "Bash(kill -9 5407)",
+      "Bash(bin/rails server:*)",
+      "Bash(cat public/assets/controllers/follow_sound_controller-*.js)",
+      "Bash(find . -name *bda7a7b7*)",
+      "Bash(find . -path */sprockets* -name *.cache)"
     ],
     "deny": []
   }
