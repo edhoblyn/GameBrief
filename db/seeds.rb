@@ -1017,12 +1017,20 @@ seed_event_series(
   ]
 )
 
+seed_live_events(game: dota2, importer_class: EventImporters::Dota2EventImporter)
 seed_event_series(
   game: dota2,
   events: [
-    { title: "The International 2026 Qualifiers", description: "Regional qualifiers begin to determine which teams earn direct invitations to The International.", start_date: DateTime.new(2026, 7, 1, 14, 0, 0) },
-    { title: "Diretide Event", description: "The annual Halloween event returns with Roshan candy mechanics, themed cosmetics, and a limited-time game mode.", start_date: DateTime.new(2026, 10, 15, 17, 0, 0) },
-    { title: "Battle Pass 2026 Launch", description: "The annual Battle Pass goes live with a new Arcana vote, exclusive cosmetics, and community milestones.", start_date: DateTime.new(2026, 5, 12, 17, 0, 0) }
+    {
+      title: "Dota 2 Battle Pass 2026",
+      description: "The annual Dota 2 Battle Pass launches — featuring a new Arcana cosmetic vote, hundreds of exclusive item rewards, community milestones, and a seasonal in-game event for all players.",
+      start_date: DateTime.new(2026, 5, 19, 17, 0, 0)
+    },
+    {
+      title: "Diretide 2026",
+      description: "Diretide returns for Halloween — the annual event pitting players against Roshan in a candy-stealing game mode, with exclusive Diretide-themed cosmetics and item rewards.",
+      start_date: DateTime.new(2026, 10, 15, 17, 0, 0)
+    }
   ]
 )
 
