@@ -10,6 +10,11 @@
 #     schedule: at 5am every day
 
 production:
+  scrape_battlefield_6_patches:
+    class: ScrapeBattlefield6Job
+    queue: default
+    schedule: every monday at 5am
+
   scrape_arc_raiders_patches:
     class: ScrapeArcRaidersJob
     queue: default

@@ -184,6 +184,7 @@ end
 
 puts "Creating patches..."
 
+seed_live_patches("battlefield_6")
 seed_live_patches("arc_raiders")
 seed_live_patches("resident_evil_requiem")
 
@@ -1092,41 +1093,6 @@ pubg_patch = seed_placeholder_patch(
     "quick_summary" => "Rondo is the big new addition — a dense urban 8x8 map with destructible buildings that plays completely differently from Erangel or Miramar. The Beryl M762 was nerfed with lower damage per bullet, while the SLR got a bullet velocity buff making it stronger at range. Ranked Season 32 starts now with solo and duo modes added to ranked for the first time.",
     "casual_impact" => "Rondo is worth dropping into immediately — the dense city layout makes for intense close-range fights with lots of vertical play. The new Smoke Cluster Grenade is a great tool for casual players who want more cover options without needing precise throws. Solo ranked is finally available if squad play isn't your thing.",
     "should_i_log_in" => "Yes — a brand new map is the biggest content drop PUBG can deliver. Rondo plays like nothing else in the map pool and Season 32 starting means fresh ranked placement. Well worth jumping in this week."
-  }
-)
-
-battlefield6_patch = seed_placeholder_patch(
-  game: battlefield6,
-  title: "Season 2 — Steel Horizon Update",
-  content: <<~TEXT,
-    New Content
-    - New map: North Sea Platform — an offshore oil rig map with multi-level vertical combat and destructible structures. Available in Conquest and Breakthrough.
-    - New specialist: Ikaika Kaimana — a Recon specialist with a passive sonar pulse and an active drone jammer ability.
-    - New vehicle: AH-64E Apache — added to select maps as a rare vehicle spawn.
-
-    Weapon Additions
-    - New assault rifle: ACR-W added to the Season 2 Battle Pass (free track, tier 15).
-    - New LMG: Nemesis 7 available from the weapons bench at rank 25.
-    - New gadget: Deployable Sonar — a small device that pings nearby enemies through walls every 8 seconds.
-
-    Balance Changes
-    - Assault class: Repair Tool heal rate reduced by 10% to lower self-sustain in close quarters.
-    - Attack helicopters: Flare cooldown increased from 18s to 22s.
-    - C5 explosive: Detach range reduced from 15m to 12m.
-    - MTAR-21: Recoil increased to reduce close-range dominance.
-
-    Conquest Scoring
-    - Ticket bleed rate increased by 10% when holding 3 or more flags — rewards aggressive flag capture.
-
-    Bug Fixes
-    - Fixed a collision issue on North Sea Platform where players could fall through a gantry walkway.
-    - Resolved attack helicopter minigun audio cutting out after sustained fire.
-    - Fixed Conquest ticket count occasionally desyncing between team HUDs.
-  TEXT
-  summaries: {
-    "quick_summary" => "Season 2 drops with the North Sea Platform — a vertical oil rig map that is one of the most unique Battlefield environments in recent memory. A new Apache helicopter and a Recon specialist with sonar abilities add new tactical layers. The C5 nerf and reduced Assault self-heal should make close-quarters fights feel less frustrating to play against.",
-    "casual_impact" => "North Sea Platform rewards players who understand vertical positioning and flanking routes — worth a few practice runs in casual modes first. The new ACR-W rifle is free on the Battle Pass and performs well straight away without heavy attachments. Conquest now rewards capturing flags faster which suits aggressive playstyles.",
-    "should_i_log_in" => "Yes — Season 2 is a substantial content drop with a new map, specialist, vehicle, and weapons all at once. North Sea Platform alone is worth coming back for, and the free Battle Pass track means you earn new gear just by playing normally."
   }
 )
 

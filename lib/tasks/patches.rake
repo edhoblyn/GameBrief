@@ -27,6 +27,11 @@ namespace :patches do
     run_scrape("arc_raiders")
   end
 
+  desc "Scrape and import Battlefield 6 updates from ea.com"
+  task scrape_battlefield_6: :environment do
+    run_scrape("battlefield_6")
+  end
+
   desc "Scrape and import Marvel Rivals patch notes from marvelrivals.com"
   task scrape_marvel_rivals: :environment do
     run_scrape("marvel_rivals")
