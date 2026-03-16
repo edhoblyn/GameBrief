@@ -18,7 +18,9 @@ class Admin::DashboardControllerTest < ActionDispatch::IntegrationTest
     assert_includes @response.body, "Patch scrapes"
     assert_includes @response.body, "Run all scrapes"
     assert_includes @response.body, "Active Admin"
+    assert_includes @response.body, "AI chat history"
     assert_select "form[action='#{admin_patch_scrapes_path}']", minimum: 1
+    assert_select "form[action='#{admin_chat_history_path}']"
     assert_includes @response.body, "API"
   end
 

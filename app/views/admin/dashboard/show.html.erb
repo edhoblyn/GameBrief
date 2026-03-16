@@ -92,6 +92,36 @@
         This page is intentionally the single entry point for admin-only tools so future actions do not get scattered across the product.
       </div>
     </section>
+
+    <section class="admin-panel-page__card">
+      <div class="admin-panel-page__section-header">
+        <div>
+          <p class="admin-panel-page__kicker">Demo Reset</p>
+          <h2>AI chat history</h2>
+        </div>
+        <span class="admin-panel-page__pill"><%= pluralize(@chat_count, "chat") %></span>
+      </div>
+
+      <p class="admin-panel-page__copy">
+        Remove all stored AI conversations before demos so every chat starts fresh.
+      </p>
+
+      <div class="admin-panel-page__note">
+        <strong><%= @message_count %></strong> messages are currently stored across <strong><%= @chat_count %></strong> chats. This action cannot be undone.
+      </div>
+
+      <div class="admin-panel-page__toolbar">
+        <%= button_to "Clear AI chat history",
+                      admin_chat_history_path,
+                      method: :delete,
+                      class: "admin-panel-page__button admin-panel-page__button--danger admin-panel-page__button--wide",
+                      form: {
+                        data: {
+                          turbo_confirm: "Clear all AI chat history? This will permanently delete every stored chat and message."
+                        }
+                      } %>
+      </div>
+    </section>
   </div>
 
   <section class="admin-panel-page__card admin-panel-page__card--log">
