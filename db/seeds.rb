@@ -41,6 +41,19 @@ def seed_event_series(game:, events:)
   end
 end
 
+def seed_live_events(game:, importer_class:)
+  return unless game
+
+  result = importer_class.new.call(replace: true)
+  if result.imported > 0
+    puts "Imported #{result.imported} live events for #{game.name} (#{result.skipped} already existed)."
+  else
+    puts "No live events found for #{game.name} — seeded events were not changed."
+  end
+rescue StandardError => e
+  puts "Skipping live event import for #{game&.name}: #{e.class}: #{e.message}"
+end
+
 def seed_live_patches(source)
   config = PatchScrapeRunner.fetch(source)
   return unless PatchScrapeRunner.scrapeable?(source)
@@ -847,14 +860,7 @@ seed_event_series(
   ]
 )
 
-seed_event_series(
-  game: valorant,
-  events: [
-    { title: "VCT Stage 1 Begins", description: "The 2026 VCT calendar opens Stage 1 play, setting the tone for the next international qualification cycle.", start_date: DateTime.new(2026, 4, 1, 18, 0, 0) },
-    { title: "VCT Masters London", description: "Masters London arrives as one of Valorant's headline international LAN events of the 2026 season.", start_date: DateTime.new(2026, 6, 6, 12, 0, 0) },
-    { title: "VCT Stage 2 Begins", description: "The second VCT stage starts at the end of June, resetting the focus toward the back half of the season.", start_date: DateTime.new(2026, 6, 30, 18, 0, 0) }
-  ]
-)
+seed_live_events(game: valorant, importer_class: EventImporters::ValorantEventImporter)
 
 seed_event_series(
   game: marvel,
