@@ -199,16 +199,6 @@
             </div>
           <% end %>
         </div>
-        <div class="social-profile-actions">
-          <%= link_to my_games_path, class: "social-profile-action social-profile-action--primary" do %>
-            <i class="fa fa-gamepad"></i>
-            Manage Games
-          <% end %>
-          <%= link_to my_events_path, class: "social-profile-action" do %>
-            <i class="fa fa-calendar"></i>
-            My Events
-          <% end %>
-        </div>
         <div class="social-profile-stats">
           <a href="<%= find_friends_path %>" class="social-stat">
             <span class="social-stat__count"><%= current_user.friends.count %></span>
