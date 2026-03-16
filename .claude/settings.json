@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:clashofclans.com)",
+      "WebFetch(domain:www.supercell.com)",
+      "Bash(bin/rails runner \":*)"
+    ]
+  }
+}

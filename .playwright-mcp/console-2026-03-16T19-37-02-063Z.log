@@ -1,0 +1,14 @@
+[     172ms] [WARNING] This page is using the deprecated ResourceLoader module "skins.lakesideview.mw".
+[1.43] The use of the `interface-message-box` feature with SkinModule is deprecated in favor of CodexModule. Please remove this feature.More information can be found at [[mw:Manual:ResourceLoaderSkinModule]].  @ https://liquipedia.net/counterstrike/S-Tier_Tournaments:132
+[     301ms] [WARNING] fun-hooks: referenced 'firstPartyData' but it was never created @ https://s.nitropay.com/ads-90.js:1
+[    1517ms] [WARNING] [ECharts] DEPRECATED: barBorderColor is deprecated, use borderColor instead. @ https://liquipedia.net/counterstrike/load.php?lang=en&modules=ext.Charts.scripts%7Cjquery%7Cskins.lakesideview.scripts&skin=lakesideview&version=qv8nk&cacheversion=068a7de:139
+[    1681ms] [ERROR] Amplitude Logger [Error]:  @ https://cdn.amplitude.com/libs/analytics-browser-2.36.2-min.js.gz:0
+[    1686ms] [WARNING] This page is using the deprecated ResourceLoader module "jquery.ui".
+Please use Codex instead. @ https://liquipedia.net/counterstrike/load.php?cacheversion=068a7de&lang=en&modules=startup&only=scripts&raw=1&skin=lakesideview:11
+[    2180ms] [ERROR] Failed to load resource: the server responded with a status of 429 () @ https://api-sr.eu.amplitude.com/sessions/v2/track?device_id=347be78d-200b-4942-b21d-cd727c1a344d&session_id=1773689800946&type=replay:0
+[    2180ms] [WARNING] Amplitude Logger [Warn]: Network error occurred, event batch rejected @ https://cdn.amplitude.com/libs/analytics-browser-2.36.2-min.js.gz:0
+[    4454ms] [ERROR] Failed to load resource: the server responded with a status of 429 () @ https://api-sr.eu.amplitude.com/sessions/v2/track?device_id=347be78d-200b-4942-b21d-cd727c1a344d&session_id=1773689800946&type=replay:0
+[    4454ms] [WARNING] Amplitude Logger [Warn]: Network error occurred, event batch rejected @ https://cdn.amplitude.com/libs/analytics-browser-2.36.2-min.js.gz:0
+[   10678ms] [ERROR] NitroAds: [counterstrike_970x90_ATF] auction: bidGoogle error: cmp no google consent @ https://s.nitropay.com/ads-90.js:1
+[   10737ms] [ERROR] Failed to load resource: the server responded with a status of 429 () @ https://api-sr.eu.amplitude.com/sessions/v2/track?device_id=347be78d-200b-4942-b21d-cd727c1a344d&session_id=1773689800946&type=replay:0
+[   10737ms] [WARNING] Amplitude Logger [Warn]: Network error occurred, event batch rejected @ https://cdn.amplitude.com/libs/analytics-browser-2.36.2-min.js.gz:0
