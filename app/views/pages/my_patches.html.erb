@@ -7,27 +7,6 @@
       <h1 class="my-patches-page__title">My Patches</h1>
       <p class="my-patches-page__subtitle">Recent patch notes from your favourited games.</p>
     </div>
-    <div class="my-patches-page__actions">
-      <%= link_to my_profile_path, class: "my-patches-page__action" do %>
-        <i class="fa fa-arrow-left"></i>
-        Back to Profile
-      <% end %>
-      <%= link_to my_games_path, class: "my-patches-page__action my-patches-page__action--primary" do %>
-        <i class="fa fa-gamepad"></i>
-        My Games
-      <% end %>
-    </div>
-  </div>
-
-  <div class="my-patches-page__summary">
-    <div class="my-patches-page__summary-card">
-      <span class="my-patches-page__summary-value"><%= @patches.count %></span>
-      <span class="my-patches-page__summary-label">Visible patches</span>
-    </div>
-    <div class="my-patches-page__summary-card">
-      <span class="my-patches-page__summary-value"><%= @followed_games.count %></span>
-      <span class="my-patches-page__summary-label">Favourited games</span>
-    </div>
   </div>
 
   <div class="my-patches-page__filters">
@@ -48,22 +27,31 @@
   </div>
 
   <% if @patches.any? %>
-    <div class="my-patches-page__grid">
-      <% @patches.each do |patch| %>
-        <%= link_to patch_path(patch, return_to: request.fullpath), class: "my-patches-page__card" do %>
-          <div class="my-patches-page__card-top">
-            <span class="my-patches-page__game"><%= patch.game.name %></span>
-            <div class="my-patches-page__card-meta">
-              <% if patch.freshly_published? %>
-                <span class="patch-fresh-badge">New</span>
+    <div class="patch-show__accordions">
+      <% @patches.group_by(&:game).each do |game, patches| %>
+        <details class="patch-show__accordion">
+          <summary class="patch-show__accordion-summary">
+            <span class="patch-show__accordion-title"><%= game.name %></span>
+            <span class="patch-show__accordion-preview"><%= pluralize(patches.count, "patch") %></span>
+          </summary>
+          <div class="patch-show__accordion-body">
+            <% patches.each do |patch| %>
+              <%= link_to patch_path(patch, return_to: request.fullpath), class: "patch-list-card" do %>
+                <div class="patch-list-card__icon"><i class="fa fa-file-text-o"></i></div>
+                <span class="patch-list-card__title">
+                  <%= patch.title %>
+                  <span class="patch-list-card__meta">
+                    <small class="d-block text-muted mb-0"><%= patch.display_published_at.to_date.to_fs(:long) %></small>
+                    <% if patch.freshly_published? %>
+                      <span class="patch-fresh-badge">New</span>
+                    <% end %>
+                  </span>
+                </span>
+                <span class="patch-list-card__arrow"><i class="fa fa-chevron-right"></i></span>
               <% end %>
-              <span class="my-patches-page__date"><%= patch.display_published_at.to_date.to_fs(:long) %></span>
-            </div>
+            <% end %>
           </div>
-          <h2 class="my-patches-page__card-title"><%= patch.title %></h2>
-          <p class="my-patches-page__card-copy"><%= patch.content.to_s.truncate(140) %></p>
-          <span class="my-patches-page__card-cta">Read patch <i class="fa fa-arrow-right"></i></span>
-        <% end %>
+        </details>
       <% end %>
     </div>
   <% else %>
