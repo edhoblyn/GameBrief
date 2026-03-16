@@ -974,12 +974,20 @@ seed_event_series(
   ]
 )
 
+baldurs_gate3&.events&.destroy_all
 seed_event_series(
   game: baldurs_gate3,
   events: [
-    { title: "Patch 8 Community Celebration", description: "A community event marking the Patch 8 launch with developer streams, fan art showcases, and lore discussions.", start_date: DateTime.new(2026, 3, 28, 18, 0, 0) },
-    { title: "Honour Mode World Record Sprint", description: "A community speed run challenge for Honour Mode completions — fastest verified times earn featured recognition.", start_date: DateTime.new(2026, 5, 2, 17, 0, 0) },
-    { title: "BG3 Anniversary Celebration", description: "The third anniversary of the full release is marked with developer retrospectives, community highlights, and in-game surprises.", start_date: DateTime.new(2026, 8, 3, 17, 0, 0) }
+    {
+      title: "Path to Menzoberranzan — Community Mod Alpha",
+      description: "A massive community-made campaign built by 130+ modders launches its first playable alpha. The prologue-sized release features a new protagonist, fully voiced companions, and an original story set in the Underdark city of Menzoberranzan.",
+      start_date: DateTime.new(2026, 6, 1, 12, 0, 0)
+    },
+    {
+      title: "Baldur's Gate 3 — 3rd Anniversary",
+      description: "Baldur's Gate 3 turns three years old. Larian has historically marked anniversaries with community updates, retrospectives, and surprise gifts for players — a good excuse to start a new run or dust off a saved game.",
+      start_date: DateTime.new(2026, 8, 3, 12, 0, 0)
+    }
   ]
 )
 
