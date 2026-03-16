@@ -1,48 +1,6 @@
 <% content_for :title, "My Profile" %>
 
 <%
-  fmt = ->(n) { n >= 1000 ? "#{(n / 1000.0).round(1).to_s.sub(/\.0$/, '')}K" : n.to_s }
-
-  mock_profiles = [
-    { name: "Zara Nova",    handle: "zaranova",      initials: "ZN", color: "#7c5cfc", followers: 12400 },
-    { name: "Kai Rivers",   handle: "kaiRivers_gg",  initials: "KR", color: "#4f9cf9", followers: 3200  },
-    { name: "Milo Ashton",  handle: "miloashton",    initials: "MA", color: "#1EDD88", followers: 890   },
-    { name: "Luna Park",    handle: "lunapark_x",    initials: "LP", color: "#FFC65A", followers: 5600  },
-    { name: "Dev Echo",     handle: "devecho",       initials: "DE", color: "#E67E22", followers: 21000 },
-    { name: "Nova Strike",  handle: "novaStrike99",  initials: "NS", color: "#FD1015", followers: 760   },
-    { name: "Pixel Ghost",  handle: "pixelghost",    initials: "PG", color: "#7c5cfc", followers: 4100  },
-    { name: "Ariel Storm",  handle: "arielstorm",    initials: "AS", color: "#4f9cf9", followers: 1200  },
-    { name: "Jax Fury",     handle: "jaxfury_gg",    initials: "JF", color: "#1EDD88", followers: 8900  },
-    { name: "Cleo Vex",     handle: "cleovex",       initials: "CV", color: "#FFC65A", followers: 330   },
-    { name: "Rex Online",   handle: "rex_online",    initials: "RO", color: "#E67E22", followers: 15000 },
-    { name: "Sage Vortex",  handle: "sagevortex",    initials: "SV", color: "#FD1015", followers: 2700  },
-  ]
-
-  mock_posts = [
-    { id: 1,  user: mock_profiles[0],  text: "The new Elden Ring DLC patch just dropped and the balancing changes are INSANE 🔥 Finally some love for strength builds!", timestamp: "2h",  views: 14200, likes: 342,  reposts: 89,  replies: 47,  liked: false, reposted: false },
-    { id: 2,  user: mock_profiles[4],  text: "Hot take: Patch 2.4 actually made Valorant worse for casual players. The ranked matchmaking feels completely broken. Anyone else noticing this?", timestamp: "4h",  views: 8900,  likes: 521,  reposts: 134, replies: 203, liked: true,  reposted: false },
-    { id: 3,  user: mock_profiles[1],  text: "Just unlocked the secret ending in Hollow Knight after 80 hours. No spoilers but... I need to lie down for a bit 😭", timestamp: "6h",  views: 6700,  likes: 891,  reposts: 210, replies: 88,  liked: false, reposted: false },
-    { id: 4,  user: mock_profiles[8],  text: "League patch notes just hit and they nerfed my main again. Third time this season. Riot is personally attacking me.", timestamp: "8h",  views: 22100, likes: 1240, reposts: 430, replies: 320, liked: false, reposted: true  },
-    { id: 5,  user: mock_profiles[3],  text: "Reminder that the Apex Legends Season 20 patch made the movement way better. If you haven't tried the new stim mechanics, do it NOW.", timestamp: "12h", views: 5400,  likes: 267,  reposts: 56,  replies: 31,  liked: false, reposted: false },
-    { id: 6,  user: mock_profiles[6],  text: "Patch 7.2 for Cyberpunk 2077 is basically a different game at this point. The police AI rework alone is worth coming back for.", timestamp: "1d",  views: 19300, likes: 703,  reposts: 198, replies: 115, liked: true,  reposted: false },
-    { id: 7,  user: mock_profiles[2],  text: "Counter-Strike 2 update broke my config and now my sens is completely wrong. This is a genuine tragedy.", timestamp: "1d",  views: 3200,  likes: 445,  reposts: 77,  replies: 59,  liked: false, reposted: false },
-    { id: 8,  user: mock_profiles[10], text: "Destiny 2 just revealed the 2025 roadmap. A full sandbox overhaul is coming. This is the comeback arc they needed.", timestamp: "2d",  views: 34500, likes: 1890, reposts: 620, replies: 441, liked: false, reposted: false },
-    { id: 9,  user: mock_profiles[5],  text: "Pro tip: there's a secret spot on Fortnite's north island nobody's talking about yet. Drop there = free top 5.", timestamp: "2d",  views: 7800,  likes: 334,  reposts: 112, replies: 78,  liked: true,  reposted: true  },
-    { id: 10, user: mock_profiles[11], text: "Street Fighter 6 patch 1.10 Cammy buffs are insane. She went from C-tier to potentially S-tier overnight. The FGC is not ready.", timestamp: "3d",  views: 4100,  likes: 188,  reposts: 44,  replies: 23,  liked: false, reposted: false },
-    { id: 11, user: mock_profiles[7],  text: "The Baldur's Gate 3 community patch notes are a masterclass in how studios should communicate with players. Shoutout to the whole team 👏", timestamp: "3d",  views: 9200,  likes: 672,  reposts: 215, replies: 98,  liked: false, reposted: false },
-    { id: 12, user: mock_profiles[9],  text: "Finally hit Diamond in Rocket League after the rank reset. The new matchmaking from the last patch is way more fair imo.", timestamp: "4d",  views: 2300,  likes: 156,  reposts: 28,  replies: 14,  liked: true,  reposted: false },
-  ]
-
-  mock_communities = [
-    { name: "Elden Ring Lore Masters", description: "Deep dives into FromSoft lore, patch analysis, and build theory.",       members: 24800, joined: true,  icon: "🏰", color: "#7c5cfc", friends: [] },
-    { name: "Speedrun Central",        description: "Any% to 100%, all games welcome. Share routes, splits, and PBs.",        members: 8300,  joined: false, icon: "⚡", color: "#FFC65A", friends: [mock_profiles[1], mock_profiles[6], mock_profiles[8]] },
-    { name: "Indie Dev Watchers",      description: "Track indie studios, wishlists, and upcoming patch previews.",           members: 5100,  joined: true,  icon: "🎮", color: "#1EDD88", friends: [] },
-    { name: "Competitive FPS Hub",     description: "CS2, Valorant, Overwatch — strategy, pro play and patch breakdowns.",    members: 41200, joined: false, icon: "🎯", color: "#FD1015", friends: [mock_profiles[0], mock_profiles[4], mock_profiles[5]] },
-    { name: "JRPG Travellers",         description: "Story discussion, tier lists, and patch notes for JRPGs.",               members: 12700, joined: false, icon: "✨", color: "#4f9cf9", friends: [mock_profiles[7], mock_profiles[9]] },
-    { name: "Patch Notes Nerds",       description: "We read every single patch note so you don't have to.",                 members: 3900,  joined: true,  icon: "📋", color: "#E67E22", friends: [] },
-    { name: "Couch Co-op Crew",        description: "Local and online co-op recommendations and event organization.",         members: 7600,  joined: false, icon: "🛋️", color: "#7c5cfc", friends: [mock_profiles[2], mock_profiles[11]] },
-    { name: "Roguelike Runners",       description: "Hades, Dead Cells, Slay the Spire — runs, builds and meta discussion.", members: 15400, joined: false, icon: "🎲", color: "#4f9cf9", friends: [mock_profiles[3], mock_profiles[10], mock_profiles[0]] },
-  ]
 
   profile_name   = current_user.display_name
   profile_handle = current_user.profile_handle
@@ -159,7 +117,7 @@
   </aside>
 
   <!-- Social main -->
-  <main class="social-main" data-controller="social-feed">
+  <main class="social-main" data-controller="social-feed" style="display: flex; flex-direction: column;">
 
     <!-- Profile header -->
     <div class="social-profile-header">
@@ -210,177 +168,65 @@
           <% end %>
         </div>
         <div class="social-profile-stats">
-          <a href="<%= find_friends_path %>" class="social-stat">
+          <a href="<%= find_friends_path(friends_only: 1) %>" class="social-stat">
             <span class="social-stat__count"><%= current_user.friends.count %></span>
             <span class="social-stat__label"><%= pluralize(current_user.friends.count, "Friend").split.first == "1" ? "Friend" : "Friends" %></span>
           </a>
           <a href="#" class="social-stat">
-            <span class="social-stat__count">89</span>
-            <span class="social-stat__label">Posts</span>
+            <span class="social-stat__count"><%= current_user.posts.count%></span>
+            <span class="social-stat__label"><%= pluralize(current_user.posts.count, "Post").split.first == "1" ? "Post" : "Posts" %></span>
           </a>
         </div>
       </div>
     </div>
 
-    <!-- Tab navigation -->
-    <div class="social-tabs-nav">
-      <button class="social-tab-btn active"
-              data-action="click->social-feed#switchTab"
-              data-social-feed-target="tabBtn"
-              data-tab="for-you">
-        For You
-      </button>
-      <button class="social-tab-btn"
-              data-action="click->social-feed#switchTab"
-              data-social-feed-target="tabBtn"
-              data-tab="communities">
-        Communities
-      </button>
+
+    <div class="p-3" style="display: flex; flex-direction: column; gap: 10px; max-width: 75%;">
+        <p style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--gb-muted); margin-bottom: 4px;">Feed</p>
+        <% if @feed_posts.any? %>
+          <% @feed_posts.each do |post| %>
+            <div style="padding: 14px 16px; border-radius: 18px 18px 18px 4px; background: linear-gradient(135deg, rgba(124,92,252,0.12), rgba(79,156,249,0.07)); border: 1px solid rgba(124,92,252,0.25); transition: border-color 0.15s, transform 0.15s;">
+              <div class="d-flex align-items-center gap-2 mb-2">
+                <div style="width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg, var(--gb-accent), var(--gb-accent-strong)); display: flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 700; color: #fff; flex-shrink: 0;">
+                  <%= post.user.display_name.first.upcase %>
+                </div>
+                <span style="font-size: 0.85rem; font-weight: 600; color: var(--gb-text);"><%= post.user.display_name %></span>
+                <span style="color: var(--gb-muted); font-size: 0.75rem; margin-left: auto;"><%= time_ago_in_words(post.created_at) %> ago</span>
+                <% if post.user == current_user %>
+                  <%= button_to post_path(post), method: :delete, class: "btn btn-link btn-sm p-0", style: "color: rgba(255,255,255,0.25); font-size: 0.75rem; line-height: 1;", form: { data: { turbo_confirm: "Delete this post?" } } do %>
+                    <i class="fa fa-trash"></i>
+                  <% end %>
+                <% end %>
+              </div>
+              <p style="margin: 0; font-size: 0.88rem; color: var(--gb-text); line-height: 1.55;"><%= post.body %></p>
+            </div>
+          <% end %>
+        <% else %>
+          <p class="text-muted" style="font-size: 0.85rem;">No posts yet.</p>
+        <% end %>
     </div>
 
-    <!-- For You panel -->
-    <div class="social-tab-panel" data-social-feed-target="tabPanel" data-panel="for-you">
-      <div class="for-you-layout">
-        <div class="for-you-feed">
-          <% mock_posts.each do |post| %>
-            <article class="social-post">
-              <div class="social-post__avatar" style="background: <%= post[:user][:color] %>">
-                <%= post[:user][:initials] %>
-              </div>
-              <div class="social-post__body">
-                <div class="social-post__header">
-                  <span class="social-post__name"><%= post[:user][:name] %></span>
-                  <span class="social-post__handle">@<%= post[:user][:handle] %></span>
-                  <span class="social-post__dot">·</span>
-                  <span class="social-post__time"><%= post[:timestamp] %></span>
-                </div>
-                <p class="social-post__text"><%= post[:text] %></p>
-                <div class="social-post__actions">
-                  <button class="post-action post-action--reply">
-                    <i class="fa fa-comment-o"></i>
-                    <span class="interaction-count"><%= post[:replies] %></span>
-                  </button>
-                  <button class="post-action post-action--repost <%= 'is-reposted' if post[:reposted] %>"
-                          data-action="click->social-feed#toggleRepost">
-                    <i class="fa fa-retweet"></i>
-                    <span class="interaction-count"><%= fmt.(post[:reposts]) %></span>
-                  </button>
-                  <button class="post-action post-action--like <%= 'is-liked' if post[:liked] %>"
-                          data-action="click->social-feed#toggleLike">
-                    <i class="fa fa-heart<%= '-o' unless post[:liked] %>"></i>
-                    <span class="interaction-count"><%= fmt.(post[:likes]) %></span>
-                  </button>
-                  <button class="post-action post-action--views">
-                    <i class="fa fa-bar-chart"></i>
-                    <span class="interaction-count"><%= fmt.(post[:views]) %></span>
-                  </button>
-                </div>
-              </div>
-            </article>
+    <div class="px-3 pb-3 d-flex justify-content-between align-items-center mt-auto">
+      <div>
+        <button id="new-post-btn" onclick="document.getElementById('new-post-form').style.display='flex'; this.style.display='none';" class="btn btn-primary btn-sm" style="border-radius: 999px; font-size: 0.82rem; padding: 0.35rem 1.1rem;">
+          <i class="fa fa-pencil me-1"></i> Post
+        </button>
+
+        <div id="new-post-form" style="display: none; padding: 14px 16px; border-radius: 16px; background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02)); border: 1px solid rgba(255,255,255,0.1);">
+          <%= form_with url: posts_path, scope: :post, class: "d-flex flex-column gap-2" do |f| %>
+            <%= f.text_area :body, placeholder: "What's on your mind?", rows: 2, class: "form-control", style: "background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 10px; font-size: 0.95rem; resize: none; line-height: 1.5;" %>
+            <div class="d-flex gap-2 justify-content-end">
+              <button type="button" onclick="document.getElementById('new-post-form').style.display='none'; document.getElementById('new-post-btn').style.display='inline-flex';" class="btn btn-sm" style="border-radius: 999px; font-size: 0.78rem; color: var(--gb-muted);">Cancel</button>
+              <%= f.submit "Post", class: "btn btn-primary btn-sm", style: "border-radius: 999px; font-size: 0.78rem; padding: 0.3rem 1rem;" %>
+            </div>
           <% end %>
         </div>
-
-        <aside class="for-you-sidebar">
-<section id="my-events" class="profile-rail-card">
-            <div class="profile-rail-card__header">
-              <h3 class="profile-rail-card__title">Upcoming Event</h3>
-              <%= link_to "All events", my_events_path, class: "profile-rail-card__link" %>
-            </div>
-            <% if next_reminder.present? %>
-              <%= link_to event_path(next_reminder.event), class: "profile-rail-feature" do %>
-                <span class="profile-rail-feature__eyebrow"><%= next_reminder.event.game.name %></span>
-                <h4 class="profile-rail-feature__title"><%= next_reminder.event.title %></h4>
-                <p class="profile-rail-feature__meta">
-                  <i class="fa fa-calendar"></i>
-                  <%= next_reminder.event.start_date.strftime("%-d %b %Y") %>
-                </p>
-              <% end %>
-            <% else %>
-              <p class="profile-rail-card__empty">No reminders set yet. <%= link_to "Browse events", events_path %>.</p>
-            <% end %>
-          </section>
-
-          <section id="my-patches" class="profile-rail-card">
-            <div class="profile-rail-card__header">
-              <h3 class="profile-rail-card__title">Latest Patch</h3>
-              <%= link_to "View patches", my_patches_path, class: "profile-rail-card__link" %>
-            </div>
-            <% if latest_patch.present? %>
-              <%= link_to patch_path(latest_patch), class: "profile-rail-feature" do %>
-                <span class="profile-rail-feature__eyebrow"><%= latest_patch.game.name %></span>
-                <h4 class="profile-rail-feature__title"><%= latest_patch.title %></h4>
-                <p class="profile-rail-feature__meta">
-                  <i class="fa fa-clock-o"></i>
-                  <%= latest_patch.display_published_at.to_date.to_fs(:long) %>
-                </p>
-              <% end %>
-            <% else %>
-              <p class="profile-rail-card__empty">No recent patches for your favourited games.</p>
-            <% end %>
-          </section>
-
-
-          <section class="profile-rail-card profile-rail-card--action">
-            <div class="profile-rail-card__header">
-              <h3 class="profile-rail-card__title">Play With Friends</h3>
-            </div>
-            <p class="profile-rail-card__empty">Jump into a session and start finding people who follow the same games.</p>
-            <%= link_to(current_user.admin? ? users_path : find_friends_path, class: "social-profile-action social-profile-action--primary social-profile-action--full") do %>
-              <i class="fa fa-users"></i>
-              <%= current_user.admin? ? "Start Session" : "Find Friends" %>
-            <% end %>
-          </section>
-        </aside>
       </div>
-    </div>
 
-    <!-- Communities panel -->
-    <div class="social-tab-panel d-none" data-social-feed-target="tabPanel" data-panel="communities">
-      <div class="communities-suggestions-header">
-        <span class="communities-suggestions-label">
-          <i class="fa fa-users"></i> Suggested for you &middot; Based on your friends
-        </span>
-      </div>
-      <% suggested = mock_communities.select { |c| !c[:joined] && c[:friends].any? } %>
-      <% suggested.each do |community| %>
-        <div class="community-suggestion-card">
-          <div class="community-suggestion-card__icon" style="background: <%= community[:color] %>22;">
-            <%= community[:icon] %>
-          </div>
-          <div class="community-suggestion-card__body">
-            <div class="community-suggestion-card__name"><%= community[:name] %></div>
-            <p class="community-suggestion-card__desc"><%= community[:description] %></p>
-            <div class="community-suggestion-card__friends">
-              <div class="friend-avatars">
-                <% community[:friends].first(3).each do |friend| %>
-                  <div class="friend-avatar" style="background: <%= friend[:color] %>;" title="<%= friend[:name] %>">
-                    <%= friend[:initials] %>
-                  </div>
-                <% end %>
-              </div>
-              <span class="community-suggestion-card__friends-label">
-                <% names = community[:friends].first(2).map { |f| f[:name].split.first } %>
-                <% rest  = community[:friends].size - 2 %>
-                <% if rest > 0 %>
-                  <%= names.join(", ") %> and <%= rest %> other<%= rest > 1 ? "s" : "" %> you follow are members
-                <% else %>
-                  <%= names.join(" and ") %> <%= names.size > 1 ? "are" : "is" %> a member
-                <% end %>
-              </span>
-            </div>
-            <div class="community-suggestion-card__footer">
-              <span class="community-suggestion-card__members">
-                <i class="fa fa-users"></i> <%= fmt.(community[:members]) %> members
-              </span>
-              <button class="btn-community"
-                      style="--accent: <%= community[:color] %>;"
-                      data-action="click->social-feed#toggleCommunity">
-                Join
-              </button>
-            </div>
-          </div>
-        </div>
+      <%= link_to find_friends_path, class: "btn btn-primary btn-sm", style: "border-radius: 999px; font-size: 0.82rem; padding: 0.35rem 1.1rem;" do %>
+        <i class="fa fa-users me-1"></i> Find Friends
       <% end %>
     </div>
+
   </main>
 </div>

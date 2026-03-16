@@ -38,6 +38,8 @@ Rails.application.routes.draw do
 
   resources :users, only: [:index, :show]
 
+  resources :posts, only: [:create, :destroy]
+
   namespace :admin do
     resource :dashboard, only: [:show], controller: :dashboard
     resources :patch_scrapes, only: [:create] do

@@ -6,7 +6,7 @@ class PagesController < ApplicationController
   end
 
   def find_friends
-    @users = User.where.not(id: current_user.id)
+    @users = params[:friends_only].present? ? current_user.friends : User.where.not(id: current_user.id)
     @users = @users.where("username ILIKE :q OR email ILIKE :q", q: "#{params[:q]}%") if params[:q].present?
     @users = @users.order(:username, :email)
 
@@ -30,6 +30,8 @@ class PagesController < ApplicationController
   end
 
   def my_profile
+    @feed_posts = Post.where(user: [current_user] + current_user.friends)
+                      .order(created_at: :desc)
   end
 
   def my_games
