@@ -21,14 +21,21 @@ class ChatsController < ApplicationController
       return
     end
 
-    chat = @patch.chats.find(params[:id])
+    chat = @patch.chats.find_by!(id: params[:id], user: current_user)
 
-    if chat.messages.where(role: "user").count >= Message::MAX_USER_MESSAGES
+    if chat.user_message_limit_reached?
       sse.write({ error: "limit" }, event: "error")
       return
     end
 
     user_message = chat.messages.create!(role: "user", content: content)
+    sse.write(
+      {
+        user_message_count: chat.user_message_count,
+        limit_reached: chat.user_message_limit_reached?
+      },
+      event: "accepted"
+    )
 
     full_response = ""
     llm = ::RubyLLM.chat(model: "gpt-4o")
@@ -42,6 +49,7 @@ class ChatsController < ApplicationController
     end
 
     chat.messages.create!(role: "assistant", content: full_response)
+    chat.generate_title_from_first_message
     sse.write({}, event: "done")
 
   rescue => e

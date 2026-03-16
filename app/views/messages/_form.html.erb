@@ -1,16 +1,53 @@
-<%= form_with model: [patch, chat, message], html: { class: "chatbot__form" } do |f| %>
-  <%= hidden_field_tag :return_to, params[:return_to] %>
-  <div class="chatbot__input-row">
-    <%= f.text_field :content,
-          placeholder: "Ask a question about this patch...",
-          class: "chatbot__input",
-          required: true,
-          autocomplete: "off" %>
+<% user_message_count = chat.user_message_count %>
+<% limit_reached = chat.user_message_limit_reached? %>
+<% counter_class =
+     if limit_reached
+       "chatbot__counter chatbot__counter--limit"
+     elsif user_message_count >= Message::MAX_USER_MESSAGES - 1
+       "chatbot__counter chatbot__counter--warning"
+     else
+       "chatbot__counter"
+     end %>
 
-  <div class="d-flex justify-content-end mb-2 me-1">
-    <%= f.submit "Ask Chat",
-        class: "btn btn-primary btn-sm",
-        style: "color: #fff;",
-        data: { turbo_submits_with: "Thinking..." } %>
+<%= form_with model: [patch, chat, message],
+              html: {
+                class: "chatbot__form",
+                data: {
+                  action: "submit->chat-stream#submit",
+                  chat_stream_target: "form"
+                }
+              } do |f| %>
+  <%= hidden_field_tag :return_to, params[:return_to] %>
+
+  <div class="chatbot__composer">
+    <div class="chatbot__input-row">
+      <%= f.text_field :content,
+            placeholder: "Ask a question about this patch...",
+            class: "chatbot__input",
+            required: true,
+            autocomplete: "off",
+            disabled: limit_reached,
+            data: { chat_stream_target: "input" } %>
+
+      <div class="chatbot__actions">
+        <%= f.submit "Ask Chat",
+            class: "btn btn-primary btn-sm",
+            style: "color: #fff;",
+            disabled: limit_reached,
+            data: {
+              turbo_submits_with: "Thinking...",
+              chat_stream_target: "submit"
+            } %>
+
+        <p class="<%= counter_class %>" data-chat-stream-target="counter">
+          <span class="chatbot__counter-label">Questions</span>
+          <span class="chatbot__counter-value" data-chat-stream-target="counterValue"><%= user_message_count %>/<%= Message::MAX_USER_MESSAGES %></span>
+        </p>
+      </div>
+    </div>
+
+    <p class="chatbot__limit-reached" data-chat-stream-target="limitMessage" <%= "hidden" unless limit_reached %>>
+      You have reached the 5-question limit for this chat.
+    </p>
   </div>
 <% end %>
