@@ -157,9 +157,9 @@ namespace :patches do
     run_scrape("clash_of_clans")
   end
 
-  desc "Scrape and import official Pokémon Pokopia updates from Pokémon and Nintendo websites"
-  task scrape_pokemon_pokopia: :environment do
-    run_scrape("pokemon_pokopia")
+  desc "Scrape and import Call of Duty: Black Ops 7 patch notes from callofduty.com"
+  task scrape_call_of_duty_black_ops_7: :environment do
+    run_scrape("call_of_duty_black_ops_7")
   end
 
   desc "Scrape and import Star Wars Battlefront II updates from ea.com"

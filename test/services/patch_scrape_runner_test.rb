@@ -369,7 +369,7 @@ class PatchScrapeRunnerTest < ActiveSupport::TestCase
     assert_includes PatchScrapeRunner.runnable_sources, "counter_strike_2"
     assert_includes PatchScrapeRunner.runnable_sources, "pubg_battlegrounds"
     assert_includes PatchScrapeRunner.runnable_sources, "overwatch_2"
-    assert_includes PatchScrapeRunner.runnable_sources, "pokemon_pokopia"
+    assert_includes PatchScrapeRunner.runnable_sources, "call_of_duty_black_ops_7"
     assert_includes PatchScrapeRunner.runnable_sources, "resident_evil_requiem"
     assert_includes PatchScrapeRunner.runnable_sources, "horizon_forbidden_west"
     assert_includes PatchScrapeRunner.runnable_sources, "cyberpunk_2077"
