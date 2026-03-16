@@ -797,14 +797,7 @@ seed_event_series(
   ]
 )
 
-seed_event_series(
-  game: apex,
-  events: [
-    { title: "ALGS Online Open #4", description: "The fourth ALGS Online Open of Year 6 gives aspiring squads one of the earliest big competitive proving grounds of the season.", start_date: DateTime.new(2026, 3, 21, 16, 0, 0) },
-    { title: "ALGS Pro League Split 1 Opening Weekend", description: "Pro League Split 1 begins, kicking off the first major block of ALGS league play for Year 6.", start_date: DateTime.new(2026, 4, 5, 16, 0, 0) },
-    { title: "ALGS Challenger Circuit Split 1 #4", description: "The Challenger Circuit continues with another official Year 6 event for rising teams looking to break through.", start_date: DateTime.new(2026, 6, 6, 16, 0, 0) }
-  ]
-)
+seed_live_events(game: apex, importer_class: EventImporters::ApexLegendsEventImporter)
 
 seed_event_series(
   game: destiny,
@@ -952,14 +945,7 @@ seed_event_series(
   ]
 )
 
-seed_event_series(
-  game: arc_raiders,
-  events: [
-    { title: "Tech Test 3 Begins", description: "The next ARC Raiders technical test opens with updated extraction rules, fresh sponsor objectives, and revised squad economy balancing.", start_date: DateTime.new(2026, 3, 26, 18, 0, 0) },
-    { title: "Community Extraction Challenge", description: "Players work together to hit global extraction milestones for banner cosmetics, profile rewards, and a bonus weekend loot modifier.", start_date: DateTime.new(2026, 5, 16, 17, 0, 0) },
-    { title: "Season Zero Preview Broadcast", description: "Embark hosts a live stream covering launch roadmap beats, new enemy variants, and the first post-release progression rewards.", start_date: DateTime.new(2026, 7, 9, 18, 0, 0) }
-  ]
-)
+seed_live_events(game: arc_raiders, importer_class: EventImporters::ArcRaidersEventImporter)
 
 seed_event_series(
   game: genshin,

@@ -13,13 +13,25 @@ namespace :events do
     raise
   end
 
+  desc "Import real Apex Legends events from Liquipedia (ALGS esports) and ea.com (in-game)"
+  task import_apex_legends: :environment do
+    run_event_import(EventImporters::ApexLegendsEventImporter, label: "Apex Legends")
+  end
+
   desc "Import real Valorant events from vlr.gg (VCT esports) and playvalorant.com (in-game)"
   task import_valorant: :environment do
     run_event_import(EventImporters::ValorantEventImporter, label: "Valorant")
   end
 
+  desc "Import real ARC Raiders events from arcraiders.com (updates, Trials, community)"
+  task import_arc_raiders: :environment do
+    run_event_import(EventImporters::ArcRaidersEventImporter, label: "ARC Raiders")
+  end
+
   desc "Import all games' real events (run each source in turn)"
   task import_all: :environment do
+    Rake::Task["events:import_apex_legends"].invoke
+    Rake::Task["events:import_arc_raiders"].invoke
     Rake::Task["events:import_valorant"].invoke
   end
 end

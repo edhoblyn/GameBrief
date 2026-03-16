@@ -17,6 +17,7 @@ module EventImporters
       raise ActiveRecord::RecordNotFound, "Valorant game not found" if game.nil?
 
       results = EventScrapers::ValorantEventScraper.new.call
+                                                         .select { |e| e[:start_date].nil? || e[:start_date] >= Date.today }
       return Result.new(imported: 0, skipped: 0) if results.empty?
 
       game.events.destroy_all if replace
