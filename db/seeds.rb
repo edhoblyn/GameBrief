@@ -992,6 +992,18 @@ seed_event_series(
 
 seed_live_events(game: cs2, importer_class: EventImporters::CounterStrike2EventImporter)
 
+cyberpunk&.events&.destroy_all
+seed_event_series(
+  game: cyberpunk,
+  events: [
+    {
+      title: "Cyberpunk 2077 — 6th Anniversary",
+      description: "Cyberpunk 2077 marks its sixth anniversary — CD Projekt Red typically celebrates with a community retrospective, developer messages, and anniversary content highlighting the game's journey from launch to its final form.",
+      start_date: DateTime.new(2026, 12, 10, 12, 0, 0)
+    }
+  ]
+)
+
 seed_event_series(
   game: dota2,
   events: [
