@@ -16,6 +16,14 @@ module ApplicationHelper
     classes.join(" ")
   end
 
+  def hub_nav_link_class(path)
+    classes = ["hn-dropdown-menu__link"]
+    if current_page?(path)
+      classes << "hn-dropdown-menu__link--active"
+    end
+    classes.join(" ")
+  end
+
   def render_markdown(text)
     renderer = Redcarpet::Render::HTML.new(hard_wrap: true)
     markdown = Redcarpet::Markdown.new(renderer, autolink: true, tables: true, fenced_code_blocks: true)
