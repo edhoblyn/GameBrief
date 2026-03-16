@@ -178,6 +178,13 @@ class PatchScrapeRunner
       missing_game_error: "GTA 5: Online game not found in the database.",
       missing_game_hint: "Expected an existing Game named 'GTA 5: Online' or slugged 'gta-5-online'."
     },
+    "dota_2" => {
+      label: "Dota 2",
+      importer: PatchImporters::Dota2Importer,
+      game_slugs: ["dota-2"],
+      missing_game_error: "Dota 2 game not found in the database.",
+      missing_game_hint: "Expected an existing Game named 'Dota 2' or slugged 'dota-2'."
+    },
     "roblox" => {
       label: "Roblox",
       importer: PatchImporters::RobloxImporter,

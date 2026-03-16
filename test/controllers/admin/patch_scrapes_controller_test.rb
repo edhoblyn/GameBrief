@@ -281,6 +281,26 @@ class Admin::PatchScrapesControllerTest < ActionDispatch::IntegrationTest
     assert_includes @response.body, "Marvel&#39;s Spider-Man 2 scrape finished: 7 imported, 1 skipped."
   end
 
+  test "runs dota 2 scrape for admins" do
+    sign_in @admin
+    result = PatchScrapeRunner::Result.new(source: "dota_2", label: "Dota 2", imported: 6, skipped: 1)
+    original_run = PatchScrapeRunner.method(:run)
+
+    PatchScrapeRunner.singleton_class.define_method(:run) do |_source|
+      result
+    end
+
+    begin
+      post admin_patch_scrapes_url, params: { source: "dota_2" }
+    ensure
+      PatchScrapeRunner.singleton_class.define_method(:run, original_run)
+    end
+
+    assert_redirected_to admin_dashboard_path
+    follow_redirect!
+    assert_includes @response.body, "Dota 2 scrape finished: 6 imported, 1 skipped."
+  end
+
   test "shows an alert for an unknown source" do
     sign_in @admin
 

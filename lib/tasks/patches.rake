@@ -132,6 +132,11 @@ namespace :patches do
     run_scrape("gta_5_online")
   end
 
+  desc "Scrape and import Dota 2 updates from steampowered.com"
+  task scrape_dota_2: :environment do
+    run_scrape("dota_2")
+  end
+
   desc "Scrape and import Roblox release notes from create.roblox.com"
   task scrape_roblox: :environment do
     run_scrape("roblox")

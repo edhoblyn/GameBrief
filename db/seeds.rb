@@ -199,6 +199,7 @@ seed_live_patches("cyberpunk_2077")
 seed_live_patches("space_marine_2")
 seed_live_patches("spider_man_2")
 seed_live_patches("gta_5_online")
+seed_live_patches("dota_2")
 
 fortnite_patch = seed_placeholder_patch(
   game: fortnite,
@@ -760,44 +761,6 @@ genshin_patch = seed_placeholder_patch(
     "quick_summary" => "Version 5.5 opens the Crimson Highlands — a volcanic new area in Natlan with new domains and exploration mechanics. Mavuika is the headline 5-star, a hard-hitting Pyro DPS with an off-field summon that works well in reaction teams. The Spiral Abyss reset favours Pyro characters heavily this cycle so Mavuika and Hu Tao players are well positioned.",
     "casual_impact" => "The Crimson Highlands is a great area to explore even without the new characters — packed with puzzles and new Primogems to collect. Hu Tao feels slightly better to play with reduced stamina drain on her Charged Attacks. Kachina is an accessible 4-star support worth pulling from the banner if you need a Geo unit.",
     "should_i_log_in" => "Yes — new region means new exploration Primogems and a fresh Spiral Abyss rotation. Even if you're skipping Mavuika's banner, the Crimson Highlands alone is worth logging in to explore over the next few weeks."
-  }
-)
-
-dota2_patch = seed_placeholder_patch(
-  game: dota2,
-  title: "Patch 7.37 — The Spring Equilibrium",
-  content: <<~TEXT,
-    General Changes
-    - Roshan now spawns with a random buff active from a pool of 5 options — visible to both teams.
-    - Outpost capture time reduced from 6s to 5s.
-    - Bounty Runes now grant 40 gold (up from 30) and appear every 3 minutes (up from 5).
-
-    Hero Adjustments
-
-    Buffs
-    - Invoker: Quas base damage increased. Exort orb damage scaling improved at levels 1-3.
-    - Phantom Assassin: Blur evasion increased from 15/20/25/30% to 20/25/30/35%.
-    - Tidehunter: Anchor Smash cooldown reduced from 12s to 10s.
-    - Chen: Holy Persuasion now works on Ancient neutral creeps at level 4.
-
-    Nerfs
-    - Muerta: Dead Shot slow duration reduced from 3s to 2.5s.
-    - Primal Beast: Onslaught cooldown increased by 2s at all levels.
-    - Viper: Corrosive Skin feedback damage reduced by 10%.
-
-    Item Changes
-    - Aghanim's Scepter recipe cost reduced from 1200 to 1000 gold.
-    - Black King Bar duration at level 1 increased from 9s to 10s.
-    - Daedalus: Critical strike chance increased from 30% to 32%.
-
-    Bug Fixes
-    - Fixed Invoker's Tornado not correctly lifting units affected by Root.
-    - Resolved a rare case where Roshan's Aegis timer would display incorrectly for one team.
-  TEXT
-  summaries: {
-    "quick_summary" => "Patch 7.37 shakes up the early game with more frequent Bounty Runes that pay out more gold, making the first 10 minutes more active. Phantom Assassin gets a significant evasion buff making her harder to kill in drawn-out fights. Muerta and Primal Beast were reined in after dominating recent patches.",
-    "casual_impact" => "Bounty Runes coming every 3 minutes makes map awareness more rewarding early on — grabbing them consistently matters more now. Aghanim's Scepter is 200 gold cheaper which helps every hero that needs it. Phantom Assassin is a strong carry pick this patch if you're looking for something new to try.",
-    "should_i_log_in" => "Yes — 7.37 is a meaningful meta shift with hero balance changes across the board and a new Roshan mechanic that adds variety to every game. Whether you're a returning player or playing regularly, this patch freshens things up nicely."
   }
 )
 
