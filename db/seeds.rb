@@ -41,6 +41,18 @@ def seed_event_series(game:, events:)
   end
 end
 
+def seed_live_patches(source)
+  config = PatchScrapeRunner.fetch(source)
+  return unless PatchScrapeRunner.scrapeable?(source)
+
+  result = PatchScrapeRunner.run(source)
+  puts "Imported live patches for #{config[:label]}: #{result.imported} imported, #{result.skipped} skipped."
+  result
+rescue StandardError => e
+  puts "Skipping live patch import for #{source}: #{e.class}: #{e.message}"
+  nil
+end
+
 puts "Creating users..."
 
 user = upsert_user(
@@ -171,6 +183,8 @@ genre_map.each do |game, genres|
 end
 
 puts "Creating patches..."
+
+seed_live_patches("resident_evil_requiem")
 
 fortnite_patch = seed_placeholder_patch(
   game: fortnite,

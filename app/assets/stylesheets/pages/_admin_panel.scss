@@ -204,6 +204,14 @@
     color: #8dc2ff;
   }
 
+  &__button--disabled {
+    border: 1px solid rgba(141, 194, 255, 0.4);
+    background: rgba(79, 156, 249, 0.14);
+    color: #8dc2ff;
+    opacity: 1;
+    cursor: default;
+  }
+
   &__admin-form {
     margin-bottom: 0.75rem;
   }

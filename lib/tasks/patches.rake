@@ -72,6 +72,11 @@ namespace :patches do
     run_scrape("overwatch_2")
   end
 
+  desc "Scrape and import Resident Evil Requiem official announcements from steamcommunity.com"
+  task scrape_resident_evil_requiem: :environment do
+    run_scrape("resident_evil_requiem")
+  end
+
   desc "Scrape and import Roblox release notes from create.roblox.com"
   task scrape_roblox: :environment do
     run_scrape("roblox")

@@ -85,6 +85,13 @@ class PatchScrapeRunner
       missing_game_error: "Overwatch 2 game not found in the database.",
       missing_game_hint: "Expected an existing Game named 'Overwatch 2' or slugged 'overwatch-2'."
     },
+    "resident_evil_requiem" => {
+      label: "Resident Evil Requiem",
+      importer: PatchImporters::ResidentEvilRequiemImporter,
+      game_slugs: ["resident-evil-requiem", "biohazard-requiem"],
+      missing_game_error: "Resident Evil Requiem game not found in the database.",
+      missing_game_hint: "Expected an existing Game named 'Resident Evil Requiem' or slugged 'resident-evil-requiem'."
+    },
     "roblox" => {
       label: "Roblox",
       importer: PatchImporters::RobloxImporter,

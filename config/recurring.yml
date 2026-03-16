@@ -60,6 +60,11 @@ production:
     queue: default
     schedule: every monday at 1:30pm
 
+  scrape_resident_evil_requiem_patches:
+    class: ScrapeResidentEvilRequiemJob
+    queue: default
+    schedule: every monday at 1:45pm
+
   scrape_roblox_patches:
     class: ScrapeRobloxJob
     queue: default

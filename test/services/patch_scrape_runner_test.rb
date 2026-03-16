@@ -40,6 +40,7 @@ class PatchScrapeRunnerTest < ActiveSupport::TestCase
   test "only returns scrapeable sources for runnable sources" do
     assert_includes PatchScrapeRunner.runnable_sources, "apex_legends"
     assert_includes PatchScrapeRunner.runnable_sources, "overwatch_2"
+    assert_includes PatchScrapeRunner.runnable_sources, "resident_evil_requiem"
     assert_not_includes PatchScrapeRunner.runnable_sources, "fortnite"
     assert_not_includes PatchScrapeRunner.runnable_sources, "helldivers_2"
     assert_not_includes PatchScrapeRunner.runnable_sources, "minecraft"

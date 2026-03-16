@@ -107,7 +107,18 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
     assert_includes @response.body, "Run Patch Scrape"
   end
 
-  test "shows api badge instead of scrape button for blocked sources" do
+  test "shows admin scrape button for resident evil requiem" do
+    @user.update!(role: "admin")
+    game = Game.create!(name: "Resident Evil Requiem", slug: "resident-evil-requiem")
+
+    get game_url(game)
+
+    assert_response :success
+    assert_select "form[action='#{admin_patch_scrapes_path}']"
+    assert_includes @response.body, "Run Patch Scrape"
+  end
+
+  test "shows ai badge instead of scrape button for blocked sources" do
     @user.update!(role: "admin")
     game = Game.create!(name: "Fortnite", slug: "fortnite")
 
@@ -115,7 +126,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_select "form[action='#{admin_patch_scrapes_path}']", count: 0
-    assert_includes @response.body, "API"
+    assert_select "button[disabled]", text: "AI", minimum: 1
   end
 
   test "does not show admin scrape button for non-admin users" do
