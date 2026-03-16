@@ -1063,12 +1063,11 @@ seed_event_series(
   ]
 )
 
+seed_live_events(game: pubg, importer_class: EventImporters::PubgEventImporter)
 seed_event_series(
   game: pubg,
   events: [
-    { title: "Rondo Launch Week", description: "Rondo goes live with a featured playlist, double BP earnings on the new map, and early-access community challenges.", start_date: DateTime.new(2026, 4, 1, 10, 0, 0) },
-    { title: "PUBG Global Championship 2026 — Qualifiers", description: "Regional qualifiers begin for the PGC 2026, the largest prize pool event on the PUBG esports calendar.", start_date: DateTime.new(2026, 7, 15, 14, 0, 0) },
-    { title: "Ranked Season 32 End & Rewards", description: "Season 32 draws to a close — final rank distributions are locked and cosmetic rewards are distributed to all eligible players.", start_date: DateTime.new(2026, 6, 30, 10, 0, 0) }
+    { title: "PUBG Global Championship 2026", description: "The PUBG Global Championship — the end-of-year world title event where the best teams from every region compete for the biggest prize pool in PUBG esports.", start_date: DateTime.new(2026, 11, 6, 10, 0, 0) }
   ]
 )
 
