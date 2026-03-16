@@ -92,6 +92,13 @@ class PatchScrapeRunner
       missing_game_error: "League of Legends game not found in the database.",
       missing_game_hint: "Expected an existing Game named 'League of Legends' or slugged 'league-of-legends'."
     },
+    "counter_strike_2" => {
+      label: "Counter-Strike 2",
+      importer: PatchImporters::CounterStrike2Importer,
+      game_slugs: ["counter-strike-2"],
+      missing_game_error: "Counter-Strike 2 game not found in the database.",
+      missing_game_hint: "Expected an existing Game named 'Counter-Strike 2' or slugged 'counter-strike-2'."
+    },
     "valorant" => {
       label: "VALORANT",
       importer: PatchImporters::ValorantImporter,

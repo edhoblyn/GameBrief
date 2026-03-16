@@ -188,6 +188,7 @@ seed_live_patches("battlefield_6")
 seed_live_patches("arc_raiders")
 seed_live_patches("resident_evil_requiem")
 seed_live_patches("league_of_legends")
+seed_live_patches("counter_strike_2")
 
 fortnite_patch = seed_placeholder_patch(
   game: fortnite,
@@ -914,39 +915,6 @@ genshin_patch = seed_placeholder_patch(
     "quick_summary" => "Version 5.5 opens the Crimson Highlands — a volcanic new area in Natlan with new domains and exploration mechanics. Mavuika is the headline 5-star, a hard-hitting Pyro DPS with an off-field summon that works well in reaction teams. The Spiral Abyss reset favours Pyro characters heavily this cycle so Mavuika and Hu Tao players are well positioned.",
     "casual_impact" => "The Crimson Highlands is a great area to explore even without the new characters — packed with puzzles and new Primogems to collect. Hu Tao feels slightly better to play with reduced stamina drain on her Charged Attacks. Kachina is an accessible 4-star support worth pulling from the banner if you need a Geo unit.",
     "should_i_log_in" => "Yes — new region means new exploration Primogems and a fresh Spiral Abyss rotation. Even if you're skipping Mavuika's banner, the Crimson Highlands alone is worth logging in to explore over the next few weeks."
-  }
-)
-
-cs2_patch = seed_placeholder_patch(
-  game: cs2,
-  title: "Spring 2026 Update — Map Pool & Weapon Tuning",
-  content: <<~TEXT,
-    Map Pool Changes
-    - Ancient removed from the Active Duty map pool. Replaced by Train (updated).
-    - Train rework: Significant layout changes to A site and mid. Improved lighting and cover throughout.
-    - Mirage: B apartments entry adjusted — one window angle removed to reduce defensive dominance.
-
-    Weapon Tuning
-    - AK-47: First shot accuracy while standing slightly improved.
-    - M4A4: Magazine size increased from 30 to 32. Reload time unchanged.
-    - AWP: Movement speed penalty while scoped increased by 5%.
-    - Deagle: Hip fire accuracy reduced slightly at medium range.
-    - MP9: Damage increased from 26 to 28.
-
-    CS Rating & Premier
-    - CS Rating decay removed for players below 10,000 rating.
-    - End-of-season CS Rating rewards updated: new rank coins and sprays for reaching 15,000+.
-    - Leaderboard regions split further — national leaderboards added for top 20 countries.
-
-    Bug Fixes
-    - Fixed a pixel walk on Inferno B site that allowed unintended positioning.
-    - Resolved grenade trajectory preview occasionally flickering on high refresh rate monitors.
-    - Fixed flashbang audio attenuation not applying correctly through walls.
-  TEXT
-  summaries: {
-    "quick_summary" => "Train returns to the Active Duty pool replacing Ancient — a big shift for the competitive meta. The AK-47 got a first-shot accuracy buff making it more reliable at range, while the AWP is slightly slower when scoped so repositioning costs more. Premier rating decay below 10K is gone, which is a welcome relief for casual ranked players.",
-    "casual_impact" => "If you play Premier casually, your rating won't decay anymore below 10K which removes a frustrating treadmill. Train is worth learning now that it's back in the pool — the rework makes it feel fresh. The MP9 buff makes it a more viable pistol-round buy if you like aggressive play.",
-    "should_i_log_in" => "Yes — Train returning to Active Duty is one of the most significant meta shifts of the year and worth experiencing early before the community fully solves it. The rating decay removal also makes this a low-pressure time to push your rank."
   }
 )
 

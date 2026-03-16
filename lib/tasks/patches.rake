@@ -77,6 +77,11 @@ namespace :patches do
     run_scrape("league_of_legends")
   end
 
+  desc "Scrape and import Counter-Strike 2 updates from steampowered.com"
+  task scrape_counter_strike_2: :environment do
+    run_scrape("counter_strike_2")
+  end
+
   desc "Scrape and import VALORANT patch notes from playvalorant.com"
   task scrape_valorant: :environment do
     run_scrape("valorant")

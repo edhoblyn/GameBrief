@@ -65,6 +65,11 @@ production:
     queue: default
     schedule: every monday at 12:30pm
 
+  scrape_counter_strike_2_patches:
+    class: ScrapeCounterStrike2Job
+    queue: default
+    schedule: every monday at 12:45pm
+
   scrape_valorant_patches:
     class: ScrapeValorantJob
     queue: default

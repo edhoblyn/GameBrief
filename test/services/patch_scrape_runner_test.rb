@@ -99,6 +99,29 @@ class PatchScrapeRunnerTest < ActiveSupport::TestCase
     importer_class.define_method(:new, original_new)
   end
 
+  test "runs the counter-strike 2 importer when configured" do
+    importer = Class.new do
+      Result = Struct.new(:imported, :skipped, keyword_init: true)
+
+      def call
+        Result.new(imported: 8, skipped: 3)
+      end
+    end.new
+
+    importer_class = PatchImporters::CounterStrike2Importer.singleton_class
+    original_new = PatchImporters::CounterStrike2Importer.method(:new)
+    importer_class.define_method(:new) { importer }
+
+    result = PatchScrapeRunner.run("counter_strike_2")
+
+    assert_equal "counter_strike_2", result.source
+    assert_equal "Counter-Strike 2", result.label
+    assert_equal 8, result.imported
+    assert_equal 3, result.skipped
+  ensure
+    importer_class.define_method(:new, original_new)
+  end
+
   test "treats blocked sources as non-scrapeable" do
     assert_not PatchScrapeRunner.scrapeable?("fortnite")
     assert_not PatchScrapeRunner.scrapeable?("destiny_2")
@@ -111,6 +134,7 @@ class PatchScrapeRunnerTest < ActiveSupport::TestCase
     assert_includes PatchScrapeRunner.runnable_sources, "arc_raiders"
     assert_includes PatchScrapeRunner.runnable_sources, "apex_legends"
     assert_includes PatchScrapeRunner.runnable_sources, "league_of_legends"
+    assert_includes PatchScrapeRunner.runnable_sources, "counter_strike_2"
     assert_includes PatchScrapeRunner.runnable_sources, "overwatch_2"
     assert_includes PatchScrapeRunner.runnable_sources, "pokemon_pokopia"
     assert_includes PatchScrapeRunner.runnable_sources, "resident_evil_requiem"
