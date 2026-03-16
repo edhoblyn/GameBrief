@@ -1,5 +1,6 @@
 class Event < ApplicationRecord
   belongs_to :game
+  has_many :reminders, dependent: :destroy
 
   after_commit :request_ai_summary_later, on: [:create, :update], if: :saved_change_requiring_ai_summary?
 
