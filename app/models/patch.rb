@@ -162,7 +162,7 @@ class Patch < ApplicationRecord
   end
 
   def ai_presentable?
-    source_url.present? && content.present?
+    content.present?
   end
 
   def ai_presentation_ready?
@@ -194,6 +194,18 @@ class Patch < ApplicationRecord
     true
   end
 
+  def display_formatted_content
+    return formatted_content.to_s.strip.presence if ai_presentation_ready?
+
+    fallback_presentation[:formatted_content]
+  end
+
+  def display_structured_sections
+    return structured_sections if ai_presentation_ready?
+
+    fallback_presentation[:structured_sections]
+  end
+
   private
 
   def saved_change_requiring_ai_presentation?
@@ -202,5 +214,9 @@ class Patch < ApplicationRecord
 
   def request_ai_presentation_later
     request_ai_presentation!
+  end
+
+  def fallback_presentation
+    @fallback_presentation ||= PatchPresentationFallbackService.new(content).call
   end
 end
