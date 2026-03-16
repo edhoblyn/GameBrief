@@ -854,12 +854,12 @@ seed_event_series(
   ]
 )
 
+roblox&.events&.destroy_all
 seed_event_series(
   game: roblox,
   events: [
-    { title: "Arun Games Fest 2026", description: "A real featured Roblox event spotlighting curated experiences and creator-led sessions across the platform.", start_date: DateTime.new(2026, 3, 14, 16, 0, 0) },
-    { title: "Creator Spotlight: AlewComeBack", description: "A scheduled Roblox creator spotlight event showcasing a featured builder and their community work.", start_date: DateTime.new(2026, 3, 20, 17, 0, 0) },
-    { title: "Introduction to TeleportService Quickfire", description: "A Roblox learning event focused on TeleportService basics for creators building connected experiences.", start_date: DateTime.new(2026, 3, 27, 17, 0, 0) }
+    { title: "Roblox Egg Hunt 2026", description: "The annual Roblox Egg Hunt returns — hunt for limited eggs across featured experiences on the platform to earn exclusive in-game items and accessories for your avatar.", start_date: DateTime.new(2026, 4, 1, 16, 0, 0) },
+    { title: "Roblox Developer Conference 2026", description: "RDC 2026 brings creator sessions, platform announcements, and previews of upcoming Roblox features — major new tools and player-facing changes are typically revealed here.", start_date: DateTime.new(2026, 8, 7, 17, 0, 0) }
   ]
 )
 
