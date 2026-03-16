@@ -22,6 +22,11 @@ namespace :patches do
     nil
   end
 
+  desc "Scrape and import ARC Raiders patch notes from arcraiders.com"
+  task scrape_arc_raiders: :environment do
+    run_scrape("arc_raiders")
+  end
+
   desc "Scrape and import Marvel Rivals patch notes from marvelrivals.com"
   task scrape_marvel_rivals: :environment do
     run_scrape("marvel_rivals")

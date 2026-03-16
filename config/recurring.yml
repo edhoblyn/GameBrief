@@ -10,6 +10,11 @@
 #     schedule: at 5am every day
 
 production:
+  scrape_arc_raiders_patches:
+    class: ScrapeArcRaidersJob
+    queue: default
+    schedule: every monday at 5:30am
+
   scrape_marvel_rivals_patches:
     class: ScrapeMarvelRivalsJob
     queue: default

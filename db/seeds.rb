@@ -184,6 +184,7 @@ end
 
 puts "Creating patches..."
 
+seed_live_patches("arc_raiders")
 seed_live_patches("resident_evil_requiem")
 
 fortnite_patch = seed_placeholder_patch(
@@ -918,37 +919,6 @@ space_marine2_patch = seed_placeholder_patch(
     "quick_summary" => "PvP Eternal War gets a major overhaul with three new maps and the Dark Angels chapter joining the roster. A new co-op Operations mission called The Reclamation adds fresh PvE content. The Vanguard got a nice buff with a shorter Grapnel cooldown and the Assault class hits harder on landing — both feel more impactful in firefights.",
     "casual_impact" => "If you mainly play co-op Operations, the new Reclamation mission is worth running and class buffs make every role feel a bit more capable. The Artificer Armour cosmetic tier gives long-term players a new prestige goal. PvP is now more polished if you've been avoiding it.",
     "should_i_log_in" => "Yes — this is one of the biggest updates the game has received. New PvP maps, a new chapter, and a new co-op mission all at once make this a great week to come back regardless of your preferred mode."
-  }
-)
-
-arc_raiders_patch = seed_placeholder_patch(
-  game: arc_raiders,
-  title: "Tech Test Update 0.8.4 — Gear, Raiders, and Extraction Tuning",
-  content: <<~TEXT,
-    Gear and Progression
-    - Burst Rifle and Arc Cannon loot pools retuned so high-rarity drops appear more consistently in contested POIs.
-    - Backpack crafting costs reduced for rare-tier upgrades to make early extraction runs less punishing.
-    - New sponsor contract chain added with three unlockable cosmetic rewards for successful extracts.
-
-    Raider and Enemy Tuning
-    - Burst Rifle recoil reduced slightly when firing short controlled bursts.
-    - DMR headshot multiplier lowered from 2.1x to 1.9x to reduce one-tap chains against under-geared squads.
-    - ARC drones now telegraph charge attacks longer before impact.
-
-    Extraction Flow
-    - Extraction beacon activation time reduced by 2 seconds for duos and solos.
-    - Storm warning audio now triggers earlier when a sector is about to collapse.
-    - Downed teammate revive window increased from 20s to 24s in non-ranked playlists.
-
-    Stability and Fixes
-    - Fixed players occasionally losing equipped gadgets after reconnecting to a live match.
-    - Resolved an issue causing loot containers to appear opened for clients joining in progress.
-    - Fixed several terrain seams that let players clip into rocks near dam-side extraction zones.
-  TEXT
-  summaries: {
-    "quick_summary" => "Arc Raiders' latest update focuses on extraction pacing, better loot reliability, and weapon tuning that should make mid-range fights less punishing. Faster beacons and clearer storm warnings improve run consistency, especially for smaller squads. The DMR nerf should also cut down on abrupt wipes from geared teams.",
-    "casual_impact" => "If you bounced off the last test because extractions felt too punishing, this seed update points in the right direction. Cheaper upgrade crafting and a longer revive window make shorter sessions less brutal. Solo and duo runs should feel more viable now.",
-    "should_i_log_in" => "Yes — the mix of faster extractions, better progression, and stability fixes makes this a stronger onboarding patch than the last test build. It looks like a good moment to check whether the survival loop now clicks for you."
   }
 )
 

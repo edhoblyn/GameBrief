@@ -1,6 +1,29 @@
 require "test_helper"
 
 class PatchScrapeRunnerTest < ActiveSupport::TestCase
+  test "runs the arc raiders importer when configured" do
+    importer = Class.new do
+      Result = Struct.new(:imported, :skipped, keyword_init: true)
+
+      def call
+        Result.new(imported: 4, skipped: 2)
+      end
+    end.new
+
+    importer_class = PatchImporters::ArcRaidersImporter.singleton_class
+    original_new = PatchImporters::ArcRaidersImporter.method(:new)
+    importer_class.define_method(:new) { importer }
+
+    result = PatchScrapeRunner.run("arc_raiders")
+
+    assert_equal "arc_raiders", result.source
+    assert_equal "ARC Raiders", result.label
+    assert_equal 4, result.imported
+    assert_equal 2, result.skipped
+  ensure
+    importer_class.define_method(:new, original_new)
+  end
+
   test "runs a configured importer" do
     importer = Class.new do
       Result = Struct.new(:imported, :skipped, keyword_init: true)
@@ -38,6 +61,7 @@ class PatchScrapeRunnerTest < ActiveSupport::TestCase
   end
 
   test "only returns scrapeable sources for runnable sources" do
+    assert_includes PatchScrapeRunner.runnable_sources, "arc_raiders"
     assert_includes PatchScrapeRunner.runnable_sources, "apex_legends"
     assert_includes PatchScrapeRunner.runnable_sources, "overwatch_2"
     assert_includes PatchScrapeRunner.runnable_sources, "pokemon_pokopia"

@@ -3,6 +3,13 @@ class PatchScrapeRunner
   Diagnostic = Struct.new(:source, :label, :imported, :skipped, :success, :error_message, :timestamp, keyword_init: true)
 
   SOURCES = {
+    "arc_raiders" => {
+      label: "ARC Raiders",
+      importer: PatchImporters::ArcRaidersImporter,
+      game_slugs: ["arc-raiders"],
+      missing_game_error: "ARC Raiders game not found in the database.",
+      missing_game_hint: "Expected an existing Game named 'ARC Raiders' or slugged 'arc-raiders'."
+    },
     "marvel_rivals" => {
       label: "Marvel Rivals",
       importer: PatchImporters::MarvelRivalsImporter,
