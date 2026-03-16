@@ -73,6 +73,11 @@ namespace :events do
     run_event_import(EventImporters::GenshinImpactEventImporter, label: "Genshin Impact")
   end
 
+  desc "Import real Helldivers 2 events from Steam announcements API"
+  task import_helldivers_2: :environment do
+    run_event_import(EventImporters::Helldivers2EventImporter, label: "Helldivers 2")
+  end
+
   desc "Import real GTA 5: Online events from Steam announcements API"
   task import_gta_online: :environment do
     run_event_import(EventImporters::GtaOnlineEventImporter, label: "GTA 5: Online")
@@ -92,6 +97,7 @@ namespace :events do
     Rake::Task["events:import_ea_sports_fc_26"].invoke
     Rake::Task["events:import_genshin_impact"].invoke
     Rake::Task["events:import_gta_online"].invoke
+    Rake::Task["events:import_helldivers_2"].invoke
     Rake::Task["events:import_valorant"].invoke
   end
 end

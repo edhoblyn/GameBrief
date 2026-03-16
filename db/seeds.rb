@@ -927,14 +927,7 @@ seed_event_series(
   ]
 )
 
-seed_event_series(
-  game: helldivers,
-  events: [
-    { title: "Major Order: Frontline Push", description: "A community-wide push to reclaim contested worlds with bonus medals for all successful divers.", start_date: DateTime.new(2026, 3, 23, 17, 0, 0) },
-    { title: "Weapons Proving Week", description: "New stratagem modifiers and daily operations encourage squads to test alternate loadouts.", start_date: DateTime.new(2026, 5, 11, 18, 0, 0) },
-    { title: "Galaxy Defense Broadcast", description: "Super Earth command issues a live update on the war effort and unlocks a fresh operation set.", start_date: DateTime.new(2026, 6, 30, 19, 0, 0) }
-  ]
-)
+seed_live_events(game: helldivers, importer_class: EventImporters::Helldivers2EventImporter)
 
 seed_event_series(
   game: overwatch2,
