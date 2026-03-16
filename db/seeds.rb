@@ -779,12 +779,25 @@ baldurs_gate3_patch = seed_placeholder_patch(
 
 puts "Creating events..."
 
+fortnite&.events&.destroy_all
 seed_event_series(
   game: fortnite,
   events: [
-    { title: "FNCS Major 1 Online Opens", description: "The opening stretch of FNCS Major 1 begins, with online competition deciding who advances deeper into the split.", start_date: DateTime.new(2026, 4, 6, 18, 0, 0) },
-    { title: "FNCS Major 1 Finals Weekend", description: "Top Fortnite squads battle through the closing Major 1 finals weekend for qualification, points, and prize money.", start_date: DateTime.new(2026, 4, 25, 19, 0, 0) },
-    { title: "FNCS Major 1 Summit", description: "The in-person Major 1 Summit lands in Dusseldorf with the season's top teams competing on stage.", start_date: DateTime.new(2026, 5, 30, 12, 0, 0) }
+    {
+      title: "Fortnite — New Season Launch",
+      description: "A new Fortnite season begins — bringing a fresh Battle Pass with new skins to unlock, map changes, new weapons, and a seasonal story to follow across the chapter.",
+      start_date: DateTime.new(2026, 6, 5, 18, 0, 0)
+    },
+    {
+      title: "Fortnitemares 2026",
+      description: "Fortnitemares returns for Halloween — Fortnite's annual spooky season with themed limited-time modes, free horror-inspired cosmetics, and a Halloween-themed Battle Royale map makeover.",
+      start_date: DateTime.new(2026, 10, 15, 18, 0, 0)
+    },
+    {
+      title: "Fortnite Winterfest 2026",
+      description: "Winterfest returns — Fortnite's annual winter celebration with 14 days of free gifts, festive cosmetics, the Cozy Lodge to visit daily, and limited-time holiday modes.",
+      start_date: DateTime.new(2026, 12, 17, 18, 0, 0)
+    }
   ]
 )
 
