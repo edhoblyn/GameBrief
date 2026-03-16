@@ -68,6 +68,11 @@ namespace :events do
     run_event_import(EventImporters::EaSportsFc26EventImporter, label: "EA Sports FC 26")
   end
 
+  desc "Import real Genshin Impact events from HoYoLAB news API"
+  task import_genshin_impact: :environment do
+    run_event_import(EventImporters::GenshinImpactEventImporter, label: "Genshin Impact")
+  end
+
   desc "Import real GTA 5: Online events from Steam announcements API"
   task import_gta_online: :environment do
     run_event_import(EventImporters::GtaOnlineEventImporter, label: "GTA 5: Online")
@@ -85,6 +90,7 @@ namespace :events do
     Rake::Task["events:import_destiny_2"].invoke
     Rake::Task["events:import_dota_2"].invoke
     Rake::Task["events:import_ea_sports_fc_26"].invoke
+    Rake::Task["events:import_genshin_impact"].invoke
     Rake::Task["events:import_gta_online"].invoke
     Rake::Task["events:import_valorant"].invoke
   end

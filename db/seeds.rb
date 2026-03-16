@@ -1006,12 +1006,20 @@ seed_event_series(
 
 seed_live_events(game: arc_raiders, importer_class: EventImporters::ArcRaidersEventImporter)
 
+seed_live_events(game: genshin, importer_class: EventImporters::GenshinImpactEventImporter)
 seed_event_series(
   game: genshin,
   events: [
-    { title: "Lantern Rite Festival", description: "The annual Liyue lantern festival returns with story quests, free 4-star character selector, and limited-time minigames.", start_date: DateTime.new(2026, 4, 4, 10, 0, 0) },
-    { title: "Summertime Odyssey", description: "A summer event chain set on a newly accessible island with exclusive cosmetics and a free 4-star character reward.", start_date: DateTime.new(2026, 7, 7, 10, 0, 0) },
-    { title: "Version 5.6 Preview Livestream", description: "The official developer livestream reveals the next version's characters, events, and redeem codes live.", start_date: DateTime.new(2026, 5, 23, 12, 0, 0) }
+    {
+      title: "Genshin Impact — Version Luna VI Launch",
+      description: "The next Genshin Impact version arrives — bringing new story chapters, new playable characters with dedicated banners, in-game events, and fresh Primogems to earn through exploration and challenges.",
+      start_date: DateTime.new(2026, 4, 8, 11, 0, 0)
+    },
+    {
+      title: "Genshin Impact — Summer Archipelago Event",
+      description: "The summer island event returns — a temporary Golden Apple Archipelago opens with story quests, a free 4-star character to claim, sailing mini-games, and exclusive cosmetic rewards.",
+      start_date: DateTime.new(2026, 7, 8, 10, 0, 0)
+    }
   ]
 )
 
