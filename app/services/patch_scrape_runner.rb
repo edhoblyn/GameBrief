@@ -155,6 +155,13 @@ class PatchScrapeRunner
       missing_game_error: "Cyberpunk 2077 game not found in the database.",
       missing_game_hint: "Expected an existing Game named 'Cyberpunk 2077' or slugged 'cyberpunk-2077'."
     },
+    "space_marine_2" => {
+      label: "Warhammer 40,000: Space Marine 2",
+      importer: PatchImporters::SpaceMarine2Importer,
+      game_slugs: ["warhammer-40000-space-marine-2"],
+      missing_game_error: "Warhammer 40,000: Space Marine 2 game not found in the database.",
+      missing_game_hint: "Expected an existing Game named 'Warhammer 40,000: Space Marine 2' or slugged 'warhammer-40000-space-marine-2'."
+    },
     "spider_man_2" => {
       label: "Marvel's Spider-Man 2",
       importer: PatchImporters::SpiderMan2Importer,

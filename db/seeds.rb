@@ -196,6 +196,7 @@ seed_live_patches("counter_strike_2")
 seed_live_patches("pubg_battlegrounds")
 seed_live_patches("horizon_forbidden_west")
 seed_live_patches("cyberpunk_2077")
+seed_live_patches("space_marine_2")
 seed_live_patches("spider_man_2")
 
 fortnite_patch = seed_placeholder_patch(
@@ -758,42 +759,6 @@ gta_online_patch = seed_placeholder_patch(
     "quick_summary" => "The Bottom Dollar Bounties update adds a brand new business where you hunt down targets for cash payouts up to GTA$85K. Three stylish new classic-inspired vehicles landed alongside new weapons. Nightclub passive income got a bump and CEO cooldowns are shorter, making grinding feel slightly less repetitive.",
     "casual_impact" => "Bounty hunting is one of the more accessible new businesses — you can run it solo and the missions are varied. The CEO cooldown reduction means you can chain missions faster which helps if you only have short play sessions. The new vehicles are great for car collectors.",
     "should_i_log_in" => "Yes — Bottom Dollar Bounties is a fun new activity with solid payouts and the new vehicles alone are worth logging in for. If you've been away for a while, this is one of the more content-rich updates of recent months."
-  }
-)
-
-space_marine2_patch = seed_placeholder_patch(
-  game: space_marine2,
-  title: "Update 4.0 — Eternal War & PvP Overhaul",
-  content: <<~TEXT,
-    New Content
-    - PvP mode: Eternal War returns with a full overhaul. Three new maps added: Iron Bastion, Relic Gate, and Ashfall Crossing.
-    - New PvP chapter: Dark Angels playable in Eternal War with unique class cosmetics.
-    - New Operations mission: The Reclamation — a 3-player co-op mission set in a corrupted forge world.
-
-    Operations Balance
-    - Bulwark: Shield bash stagger duration increased from 1.2s to 1.5s.
-    - Vanguard: Grapnel Launcher cooldown reduced from 18s to 15s.
-    - Heavy: Melta Charge explosion radius increased by 10%.
-    - Assault: Jump Pack damage on landing increased by 8%.
-
-    PvP Tuning
-    - All bolt weapons: Damage falloff starts at slightly longer range.
-    - Chainsword: Heavy attack speed increased to close the gap against ranged spam.
-    - Class ability cooldowns reduced across the board by 5-10% in PvP.
-
-    Progression
-    - Chapter Requisition cap increased from 1500 to 2000.
-    - New cosmetic tier: Artificer Armour unlocks added for all 6 classes at Chapter Master rank.
-
-    Bug Fixes
-    - Fixed Tyranid Carnifex sometimes not triggering its charge animation correctly.
-    - Resolved an issue where co-op mission rewards would not appear after a host disconnect.
-    - Fixed certain pauldron cosmetics clipping through capes on the Bulwark class.
-  TEXT
-  summaries: {
-    "quick_summary" => "PvP Eternal War gets a major overhaul with three new maps and the Dark Angels chapter joining the roster. A new co-op Operations mission called The Reclamation adds fresh PvE content. The Vanguard got a nice buff with a shorter Grapnel cooldown and the Assault class hits harder on landing — both feel more impactful in firefights.",
-    "casual_impact" => "If you mainly play co-op Operations, the new Reclamation mission is worth running and class buffs make every role feel a bit more capable. The Artificer Armour cosmetic tier gives long-term players a new prestige goal. PvP is now more polished if you've been avoiding it.",
-    "should_i_log_in" => "Yes — this is one of the biggest updates the game has received. New PvP maps, a new chapter, and a new co-op mission all at once make this a great week to come back regardless of your preferred mode."
   }
 )
 

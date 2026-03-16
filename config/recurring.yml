@@ -105,6 +105,11 @@ production:
     queue: default
     schedule: every monday at 1:55pm
 
+  scrape_space_marine_2_patches:
+    class: ScrapeSpaceMarine2Job
+    queue: default
+    schedule: every monday at 1:56pm
+
   scrape_spider_man_2_patches:
     class: ScrapeSpiderMan2Job
     queue: default

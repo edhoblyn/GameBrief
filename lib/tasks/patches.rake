@@ -117,6 +117,11 @@ namespace :patches do
     run_scrape("cyberpunk_2077")
   end
 
+  desc "Scrape and import Warhammer 40,000: Space Marine 2 patch notes from community.focus-entmt.com"
+  task scrape_space_marine_2: :environment do
+    run_scrape("space_marine_2")
+  end
+
   desc "Scrape and import Marvel's Spider-Man 2 PC patch notes from steampowered.com"
   task scrape_spider_man_2: :environment do
     run_scrape("spider_man_2")
