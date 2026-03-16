@@ -20,6 +20,11 @@ class EventImportRunner
       manual_trigger_enabled: false,
       disabled_message: "Battlefield 6 events are seeded manually — EA only announces content at launch, not in advance."
     },
+    "call_of_duty_black_ops_7" => {
+      label: "Call of Duty: Black Ops 7",
+      importer: EventImporters::CallOfDutyBlackOps7EventImporter,
+      game_slugs: ["call-of-duty-black-ops-7"]
+    },
     "call_of_duty_warzone" => {
       label: "Call of Duty: Warzone",
       importer: EventImporters::CallOfDutyWarzoneEventImporter,

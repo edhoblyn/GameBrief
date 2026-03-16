@@ -33,6 +33,11 @@ namespace :events do
     run_event_import(EventImporters::Battlefield6EventImporter, label: "Battlefield 6")
   end
 
+  desc "Import real Call of Duty: Black Ops 7 events from callofduty.com/blog/black-ops-7"
+  task import_call_of_duty_black_ops_7: :environment do
+    run_event_import(EventImporters::CallOfDutyBlackOps7EventImporter, label: "Call of Duty: Black Ops 7")
+  end
+
   desc "Import real Call of Duty: Warzone events from callofduty.com/blog/warzone"
   task import_call_of_duty_warzone: :environment do
     run_event_import(EventImporters::CallOfDutyWarzoneEventImporter, label: "Call of Duty: Warzone")
@@ -108,6 +113,7 @@ namespace :events do
     Rake::Task["events:import_apex_legends"].invoke
     Rake::Task["events:import_arc_raiders"].invoke
     Rake::Task["events:import_battlefield_6"].invoke
+    Rake::Task["events:import_call_of_duty_black_ops_7"].invoke
     Rake::Task["events:import_call_of_duty_warzone"].invoke
     Rake::Task["events:import_clash_of_clans"].invoke
     Rake::Task["events:import_clash_royale"].invoke

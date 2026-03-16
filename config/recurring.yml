@@ -130,8 +130,8 @@ production:
     queue: default
     schedule: every monday at 4pm
 
-  scrape_pokemon_pokopia_updates:
-    class: ScrapePokemonPokopiaJob
+  scrape_call_of_duty_black_ops_7_updates:
+    class: ScrapeCallOfDutyBlackOps7Job
     queue: default
     schedule: every monday at 4:30pm
 

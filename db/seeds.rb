@@ -139,7 +139,7 @@ marvel    = import_game(client, "Marvel Rivals", free_to_play: true, multiplayer
 helldivers = import_game(client, "Helldivers 2", free_to_play: false, multiplayer: true)
 overwatch2    = import_game(client, "Overwatch 2", name: "Overwatch 2", free_to_play: true, multiplayer: true)
 re_requiem    = import_game(client, "Resident Evil Requiem", free_to_play: false, single_player: true)
-pokemon_pokopia = import_game(client, "Pokémon Pokopia", free_to_play: false, single_player: true)
+cod_black_ops_7 = import_game(client, "Call of Duty: Black Ops 7", free_to_play: false, single_player: true, multiplayer: true)
 battlefront2  = import_game(client, "Star Wars Battlefront II", free_to_play: false, single_player: true, multiplayer: true)
 horizon_fw    = import_game(client, "Horizon Forbidden West", free_to_play: false, single_player: true)
 ff7_rebirth   = import_game(client, "Final Fantasy VII Rebirth", free_to_play: false, single_player: true)
@@ -173,7 +173,7 @@ genre_map = {
   helldivers    => ["Shooter"],
   overwatch2      => ["Shooter"],
   re_requiem      => ["Action", "Horror"],
-  pokemon_pokopia => ["RPG"],
+  cod_black_ops_7 => ["Shooter", "Action"],
   battlefront2    => ["Shooter", "Action"],
   horizon_fw    => ["Action", "RPG"],
   ff7_rebirth   => ["RPG", "Action"],
@@ -703,9 +703,9 @@ re_requiem_patch = seed_placeholder_patch(
   }
 )
 
-seed_live_patches("pokemon_pokopia")
-if pokemon_pokopia.present? && pokemon_pokopia.patches.where.not(source_url: nil).exists?
-  pokemon_pokopia.patches.where(source_url: nil).find_each(&:destroy!)
+seed_live_patches("call_of_duty_black_ops_7")
+if cod_black_ops_7.present? && cod_black_ops_7.patches.where.not(source_url: nil).exists?
+  cod_black_ops_7.patches.where(source_url: nil).find_each(&:destroy!)
 end
 
 seed_live_patches("star_wars_battlefront_ii")
@@ -947,11 +947,11 @@ seed_event_series(
 )
 
 seed_event_series(
-  game: pokemon_pokopia,
+  game: cod_black_ops_7,
   events: [
-    { title: "Festival of Seasons: Spring", description: "The Spring phase of the Festival of Seasons kicks off with Cherry Blossom-themed encounters and exclusive Pokémon spawns.", start_date: DateTime.new(2026, 3, 20, 10, 0, 0) },
-    { title: "Pokopia Regional Championship", description: "The first official in-game ranked tournament season opens with tiered rewards for competitive trainers.", start_date: DateTime.new(2026, 4, 25, 14, 0, 0) },
-    { title: "Legendary Raid Weekend", description: "A limited-time raid weekend featuring rare Legendary encounters in the Crystalline Caverns with boosted catch rates.", start_date: DateTime.new(2026, 5, 30, 10, 0, 0) }
+    { title: "Season 2 Launch", description: "Season 2 kicks off with two new multiplayer maps, a new operator bundle, and sweeping weapon balance changes across ARs and SMGs.", start_date: DateTime.new(2026, 3, 26, 18, 0, 0) },
+    { title: "Double XP Weekend", description: "Earn double XP and double Weapon XP across all multiplayer modes for the full weekend.", start_date: DateTime.new(2026, 4, 17, 18, 0, 0) },
+    { title: "Season 2 Reloaded", description: "Mid-season update adds a new limited-time mode, additional ranked play rewards, and a fresh round of weapon tuning.", start_date: DateTime.new(2026, 5, 7, 18, 0, 0) }
   ]
 )
 

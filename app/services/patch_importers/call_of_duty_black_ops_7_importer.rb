@@ -1,21 +1,21 @@
 module PatchImporters
-  class PokemonPokopiaImporter
+  class CallOfDutyBlackOps7Importer
     Result = Struct.new(:imported, :skipped, keyword_init: true)
 
     GAME_SLUGS = [
-      "pokemon-pokopia"
+      "call-of-duty-black-ops-7"
     ].freeze
 
     GAME_NAMES = [
-      "Pokémon Pokopia",
-      "Pokemon Pokopia"
+      "Call of Duty: Black Ops 7",
+      "Call of Duty Black Ops 7"
     ].freeze
 
     def call
       game = find_game
-      raise ActiveRecord::RecordNotFound, "Pokémon Pokopia game not found" if game.nil?
+      raise ActiveRecord::RecordNotFound, "Call of Duty: Black Ops 7 game not found" if game.nil?
 
-      results = Scrapers::PokemonPokopiaScraper.new.call
+      results = Scrapers::CallOfDutyBlackOps7Scraper.new.call
       imported = 0
       skipped = 0
 
