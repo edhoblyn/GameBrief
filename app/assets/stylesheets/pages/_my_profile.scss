@@ -286,6 +286,39 @@ $sidebar-width: 260px;
   z-index: 0;
   background-size: cover;
   background-position: center;
+  cursor: pointer;
+
+  .banner-upload-form {
+    display: none;
+  }
+
+  .banner-edit-btn {
+    position: absolute;
+    bottom: 0.75rem;
+    right: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.55);
+    color: #fff;
+    font-size: 0.85rem;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s ease, background 0.2s ease;
+    z-index: 2;
+    backdrop-filter: blur(4px);
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.8);
+    }
+  }
+
+  &:hover .banner-edit-btn {
+    opacity: 1;
+  }
 
   &::after {
     content: "";
@@ -313,6 +346,30 @@ $sidebar-width: 260px;
   position: relative;
   z-index: 2;
   margin-top: -44px;
+  cursor: pointer;
+
+  .avatar-upload-form {
+    display: none;
+  }
+
+  .avatar-edit-btn {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.45);
+    color: #fff;
+    font-size: 1.1rem;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  &:hover .avatar-edit-btn {
+    opacity: 1;
+  }
 }
 
 .social-profile-avatar {

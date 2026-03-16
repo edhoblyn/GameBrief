@@ -164,7 +164,15 @@
     <!-- Profile header -->
     <div class="social-profile-header">
       <% banner_style = current_user.cover_image.attached? ? "background-image: linear-gradient(rgba(7, 10, 22, 0.18), rgba(7, 10, 22, 0.52)), url('#{url_for(current_user.cover_image)}');" : nil %>
-      <div class="social-profile-banner"<%= banner_style.present? ? " style=\"#{banner_style}\"".html_safe : "" %>></div>
+      <div class="social-profile-banner"<%= banner_style.present? ? " style=\"#{banner_style}\"".html_safe : "" %>>
+        <%= form_with url: user_registration_path, method: :patch, multipart: true, class: "banner-upload-form" do |f| %>
+          <%= f.hidden_field :email, value: current_user.email %>
+          <%= f.file_field :cover_image, id: "banner-cover-input", accept: "image/*", style: "display:none", onchange: "this.form.submit()" %>
+        <% end %>
+        <label for="banner-cover-input" class="banner-edit-btn" title="Modifier la bannière">
+          <i class="fa fa-pencil"></i>
+        </label>
+      </div>
       <div class="social-profile-info">
         <div class="social-profile-top-row">
           <div class="social-profile-avatar-wrap">
@@ -177,6 +185,13 @@
                 <%= current_user.email.first.upcase %>
               </div>
             <% end %>
+            <%= form_with url: user_registration_path, method: :patch, multipart: true, class: "avatar-upload-form" do |f| %>
+              <%= f.hidden_field :email, value: current_user.email %>
+              <%= f.file_field :avatar_image, id: "avatar-image-input", accept: "image/*", style: "display:none", onchange: "this.form.submit()" %>
+            <% end %>
+            <label for="avatar-image-input" class="avatar-edit-btn" title="Modifier la photo de profil">
+              <i class="fa fa-pencil"></i>
+            </label>
           </div>
           <%= link_to "Edit Profile", edit_user_registration_path, class: "btn-edit-profile" %>
         </div>
