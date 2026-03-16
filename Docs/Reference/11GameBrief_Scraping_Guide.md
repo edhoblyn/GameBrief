@@ -474,3 +474,221 @@ Impact:
 - Add monitoring or logging around scraper failures by source.
 - Build source-specific fallback strategies for Fortnite and Destiny 2.
 - Add a real admin role migration and UI for triggering `/admin/patch_scrapes`.
+
+---
+
+## Event Scraping
+
+### Event Scraping Purpose
+
+Document how event scraping works in GameBrief — which games have automated event scrapers, which use manual seeds, and how imports are run.
+
+This section covers the `events` table only. Patch scraping is documented above.
+
+### Event Scraping Architecture
+
+Event scraping uses two layers, mirroring the patch pipeline:
+
+1. `EventScrapers::*` — fetch and parse official news or announcement sources, returning an array of event hashes with `:title`, `:description`, and `:start_date`.
+2. `EventImporters::*` — resolve the target `Game`, apply the future filter (`start_date.nil? || start_date >= Date.today`), and create or skip `Event` records.
+
+Flow:
+
+```text
+Official source -> EventScraper -> EventImporter -> events table -> app UI
+```
+
+Key convention: if an article was published within `RECENT_DAYS` days and no specific future date is known, `start_date` is set to `nil`. The importer treats `nil` as "ongoing/active now" and always passes the future filter.
+
+### Event Scraping Files
+
+Event scrapers live in: `app/services/event_scrapers/`
+
+Event importers live in: `app/services/event_importers/`
+
+Rake tasks live in: `lib/tasks/events.rake`
+
+Seeds use `seed_live_events` (calls the importer with `replace: true`) and `seed_event_series` (manual future events). Many games use both — scraped live events plus manual seeds for known future milestones.
+
+### Event — Automated Scrapers
+
+| Game | Scraper class | Source | App ID / URL |
+| --- | --- | --- | --- |
+| Apex Legends | `ApexLegendsEventScraper` | EA news page | `ea.com/games/apex-legends/news` |
+| ARC Raiders | `ArcRaidersEventScraper` | arcraiders.com news | `arcraiders.com/news` |
+| Counter-Strike 2 | `CounterStrike2EventScraper` | Steam Community Announcements | App ID 730 |
+| Dota 2 | `Dota2EventScraper` | Steam Community Announcements | App ID 570 |
+| EA Sports FC 26 | `EaSportsFc26EventScraper` | EA news page | `ea.com/games/ea-sports-fc/fc-26/news` |
+| Genshin Impact | `GenshinImpactEventScraper` | HoYoLAB news API | `bbs-api-os.hoyolab.com` |
+| GTA 5: Online | `GtaOnlineEventScraper` | Steam Community Announcements | App ID 271590 |
+| Helldivers 2 | `Helldivers2EventScraper` | Steam Community Announcements | App ID 553850 |
+| League of Legends | `LeagueOfLegendsEventScraper` | LoL news page | `leagueoflegends.com/en-us/news/` |
+| Overwatch 2 | `Overwatch2EventScraper` | Steam Community Announcements | App ID 2357570 |
+| PUBG: Battlegrounds | `PubgEventScraper` | Steam Community Announcements | App ID 578080 |
+| Valorant | `ValorantEventScraper` | vlr.gg + playvalorant.com | — |
+| Warhammer 40,000: Space Marine 2 | `SpaceMarine2EventScraper` | Steam Community Announcements | App ID 2183900 |
+
+### Event — Manual Seeds Only (No Scraper)
+
+| Game | Reason | Seeds |
+| --- | --- | --- |
+| Battlefield 6 | EA only posts when content launches, not in advance | Season 2 Phase 3, Season 3 |
+| Call of Duty: Warzone | Same EA announce-at-launch pattern | Season 03, Season 03 Reloaded |
+| Clash of Clans | Supercell blog shows past articles, no upcoming event feed | Clan Games ×2, April Season |
+| Clash Royale | Same Supercell limitation | April Season, Global Tournament, May Season |
+| Cyberpunk 2077 | Single-player, no live service events | 6th Anniversary (Dec 2026) |
+| Destiny 2 | Steam API returns only weekly "This Week In Destiny" posts | Guardian Games, Next Episode, Solstice |
+| Final Fantasy VII Rebirth | Single-player, no live service | 30th Anniversary (Jan 2027) |
+| Fortnite | epicgames.com / fortnite.com return 403 | New Season, Fortnitemares, Winterfest |
+| Horizon Forbidden West | Single-player, no live events | PC 2nd Anniversary, PS5 4th Anniversary |
+| Marvel Rivals | marvelrivals.com is JS-rendered; Steam feed is patch notes only | Season 7 Launch, Season 7.5 Mid-Season |
+| Minecraft | minecraft.net is JS-rendered; no RSS; Steam API returns 0 announcements | Spring 2026 Drop, Minecraft Live 2026 |
+| Roblox | blog.roblox.com surfaces only developer-focused articles | Egg Hunt, RDC 2026 |
+
+### Event — No Events (Cleared)
+
+| Game | Reason |
+| --- | --- |
+| Marvel's Spider-Man 2 | Single-player, no DLC or live events announced |
+| Star Wars Battlefront II | EA ended development April 2020; last Steam announcement 627 days ago |
+| Pokémon Pokopia | Fictional demo game — placeholder events retained as-is |
+| Resident Evil Requiem | Fictional demo game — placeholder events retained as-is |
+
+### Event — Hybrid: Scraper + Manual Future Seeds
+
+Several games use `seed_live_events` to pull current active events and `seed_event_series` to add known annual milestones that won't appear in feeds until announced:
+
+| Game | Live scraper gets | Manual seeds add |
+| --- | --- | --- |
+| Dota 2 | TI announcement, recent patches | Battle Pass (~May), Diretide (~Oct) |
+| EA Sports FC 26 | FUT promos, World Tour seasons | TOTS (~May) |
+| Genshin Impact | Current version update | Next version date, Summer Archipelago |
+| League of Legends | Current act, champion releases, First Stand | MSI (~May), World Championship (~Oct) |
+| Overwatch 2 | Active season, seasonal events, XP boosts | Anniversary (~May) |
+| PUBG: Battlegrounds | Anniversary events, Spring Fest, Global Series | PGC (~Nov) |
+| Warhammer 40K: Space Marine 2 | Community events, Twitch drops, major updates | Warhammer Skulls Festival (~Jun) |
+
+### Event Source Strategy Details
+
+#### Steam Community Announcements API
+
+Used for: Counter-Strike 2, Dota 2, GTA 5: Online, Helldivers 2, Overwatch 2, PUBG: Battlegrounds, Warhammer 40K: Space Marine 2.
+
+Endpoint pattern:
+
+```text
+https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=<APP_ID>&count=20&feeds=steam_community_announcements
+```
+
+Each scraper defines `RECENT_DAYS`, `EVENT_PATTERN`, and `EXCLUDE_PATTERN`. The Steam API announces content at launch rather than in advance, so results get `nil` start dates. Known future events (e.g. annual championships) are added as manual seeds.
+
+#### EA news pages (HTML scraping)
+
+Used for: Apex Legends, EA Sports FC 26.
+
+Each link's text embeds the article type prefix, a date string (`EA_DATE_PATTERN = /([A-Z][a-z]+ \d{1,2}, \d{4})/`), and the title concatenated together. The scraper strips the prefix and date to isolate the title. Articles within `RECENT_DAYS` get `start_date: nil`. EA publishes at launch, not in advance.
+
+#### League of Legends news page (HTML scraping)
+
+Used for: League of Legends. Source: `https://www.leagueoflegends.com/en-us/news/`
+
+Each `a` tag's text embeds category + ISO 8601 timestamp + title+subtitle in camelCase. Pattern: `TIMESTAMP_PATTERN = /^([\w\s]+?)(\d{4}-\d{2}-\d{2}T[\d:\.Z]+)(.+)/`. Title is split from subtitle at the first lowercase→uppercase junction (`/(?<=[a-z0-9])(?=[A-Z])/`). A length guard (`< 8` or `> 80` chars) catches unsplit strings. `EXCLUDE_PATTERN` removes patch notes, TFT, merch, "New League Meta" guides, and regional splits (LCS/LEC/LCK/LPL).
+
+#### HoYoLAB API
+
+Used for: Genshin Impact.
+
+```text
+https://bbs-api-os.hoyolab.com/community/post/wapi/getNewsList?gids=2&page_size=20&type=1
+```
+
+Deduplicates by version key — maintenance preview, update details, and "what's new" articles all reference the same version and collapse to one event. `clean_title` strips promotional prefixes and normalises to "Genshin Impact — Version X Update".
+
+#### ARC Raiders (HTML scraping)
+
+Used for: ARC Raiders. Source: `arcraiders.com/news`. Fetches news index and filters by title keyword for early access, trial, season, or community content.
+
+#### Valorant (vlr.gg + playvalorant.com)
+
+Mixed source: VCT tournament data from vlr.gg, in-game event data from playvalorant.com.
+
+### Event Rake Tasks
+
+Full list of available event import tasks:
+
+```bash
+bin/rake events:import_apex_legends
+bin/rake events:import_arc_raiders
+bin/rake events:import_battlefield_6
+bin/rake events:import_call_of_duty_warzone
+bin/rake events:import_clash_of_clans
+bin/rake events:import_clash_royale
+bin/rake events:import_counter_strike_2
+bin/rake events:import_destiny_2
+bin/rake events:import_dota_2
+bin/rake events:import_ea_sports_fc_26
+bin/rake events:import_genshin_impact
+bin/rake events:import_gta_online
+bin/rake events:import_helldivers_2
+bin/rake events:import_league_of_legends
+bin/rake events:import_overwatch_2
+bin/rake events:import_pubg
+bin/rake events:import_space_marine_2
+bin/rake events:import_valorant
+```
+
+Run all at once:
+
+```bash
+bin/rake events:import_all
+```
+
+`import_all` only runs games with automated scrapers. Manual-seed-only games are kept up to date by editing `db/seeds.rb` and re-running `db:seed`.
+
+### Event Seeding Patterns
+
+`db/seeds.rb` calls event logic in three patterns:
+
+**Scraped only:**
+
+```ruby
+seed_live_events(game: cs2, importer_class: EventImporters::CounterStrike2EventImporter)
+```
+
+**Manual only:**
+
+```ruby
+game&.events&.destroy_all
+seed_event_series(game: game, events: [...])
+```
+
+**Hybrid (scraped + known future milestones):**
+
+```ruby
+seed_live_events(game: lol, importer_class: EventImporters::LeagueOfLegendsEventImporter)
+seed_event_series(game: lol, events: [
+  { title: "MSI 2026", ..., start_date: DateTime.new(2026, 5, 1, 12, 0, 0) },
+  { title: "World Championship 2026", ..., start_date: DateTime.new(2026, 10, 3, 12, 0, 0) }
+])
+```
+
+`seed_live_events` calls the importer with `replace: true`, destroying existing events before importing. `seed_event_series` uses `find_or_initialize_by(title:)` so it is safe to re-run.
+
+### Event Scraping Known Limitations
+
+**Announce-at-launch pattern (EA, Steam):** Most publishers post announcements when content goes live, not in advance. Scrapers return `nil` start dates for all events. Known future events must be seeded manually.
+
+**Fortnite (403 blocked):** `fortnite.com` and `epicgames.com` return 403 to all non-browser requests. No alternative API found. Events are seeded manually as known annual beats.
+
+**Minecraft (JS-rendered):** `minecraft.net` is built on Adobe Experience Manager and is fully JS-rendered. The Steam API returns 0 announcements. No RSS or Atom feed exists. Events are seeded manually.
+
+**Marvel Rivals (JS-rendered):** `marvelrivals.com` requires JS execution. The Steam feed contains only patch notes. Events are seeded manually based on the known 8-week season cadence.
+
+**Clash of Clans / Clash Royale (past articles only):** The Supercell blog scraper reads past published articles correctly but Supercell does not publish a forward-looking events calendar. Event dates are seeded manually.
+
+### Event Scraping Future Improvements
+
+- Add a `published_at` or `ends_at` column to `Event` to support expiry filtering.
+- Add a Heroku Scheduler job that runs `events:import_all` daily alongside `patches:scrape_all`.
+- Investigate Fortnite alternatives (unofficial community APIs, Epic Developer portal).
+- Add scraper tests for event title parsing logic (especially the LoL camelCase split and Genshin version deduplication).
