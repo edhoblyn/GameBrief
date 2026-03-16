@@ -78,6 +78,13 @@ class PatchScrapeRunner
       missing_game_error: "VALORANT game not found in the database.",
       missing_game_hint: "Expected an existing Game named 'Valorant' or slugged 'valorant'."
     },
+    "overwatch_2" => {
+      label: "Overwatch 2",
+      importer: PatchImporters::Overwatch2Importer,
+      game_slugs: ["overwatch-2", "overwatch-2-invasion-bundle--1"],
+      missing_game_error: "Overwatch 2 game not found in the database.",
+      missing_game_hint: "Expected an existing Game named 'Overwatch 2' or slugged 'overwatch-2'."
+    },
     "roblox" => {
       label: "Roblox",
       importer: PatchImporters::RobloxImporter,

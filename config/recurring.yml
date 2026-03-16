@@ -55,6 +55,11 @@ production:
     queue: default
     schedule: every monday at 1pm
 
+  scrape_overwatch_2_patches:
+    class: ScrapeOverwatch2Job
+    queue: default
+    schedule: every monday at 1:30pm
+
   scrape_roblox_patches:
     class: ScrapeRobloxJob
     queue: default

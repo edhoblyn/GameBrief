@@ -67,6 +67,11 @@ namespace :patches do
     run_scrape("valorant")
   end
 
+  desc "Scrape and import Overwatch 2 patch notes from ga.overwatch.blizzard.com"
+  task scrape_overwatch_2: :environment do
+    run_scrape("overwatch_2")
+  end
+
   desc "Scrape and import Roblox release notes from create.roblox.com"
   task scrape_roblox: :environment do
     run_scrape("roblox")
