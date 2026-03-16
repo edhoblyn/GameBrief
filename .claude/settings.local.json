@@ -46,7 +46,9 @@
       "Bash(curl -s \"https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=2357570&count=10&feeds=steam_community_announcements\")",
       "Bash(curl -s \"https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=2357570&count=20&feeds=steam_community_announcements\")",
       "Bash(curl -s \"https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=578080&count=15&feeds=steam_community_announcements\")",
-      "Bash(curl -sL \"https://blog.roblox.com/\" -A \"Mozilla/5.0 \\(Macintosh; Intel Mac OS X 10_15_7\\) AppleWebKit/537.36\" -o /tmp/roblox_blog.html -w \"%{http_code}\")"
+      "Bash(curl -sL \"https://blog.roblox.com/\" -A \"Mozilla/5.0 \\(Macintosh; Intel Mac OS X 10_15_7\\) AppleWebKit/537.36\" -o /tmp/roblox_blog.html -w \"%{http_code}\")",
+      "Bash(curl -s \"https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=1262540&count=5&feeds=steam_community_announcements\")",
+      "Bash(curl -s \"https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=2183900&count=15&feeds=steam_community_announcements\")"
     ],
     "deny": []
   }

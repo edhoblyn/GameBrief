@@ -98,6 +98,11 @@ namespace :events do
     run_event_import(EventImporters::PubgEventImporter, label: "PUBG: Battlegrounds")
   end
 
+  desc "Import real Warhammer 40,000: Space Marine 2 events from Steam announcements API"
+  task import_space_marine_2: :environment do
+    run_event_import(EventImporters::SpaceMarine2EventImporter, label: "Warhammer 40,000: Space Marine 2")
+  end
+
   desc "Import all games' real events (run each source in turn)"
   task import_all: :environment do
     Rake::Task["events:import_apex_legends"].invoke
@@ -116,6 +121,7 @@ namespace :events do
     Rake::Task["events:import_league_of_legends"].invoke
     Rake::Task["events:import_overwatch_2"].invoke
     Rake::Task["events:import_pubg"].invoke
+    Rake::Task["events:import_space_marine_2"].invoke
     Rake::Task["events:import_valorant"].invoke
   end
 end

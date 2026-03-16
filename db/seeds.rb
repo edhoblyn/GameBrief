@@ -955,14 +955,7 @@ seed_event_series(
   ]
 )
 
-seed_event_series(
-  game: battlefront2,
-  events: [
-    { title: "Scarif Community Event", description: "A limited-time community challenge on the new Scarif map with bonus XP and milestone rewards for participation.", start_date: DateTime.new(2026, 3, 28, 18, 0, 0) },
-    { title: "Rogue One Heroes Weekend", description: "A featured playlist spotlighting Jyn Erso and Director Krennic with double hero token earnings.", start_date: DateTime.new(2026, 4, 18, 18, 0, 0) },
-    { title: "Galactic Assault Championship", description: "A community-organised tournament series across Galactic Assault maps with seasonal leaderboard tracking.", start_date: DateTime.new(2026, 6, 14, 17, 0, 0) }
-  ]
-)
+battlefront2&.events&.destroy_all
 
 ff7_rebirth&.events&.destroy_all
 seed_event_series(
@@ -987,12 +980,11 @@ seed_event_series(
   ]
 )
 
+seed_live_events(game: space_marine2, importer_class: EventImporters::SpaceMarine2EventImporter)
 seed_event_series(
   game: space_marine2,
   events: [
-    { title: "Eternal War Season 1 Launch", description: "PvP Eternal War Season 1 begins with the new maps, Dark Angels chapter, and inaugural ranked leaderboards.", start_date: DateTime.new(2026, 3, 28, 17, 0, 0) },
-    { title: "The Reclamation Co-Op Event", description: "A featured week for the new Reclamation Operations mission with double requisition rewards and challenge milestones.", start_date: DateTime.new(2026, 4, 23, 17, 0, 0) },
-    { title: "Warhammer Skulls Festival", description: "The annual Warhammer digital festival brings a discount week, exclusive cosmetics, and a community challenge across Operations.", start_date: DateTime.new(2026, 6, 4, 17, 0, 0) }
+    { title: "Warhammer Skulls Festival 2026", description: "The annual Warhammer Skulls digital festival — discounts across all Warhammer titles, free content drops, and community events including Space Marine 2 cosmetics and challenges.", start_date: DateTime.new(2026, 6, 4, 17, 0, 0) }
   ]
 )
 
