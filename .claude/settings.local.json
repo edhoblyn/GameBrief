@@ -30,7 +30,9 @@
       "Bash(cat public/assets/controllers/follow_sound_controller-*.js)",
       "Bash(find . -name *bda7a7b7*)",
       "Bash(find . -path */sprockets* -name *.cache)",
-      "Bash(bin/rails runner \":*)"
+      "Bash(bin/rails runner \":*)",
+      "Bash(curl -s \"https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=2767030&count=10&feeds=steam_community_announcements\")",
+      "Bash(curl -sL \"https://www.marvelrivals.com/en-us/news/\" -A \"Mozilla/5.0 \\(Macintosh; Intel Mac OS X 10_15_7\\) AppleWebKit/537.36\")"
     ],
     "deny": []
   }

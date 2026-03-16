@@ -83,6 +83,11 @@ namespace :events do
     run_event_import(EventImporters::GtaOnlineEventImporter, label: "GTA 5: Online")
   end
 
+  desc "Import real League of Legends events from leagueoflegends.com/en-us/news/"
+  task import_league_of_legends: :environment do
+    run_event_import(EventImporters::LeagueOfLegendsEventImporter, label: "League of Legends")
+  end
+
   desc "Import all games' real events (run each source in turn)"
   task import_all: :environment do
     Rake::Task["events:import_apex_legends"].invoke
@@ -98,6 +103,7 @@ namespace :events do
     Rake::Task["events:import_genshin_impact"].invoke
     Rake::Task["events:import_gta_online"].invoke
     Rake::Task["events:import_helldivers_2"].invoke
+    Rake::Task["events:import_league_of_legends"].invoke
     Rake::Task["events:import_valorant"].invoke
   end
 end

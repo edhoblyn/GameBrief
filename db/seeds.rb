@@ -979,12 +979,12 @@ seed_event_series(
 
 seed_live_events(game: gta_online, importer_class: EventImporters::GtaOnlineEventImporter)
 
+seed_live_events(game: lol, importer_class: EventImporters::LeagueOfLegendsEventImporter)
 seed_event_series(
   game: lol,
   events: [
-    { title: "Split 3 Ranked Season Start", description: "Split 3 begins with Patch 14.12 — all players receive LP adjustments and the new ranked icons go live.", start_date: DateTime.new(2026, 4, 2, 10, 0, 0) },
-    { title: "MSI 2026", description: "The Mid-Season Invitational brings together the top teams from every major region to compete for global glory.", start_date: DateTime.new(2026, 5, 1, 12, 0, 0) },
-    { title: "World Championship 2026", description: "The pinnacle of the competitive season — the World Championship crowns the best team in League of Legends.", start_date: DateTime.new(2026, 10, 3, 12, 0, 0) }
+    { title: "MSI 2026", description: "The Mid-Season Invitational brings together the top teams from every major region to compete for global glory before Worlds.", start_date: DateTime.new(2026, 5, 1, 12, 0, 0) },
+    { title: "World Championship 2026", description: "The League of Legends World Championship — the biggest event in the LoL calendar where the best teams from every region compete for the Summoner's Cup.", start_date: DateTime.new(2026, 10, 3, 12, 0, 0) }
   ]
 )
 
