@@ -929,12 +929,11 @@ seed_event_series(
 
 seed_live_events(game: helldivers, importer_class: EventImporters::Helldivers2EventImporter)
 
+seed_live_events(game: overwatch2, importer_class: EventImporters::Overwatch2EventImporter)
 seed_event_series(
   game: overwatch2,
   events: [
-    { title: "Season 16 Battle Pass Launch", description: "Season 16 goes live with a new Battle Pass, Freja hero unlock, and the Esperança map added to all rotations.", start_date: DateTime.new(2026, 4, 8, 18, 0, 0) },
-    { title: "Overwatch World Cup Qualifiers", description: "National teams begin their qualifying runs for the Overwatch World Cup with online open stages across all regions.", start_date: DateTime.new(2026, 5, 3, 17, 0, 0) },
-    { title: "Anniversary Remix Event", description: "The annual Anniversary event returns with a rotating arcade, returning cosmetics, and limited-time challenges.", start_date: DateTime.new(2026, 5, 20, 18, 0, 0) }
+    { title: "Overwatch Anniversary 2026", description: "The Overwatch Anniversary event is live — celebrating the game's birthday with returning limited cosmetics, a rotating arcade, and anniversary bundles.", start_date: DateTime.new(2026, 5, 19, 18, 0, 0) }
   ]
 )
 

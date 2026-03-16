@@ -88,6 +88,11 @@ namespace :events do
     run_event_import(EventImporters::LeagueOfLegendsEventImporter, label: "League of Legends")
   end
 
+  desc "Import real Overwatch 2 events from Steam announcements API"
+  task import_overwatch_2: :environment do
+    run_event_import(EventImporters::Overwatch2EventImporter, label: "Overwatch 2")
+  end
+
   desc "Import all games' real events (run each source in turn)"
   task import_all: :environment do
     Rake::Task["events:import_apex_legends"].invoke
@@ -104,6 +109,7 @@ namespace :events do
     Rake::Task["events:import_gta_online"].invoke
     Rake::Task["events:import_helldivers_2"].invoke
     Rake::Task["events:import_league_of_legends"].invoke
+    Rake::Task["events:import_overwatch_2"].invoke
     Rake::Task["events:import_valorant"].invoke
   end
 end
