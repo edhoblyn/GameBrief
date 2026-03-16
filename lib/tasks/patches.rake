@@ -97,6 +97,11 @@ namespace :patches do
     run_scrape("resident_evil_requiem")
   end
 
+  desc "Scrape and import Horizon Forbidden West Complete Edition updates from steampowered.com"
+  task scrape_horizon_forbidden_west: :environment do
+    run_scrape("horizon_forbidden_west")
+  end
+
   desc "Scrape and import Roblox release notes from create.roblox.com"
   task scrape_roblox: :environment do
     run_scrape("roblox")

@@ -85,6 +85,11 @@ production:
     queue: default
     schedule: every monday at 1:45pm
 
+  scrape_horizon_forbidden_west_patches:
+    class: ScrapeHorizonForbiddenWestJob
+    queue: default
+    schedule: every monday at 1:50pm
+
   scrape_roblox_patches:
     class: ScrapeRobloxJob
     queue: default

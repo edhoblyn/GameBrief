@@ -156,6 +156,26 @@ class Admin::PatchScrapesControllerTest < ActionDispatch::IntegrationTest
     assert_includes @response.body, "Overwatch 2 scrape finished: 4 imported, 2 skipped."
   end
 
+  test "runs horizon forbidden west scrape for admins" do
+    sign_in @admin
+    result = PatchScrapeRunner::Result.new(source: "horizon_forbidden_west", label: "Horizon Forbidden West", imported: 6, skipped: 2)
+    original_run = PatchScrapeRunner.method(:run)
+
+    PatchScrapeRunner.singleton_class.define_method(:run) do |_source|
+      result
+    end
+
+    begin
+      post admin_patch_scrapes_url, params: { source: "horizon_forbidden_west" }
+    ensure
+      PatchScrapeRunner.singleton_class.define_method(:run, original_run)
+    end
+
+    assert_redirected_to admin_dashboard_path
+    follow_redirect!
+    assert_includes @response.body, "Horizon Forbidden West scrape finished: 6 imported, 2 skipped."
+  end
+
   test "shows an alert for an unknown source" do
     sign_in @admin
 

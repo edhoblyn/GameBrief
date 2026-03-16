@@ -127,6 +127,13 @@ class PatchScrapeRunner
       missing_game_error: "Resident Evil Requiem game not found in the database.",
       missing_game_hint: "Expected an existing Game named 'Resident Evil Requiem' or slugged 'resident-evil-requiem'."
     },
+    "horizon_forbidden_west" => {
+      label: "Horizon Forbidden West",
+      importer: PatchImporters::HorizonForbiddenWestImporter,
+      game_slugs: ["horizon-forbidden-west"],
+      missing_game_error: "Horizon Forbidden West game not found in the database.",
+      missing_game_hint: "Expected an existing Game named 'Horizon Forbidden West' or slugged 'horizon-forbidden-west'."
+    },
     "roblox" => {
       label: "Roblox",
       importer: PatchImporters::RobloxImporter,

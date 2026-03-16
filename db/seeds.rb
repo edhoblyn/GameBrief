@@ -190,6 +190,7 @@ seed_live_patches("resident_evil_requiem")
 seed_live_patches("league_of_legends")
 seed_live_patches("counter_strike_2")
 seed_live_patches("pubg_battlegrounds")
+seed_live_patches("horizon_forbidden_west")
 
 fortnite_patch = seed_placeholder_patch(
   game: fortnite,
@@ -687,38 +688,6 @@ end
 
 seed_live_patches("star_wars_battlefront_ii")
 
-horizon_fw_patch = seed_placeholder_patch(
-  game: horizon_fw,
-  title: "Update 1.21 — Burning Shores & Balance Pass",
-  content: <<~TEXT,
-    New Content
-    - Burning Shores DLC: A new region set in a flooded post-apocalyptic Los Angeles. Features new machines, a new story, and a new companion.
-    - New machine: Bilegut added to Burning Shores — a large amphibious creature with acid-based attacks.
-    - New weapon: Specter Gauntlet added as a Burning Shores exclusive ranged weapon.
-
-    Weapon & Gear Balance
-    - Shredder Gauntlet: Charged disc damage increased by 10%.
-    - Spike Thrower: Detonation radius on impact spikes slightly increased.
-    - Boltblaster: Energy cell reload speed improved.
-    - Shield-Weaver armour: Overcharge cooldown reduced from 30s to 25s.
-
-    Machine Adjustments
-    - Slitherfang: Coil shots now deal 5% less damage to compensate for frequent use in late-game builds.
-    - Stormbird: Wingbeat knock-back radius slightly reduced.
-    - Clawstrider: Overriding a Clawstrider is now 10% faster when using Override perks.
-
-    Bug Fixes
-    - Fixed a crash occurring when fast-travelling during a Cauldron cutscene.
-    - Resolved an issue where machine overrides would break after reloading a save.
-    - Fixed texture pop-in on Burning Shores coastal areas.
-  TEXT
-  summaries: {
-    "quick_summary" => "Burning Shores is the major DLC addition — it sends Aloy to a flooded Los Angeles with new machines, weapons, and story content. The Shredder Gauntlet got a damage boost and Shield-Weaver armour recharges faster, giving endgame builds a bit more punch. A new Bilegut machine adds an acid-heavy challenge to the Burning Shores region.",
-    "casual_impact" => "Burning Shores is a worthwhile expansion if you enjoyed the main game — it's a beautiful region with a distinct look and feel. The weapon buffs make mid-game gear feel more viable in late encounters so you don't need to constantly upgrade. Override builds got a small quality-of-life boost too.",
-    "should_i_log_in" => "Yes if you have the DLC — Burning Shores is visually stunning and tells a standalone story worth experiencing. If you haven't finished the base game yet, there's also never been a better time to start."
-  }
-)
-
 ff7_rebirth_patch = seed_placeholder_patch(
   game: ff7_rebirth,
   title: "Version 1.040 — Combat & Synergy Updates",
@@ -1132,15 +1101,6 @@ seed_event_series(
     { title: "Scarif Community Event", description: "A limited-time community challenge on the new Scarif map with bonus XP and milestone rewards for participation.", start_date: DateTime.new(2026, 3, 28, 18, 0, 0) },
     { title: "Rogue One Heroes Weekend", description: "A featured playlist spotlighting Jyn Erso and Director Krennic with double hero token earnings.", start_date: DateTime.new(2026, 4, 18, 18, 0, 0) },
     { title: "Galactic Assault Championship", description: "A community-organised tournament series across Galactic Assault maps with seasonal leaderboard tracking.", start_date: DateTime.new(2026, 6, 14, 17, 0, 0) }
-  ]
-)
-
-seed_event_series(
-  game: horizon_fw,
-  events: [
-    { title: "Burning Shores Launch Weekend", description: "The Burning Shores DLC launches with a free trial period for the new Scarlet Shore outpost and community showcase streams.", start_date: DateTime.new(2026, 4, 5, 17, 0, 0) },
-    { title: "Machine Strike Tournament", description: "An official Machine Strike challenge event with ranked matches and exclusive cosmetic rewards for top players.", start_date: DateTime.new(2026, 5, 9, 18, 0, 0) },
-    { title: "Cauldron Speed Run Challenge", description: "A community speed run event across all Cauldrons, with developer-verified times and a special trophy for completionists.", start_date: DateTime.new(2026, 7, 11, 17, 0, 0) }
   ]
 )
 

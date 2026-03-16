@@ -122,6 +122,29 @@ class PatchScrapeRunnerTest < ActiveSupport::TestCase
     importer_class.define_method(:new, original_new)
   end
 
+  test "runs the horizon forbidden west importer when configured" do
+    importer = Class.new do
+      Result = Struct.new(:imported, :skipped, keyword_init: true)
+
+      def call
+        Result.new(imported: 5, skipped: 2)
+      end
+    end.new
+
+    importer_class = PatchImporters::HorizonForbiddenWestImporter.singleton_class
+    original_new = PatchImporters::HorizonForbiddenWestImporter.method(:new)
+    importer_class.define_method(:new) { importer }
+
+    result = PatchScrapeRunner.run("horizon_forbidden_west")
+
+    assert_equal "horizon_forbidden_west", result.source
+    assert_equal "Horizon Forbidden West", result.label
+    assert_equal 5, result.imported
+    assert_equal 2, result.skipped
+  ensure
+    importer_class.define_method(:new, original_new)
+  end
+
   test "runs the pubg battlegrounds importer when configured" do
     importer = Class.new do
       Result = Struct.new(:imported, :skipped, keyword_init: true)
@@ -162,6 +185,7 @@ class PatchScrapeRunnerTest < ActiveSupport::TestCase
     assert_includes PatchScrapeRunner.runnable_sources, "overwatch_2"
     assert_includes PatchScrapeRunner.runnable_sources, "pokemon_pokopia"
     assert_includes PatchScrapeRunner.runnable_sources, "resident_evil_requiem"
+    assert_includes PatchScrapeRunner.runnable_sources, "horizon_forbidden_west"
     assert_includes PatchScrapeRunner.runnable_sources, "star_wars_battlefront_ii"
     assert_not_includes PatchScrapeRunner.runnable_sources, "fortnite"
     assert_not_includes PatchScrapeRunner.runnable_sources, "helldivers_2"
