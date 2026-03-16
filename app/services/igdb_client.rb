@@ -18,7 +18,10 @@ class IgdbClient
     request.body = "search \"#{query}\"; fields name,slug,cover.url; limit 10;"
 
     response = http.request(request)
-    JSON.parse(response.body)
+    parsed = JSON.parse(response.body)
+    parsed.is_a?(Array) ? parsed : []
+  rescue JSON::ParserError
+    []
   end
 
   def get_game(igdb_id)

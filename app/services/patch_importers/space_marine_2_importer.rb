@@ -3,11 +3,13 @@ module PatchImporters
     Result = Struct.new(:imported, :skipped, keyword_init: true)
 
     GAME_SLUGS = [
-      "warhammer-40000-space-marine-2"
+      "warhammer-40000-space-marine-2",
+      "warhammer-40000-space-marine-ii"
     ].freeze
 
     GAME_NAMES = [
-      "Warhammer 40,000: Space Marine 2"
+      "Warhammer 40,000: Space Marine 2",
+      "Warhammer 40,000: Space Marine II"
     ].freeze
 
     def call
