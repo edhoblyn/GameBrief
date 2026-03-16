@@ -51,6 +51,11 @@ Rails.application.routes.draw do
         post :run_all
       end
     end
+    resources :event_imports, only: [:create] do
+      collection do
+        post :run_all
+      end
+    end
     resources :users, only: [:create, :destroy], controller: :users
   end
 

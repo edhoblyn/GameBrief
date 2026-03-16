@@ -3,7 +3,7 @@
     <div>
       <p class="admin-panel-page__eyebrow">Admin</p>
       <h1 class="admin-panel-page__title">Admin Panel</h1>
-      <p class="admin-panel-page__subtitle">Run manual patch scrapes and keep core admin workflows in one place.</p>
+      <p class="admin-panel-page__subtitle">Run manual patch scrapes, event imports, and keep core admin workflows in one place.</p>
     </div>
     <div class="admin-panel-page__hero-actions">
       <%= link_to games_path, class: "admin-panel-page__action" do %>
@@ -51,6 +51,45 @@
                             class: "admin-panel-page__button" %>
             <% else %>
               <button class="admin-panel-page__button admin-panel-page__button--disabled" type="button" disabled>AI</button>
+            <% end %>
+          </article>
+        <% end %>
+      </div>
+    </section>
+
+    <section class="admin-panel-page__card">
+      <div class="admin-panel-page__section-header">
+        <div>
+          <p class="admin-panel-page__kicker">Manual Imports</p>
+          <h2>Event imports</h2>
+        </div>
+        <span class="admin-panel-page__pill"><%= @event_sources.count %> sources</span>
+      </div>
+      <p class="admin-panel-page__copy">Re-scrape live event feeds for each game. Manual-seed games are listed but cannot be triggered here.</p>
+      <div class="admin-panel-page__toolbar">
+        <%= button_to "Run all imports", run_all_admin_event_imports_path, class: "admin-panel-page__button admin-panel-page__button--wide" %>
+      </div>
+
+      <div class="admin-panel-page__scrapes">
+        <% @event_sources.each do |source| %>
+          <article class="admin-panel-page__scrape">
+            <div>
+              <h3><%= source[:label] %></h3>
+              <div class="admin-panel-page__scrape-meta">
+                <span><code><%= source[:source] %></code></span>
+                <% if source[:game_slugs].any? %>
+                  <span><code><%= source[:game_slugs].join(", ") %></code></span>
+                <% end %>
+              </div>
+            </div>
+
+            <% if source.fetch(:manual_trigger_enabled, true) %>
+              <%= button_to "Run import",
+                            admin_event_imports_path,
+                            params: { source: source[:source] },
+                            class: "admin-panel-page__button" %>
+            <% else %>
+              <button class="admin-panel-page__button admin-panel-page__button--disabled" type="button" disabled>Manual</button>
             <% end %>
           </article>
         <% end %>
@@ -128,7 +167,7 @@
     <div class="admin-panel-page__section-header">
       <div>
         <p class="admin-panel-page__kicker">Scrape Log</p>
-        <h2>Latest run output</h2>
+        <h2>Latest patch run output</h2>
       </div>
     </div>
 
@@ -159,6 +198,44 @@
       <p class="admin-panel-page__empty-copy">All enabled scrapes are running in the background. Refresh in a moment for results.</p>
     <% else %>
       <p class="admin-panel-page__empty-copy">No scrape logs yet. Run a source or use Run all scrapes to populate this panel.</p>
+    <% end %>
+  </section>
+
+  <section class="admin-panel-page__card admin-panel-page__card--log">
+    <div class="admin-panel-page__section-header">
+      <div>
+        <p class="admin-panel-page__kicker">Event Import Log</p>
+        <h2>Latest event run output</h2>
+      </div>
+    </div>
+
+    <% if @event_log_status == "running" %>
+      <p class="admin-panel-page__copy">An event import run is currently in progress. Refresh shortly to see the latest output.</p>
+    <% end %>
+
+    <% if @event_logs.any? %>
+      <div class="admin-panel-page__logs">
+        <% @event_logs.each do |entry| %>
+          <article class="admin-panel-page__log-entry <%= "admin-panel-page__log-entry--error" unless entry["success"] %>">
+            <div class="admin-panel-page__log-topline">
+              <strong><%= entry["label"] %></strong>
+              <span><%= Time.zone.parse(entry["timestamp"]).strftime("%d %b %Y %H:%M") %></span>
+            </div>
+            <p>
+              <%= entry["success"] ? "Success" : "Failed" %>:
+              <%= entry["imported"] %> imported,
+              <%= entry["skipped"] %> skipped
+            </p>
+            <% if entry["error_message"].present? %>
+              <pre class="admin-panel-page__log-error"><%= entry["error_message"] %></pre>
+            <% end %>
+          </article>
+        <% end %>
+      </div>
+    <% elsif @event_log_status == "running" %>
+      <p class="admin-panel-page__empty-copy">All event imports are running in the background. Refresh in a moment for results.</p>
+    <% else %>
+      <p class="admin-panel-page__empty-copy">No event import logs yet. Run a source or use Run all imports to populate this panel.</p>
     <% end %>
   </section>
 </div>
