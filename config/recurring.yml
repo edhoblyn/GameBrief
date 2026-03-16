@@ -10,6 +10,26 @@
 #     schedule: at 5am every day
 
 production:
+  scrape_battlefield_6_patches:
+    class: ScrapeBattlefield6Job
+    queue: default
+    schedule: every monday at 5am
+
+  scrape_baldurs_gate_3_patches:
+    class: ScrapeBaldursGate3Job
+    queue: default
+    schedule: every monday at 5:15am
+
+  scrape_genshin_impact_patches:
+    class: ScrapeGenshinImpactJob
+    queue: default
+    schedule: every monday at 5:20am
+
+  scrape_arc_raiders_patches:
+    class: ScrapeArcRaidersJob
+    queue: default
+    schedule: every monday at 5:30am
+
   scrape_marvel_rivals_patches:
     class: ScrapeMarvelRivalsJob
     queue: default
@@ -50,10 +70,45 @@ production:
     queue: default
     schedule: every monday at 12pm
 
+  scrape_league_of_legends_patches:
+    class: ScrapeLeagueOfLegendsJob
+    queue: default
+    schedule: every monday at 12:30pm
+
+  scrape_counter_strike_2_patches:
+    class: ScrapeCounterStrike2Job
+    queue: default
+    schedule: every monday at 12:45pm
+
   scrape_valorant_patches:
     class: ScrapeValorantJob
     queue: default
     schedule: every monday at 1pm
+
+  scrape_overwatch_2_patches:
+    class: ScrapeOverwatch2Job
+    queue: default
+    schedule: every monday at 1:30pm
+
+  scrape_resident_evil_requiem_patches:
+    class: ScrapeResidentEvilRequiemJob
+    queue: default
+    schedule: every monday at 1:45pm
+
+  scrape_horizon_forbidden_west_patches:
+    class: ScrapeHorizonForbiddenWestJob
+    queue: default
+    schedule: every monday at 1:50pm
+
+  scrape_cyberpunk_2077_patches:
+    class: ScrapeCyberpunk2077Job
+    queue: default
+    schedule: every monday at 1:55pm
+
+  scrape_spider_man_2_patches:
+    class: ScrapeSpiderMan2Job
+    queue: default
+    schedule: every monday at 1:57pm
 
   scrape_roblox_patches:
     class: ScrapeRobloxJob
@@ -69,6 +124,11 @@ production:
     class: ScrapeClashOfClansJob
     queue: default
     schedule: every monday at 4pm
+
+  scrape_pokemon_pokopia_updates:
+    class: ScrapePokemonPokopiaJob
+    queue: default
+    schedule: every monday at 4:30pm
 
   clear_solid_queue_finished_jobs:
     command: "SolidQueue::Job.clear_finished_in_batches(sleep_between_batches: 0.3)"

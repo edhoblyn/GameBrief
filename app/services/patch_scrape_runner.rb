@@ -3,6 +3,34 @@ class PatchScrapeRunner
   Diagnostic = Struct.new(:source, :label, :imported, :skipped, :success, :error_message, :timestamp, keyword_init: true)
 
   SOURCES = {
+    "battlefield_6" => {
+      label: "Battlefield 6",
+      importer: PatchImporters::Battlefield6Importer,
+      game_slugs: ["battlefield-6"],
+      missing_game_error: "Battlefield 6 game not found in the database.",
+      missing_game_hint: "Expected an existing Game named 'Battlefield 6' or slugged 'battlefield-6'."
+    },
+    "baldurs_gate_3" => {
+      label: "Baldur's Gate 3",
+      importer: PatchImporters::BaldursGate3Importer,
+      game_slugs: ["baldurs-gate-3"],
+      missing_game_error: "Baldur's Gate 3 game not found in the database.",
+      missing_game_hint: "Expected an existing Game named 'Baldur's Gate 3' or slugged 'baldurs-gate-3'."
+    },
+    "genshin_impact" => {
+      label: "Genshin Impact",
+      importer: PatchImporters::GenshinImpactImporter,
+      game_slugs: ["genshin-impact", "genshin-impact-blades-weaving-betwixt-brocade"],
+      missing_game_error: "Genshin Impact game not found in the database.",
+      missing_game_hint: "Expected an existing Game named 'Genshin Impact' or slugged 'genshin-impact'."
+    },
+    "arc_raiders" => {
+      label: "ARC Raiders",
+      importer: PatchImporters::ArcRaidersImporter,
+      game_slugs: ["arc-raiders"],
+      missing_game_error: "ARC Raiders game not found in the database.",
+      missing_game_hint: "Expected an existing Game named 'ARC Raiders' or slugged 'arc-raiders'."
+    },
     "marvel_rivals" => {
       label: "Marvel Rivals",
       importer: PatchImporters::MarvelRivalsImporter,
@@ -23,6 +51,7 @@ class PatchScrapeRunner
       game_slugs: ["fortnite"],
       ingestion_method: "api",
       manual_trigger_enabled: false,
+      disabled_message: "Fortnite currently requires an API or alternate endpoint because the official news page is behind bot protection.",
       missing_game_error: "Fortnite game not found in the database.",
       missing_game_hint: "Expected an existing Game named 'Fortnite' or slugged 'fortnite'."
     },
@@ -44,6 +73,9 @@ class PatchScrapeRunner
       label: "Helldivers 2",
       importer: PatchImporters::Helldivers2Importer,
       game_slugs: ["helldivers-2"],
+      ingestion_method: "api",
+      manual_trigger_enabled: false,
+      disabled_message: "Helldivers 2 currently requires an API or alternate endpoint because the official patch-notes section is behind bot protection.",
       missing_game_error: "Helldivers 2 game not found in the database.",
       missing_game_hint: "Expected an existing Game named 'Helldivers 2' or slugged 'helldivers-2'."
     },
@@ -53,6 +85,7 @@ class PatchScrapeRunner
       game_slugs: ["destiny-2"],
       ingestion_method: "api",
       manual_trigger_enabled: false,
+      disabled_message: "Destiny 2 currently requires an API or alternate endpoint because the official Bungie news feed is JS-driven and not reliably scrapeable.",
       missing_game_error: "Destiny 2 game not found in the database.",
       missing_game_hint: "Expected an existing Game named 'Destiny 2' or slugged 'destiny-2'."
     },
@@ -60,8 +93,32 @@ class PatchScrapeRunner
       label: "Minecraft",
       importer: PatchImporters::MinecraftImporter,
       game_slugs: ["minecraft"],
+      ingestion_method: "api",
+      manual_trigger_enabled: false,
+      disabled_message: "Minecraft currently requires an API or alternate endpoint because the official changelog section is behind bot protection.",
       missing_game_error: "Minecraft game not found in the database.",
       missing_game_hint: "Expected an existing Game named 'Minecraft' or slugged 'minecraft'."
+    },
+    "league_of_legends" => {
+      label: "League of Legends",
+      importer: PatchImporters::LeagueOfLegendsImporter,
+      game_slugs: ["league-of-legends"],
+      missing_game_error: "League of Legends game not found in the database.",
+      missing_game_hint: "Expected an existing Game named 'League of Legends' or slugged 'league-of-legends'."
+    },
+    "counter_strike_2" => {
+      label: "Counter-Strike 2",
+      importer: PatchImporters::CounterStrike2Importer,
+      game_slugs: ["counter-strike-2"],
+      missing_game_error: "Counter-Strike 2 game not found in the database.",
+      missing_game_hint: "Expected an existing Game named 'Counter-Strike 2' or slugged 'counter-strike-2'."
+    },
+    "pubg_battlegrounds" => {
+      label: "PUBG: Battlegrounds",
+      importer: PatchImporters::PubgBattlegroundsImporter,
+      game_slugs: ["pubg-battlegrounds", "playerunknowns-battlegrounds"],
+      missing_game_error: "PUBG: Battlegrounds game not found in the database.",
+      missing_game_hint: "Expected an existing Game named 'PUBG: Battlegrounds' or slugged 'pubg-battlegrounds'."
     },
     "valorant" => {
       label: "VALORANT",
@@ -69,6 +126,41 @@ class PatchScrapeRunner
       game_slugs: ["valorant"],
       missing_game_error: "VALORANT game not found in the database.",
       missing_game_hint: "Expected an existing Game named 'Valorant' or slugged 'valorant'."
+    },
+    "overwatch_2" => {
+      label: "Overwatch 2",
+      importer: PatchImporters::Overwatch2Importer,
+      game_slugs: ["overwatch-2", "overwatch-2-invasion-bundle--1"],
+      missing_game_error: "Overwatch 2 game not found in the database.",
+      missing_game_hint: "Expected an existing Game named 'Overwatch 2' or slugged 'overwatch-2'."
+    },
+    "resident_evil_requiem" => {
+      label: "Resident Evil Requiem",
+      importer: PatchImporters::ResidentEvilRequiemImporter,
+      game_slugs: ["resident-evil-requiem", "biohazard-requiem"],
+      missing_game_error: "Resident Evil Requiem game not found in the database.",
+      missing_game_hint: "Expected an existing Game named 'Resident Evil Requiem' or slugged 'resident-evil-requiem'."
+    },
+    "horizon_forbidden_west" => {
+      label: "Horizon Forbidden West",
+      importer: PatchImporters::HorizonForbiddenWestImporter,
+      game_slugs: ["horizon-forbidden-west"],
+      missing_game_error: "Horizon Forbidden West game not found in the database.",
+      missing_game_hint: "Expected an existing Game named 'Horizon Forbidden West' or slugged 'horizon-forbidden-west'."
+    },
+    "cyberpunk_2077" => {
+      label: "Cyberpunk 2077",
+      importer: PatchImporters::Cyberpunk2077Importer,
+      game_slugs: ["cyberpunk-2077"],
+      missing_game_error: "Cyberpunk 2077 game not found in the database.",
+      missing_game_hint: "Expected an existing Game named 'Cyberpunk 2077' or slugged 'cyberpunk-2077'."
+    },
+    "spider_man_2" => {
+      label: "Marvel's Spider-Man 2",
+      importer: PatchImporters::SpiderMan2Importer,
+      game_slugs: ["marvels-spider-man-2"],
+      missing_game_error: "Marvel's Spider-Man 2 game not found in the database.",
+      missing_game_hint: "Expected an existing Game named 'Marvel's Spider-Man 2' or slugged 'marvels-spider-man-2'."
     },
     "roblox" => {
       label: "Roblox",
@@ -90,6 +182,20 @@ class PatchScrapeRunner
       game_slugs: ["clash-of-clans"],
       missing_game_error: "Clash of Clans game not found in the database.",
       missing_game_hint: "Expected an existing Game named 'Clash of Clans' or slugged 'clash-of-clans'."
+    },
+    "pokemon_pokopia" => {
+      label: "Pokémon Pokopia",
+      importer: PatchImporters::PokemonPokopiaImporter,
+      game_slugs: ["pokemon-pokopia"],
+      missing_game_error: "Pokémon Pokopia game not found in the database.",
+      missing_game_hint: "Expected an existing Game named 'Pokémon Pokopia' or slugged 'pokemon-pokopia'."
+    },
+    "star_wars_battlefront_ii" => {
+      label: "Star Wars Battlefront II",
+      importer: PatchImporters::StarWarsBattlefront2Importer,
+      game_slugs: ["star-wars-battlefront-ii"],
+      missing_game_error: "Star Wars Battlefront II game not found in the database.",
+      missing_game_hint: "Expected an existing Game named 'Star Wars Battlefront II' or slugged 'star-wars-battlefront-ii'."
     }
   }.freeze
 
@@ -98,9 +204,19 @@ class PatchScrapeRunner
   end
 
   def self.runnable_sources
-    SOURCES.filter_map do |source, config|
-      source if config.fetch(:manual_trigger_enabled, true)
+    scrapeable_sources.filter_map do |source|
+      source if fetch(source).fetch(:manual_trigger_enabled, true)
     end
+  end
+
+  def self.scrapeable_sources
+    SOURCES.filter_map do |source, config|
+      source if config.fetch(:ingestion_method, "scrape") == "scrape"
+    end
+  end
+
+  def self.scrapeable?(source)
+    fetch(source).fetch(:ingestion_method, "scrape") == "scrape"
   end
 
   def self.fetch(source)

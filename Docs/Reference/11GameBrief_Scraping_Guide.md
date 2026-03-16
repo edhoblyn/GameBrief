@@ -256,6 +256,8 @@ Games with real imported data now include:
 
 For games where real imports succeeded, seeded placeholder patches were removed so the app now shows live source-backed patch data instead.
 
+As of March 16, 2026, a live run on `gamebrief-eu` confirmed the scrapeable sources above still execute successfully after the Heroku migration. The currently blocked sources are listed below.
+
 ## Known Issues
 
 ### Fortnite
@@ -269,6 +271,30 @@ Impact:
 
 - automated scraping is currently blocked
 - seeded placeholder data may still be the only patch data available
+
+### Helldivers 2
+
+The official Arrowhead Zendesk patch-notes section currently returns a Cloudflare challenge / `403` to the scraper.
+
+Source:
+`https://arrowhead.zendesk.com/hc/en-us/sections/12541983411100-Latest-patch-notes`
+
+Impact:
+
+- automated scraping is currently blocked
+- GameBrief should treat this source as requiring an alternate endpoint or API for now
+
+### Minecraft
+
+The official Minecraft changelog section currently returns a Cloudflare challenge / `403` to the scraper.
+
+Source:
+`https://feedback.minecraft.net/hc/en-us/sections/360001186971-Release-Changelogs`
+
+Impact:
+
+- automated scraping is currently blocked
+- GameBrief should treat this source as requiring an alternate endpoint or API for now
 
 ### Destiny 2
 

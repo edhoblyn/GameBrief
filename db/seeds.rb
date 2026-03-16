@@ -41,6 +41,18 @@ def seed_event_series(game:, events:)
   end
 end
 
+def seed_live_patches(source)
+  config = PatchScrapeRunner.fetch(source)
+  return unless PatchScrapeRunner.scrapeable?(source)
+
+  result = PatchScrapeRunner.run(source)
+  puts "Imported live patches for #{config[:label]}: #{result.imported} imported, #{result.skipped} skipped."
+  result
+rescue StandardError => e
+  puts "Skipping live patch import for #{source}: #{e.class}: #{e.message}"
+  nil
+end
+
 puts "Creating users..."
 
 user = upsert_user(
@@ -73,7 +85,7 @@ puts "Importing games from IGDB..."
 
 client = IgdbClient.new
 
-def import_game(client, query, name: nil, free_to_play: false, single_player: false, multiplayer: false)
+def import_game(client, query, name: nil, slug: nil, free_to_play: false, single_player: false, multiplayer: false)
   results = client.search_games(query)
   match = results.find { |g| g["name"]&.downcase == query.downcase && g["cover"] }
   match ||= results.find { |g| g["cover"] }
@@ -81,14 +93,16 @@ def import_game(client, query, name: nil, free_to_play: false, single_player: fa
   return nil unless match
 
   cover_url = match["cover"] ? "https:#{match["cover"]["url"].gsub("t_thumb", "t_cover_big")}" : nil
+  resolved_slug = slug || match["slug"]
 
   game = Game.where("LOWER(name) = ?", query.downcase).first
+  game ||= Game.find_by(slug: resolved_slug) if resolved_slug.present?
   game ||= Game.find_by(slug: match["slug"]) if match["slug"].present?
   game ||= Game.new
 
   game.update!(
     name: name || match["name"],
-    slug: match["slug"],
+    slug: resolved_slug,
     cover_image: cover_url,
     free_to_play: free_to_play,
     single_player: single_player,
@@ -122,7 +136,7 @@ lol           = import_game(client, "League of Legends", free_to_play: true, mul
 cyberpunk     = import_game(client, "Cyberpunk 2077", free_to_play: false, single_player: true)
 space_marine2 = import_game(client, "Warhammer 40,000: Space Marine 2", free_to_play: false, single_player: true, multiplayer: true)
 arc_raiders   = import_game(client, "ARC Raiders", free_to_play: false, multiplayer: true)
-genshin       = import_game(client, "Genshin Impact", name: "Genshin Impact", free_to_play: true, single_player: true, multiplayer: true)
+genshin       = import_game(client, "Genshin Impact", name: "Genshin Impact", slug: "genshin-impact", free_to_play: true, single_player: true, multiplayer: true)
 cs2           = import_game(client, "Counter-Strike 2", free_to_play: true, multiplayer: true)
 dota2         = import_game(client, "Dota 2", free_to_play: true, multiplayer: true)
 baldurs_gate3 = import_game(client, "Baldur's Gate 3", free_to_play: false, single_player: true, multiplayer: true)
@@ -171,6 +185,18 @@ genre_map.each do |game, genres|
 end
 
 puts "Creating patches..."
+
+seed_live_patches("battlefield_6")
+seed_live_patches("baldurs_gate_3")
+seed_live_patches("genshin_impact")
+seed_live_patches("arc_raiders")
+seed_live_patches("resident_evil_requiem")
+seed_live_patches("league_of_legends")
+seed_live_patches("counter_strike_2")
+seed_live_patches("pubg_battlegrounds")
+seed_live_patches("horizon_forbidden_west")
+seed_live_patches("cyberpunk_2077")
+seed_live_patches("spider_man_2")
 
 fortnite_patch = seed_placeholder_patch(
   game: fortnite,
@@ -661,100 +687,12 @@ re_requiem_patch = seed_placeholder_patch(
   }
 )
 
-pokemon_pokopia_patch = seed_placeholder_patch(
-  game: pokemon_pokopia,
-  title: "Version 1.1.0 — Festival of Seasons Update",
-  content: <<~TEXT,
-    New Content
-    - Festival of Seasons event: A rotating 4-week in-game festival with themed activities, rare spawns, and exclusive cosmetic rewards for your trainer.
-    - 12 new Pokémon added to the Pokopia regional Pokédex across all biomes.
-    - New area unlocked: The Crystalline Caverns, accessible after completing the 5th Gym challenge.
+seed_live_patches("pokemon_pokopia")
+if pokemon_pokopia.present? && pokemon_pokopia.patches.where.not(source_url: nil).exists?
+  pokemon_pokopia.patches.where(source_url: nil).find_each(&:destroy!)
+end
 
-    Battle System Updates
-    - New move type interactions added: Prism-type moves introduced for select new Pokémon.
-    - Double Battle AI improved in the post-game — opponents now use held items and switching more strategically.
-    - Online ranked battles now use a separate matchmaking pool from casual battles.
-
-    Quality of Life
-    - Pokémon box now supports 40 boxes (up from 32).
-    - Auto-save interval now configurable in settings (off / 5 min / 10 min / 30 min).
-    - Held item preview added to battle summary screen.
-
-    Bug Fixes
-    - Fixed a crash when attempting to evolve a Pokémon with a full party during a cutscene.
-    - Resolved incorrect shiny encounter rates in the Crystalline Caverns on launch.
-    - Fixed trade evolution not completing correctly when the connection dropped mid-trade.
-  TEXT
-  summaries: {
-    "quick_summary" => "The Festival of Seasons event is the big addition — it runs for 4 weeks and brings exclusive cosmetics, rare spawns, and themed activities. 12 new Pokémon have been added to the region's Pokédex and a brand new post-game area, the Crystalline Caverns, opens up after the 5th Gym. The new Prism-type move interactions add fresh depth to competitive battles.",
-    "casual_impact" => "Even if you're mid-playthrough there are 12 new Pokémon to find and catch across the world. The box expansion to 40 boxes is a welcome change if you love collecting. The Festival event has limited-time cosmetics so it's worth logging in regularly over the next month.",
-    "should_i_log_in" => "Yes — the Festival of Seasons is time-limited and the exclusive rewards won't come back easily. The new Pokémon and Crystalline Caverns give you more to explore whether you're just starting or already post-game."
-  }
-)
-
-battlefront2_patch = seed_placeholder_patch(
-  game: battlefront2,
-  title: "The Age of Rebellion Update",
-  content: <<~TEXT,
-    New Content
-    - New map: Scarif Beachhead added to all large-scale modes including Galactic Assault and Co-Op.
-    - New hero: Jyn Erso added as a Rebel hero unit with two active abilities and one passive.
-    - New villain: Director Krennic added as an Imperial villain unit.
-
-    Hero & Villain Balance
-    - Luke Skywalker: Rush ability cooldown reduced from 10s to 9s.
-    - Darth Vader: Focused Rage bonus damage duration increased from 5s to 6s.
-    - Rey: Insight passive detection range slightly reduced.
-    - Boba Fett: Jetpack Boost fuel recovery rate increased by 10%.
-
-    Class Adjustments
-    - Officer: Battle Command ability radius increased from 8m to 10m.
-    - Heavy: Ion Torpedo now deals 10% more damage to vehicles.
-    - Specialist: Infiltration ability cloak duration reduced from 10s to 8s.
-
-    Bug Fixes
-    - Fixed Maul's Spin Attack sometimes passing through enemies without registering damage.
-    - Resolved issue where Co-Op objectives would reset after a host migration.
-    - Fixed Scarif Beachhead lighting artifacts on low settings.
-  TEXT
-  summaries: {
-    "quick_summary" => "Scarif from Rogue One joins the map pool which adds one of the most visually distinctive battlegrounds in the game to Galactic Assault. Two new heroes arrive — Jyn Erso and Director Krennic — bringing the Rogue One cast into multiplayer. Class tweaks give the Officer and Heavy roles a bit more impact in large battles.",
-    "casual_impact" => "Scarif is a gorgeous new map that plays differently to anything else in the roster, with beach terrain and tight corridors. Jyn Erso is a mobile and aggressive hero option if you enjoy Rebel playstyle. The Officer buff means support roles feel slightly more rewarding to play.",
-    "should_i_log_in" => "Yes — Scarif and two new heroes are the kind of content drop that makes this game worth revisiting. Even if you haven't played in a while, this is a great excuse to jump back into Galactic Assault."
-  }
-)
-
-horizon_fw_patch = seed_placeholder_patch(
-  game: horizon_fw,
-  title: "Update 1.21 — Burning Shores & Balance Pass",
-  content: <<~TEXT,
-    New Content
-    - Burning Shores DLC: A new region set in a flooded post-apocalyptic Los Angeles. Features new machines, a new story, and a new companion.
-    - New machine: Bilegut added to Burning Shores — a large amphibious creature with acid-based attacks.
-    - New weapon: Specter Gauntlet added as a Burning Shores exclusive ranged weapon.
-
-    Weapon & Gear Balance
-    - Shredder Gauntlet: Charged disc damage increased by 10%.
-    - Spike Thrower: Detonation radius on impact spikes slightly increased.
-    - Boltblaster: Energy cell reload speed improved.
-    - Shield-Weaver armour: Overcharge cooldown reduced from 30s to 25s.
-
-    Machine Adjustments
-    - Slitherfang: Coil shots now deal 5% less damage to compensate for frequent use in late-game builds.
-    - Stormbird: Wingbeat knock-back radius slightly reduced.
-    - Clawstrider: Overriding a Clawstrider is now 10% faster when using Override perks.
-
-    Bug Fixes
-    - Fixed a crash occurring when fast-travelling during a Cauldron cutscene.
-    - Resolved an issue where machine overrides would break after reloading a save.
-    - Fixed texture pop-in on Burning Shores coastal areas.
-  TEXT
-  summaries: {
-    "quick_summary" => "Burning Shores is the major DLC addition — it sends Aloy to a flooded Los Angeles with new machines, weapons, and story content. The Shredder Gauntlet got a damage boost and Shield-Weaver armour recharges faster, giving endgame builds a bit more punch. A new Bilegut machine adds an acid-heavy challenge to the Burning Shores region.",
-    "casual_impact" => "Burning Shores is a worthwhile expansion if you enjoyed the main game — it's a beautiful region with a distinct look and feel. The weapon buffs make mid-game gear feel more viable in late encounters so you don't need to constantly upgrade. Override builds got a small quality-of-life boost too.",
-    "should_i_log_in" => "Yes if you have the DLC — Burning Shores is visually stunning and tells a standalone story worth experiencing. If you haven't finished the base game yet, there's also never been a better time to start."
-  }
-)
+seed_live_patches("star_wars_battlefront_ii")
 
 ff7_rebirth_patch = seed_placeholder_patch(
   game: ff7_rebirth,
@@ -789,37 +727,6 @@ ff7_rebirth_patch = seed_placeholder_patch(
   }
 )
 
-spiderman2_patch = seed_placeholder_patch(
-  game: spiderman2,
-  title: "Update 1.003.001 — New Game+ & Balance Pass",
-  content: <<~TEXT,
-    New Content
-    - New Game+ added: Carry over all suits, gadgets, and upgrades from your completed save. New NG+ exclusive suits unlocked upon starting.
-    - Ultimate difficulty added as part of New Game+.
-    - New Trophy set added for New Game+ completion milestones.
-
-    Combat Balance
-    - Peter (Symbiote): Venom Punch damage increased by 8%. Symbiote Surge cooldown reduced by 5s.
-    - Miles: Venom Dash now chains to a second enemy if the first is defeated within 1.5s.
-    - Web Wings: Dive speed increased slightly for more satisfying aerial traversal.
-    - Gadgets: Web Grabber pull radius increased to catch more grouped enemies.
-
-    Suit Tech Adjustments
-    - Focus Generation: Passive rate increased slightly across all combat suits.
-    - Symbiote Tendrils (Peter): Tendril damage reduced by 6% to rebalance endgame encounters.
-
-    Bug Fixes
-    - Fixed a crash triggered by switching characters rapidly during a specific main mission cutscene.
-    - Resolved an issue where photo mode filters were not saving correctly between sessions.
-    - Fixed suit colour variants not unlocking correctly for certain DLC suits.
-  TEXT
-  summaries: {
-    "quick_summary" => "New Game+ is the headline addition — you carry everything over and unlock exclusive new suits while tackling an Ultimate difficulty mode. Miles got a nice combo buff where Venom Dash chains between enemies, and the Symbiote Surge for Peter is up more often. Web Wings diving feels snappier which makes traversal even more satisfying.",
-    "casual_impact" => "If you've finished the story, New Game+ gives you a great reason to replay with all your upgrades intact and new suits to unlock. The combat tweaks make Miles feel a bit more fluid in combo chains. Traversal with the Web Wings is slightly more responsive which is a welcome quality of life improvement.",
-    "should_i_log_in" => "Yes — New Game+ and Ultimate difficulty are significant additions that give completionists and challenge seekers a fresh goal. If you haven't played yet, now is the perfect time with all updates applied and the full experience available."
-  }
-)
-
 gta_online_patch = seed_placeholder_patch(
   game: gta_online,
   title: "Bottom Dollar Bounties Update",
@@ -851,79 +758,6 @@ gta_online_patch = seed_placeholder_patch(
     "quick_summary" => "The Bottom Dollar Bounties update adds a brand new business where you hunt down targets for cash payouts up to GTA$85K. Three stylish new classic-inspired vehicles landed alongside new weapons. Nightclub passive income got a bump and CEO cooldowns are shorter, making grinding feel slightly less repetitive.",
     "casual_impact" => "Bounty hunting is one of the more accessible new businesses — you can run it solo and the missions are varied. The CEO cooldown reduction means you can chain missions faster which helps if you only have short play sessions. The new vehicles are great for car collectors.",
     "should_i_log_in" => "Yes — Bottom Dollar Bounties is a fun new activity with solid payouts and the new vehicles alone are worth logging in for. If you've been away for a while, this is one of the more content-rich updates of recent months."
-  }
-)
-
-lol_patch = seed_placeholder_patch(
-  game: lol,
-  title: "Patch 14.12 — Durability & Item Adjustments",
-  content: <<~TEXT,
-    Champion Balance
-
-    Buffs
-    - Jinx: Rocket damage increased at max stacks. Fishbones passive range slightly extended.
-    - Orianna: Ball movement speed increased. Command: Shockwave cooldown reduced from 110s to 100s.
-    - Renekton: Cull the Meek healing increased by 5% in empowered form.
-    - Ivern: Rootcaller root duration increased from 1.5s to 1.7s.
-
-    Nerfs
-    - Yone: Soul Unbound dash speed slightly reduced to lower escape consistency.
-    - Smolder: Dragon Practice stacks reduced from 225 to 200 for super charge.
-    - Varus: Blighted Quiver max stack damage reduced by 4%.
-
-    Item Changes
-    - Heartsteel: Bonus health per stack reduced from 5 to 4 HP. Cap unchanged.
-    - Sundered Sky: Lifeline passive shield slightly increased.
-    - Bloodthirster: AD reduced by 5 but lifesteal increased by 2%.
-
-    Durability Adjustments
-    - Base armour increased by 2 for all supports.
-    - Tenacity from Legend: Tenacity rune increased from 5% to 7% per stack.
-
-    Ranked Changes
-    - Split 3 begins with this patch. All players' LP adjusted to account for seasonal progression reset.
-    - New ranked icon set introduced for Diamond and above.
-
-    Bug Fixes
-    - Fixed Orianna's Ball sometimes snapping to incorrect position after Flash.
-    - Resolved Smolder's Achooo! not applying on-hit effects correctly on the first bounce.
-  TEXT
-  summaries: {
-    "quick_summary" => "Split 3 kicks off with Patch 14.12 and a fresh ranked season reset. Jinx and Orianna got meaningful buffs — Orianna's ultimate is on a shorter cooldown which helps a lot in teamfights. Yone and Smolder were trimmed back as two of the stronger carries in recent patches. Supports get a small base armour bump which helps survivability in lane.",
-    "casual_impact" => "If you play Orianna or Jinx you'll feel noticeably stronger this patch without changing anything. Yone is slightly less frustrating to play against. Split 3 starting means LP resets so now is a good time to push for a new rank without feeling behind.",
-    "should_i_log_in" => "Yes — Split 3 just started which means everyone is climbing from a fresh baseline. It's the best time to push for your seasonal rank icon and the new Diamond cosmetics. Even casual players benefit from the clean slate."
-  }
-)
-
-cyberpunk_patch = seed_placeholder_patch(
-  game: cyberpunk,
-  title: "Update 2.12 — Phantom Liberty Fixes & Tuning",
-  content: <<~TEXT,
-    Gameplay Adjustments
-    - Cyberware capacity slots rebalanced — Legendary implants now cost 1 fewer slot than before.
-    - Sandevistan activation speed improved for all tiers. MK.5 Sandevistan time dilation increased from 85% to 90%.
-    - Mantis Blades: Heavy attack damage increased by 8%. Aerial finisher cooldown reduced.
-    - Sonic Shock quickhack now correctly prevents enemies from calling for backup in all scenarios.
-
-    Phantom Liberty
-    - New gig added in Dogtown: The Afterimage — a multi-stage contract involving stolen BD recordings.
-    - Two additional NCPD Scanner Hustles added to the northern Dogtown district.
-    - Reed's safehouse now accessible post-story as a player apartment.
-
-    Difficulty & Economy
-    - Edgerunner difficulty slightly adjusted — Trauma Team response time increased from 45s to 55s.
-    - Iconic weapon crafting costs reduced by 15% across all categories.
-    - Ripperdoc prices reduced by 10% for Tier 4 and Tier 5 cyberware.
-
-    Bug Fixes
-    - Fixed a crash occurring when loading a save near the Corpo Plaza fast travel point.
-    - Resolved an issue where the Temperance ending would not trigger correctly if a specific optional dialogue was skipped.
-    - Fixed V's apartment radio stations not persisting after a game restart.
-  TEXT
-  summaries: {
-    "quick_summary" => "Sandevistans got buffed — the MK.5 now slows time even more making it one of the best builds in the game. Cyberware slots are more generous for Legendary implants so you can fit more into your build without sacrificing as much. Phantom Liberty gets a new Dogtown gig and Reed's safehouse opens up as a post-story apartment.",
-    "casual_impact" => "Iconic weapons and Tier 5 cyberware are cheaper to craft and buy, which makes endgame builds more accessible without hardcore grinding. The new Dogtown gig adds fresh content for players who have already finished the DLC. Mantis Blades players will notice a solid damage bump.",
-    "should_i_log_in" => "Yes if you haven't finished Phantom Liberty — the new gig and apartment additions make Dogtown feel more lived-in. If you're starting fresh, this is the most polished the game has ever been and an excellent time to jump in."
   }
 )
 
@@ -963,37 +797,6 @@ space_marine2_patch = seed_placeholder_patch(
   }
 )
 
-arc_raiders_patch = seed_placeholder_patch(
-  game: arc_raiders,
-  title: "Tech Test Update 0.8.4 — Gear, Raiders, and Extraction Tuning",
-  content: <<~TEXT,
-    Gear and Progression
-    - Burst Rifle and Arc Cannon loot pools retuned so high-rarity drops appear more consistently in contested POIs.
-    - Backpack crafting costs reduced for rare-tier upgrades to make early extraction runs less punishing.
-    - New sponsor contract chain added with three unlockable cosmetic rewards for successful extracts.
-
-    Raider and Enemy Tuning
-    - Burst Rifle recoil reduced slightly when firing short controlled bursts.
-    - DMR headshot multiplier lowered from 2.1x to 1.9x to reduce one-tap chains against under-geared squads.
-    - ARC drones now telegraph charge attacks longer before impact.
-
-    Extraction Flow
-    - Extraction beacon activation time reduced by 2 seconds for duos and solos.
-    - Storm warning audio now triggers earlier when a sector is about to collapse.
-    - Downed teammate revive window increased from 20s to 24s in non-ranked playlists.
-
-    Stability and Fixes
-    - Fixed players occasionally losing equipped gadgets after reconnecting to a live match.
-    - Resolved an issue causing loot containers to appear opened for clients joining in progress.
-    - Fixed several terrain seams that let players clip into rocks near dam-side extraction zones.
-  TEXT
-  summaries: {
-    "quick_summary" => "Arc Raiders' latest update focuses on extraction pacing, better loot reliability, and weapon tuning that should make mid-range fights less punishing. Faster beacons and clearer storm warnings improve run consistency, especially for smaller squads. The DMR nerf should also cut down on abrupt wipes from geared teams.",
-    "casual_impact" => "If you bounced off the last test because extractions felt too punishing, this seed update points in the right direction. Cheaper upgrade crafting and a longer revive window make shorter sessions less brutal. Solo and duo runs should feel more viable now.",
-    "should_i_log_in" => "Yes — the mix of faster extractions, better progression, and stability fixes makes this a stronger onboarding patch than the last test build. It looks like a good moment to check whether the survival loop now clicks for you."
-  }
-)
-
 genshin_patch = seed_placeholder_patch(
   game: genshin,
   title: "Version 5.5 — Embers of the Dying Flame",
@@ -1025,39 +828,6 @@ genshin_patch = seed_placeholder_patch(
     "quick_summary" => "Version 5.5 opens the Crimson Highlands — a volcanic new area in Natlan with new domains and exploration mechanics. Mavuika is the headline 5-star, a hard-hitting Pyro DPS with an off-field summon that works well in reaction teams. The Spiral Abyss reset favours Pyro characters heavily this cycle so Mavuika and Hu Tao players are well positioned.",
     "casual_impact" => "The Crimson Highlands is a great area to explore even without the new characters — packed with puzzles and new Primogems to collect. Hu Tao feels slightly better to play with reduced stamina drain on her Charged Attacks. Kachina is an accessible 4-star support worth pulling from the banner if you need a Geo unit.",
     "should_i_log_in" => "Yes — new region means new exploration Primogems and a fresh Spiral Abyss rotation. Even if you're skipping Mavuika's banner, the Crimson Highlands alone is worth logging in to explore over the next few weeks."
-  }
-)
-
-cs2_patch = seed_placeholder_patch(
-  game: cs2,
-  title: "Spring 2026 Update — Map Pool & Weapon Tuning",
-  content: <<~TEXT,
-    Map Pool Changes
-    - Ancient removed from the Active Duty map pool. Replaced by Train (updated).
-    - Train rework: Significant layout changes to A site and mid. Improved lighting and cover throughout.
-    - Mirage: B apartments entry adjusted — one window angle removed to reduce defensive dominance.
-
-    Weapon Tuning
-    - AK-47: First shot accuracy while standing slightly improved.
-    - M4A4: Magazine size increased from 30 to 32. Reload time unchanged.
-    - AWP: Movement speed penalty while scoped increased by 5%.
-    - Deagle: Hip fire accuracy reduced slightly at medium range.
-    - MP9: Damage increased from 26 to 28.
-
-    CS Rating & Premier
-    - CS Rating decay removed for players below 10,000 rating.
-    - End-of-season CS Rating rewards updated: new rank coins and sprays for reaching 15,000+.
-    - Leaderboard regions split further — national leaderboards added for top 20 countries.
-
-    Bug Fixes
-    - Fixed a pixel walk on Inferno B site that allowed unintended positioning.
-    - Resolved grenade trajectory preview occasionally flickering on high refresh rate monitors.
-    - Fixed flashbang audio attenuation not applying correctly through walls.
-  TEXT
-  summaries: {
-    "quick_summary" => "Train returns to the Active Duty pool replacing Ancient — a big shift for the competitive meta. The AK-47 got a first-shot accuracy buff making it more reliable at range, while the AWP is slightly slower when scoped so repositioning costs more. Premier rating decay below 10K is gone, which is a welcome relief for casual ranked players.",
-    "casual_impact" => "If you play Premier casually, your rating won't decay anymore below 10K which removes a frustrating treadmill. Train is worth learning now that it's back in the pool — the rework makes it feel fresh. The MP9 buff makes it a more viable pistol-round buy if you like aggressive play.",
-    "should_i_log_in" => "Yes — Train returning to Active Duty is one of the most significant meta shifts of the year and worth experiencing early before the community fully solves it. The rating decay removal also makes this a low-pressure time to push your rank."
   }
 )
 
@@ -1128,77 +898,6 @@ baldurs_gate3_patch = seed_placeholder_patch(
     "quick_summary" => "Photo Mode is the headline addition — you can now capture stunning shots at any point in the game with full camera control. The evil ending epilogue is expanded with new scenes for Dark Urge playthroughs, and Honour Mode gets 4 new Legendary Actions on late bosses to raise the challenge further. Monk gets a solid quality of life buff with cheaper Flurry of Blows at higher levels.",
     "casual_impact" => "Camp supplies stacking to 99 is a small but welcome change that reduces inventory juggling. The fast travel map now hints at undiscovered content nearby which helps completionists find everything without a guide. Monk players will notice their Ki economy feeling much better in longer fights.",
     "should_i_log_in" => "Yes — the evil ending expansion and Photo Mode give returning players new reasons to replay. If you haven't finished the game yet, this is the most complete and polished version so far. Honour Mode veterans have new Legendary Actions to prepare for."
-  }
-)
-
-pubg_patch = seed_placeholder_patch(
-  game: pubg,
-  title: "Update 32.1 — Rondo & Ranked Season 32",
-  content: <<~TEXT,
-    New Content
-    - New map: Rondo — a 8x8 dense urban map set in a fictional East Asian city. Features destructible facades and multi-floor building combat.
-    - New vehicle: Armoured SUV — a slow but heavily protected vehicle that seats 4. Spawns rarely on Rondo.
-    - New throwable: Smoke Cluster Grenade — deploys 3 smaller smoke grenades in a spread pattern on impact.
-
-    Weapon Tuning
-    - M416: Horizontal recoil slightly reduced. Remains the most accessible AR.
-    - Beryl M762: Damage per bullet reduced from 47 to 45 to reduce burst dominance.
-    - SLR: Bullet velocity increased by 50m/s.
-    - MP5K: Now spawns on Rondo as a world drop in addition to crate loot.
-
-    Ranked Season 32
-    - Season 32 begins with this update. Previous season rank rewards distributed.
-    - New rank: Conqueror Apex added above Conqueror for top 500 players per region.
-    - Ranked now supports solo and duo modes in addition to squad.
-
-    Quality of Life
-    - Ping system expanded — 3 new ping types added: Loot Here, Danger, and Move Out.
-    - Replay system improved with better camera controls and a new free-cam mode.
-
-    Bug Fixes
-    - Fixed players occasionally clipping through Rondo building floors during rapid drops.
-    - Resolved hit registration desync in high-latency lobbies.
-    - Fixed the Armoured SUV engine audio not playing at low graphic settings.
-  TEXT
-  summaries: {
-    "quick_summary" => "Rondo is the big new addition — a dense urban 8x8 map with destructible buildings that plays completely differently from Erangel or Miramar. The Beryl M762 was nerfed with lower damage per bullet, while the SLR got a bullet velocity buff making it stronger at range. Ranked Season 32 starts now with solo and duo modes added to ranked for the first time.",
-    "casual_impact" => "Rondo is worth dropping into immediately — the dense city layout makes for intense close-range fights with lots of vertical play. The new Smoke Cluster Grenade is a great tool for casual players who want more cover options without needing precise throws. Solo ranked is finally available if squad play isn't your thing.",
-    "should_i_log_in" => "Yes — a brand new map is the biggest content drop PUBG can deliver. Rondo plays like nothing else in the map pool and Season 32 starting means fresh ranked placement. Well worth jumping in this week."
-  }
-)
-
-battlefield6_patch = seed_placeholder_patch(
-  game: battlefield6,
-  title: "Season 2 — Steel Horizon Update",
-  content: <<~TEXT,
-    New Content
-    - New map: North Sea Platform — an offshore oil rig map with multi-level vertical combat and destructible structures. Available in Conquest and Breakthrough.
-    - New specialist: Ikaika Kaimana — a Recon specialist with a passive sonar pulse and an active drone jammer ability.
-    - New vehicle: AH-64E Apache — added to select maps as a rare vehicle spawn.
-
-    Weapon Additions
-    - New assault rifle: ACR-W added to the Season 2 Battle Pass (free track, tier 15).
-    - New LMG: Nemesis 7 available from the weapons bench at rank 25.
-    - New gadget: Deployable Sonar — a small device that pings nearby enemies through walls every 8 seconds.
-
-    Balance Changes
-    - Assault class: Repair Tool heal rate reduced by 10% to lower self-sustain in close quarters.
-    - Attack helicopters: Flare cooldown increased from 18s to 22s.
-    - C5 explosive: Detach range reduced from 15m to 12m.
-    - MTAR-21: Recoil increased to reduce close-range dominance.
-
-    Conquest Scoring
-    - Ticket bleed rate increased by 10% when holding 3 or more flags — rewards aggressive flag capture.
-
-    Bug Fixes
-    - Fixed a collision issue on North Sea Platform where players could fall through a gantry walkway.
-    - Resolved attack helicopter minigun audio cutting out after sustained fire.
-    - Fixed Conquest ticket count occasionally desyncing between team HUDs.
-  TEXT
-  summaries: {
-    "quick_summary" => "Season 2 drops with the North Sea Platform — a vertical oil rig map that is one of the most unique Battlefield environments in recent memory. A new Apache helicopter and a Recon specialist with sonar abilities add new tactical layers. The C5 nerf and reduced Assault self-heal should make close-quarters fights feel less frustrating to play against.",
-    "casual_impact" => "North Sea Platform rewards players who understand vertical positioning and flanking routes — worth a few practice runs in casual modes first. The new ACR-W rifle is free on the Battle Pass and performs well straight away without heavy attachments. Conquest now rewards capturing flags faster which suits aggressive playstyles.",
-    "should_i_log_in" => "Yes — Season 2 is a substantial content drop with a new map, specialist, vehicle, and weapons all at once. North Sea Platform alone is worth coming back for, and the free Battle Pass track means you earn new gear just by playing normally."
   }
 )
 
@@ -1349,29 +1048,11 @@ seed_event_series(
 )
 
 seed_event_series(
-  game: horizon_fw,
-  events: [
-    { title: "Burning Shores Launch Weekend", description: "The Burning Shores DLC launches with a free trial period for the new Scarlet Shore outpost and community showcase streams.", start_date: DateTime.new(2026, 4, 5, 17, 0, 0) },
-    { title: "Machine Strike Tournament", description: "An official Machine Strike challenge event with ranked matches and exclusive cosmetic rewards for top players.", start_date: DateTime.new(2026, 5, 9, 18, 0, 0) },
-    { title: "Cauldron Speed Run Challenge", description: "A community speed run event across all Cauldrons, with developer-verified times and a special trophy for completionists.", start_date: DateTime.new(2026, 7, 11, 17, 0, 0) }
-  ]
-)
-
-seed_event_series(
   game: ff7_rebirth,
   events: [
     { title: "Queen's Blood World Championship", description: "The first official Queen's Blood card game tournament with online qualifiers and a grand finals broadcast.", start_date: DateTime.new(2026, 4, 12, 14, 0, 0) },
     { title: "Chadley's Combat Simulator Challenge", description: "A limited-time battle simulator event with new encounter configurations and exclusive accessory rewards.", start_date: DateTime.new(2026, 5, 24, 17, 0, 0) },
     { title: "Piano Performance Showcase", description: "A community event spotlighting the in-game piano minigame with fan submissions and developer-curated highlights.", start_date: DateTime.new(2026, 6, 28, 18, 0, 0) }
-  ]
-)
-
-seed_event_series(
-  game: spiderman2,
-  events: [
-    { title: "New Game+ Launch Week", description: "The New Game+ mode goes live with a community celebration week featuring developer streams and challenge milestones.", start_date: DateTime.new(2026, 3, 22, 17, 0, 0) },
-    { title: "Photo Mode Community Contest", description: "An official photo mode contest where players submit their best shots of Manhattan for featured prizes.", start_date: DateTime.new(2026, 4, 26, 18, 0, 0) },
-    { title: "Ultimate Difficulty Leaderboard Event", description: "A timed Ultimate difficulty challenge where top players compete for placement on a global leaderboard.", start_date: DateTime.new(2026, 6, 7, 17, 0, 0) }
   ]
 )
 
@@ -1390,15 +1071,6 @@ seed_event_series(
     { title: "Split 3 Ranked Season Start", description: "Split 3 begins with Patch 14.12 — all players receive LP adjustments and the new ranked icons go live.", start_date: DateTime.new(2026, 4, 2, 10, 0, 0) },
     { title: "MSI 2026", description: "The Mid-Season Invitational brings together the top teams from every major region to compete for global glory.", start_date: DateTime.new(2026, 5, 1, 12, 0, 0) },
     { title: "World Championship 2026", description: "The pinnacle of the competitive season — the World Championship crowns the best team in League of Legends.", start_date: DateTime.new(2026, 10, 3, 12, 0, 0) }
-  ]
-)
-
-seed_event_series(
-  game: cyberpunk,
-  events: [
-    { title: "Night City Wire: Phantom Retrospective", description: "A developer broadcast looking back at Phantom Liberty and teasing upcoming content updates for 2026.", start_date: DateTime.new(2026, 4, 10, 18, 0, 0) },
-    { title: "New Gig Drop: The Afterimage", description: "The new Dogtown multi-stage contract goes live alongside a limited-time community challenge with unique rewards.", start_date: DateTime.new(2026, 4, 17, 17, 0, 0) },
-    { title: "Edgerunner Community Day", description: "A community celebration with fan art showcases, speed run competitions, and developer Q&A streams.", start_date: DateTime.new(2026, 6, 21, 17, 0, 0) }
   ]
 )
 

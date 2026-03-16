@@ -181,4 +181,40 @@ class PatchTest < ActiveSupport::TestCase
     assert_equal ["Weapons", "Ranked"], patch.display_structured_sections.map { |section| section["title"] }
     assert_nil patch.display_formatted_content
   end
+
+  test "wall_of_text? detects oversized paragraph-heavy patches" do
+    game = Game.create!(name: "Wall Of Text Game", slug: "wall-of-text-game")
+    patch = Patch.create!(
+      game: game,
+      title: "Longform Patch",
+      content: <<~TEXT
+        This is a very long introductory paragraph that keeps going without bullets or headings and is intended to mimic a developer blog style patch note where everything is delivered as prose instead of clearly separated sections for players to scan quickly on the page. It continues with enough detail to cross the long paragraph threshold and make the reading experience feel dense.
+
+        This second paragraph continues the same pattern with additional explanation about maps, heroes, modes, and event scheduling, but still does not offer any structured bullets for the reader. The goal here is to ensure the model treats this as a wall of text rather than a normal short patch note that can wait for the background formatter.
+
+        A final large paragraph closes out the update with more narrative context, rollout notes, and community messaging so the total body length is comfortably above the threshold used for synchronous AI formatting.
+      TEXT
+    )
+
+    assert patch.wall_of_text?
+    assert patch.prefers_synchronous_ai_formatting?
+  end
+
+  test "wall_of_text? ignores short structured notes" do
+    game = Game.create!(name: "Structured Short Game", slug: "structured-short-game")
+    patch = Patch.create!(
+      game: game,
+      title: "Short Patch",
+      content: <<~TEXT
+        Weapons
+        - Rifle damage reduced
+
+        Ranked
+        - Rewards updated
+      TEXT
+    )
+
+    assert_not patch.wall_of_text?
+    assert_not patch.prefers_synchronous_ai_formatting?
+  end
 end

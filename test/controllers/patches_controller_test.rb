@@ -129,6 +129,47 @@ class PatchesControllerTest < ActionDispatch::IntegrationTest
     assert_not_includes response.body, "AI is reorganising these patch notes into collapsible sections."
   end
 
+  test "formats wall-of-text patches through ai before rendering" do
+    game = Game.create!(name: "Wall Of Text Controller Game", slug: "wall-of-text-controller-game")
+    patch = Patch.create!(
+      game: game,
+      title: "Longform Patch",
+      content: <<~TEXT,
+        This is a very long introductory paragraph that keeps going without bullets or headings and is intended to mimic a developer blog style patch note where everything is delivered as prose instead of clearly separated sections for players to scan quickly on the page. It continues with enough detail to cross the long paragraph threshold and make the reading experience feel dense.
+
+        This second paragraph continues the same pattern with additional explanation about maps, heroes, modes, and event scheduling, but still does not offer any structured bullets for the reader. The goal here is to ensure the model treats this as a wall of text rather than a normal short patch note that can wait for the background formatter.
+
+        A final large paragraph closes out the update with more narrative context, rollout notes, and community messaging so the total body length is comfortably above the threshold used for synchronous AI formatting.
+      TEXT
+      source_url: "https://example.com/patch/wall-of-text"
+    )
+
+    original_new = PatchPresentationService.method(:new)
+    PatchPresentationService.define_singleton_method(:new) do |service_patch|
+      Object.new.tap do |service|
+        service.define_singleton_method(:call) do
+          service_patch.update_columns(
+            formatted_content: "AI overview for the longform update.",
+            structured_sections: [
+              { "title" => "Highlights", "summary" => "Big changes", "content" => "- Scarif update details" }
+            ],
+            ai_presentation_generated_at: Time.current,
+            ai_presentation_error: nil
+          )
+        end
+      end
+    end
+
+    get patch_url(patch)
+
+    assert_response :success
+    assert_includes response.body, "AI overview for the longform update."
+    assert_includes response.body, "Highlights"
+    assert_includes response.body, "Scarif update details"
+  ensure
+    PatchPresentationService.define_singleton_method(:new, original_new)
+  end
+
   test "notes endpoint renders formatted patch notes fragment" do
     game = Game.create!(name: "Notes Endpoint Game", slug: "notes-endpoint-game")
     patch = Patch.create!(

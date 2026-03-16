@@ -26,7 +26,7 @@ class PatchesController < ApplicationController
     disable_store_cache
     @summaries_by_type = @patch.patch_summaries.index_by(&:summary_type)
     @back_to_patches_path = safe_return_to_path || game_patches_path(@patch.game)
-    @patch.request_ai_presentation! if @patch.ai_presentable? && !@patch.ai_presentation_ready?
+    ensure_patch_presentation
     if user_signed_in?
       @chat = @patch.chats.find_by(user: current_user, id: params[:chat_id]) ||
               @patch.chats.find_or_create_by(user: current_user)
@@ -35,7 +35,7 @@ class PatchesController < ApplicationController
 
   def notes
     disable_store_cache
-    @patch.request_ai_presentation! if @patch.ai_presentable? && !@patch.ai_presentation_ready?
+    ensure_patch_presentation
     render partial: "notes", locals: { patch: @patch }
   end
 
@@ -84,5 +84,18 @@ class PatchesController < ApplicationController
         scope.recent_first
       end
     end
+  end
+
+  def ensure_patch_presentation
+    return unless @patch.ai_presentable?
+    return if @patch.ai_presentation_ready?
+
+    if @patch.prefers_synchronous_ai_formatting?
+      PatchPresentationService.new(@patch).call
+    else
+      @patch.request_ai_presentation!
+    end
+  rescue StandardError
+    @patch.request_ai_presentation! unless @patch.ai_presentation_pending?
   end
 end

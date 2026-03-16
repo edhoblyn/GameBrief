@@ -1,7 +1,18 @@
 class Admin::PatchScrapesController < Admin::BaseController
 
   def create
-    result = PatchScrapeRunner.run(params.require(:source))
+    source = params.require(:source)
+    config = PatchScrapeRunner.fetch(source)
+
+    unless PatchScrapeRunner.manual_trigger_enabled?(source)
+      redirect_back(
+        fallback_location: admin_dashboard_path,
+        alert: config[:disabled_message] || "#{config[:label]} currently requires an API or alternate endpoint."
+      )
+      return
+    end
+
+    result = PatchScrapeRunner.run(source)
     store_scrape_logs([PatchScrapeRunner.diagnostic_for_result(result)])
 
     redirect_back(
@@ -57,8 +68,8 @@ class Admin::PatchScrapesController < Admin::BaseController
   def scrape_http_error_message(error)
     config = PatchScrapeRunner.fetch(params[:source])
 
-    if error.io.status.first == "403" && params[:source].to_s == "fortnite"
-      "#{config[:label]} scrape is currently blocked by the official source site (403 Forbidden). Fortnite news is behind bot protection right now."
+    if error.io.status.first == "403" && config[:disabled_message].present?
+      config[:disabled_message]
     else
       "#{config[:label]} scrape failed: #{error.message}"
     end

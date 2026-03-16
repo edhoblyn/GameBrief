@@ -107,7 +107,73 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
     assert_includes @response.body, "Run Patch Scrape"
   end
 
-  test "shows api badge instead of scrape button for blocked sources" do
+  test "shows admin scrape button for resident evil requiem" do
+    @user.update!(role: "admin")
+    game = Game.create!(name: "Resident Evil Requiem", slug: "resident-evil-requiem")
+
+    get game_url(game)
+
+    assert_response :success
+    assert_select "form[action='#{admin_patch_scrapes_path}']"
+    assert_includes @response.body, "Run Patch Scrape"
+  end
+
+  test "shows admin scrape button for baldur's gate 3" do
+    @user.update!(role: "admin")
+    game = Game.create!(name: "Baldur's Gate 3", slug: "baldurs-gate-3")
+
+    get game_url(game)
+
+    assert_response :success
+    assert_select "form[action='#{admin_patch_scrapes_path}']"
+    assert_includes @response.body, "Run Patch Scrape"
+  end
+
+  test "shows admin scrape button for genshin impact" do
+    @user.update!(role: "admin")
+    game = Game.create!(name: "Genshin Impact", slug: "genshin-impact")
+
+    get game_url(game)
+
+    assert_response :success
+    assert_select "form[action='#{admin_patch_scrapes_path}']"
+    assert_includes @response.body, "Run Patch Scrape"
+  end
+
+  test "shows admin scrape button for horizon forbidden west" do
+    @user.update!(role: "admin")
+    game = Game.create!(name: "Horizon Forbidden West", slug: "horizon-forbidden-west")
+
+    get game_url(game)
+
+    assert_response :success
+    assert_select "form[action='#{admin_patch_scrapes_path}']"
+    assert_includes @response.body, "Run Patch Scrape"
+  end
+
+  test "shows admin scrape button for cyberpunk 2077" do
+    @user.update!(role: "admin")
+    game = Game.create!(name: "Cyberpunk 2077", slug: "cyberpunk-2077")
+
+    get game_url(game)
+
+    assert_response :success
+    assert_select "form[action='#{admin_patch_scrapes_path}']"
+    assert_includes @response.body, "Run Patch Scrape"
+  end
+
+  test "shows admin scrape button for marvel's spider-man 2" do
+    @user.update!(role: "admin")
+    game = Game.create!(name: "Marvel's Spider-Man 2", slug: "marvels-spider-man-2")
+
+    get game_url(game)
+
+    assert_response :success
+    assert_select "form[action='#{admin_patch_scrapes_path}']"
+    assert_includes @response.body, "Run Patch Scrape"
+  end
+
+  test "shows ai badge instead of scrape button for blocked sources" do
     @user.update!(role: "admin")
     game = Game.create!(name: "Fortnite", slug: "fortnite")
 
@@ -115,7 +181,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_select "form[action='#{admin_patch_scrapes_path}']", count: 0
-    assert_includes @response.body, "API"
+    assert_select "button[disabled]", text: "AI", minimum: 1
   end
 
   test "does not show admin scrape button for non-admin users" do
