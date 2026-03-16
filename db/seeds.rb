@@ -829,12 +829,15 @@ seed_event_series(
   ]
 )
 
+seed_live_events(game: fifa, importer_class: EventImporters::EaSportsFc26EventImporter)
 seed_event_series(
   game: fifa,
   events: [
-    { title: "Team of the Season Warm-Up", description: "The annual Team of the Season ramp-up begins with early SBCs, objectives, and FUT engagement rewards.", start_date: DateTime.new(2026, 4, 24, 18, 0, 0) },
-    { title: "Premier League Team of the Season", description: "One of the headline TOTS squad drops arrives, putting top Premier League cards into packs and objectives.", start_date: DateTime.new(2026, 5, 8, 18, 0, 0) },
-    { title: "Ultimate TOTS Weekend", description: "Ultimate Team's marquee late-cycle TOTS weekend brings a stacked squad, upgraded SBCs, and high-end rewards.", start_date: DateTime.new(2026, 6, 5, 18, 0, 0) }
+    {
+      title: "EA SPORTS FC 26 — Team of the Season",
+      description: "Team of the Season arrives — the best-performing players from top leagues around the world receive their highest-rated FUT cards of the year, available through packs, SBCs, and objectives.",
+      start_date: DateTime.new(2026, 5, 8, 18, 0, 0)
+    }
   ]
 )
 

@@ -63,6 +63,11 @@ namespace :events do
     run_event_import(EventImporters::Dota2EventImporter, label: "Dota 2")
   end
 
+  desc "Import real EA Sports FC 26 events from ea.com/games/ea-sports-fc/fc-26/news"
+  task import_ea_sports_fc_26: :environment do
+    run_event_import(EventImporters::EaSportsFc26EventImporter, label: "EA Sports FC 26")
+  end
+
   desc "Import all games' real events (run each source in turn)"
   task import_all: :environment do
     Rake::Task["events:import_apex_legends"].invoke
@@ -74,6 +79,7 @@ namespace :events do
     Rake::Task["events:import_counter_strike_2"].invoke
     Rake::Task["events:import_destiny_2"].invoke
     Rake::Task["events:import_dota_2"].invoke
+    Rake::Task["events:import_ea_sports_fc_26"].invoke
     Rake::Task["events:import_valorant"].invoke
   end
 end
