@@ -93,7 +93,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_16_093918) do
     t.string "cover_image"
     t.datetime "created_at", null: false
     t.boolean "free_to_play", default: false, null: false
-    t.string "genre", default: [], array: true
+    t.string "genre"
     t.boolean "multiplayer", default: false, null: false
     t.string "name"
     t.boolean "single_player", default: false, null: false
