@@ -17,85 +17,59 @@
     </div>
   </div>
 
-  <div class="admin-panel-page__grid">
-    <section class="admin-panel-page__card">
-      <div class="admin-panel-page__section-header">
-        <div>
-          <p class="admin-panel-page__kicker">Manual Imports</p>
-          <h2>Patch scrapes</h2>
-        </div>
-        <span class="admin-panel-page__pill"><%= @scrape_sources.count %> sources</span>
+  <%# Game imports section %>
+  <section class="admin-panel-page__card admin-panel-page__card--games">
+    <div class="admin-panel-page__section-header">
+      <div>
+        <p class="admin-panel-page__kicker">Manual Imports</p>
+        <h2>Game imports</h2>
       </div>
-      <p class="admin-panel-page__copy">Use the same shared runner as the scheduled and rake-driven scrape pipeline.</p>
-      <div class="admin-panel-page__toolbar">
-        <%= button_to "Run all scrapes", run_all_admin_patch_scrapes_path, class: "admin-panel-page__button admin-panel-page__button--wide" %>
+      <div class="admin-panel-page__imports-toolbar">
+        <%= button_to "Run all patches", run_all_admin_patch_scrapes_path, class: "admin-panel-page__button" %>
+        <%= button_to "Run all events", run_all_admin_event_imports_path, class: "admin-panel-page__button admin-panel-page__button--blue" %>
       </div>
+    </div>
 
-      <div class="admin-panel-page__scrapes">
-        <% @scrape_sources.each do |scrape| %>
-          <article class="admin-panel-page__scrape">
-            <div>
-              <h3><%= scrape[:label] %></h3>
-              <div class="admin-panel-page__scrape-meta">
-                <span><code><%= scrape[:source] %></code></span>
-                <% if scrape[:game_slugs].any? %>
-                  <span><code><%= scrape[:game_slugs].join(", ") %></code></span>
-                <% end %>
+    <div class="admin-panel-page__games-grid">
+      <% @game_cards.each do |card| %>
+        <div class="admin-game-card">
+          <div class="admin-game-card__poster <%= 'admin-game-card__poster--no-image' unless card[:cover_image].present? %>"
+               <% if card[:cover_image].present? %>style="background-image: url('<%= card[:cover_image] %>')"<% end %>>
+            <div class="admin-game-card__overlay">
+              <div class="admin-game-card__top">
+                <div class="admin-game-card__status-dots">
+                  <% if card[:patch] %><span class="admin-game-card__dot admin-game-card__dot--<%= card[:patch_status] || :idle %>" title="Patch: <%= card[:patch_status] || 'not run' %>"></span><% end %>
+                  <% if card[:event] %><span class="admin-game-card__dot admin-game-card__dot--<%= card[:event_status] || :idle %>" title="Events: <%= card[:event_status] || 'not run' %>"></span><% end %>
+                </div>
+              </div>
+              <div class="admin-game-card__bottom">
+                <p class="admin-game-card__name"><%= card[:label] %></p>
+                <div class="admin-game-card__actions">
+                  <% if card[:patch] %>
+                    <% if card[:patch][:manual_trigger_enabled] %>
+                      <%= button_to "Patch", admin_patch_scrapes_path, params: { source: card[:patch][:source] }, class: "admin-game-card__btn admin-game-card__btn--patch" %>
+                    <% else %>
+                      <span class="admin-game-card__btn admin-game-card__btn--disabled">AI</span>
+                    <% end %>
+                  <% end %>
+                  <% if card[:event] %>
+                    <% if card[:event][:manual_trigger_enabled] %>
+                      <%= button_to "Events", admin_event_imports_path, params: { source: card[:event][:source] }, class: "admin-game-card__btn admin-game-card__btn--event" %>
+                    <% else %>
+                      <span class="admin-game-card__btn admin-game-card__btn--disabled">Seeded</span>
+                    <% end %>
+                  <% end %>
+                </div>
               </div>
             </div>
-
-            <% if scrape.fetch(:manual_trigger_enabled, true) %>
-              <%= button_to "Run scrape",
-                            admin_patch_scrapes_path,
-                            params: { source: scrape[:source] },
-                            class: "admin-panel-page__button" %>
-            <% else %>
-              <button class="admin-panel-page__button admin-panel-page__button--disabled" type="button" disabled>AI</button>
-            <% end %>
-          </article>
-        <% end %>
-      </div>
-    </section>
-
-    <section class="admin-panel-page__card">
-      <div class="admin-panel-page__section-header">
-        <div>
-          <p class="admin-panel-page__kicker">Manual Imports</p>
-          <h2>Event imports</h2>
+          </div>
         </div>
-        <span class="admin-panel-page__pill"><%= @event_sources.count %> sources</span>
-      </div>
-      <p class="admin-panel-page__copy">Re-scrape live event feeds for each game. Manual-seed games are listed but cannot be triggered here.</p>
-      <div class="admin-panel-page__toolbar">
-        <%= button_to "Run all imports", run_all_admin_event_imports_path, class: "admin-panel-page__button admin-panel-page__button--wide" %>
-      </div>
+      <% end %>
+    </div>
+  </section>
 
-      <div class="admin-panel-page__scrapes">
-        <% @event_sources.each do |source| %>
-          <article class="admin-panel-page__scrape">
-            <div>
-              <h3><%= source[:label] %></h3>
-              <div class="admin-panel-page__scrape-meta">
-                <span><code><%= source[:source] %></code></span>
-                <% if source[:game_slugs].any? %>
-                  <span><code><%= source[:game_slugs].join(", ") %></code></span>
-                <% end %>
-              </div>
-            </div>
-
-            <% if source.fetch(:manual_trigger_enabled, true) %>
-              <%= button_to "Run import",
-                            admin_event_imports_path,
-                            params: { source: source[:source] },
-                            class: "admin-panel-page__button" %>
-            <% else %>
-              <button class="admin-panel-page__button admin-panel-page__button--disabled" type="button" disabled>Manual</button>
-            <% end %>
-          </article>
-        <% end %>
-      </div>
-    </section>
-
+  <%# Utility row: admin access + demo reset %>
+  <div class="admin-panel-page__utility-grid">
     <section class="admin-panel-page__card">
       <div class="admin-panel-page__section-header">
         <div>
@@ -118,7 +92,6 @@
               <%= link_to admin.display_name, user_path(admin), class: "admin-panel-page__admin-link" %>
               <p><%= admin.email %></p>
             </div>
-
             <%= button_to "Remove",
                           admin_user_path(admin),
                           method: :delete,
@@ -146,7 +119,7 @@
       </p>
 
       <div class="admin-panel-page__note">
-        <strong><%= @message_count %></strong> messages are currently stored across <strong><%= @chat_count %></strong> chats. This action cannot be undone.
+        <strong><%= @message_count %></strong> messages across <strong><%= @chat_count %></strong> chats. This action cannot be undone.
       </div>
 
       <div class="admin-panel-page__toolbar">
@@ -163,13 +136,24 @@
     </section>
   </div>
 
-  <section class="admin-panel-page__card admin-panel-page__card--log">
-    <div class="admin-panel-page__section-header">
+  <%# Collapsible patch scrape log %>
+  <details class="admin-panel-page__card admin-panel-page__card--log admin-panel-page__details">
+    <summary class="admin-panel-page__details-summary">
       <div>
         <p class="admin-panel-page__kicker">Scrape Log</p>
         <h2>Latest patch run output</h2>
       </div>
-    </div>
+      <% if @scrape_log_status == "running" %>
+        <span class="admin-panel-page__pill admin-panel-page__pill--running">Running…</span>
+      <% elsif @scrape_logs.any? %>
+        <% errors = @scrape_logs.count { |e| !e["success"] } %>
+        <span class="admin-panel-page__pill <%= errors > 0 ? "admin-panel-page__pill--error" : "admin-panel-page__pill--ok" %>">
+          <%= @scrape_logs.count %> sources · <%= errors %> errors
+        </span>
+      <% else %>
+        <span class="admin-panel-page__pill">No runs yet</span>
+      <% end %>
+    </summary>
 
     <% if @scrape_log_status == "running" %>
       <p class="admin-panel-page__copy">A scrape run is currently in progress. Refresh shortly to see the latest output.</p>
@@ -197,17 +181,28 @@
     <% elsif @scrape_log_status == "running" %>
       <p class="admin-panel-page__empty-copy">All enabled scrapes are running in the background. Refresh in a moment for results.</p>
     <% else %>
-      <p class="admin-panel-page__empty-copy">No scrape logs yet. Run a source or use Run all scrapes to populate this panel.</p>
+      <p class="admin-panel-page__empty-copy">No scrape logs yet. Run a source or use Run all patches to populate this panel.</p>
     <% end %>
-  </section>
+  </details>
 
-  <section class="admin-panel-page__card admin-panel-page__card--log">
-    <div class="admin-panel-page__section-header">
+  <%# Collapsible event import log %>
+  <details class="admin-panel-page__card admin-panel-page__card--log admin-panel-page__details">
+    <summary class="admin-panel-page__details-summary">
       <div>
         <p class="admin-panel-page__kicker">Event Import Log</p>
         <h2>Latest event run output</h2>
       </div>
-    </div>
+      <% if @event_log_status == "running" %>
+        <span class="admin-panel-page__pill admin-panel-page__pill--running">Running…</span>
+      <% elsif @event_logs.any? %>
+        <% errors = @event_logs.count { |e| !e["success"] } %>
+        <span class="admin-panel-page__pill <%= errors > 0 ? "admin-panel-page__pill--error" : "admin-panel-page__pill--ok" %>">
+          <%= @event_logs.count %> sources · <%= errors %> errors
+        </span>
+      <% else %>
+        <span class="admin-panel-page__pill">No runs yet</span>
+      <% end %>
+    </summary>
 
     <% if @event_log_status == "running" %>
       <p class="admin-panel-page__copy">An event import run is currently in progress. Refresh shortly to see the latest output.</p>
@@ -235,7 +230,7 @@
     <% elsif @event_log_status == "running" %>
       <p class="admin-panel-page__empty-copy">All event imports are running in the background. Refresh in a moment for results.</p>
     <% else %>
-      <p class="admin-panel-page__empty-copy">No event import logs yet. Run a source or use Run all imports to populate this panel.</p>
+      <p class="admin-panel-page__empty-copy">No event import logs yet. Run a source or use Run all events to populate this panel.</p>
     <% end %>
-  </section>
+  </details>
 </div>
