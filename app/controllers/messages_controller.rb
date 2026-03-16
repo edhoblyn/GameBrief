@@ -54,7 +54,12 @@ class MessagesController < ApplicationController
       Here are the patch notes:
       #{@patch.content}
 
-      Keep your answers short, friendly and easy to understand for casual gamers. Avoid jargon where possible.
+      Rules for your responses:
+      - Keep answers short and friendly.
+      - Use bullet points or short paragraphs — never one long block of text.
+      - Use **bold** to highlight the most important changes.
+      - Avoid jargon. If you must use a game term, explain it in plain English.
+      - End with a one-sentence takeaway when relevant.
     PROMPT
   end
 end
