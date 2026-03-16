@@ -6,8 +6,7 @@ class GeneratePatchPresentationJobTest < ActiveJob::TestCase
     patch = Patch.create!(
       game: game,
       title: "Patch 2.0",
-      content: "Patch notes",
-      source_url: "https://example.com/patch/2-0"
+      content: "Patch notes"
     )
 
     called = false

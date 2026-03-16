@@ -131,13 +131,12 @@ class PatchTest < ActiveSupport::TestCase
     assert_equal patch.display_published_at.to_i, patch.display_published_at.to_i
   end
 
-  test "request_ai_presentation! enqueues a background job for scraped patches" do
+  test "request_ai_presentation! enqueues a background job for content-only patches" do
     game = Game.create!(name: "AI Queue Game", slug: "ai-queue-game")
     patch = Patch.create!(
       game: game,
       title: "Queued Patch",
-      content: "Notes",
-      source_url: "https://example.com/patch/queued"
+      content: "Notes"
     )
 
     patch.update_columns(ai_presentation_requested_at: nil, ai_presentation_generated_at: nil)
@@ -163,5 +162,23 @@ class PatchTest < ActiveSupport::TestCase
 
     assert patch.ai_presentation_ready?
     assert_not patch.ai_presentation_pending?
+  end
+
+  test "display_structured_sections falls back to locally formatted sections when AI output is missing" do
+    game = Game.create!(name: "Fallback Presentation Game", slug: "fallback-presentation-game")
+    patch = Patch.create!(
+      game: game,
+      title: "Fallback Patch",
+      content: <<~TEXT
+        Weapons
+        - Rifle damage reduced
+
+        Ranked
+        - Rewards updated
+      TEXT
+    )
+
+    assert_equal ["Weapons", "Ranked"], patch.display_structured_sections.map { |section| section["title"] }
+    assert_nil patch.display_formatted_content
   end
 end
