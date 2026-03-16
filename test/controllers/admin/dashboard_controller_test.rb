@@ -18,8 +18,10 @@ class Admin::DashboardControllerTest < ActionDispatch::IntegrationTest
     assert_includes @response.body, "Patch scrapes"
     assert_includes @response.body, "Run all scrapes"
     assert_includes @response.body, "Overwatch 2"
+    assert_includes @response.body, "Pokémon Pokopia"
     assert_includes @response.body, "Resident Evil Requiem"
     assert_includes @response.body, "overwatch_2"
+    assert_includes @response.body, "pokemon_pokopia"
     assert_includes @response.body, "Active Admin"
     assert_includes @response.body, "AI chat history"
     assert_select "form[action='#{admin_patch_scrapes_path}']", minimum: 1

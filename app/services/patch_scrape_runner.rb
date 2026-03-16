@@ -112,6 +112,13 @@ class PatchScrapeRunner
       game_slugs: ["clash-of-clans"],
       missing_game_error: "Clash of Clans game not found in the database.",
       missing_game_hint: "Expected an existing Game named 'Clash of Clans' or slugged 'clash-of-clans'."
+    },
+    "pokemon_pokopia" => {
+      label: "Pokémon Pokopia",
+      importer: PatchImporters::PokemonPokopiaImporter,
+      game_slugs: ["pokemon-pokopia"],
+      missing_game_error: "Pokémon Pokopia game not found in the database.",
+      missing_game_hint: "Expected an existing Game named 'Pokémon Pokopia' or slugged 'pokemon-pokopia'."
     }
   }.freeze
 

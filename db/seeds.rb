@@ -675,36 +675,10 @@ re_requiem_patch = seed_placeholder_patch(
   }
 )
 
-pokemon_pokopia_patch = seed_placeholder_patch(
-  game: pokemon_pokopia,
-  title: "Version 1.1.0 — Festival of Seasons Update",
-  content: <<~TEXT,
-    New Content
-    - Festival of Seasons event: A rotating 4-week in-game festival with themed activities, rare spawns, and exclusive cosmetic rewards for your trainer.
-    - 12 new Pokémon added to the Pokopia regional Pokédex across all biomes.
-    - New area unlocked: The Crystalline Caverns, accessible after completing the 5th Gym challenge.
-
-    Battle System Updates
-    - New move type interactions added: Prism-type moves introduced for select new Pokémon.
-    - Double Battle AI improved in the post-game — opponents now use held items and switching more strategically.
-    - Online ranked battles now use a separate matchmaking pool from casual battles.
-
-    Quality of Life
-    - Pokémon box now supports 40 boxes (up from 32).
-    - Auto-save interval now configurable in settings (off / 5 min / 10 min / 30 min).
-    - Held item preview added to battle summary screen.
-
-    Bug Fixes
-    - Fixed a crash when attempting to evolve a Pokémon with a full party during a cutscene.
-    - Resolved incorrect shiny encounter rates in the Crystalline Caverns on launch.
-    - Fixed trade evolution not completing correctly when the connection dropped mid-trade.
-  TEXT
-  summaries: {
-    "quick_summary" => "The Festival of Seasons event is the big addition — it runs for 4 weeks and brings exclusive cosmetics, rare spawns, and themed activities. 12 new Pokémon have been added to the region's Pokédex and a brand new post-game area, the Crystalline Caverns, opens up after the 5th Gym. The new Prism-type move interactions add fresh depth to competitive battles.",
-    "casual_impact" => "Even if you're mid-playthrough there are 12 new Pokémon to find and catch across the world. The box expansion to 40 boxes is a welcome change if you love collecting. The Festival event has limited-time cosmetics so it's worth logging in regularly over the next month.",
-    "should_i_log_in" => "Yes — the Festival of Seasons is time-limited and the exclusive rewards won't come back easily. The new Pokémon and Crystalline Caverns give you more to explore whether you're just starting or already post-game."
-  }
-)
+seed_live_patches("pokemon_pokopia")
+if pokemon_pokopia.present? && pokemon_pokopia.patches.where.not(source_url: nil).exists?
+  pokemon_pokopia.patches.where(source_url: nil).find_each(&:destroy!)
+end
 
 battlefront2_patch = seed_placeholder_patch(
   game: battlefront2,

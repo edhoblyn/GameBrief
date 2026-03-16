@@ -92,6 +92,11 @@ namespace :patches do
     run_scrape("clash_of_clans")
   end
 
+  desc "Scrape and import official Pokémon Pokopia updates from Pokémon and Nintendo websites"
+  task scrape_pokemon_pokopia: :environment do
+    run_scrape("pokemon_pokopia")
+  end
+
   desc "Scrape and import patch notes for all configured games"
   task scrape_all: :environment do
     failures = []
