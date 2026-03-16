@@ -13,6 +13,8 @@ class Admin::DashboardController < Admin::BaseController
     @admins = User.admins.order(Arel.sql("COALESCE(NULLIF(username, ''), email) ASC"))
     @chat_count = Chat.count
     @message_count = Message.count
-    @scrape_logs = Array(session[:admin_scrape_logs])
+    @latest_scrape_run = AdminPatchScrapeLogStore.fetch(current_user)
+    @scrape_logs = Array(@latest_scrape_run["logs"])
+    @scrape_log_status = @latest_scrape_run["status"]
   end
 end

@@ -132,6 +132,10 @@
       </div>
     </div>
 
+    <% if @scrape_log_status == "running" %>
+      <p class="admin-panel-page__copy">A scrape run is currently in progress. Refresh shortly to see the latest output.</p>
+    <% end %>
+
     <% if @scrape_logs.any? %>
       <div class="admin-panel-page__logs">
         <% @scrape_logs.each do |entry| %>
@@ -151,6 +155,8 @@
           </article>
         <% end %>
       </div>
+    <% elsif @scrape_log_status == "running" %>
+      <p class="admin-panel-page__empty-copy">All enabled scrapes are running in the background. Refresh in a moment for results.</p>
     <% else %>
       <p class="admin-panel-page__empty-copy">No scrape logs yet. Run a source or use Run all scrapes to populate this panel.</p>
     <% end %>

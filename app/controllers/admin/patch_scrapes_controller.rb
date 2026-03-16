@@ -34,35 +34,16 @@ class Admin::PatchScrapesController < Admin::BaseController
   end
 
   def run_all
-    diagnostics = PatchScrapeRunner.run_all_with_diagnostics
-    store_scrape_logs(diagnostics)
-    failures = diagnostics.count { |entry| !entry.success }
-    imported = diagnostics.sum(&:imported)
-    skipped = diagnostics.sum(&:skipped)
+    AdminPatchScrapeLogStore.mark_running(current_user)
+    RunAllPatchScrapesJob.perform_later(current_user.id)
 
-    message = if failures.zero?
-      "All scrapes finished: #{imported} imported, #{skipped} skipped."
-    else
-      "All scrapes finished with #{failures} failure#{'s' unless failures == 1}: #{imported} imported, #{skipped} skipped."
-    end
-
-    redirect_to admin_dashboard_path, notice: message
+    redirect_to admin_dashboard_path, notice: "All scrapes started in the background. Refresh shortly for the latest run output."
   end
 
   private
 
   def store_scrape_logs(diagnostics)
-    session[:admin_scrape_logs] = diagnostics.map do |entry|
-      {
-        "source" => entry.source,
-        "label" => entry.label,
-        "imported" => entry.imported,
-        "skipped" => entry.skipped,
-        "success" => entry.success,
-        "error_message" => entry.error_message,
-        "timestamp" => entry.timestamp.iso8601
-      }
-    end
+    AdminPatchScrapeLogStore.store_diagnostics(current_user, diagnostics)
   end
 
   def scrape_http_error_message(error)
