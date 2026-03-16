@@ -984,14 +984,7 @@ seed_event_series(
   ]
 )
 
-seed_event_series(
-  game: gta_online,
-  events: [
-    { title: "Bottom Dollar Bounties Week", description: "Double GTA$ and RP on all Bottom Dollar Bounties contracts for the week, plus exclusive clothing unlocks.", start_date: DateTime.new(2026, 3, 27, 9, 0, 0) },
-    { title: "HSW Time Trials", description: "Weekly HSW Time Trials go live across Los Santos and Blaine County with top-tier vehicle payouts.", start_date: DateTime.new(2026, 4, 17, 9, 0, 0) },
-    { title: "GTA Online Anniversary Event", description: "An annual celebration with returning limited-time modes, bonus payouts across all businesses, and exclusive cosmetics.", start_date: DateTime.new(2026, 10, 1, 9, 0, 0) }
-  ]
-)
+seed_live_events(game: gta_online, importer_class: EventImporters::GtaOnlineEventImporter)
 
 seed_event_series(
   game: lol,
