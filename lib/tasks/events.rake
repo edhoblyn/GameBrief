@@ -28,10 +28,16 @@ namespace :events do
     run_event_import(EventImporters::ArcRaidersEventImporter, label: "ARC Raiders")
   end
 
+  desc "Import real Battlefield 6 events from ea.com/games/battlefield/battlefield-6/news"
+  task import_battlefield_6: :environment do
+    run_event_import(EventImporters::Battlefield6EventImporter, label: "Battlefield 6")
+  end
+
   desc "Import all games' real events (run each source in turn)"
   task import_all: :environment do
     Rake::Task["events:import_apex_legends"].invoke
     Rake::Task["events:import_arc_raiders"].invoke
+    Rake::Task["events:import_battlefield_6"].invoke
     Rake::Task["events:import_valorant"].invoke
   end
 end

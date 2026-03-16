@@ -1000,12 +1000,20 @@ seed_event_series(
   ]
 )
 
+battlefield6&.events&.destroy_all
 seed_event_series(
   game: battlefield6,
   events: [
-    { title: "Steel Horizon Season 2 Launch", description: "Season 2 goes live with North Sea Platform, the Apache helicopter, and a new specialist available from day one.", start_date: DateTime.new(2026, 4, 8, 17, 0, 0) },
-    { title: "Battlefield Portal Week", description: "A featured Battlefield Portal event brings back classic maps and weapons from previous titles with double XP.", start_date: DateTime.new(2026, 5, 7, 17, 0, 0) },
-    { title: "Community Conquest Challenge", description: "A time-limited Conquest event with global team targets — players contribute to a shared win counter for milestone rewards.", start_date: DateTime.new(2026, 6, 18, 17, 0, 0) }
+    {
+      title: "Battlefield 6 Season 2 Phase 3 — Hunter/Prey",
+      description: "The third phase of Season 2 drops new limited-time modes, operator cosmetics, and in-game challenges. Hunter/Prey flips the formula with asymmetric objectives across existing maps.",
+      start_date: DateTime.new(2026, 4, 12, 17, 0, 0)
+    },
+    {
+      title: "Battlefield 6 Season 3",
+      description: "Season 3 launches with a brand-new map, fresh operators, a new Battle Pass with exclusive cosmetics, and a ranked reset — the biggest content drop since launch.",
+      start_date: DateTime.new(2026, 5, 15, 17, 0, 0)
+    }
   ]
 )
 
