@@ -189,6 +189,7 @@ seed_live_patches("arc_raiders")
 seed_live_patches("resident_evil_requiem")
 seed_live_patches("league_of_legends")
 seed_live_patches("counter_strike_2")
+seed_live_patches("pubg_battlegrounds")
 
 fortnite_patch = seed_placeholder_patch(
   game: fortnite,
@@ -985,42 +986,6 @@ baldurs_gate3_patch = seed_placeholder_patch(
     "quick_summary" => "Photo Mode is the headline addition — you can now capture stunning shots at any point in the game with full camera control. The evil ending epilogue is expanded with new scenes for Dark Urge playthroughs, and Honour Mode gets 4 new Legendary Actions on late bosses to raise the challenge further. Monk gets a solid quality of life buff with cheaper Flurry of Blows at higher levels.",
     "casual_impact" => "Camp supplies stacking to 99 is a small but welcome change that reduces inventory juggling. The fast travel map now hints at undiscovered content nearby which helps completionists find everything without a guide. Monk players will notice their Ki economy feeling much better in longer fights.",
     "should_i_log_in" => "Yes — the evil ending expansion and Photo Mode give returning players new reasons to replay. If you haven't finished the game yet, this is the most complete and polished version so far. Honour Mode veterans have new Legendary Actions to prepare for."
-  }
-)
-
-pubg_patch = seed_placeholder_patch(
-  game: pubg,
-  title: "Update 32.1 — Rondo & Ranked Season 32",
-  content: <<~TEXT,
-    New Content
-    - New map: Rondo — a 8x8 dense urban map set in a fictional East Asian city. Features destructible facades and multi-floor building combat.
-    - New vehicle: Armoured SUV — a slow but heavily protected vehicle that seats 4. Spawns rarely on Rondo.
-    - New throwable: Smoke Cluster Grenade — deploys 3 smaller smoke grenades in a spread pattern on impact.
-
-    Weapon Tuning
-    - M416: Horizontal recoil slightly reduced. Remains the most accessible AR.
-    - Beryl M762: Damage per bullet reduced from 47 to 45 to reduce burst dominance.
-    - SLR: Bullet velocity increased by 50m/s.
-    - MP5K: Now spawns on Rondo as a world drop in addition to crate loot.
-
-    Ranked Season 32
-    - Season 32 begins with this update. Previous season rank rewards distributed.
-    - New rank: Conqueror Apex added above Conqueror for top 500 players per region.
-    - Ranked now supports solo and duo modes in addition to squad.
-
-    Quality of Life
-    - Ping system expanded — 3 new ping types added: Loot Here, Danger, and Move Out.
-    - Replay system improved with better camera controls and a new free-cam mode.
-
-    Bug Fixes
-    - Fixed players occasionally clipping through Rondo building floors during rapid drops.
-    - Resolved hit registration desync in high-latency lobbies.
-    - Fixed the Armoured SUV engine audio not playing at low graphic settings.
-  TEXT
-  summaries: {
-    "quick_summary" => "Rondo is the big new addition — a dense urban 8x8 map with destructible buildings that plays completely differently from Erangel or Miramar. The Beryl M762 was nerfed with lower damage per bullet, while the SLR got a bullet velocity buff making it stronger at range. Ranked Season 32 starts now with solo and duo modes added to ranked for the first time.",
-    "casual_impact" => "Rondo is worth dropping into immediately — the dense city layout makes for intense close-range fights with lots of vertical play. The new Smoke Cluster Grenade is a great tool for casual players who want more cover options without needing precise throws. Solo ranked is finally available if squad play isn't your thing.",
-    "should_i_log_in" => "Yes — a brand new map is the biggest content drop PUBG can deliver. Rondo plays like nothing else in the map pool and Season 32 starting means fresh ranked placement. Well worth jumping in this week."
   }
 )
 

@@ -99,6 +99,13 @@ class PatchScrapeRunner
       missing_game_error: "Counter-Strike 2 game not found in the database.",
       missing_game_hint: "Expected an existing Game named 'Counter-Strike 2' or slugged 'counter-strike-2'."
     },
+    "pubg_battlegrounds" => {
+      label: "PUBG: Battlegrounds",
+      importer: PatchImporters::PubgBattlegroundsImporter,
+      game_slugs: ["pubg-battlegrounds", "playerunknowns-battlegrounds"],
+      missing_game_error: "PUBG: Battlegrounds game not found in the database.",
+      missing_game_hint: "Expected an existing Game named 'PUBG: Battlegrounds' or slugged 'pubg-battlegrounds'."
+    },
     "valorant" => {
       label: "VALORANT",
       importer: PatchImporters::ValorantImporter,

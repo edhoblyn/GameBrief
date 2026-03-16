@@ -116,6 +116,26 @@ class Admin::PatchScrapesControllerTest < ActionDispatch::IntegrationTest
     assert_includes @response.body, "Counter-Strike 2 scrape finished: 7 imported, 2 skipped."
   end
 
+  test "runs pubg battlegrounds scrape for admins" do
+    sign_in @admin
+    result = PatchScrapeRunner::Result.new(source: "pubg_battlegrounds", label: "PUBG: Battlegrounds", imported: 6, skipped: 1)
+    original_run = PatchScrapeRunner.method(:run)
+
+    PatchScrapeRunner.singleton_class.define_method(:run) do |_source|
+      result
+    end
+
+    begin
+      post admin_patch_scrapes_url, params: { source: "pubg_battlegrounds" }
+    ensure
+      PatchScrapeRunner.singleton_class.define_method(:run, original_run)
+    end
+
+    assert_redirected_to admin_dashboard_path
+    follow_redirect!
+    assert_includes @response.body, "PUBG: Battlegrounds scrape finished: 6 imported, 1 skipped."
+  end
+
   test "runs overwatch 2 scrape for admins" do
     sign_in @admin
     result = PatchScrapeRunner::Result.new(source: "overwatch_2", label: "Overwatch 2", imported: 4, skipped: 2)
