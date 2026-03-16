@@ -807,12 +807,25 @@ seed_event_series(
 
 seed_live_events(game: apex, importer_class: EventImporters::ApexLegendsEventImporter)
 
+destiny&.events&.destroy_all
 seed_event_series(
   game: destiny,
   events: [
-    { title: "Guardian Games Cup", description: "A spring competition event spotlighting class pride, medals, and limited-time Guardian Games progression.", start_date: DateTime.new(2026, 3, 24, 17, 0, 0) },
-    { title: "Iron Banner Week 1", description: "Lord Saladin returns for the first confirmed Iron Banner window of the spring, bringing boosted rep and featured loot.", start_date: DateTime.new(2026, 4, 1, 17, 0, 0) },
-    { title: "Iron Banner Week 2", description: "The second confirmed Iron Banner week arrives later in the season with another chance at pinnacles and focused rewards.", start_date: DateTime.new(2026, 4, 29, 17, 0, 0) }
+    {
+      title: "Destiny 2 — Guardian Games 2026",
+      description: "Guardian Games returns — Titans, Hunters, and Warlocks compete for class supremacy with daily Medallions, a community Podium event, and exclusive class-themed cosmetics to earn.",
+      start_date: DateTime.new(2026, 4, 21, 17, 0, 0)
+    },
+    {
+      title: "Destiny 2 — Next Episode Launch",
+      description: "The next major Destiny 2 Episode arrives after Renegades — bringing a new story campaign, seasonal activities, exotic weapons to chase, and a fresh artifact mod to unlock. Launch confirmed for June 2026.",
+      start_date: DateTime.new(2026, 6, 9, 17, 0, 0)
+    },
+    {
+      title: "Destiny 2 — Solstice 2026",
+      description: "Solstice of Heroes returns for summer — the annual event with an armour-glow upgrade system, limited-time activities, and exclusive cosmetics to earn before the season ends.",
+      start_date: DateTime.new(2026, 8, 4, 17, 0, 0)
+    }
   ]
 )
 

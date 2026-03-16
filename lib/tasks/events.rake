@@ -53,6 +53,11 @@ namespace :events do
     run_event_import(EventImporters::CounterStrike2EventImporter, label: "Counter-Strike 2")
   end
 
+  desc "Import real Destiny 2 events from Steam announcements API"
+  task import_destiny_2: :environment do
+    run_event_import(EventImporters::Destiny2EventImporter, label: "Destiny 2")
+  end
+
   desc "Import all games' real events (run each source in turn)"
   task import_all: :environment do
     Rake::Task["events:import_apex_legends"].invoke
@@ -62,6 +67,7 @@ namespace :events do
     Rake::Task["events:import_clash_of_clans"].invoke
     Rake::Task["events:import_clash_royale"].invoke
     Rake::Task["events:import_counter_strike_2"].invoke
+    Rake::Task["events:import_destiny_2"].invoke
     Rake::Task["events:import_valorant"].invoke
   end
 end
