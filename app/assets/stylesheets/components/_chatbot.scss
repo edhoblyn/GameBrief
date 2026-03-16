@@ -111,4 +111,10 @@
     font-size: 0.72rem;
     color: #52525b;
   }
+
+}
+
+.btn[disabled] {
+  opacity: 0.6;
+  cursor: wait;
 }

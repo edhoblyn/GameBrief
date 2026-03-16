@@ -29,6 +29,9 @@ Rails.application.routes.draw do
     end
     resources :chats, only: [:create] do
       resources :messages, only: [:create]
+      member do
+        get :stream
+      end
     end
   end
   resources :events, only: [:index, :show]
