@@ -76,12 +76,18 @@ class PatchesControllerTest < ActionDispatch::IntegrationTest
     assert_includes response.body, "Ask about this patch"
   end
 
-  test "shows pending AI message while structured layout is being generated" do
+  test "shows structured fallback sections while ai layout is still generating" do
     game = Game.create!(name: "Pending Structured Game", slug: "pending-structured-game")
     patch = Patch.create!(
       game: game,
       title: "Pending Patch",
-      content: "Original notes",
+      content: <<~TEXT,
+        Weapons
+        - SMG recoil reduced
+
+        Modes
+        - Ranked rewards updated
+      TEXT
       source_url: "https://example.com/patch/pending"
     )
 
@@ -90,11 +96,10 @@ class PatchesControllerTest < ActionDispatch::IntegrationTest
     get patch_url(patch)
 
     assert_response :success
-    assert_includes response.body, "AI is reorganising these patch notes into collapsible sections."
-    assert_includes response.body, "15%"
-    assert_includes response.body, 'data-controller="patch-presentation"'
-    assert_includes response.body, 'data-patch-presentation-target="progress"'
-    assert_includes response.body, notes_patch_path(patch)
+    assert_includes response.body, "Weapons"
+    assert_includes response.body, "Modes"
+    assert_includes response.body, "SMG recoil reduced"
+    assert_not_includes response.body, "AI is reorganising these patch notes into collapsible sections."
   end
 
   test "shows structured fallback sections for content-only patches" do
@@ -117,7 +122,7 @@ class PatchesControllerTest < ActionDispatch::IntegrationTest
     assert_includes response.body, "Weapons"
     assert_includes response.body, "Ranked"
     assert_includes response.body, "Rifle damage reduced"
-    assert_includes response.body, "AI is reorganising these patch notes into collapsible sections."
+    assert_not_includes response.body, "AI is reorganising these patch notes into collapsible sections."
   end
 
   test "notes endpoint renders formatted patch notes fragment" do
