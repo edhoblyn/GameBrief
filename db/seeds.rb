@@ -696,39 +696,7 @@ if pokemon_pokopia.present? && pokemon_pokopia.patches.where.not(source_url: nil
 end
 
 seed_live_patches("star_wars_battlefront_ii")
-
-ff7_rebirth_patch = seed_placeholder_patch(
-  game: ff7_rebirth,
-  title: "Version 1.040 — Combat & Synergy Updates",
-  content: <<~TEXT,
-    Combat Adjustments
-    - Cloud: Punisher Mode now builds stagger gauge 10% faster on counter-attacks.
-    - Tifa: Unbridled Strength stacks now persist for 5 additional seconds before resetting.
-    - Aerith: Tempest casting speed increased. ATB charge from Ward Shift improved.
-    - Barret: Overcharge now deals 8% more damage at max gauge.
-    - Red XIII: Vengeance Mode duration increased from 20s to 22s.
-
-    Synergy Abilities
-    - Cloud + Tifa: Synergy Skill cooldown reduced from 90s to 80s.
-    - Aerith + Red XIII: Bloom damage radius increased.
-    - Barret + Yuffie: Chain Attack damage bonus increased by 5%.
-
-    Materia & Equipment
-    - New Materia: Comet — available from specific Moogle Emporium vendors post-Chapter 10.
-    - New accessory: Champion Belt added to Hard Mode endgame rewards.
-    - Elemental Materia now pairs correctly with all weapon slots on Aerith's rods.
-
-    Bug Fixes
-    - Fixed a rare issue where some Chapter Select saves would not carry over correct party equipment.
-    - Resolved Chadley's Battle Simulator progress sometimes not saving after a crash.
-    - Fixed an issue where music tracks would not transition correctly during certain boss encounters.
-  TEXT
-  summaries: {
-    "quick_summary" => "A solid combat-focused patch — Tifa's stacks last longer and Cloud staggers enemies faster in Punisher Mode, making both feel more rewarding to play. Synergy Skill cooldowns are down across the board so co-op moves flow better in longer fights. New Comet Materia adds a magic option for those building elemental party comps.",
-    "casual_impact" => "If you play on Normal mode you'll notice combat feeling slightly smoother, especially with Tifa and Cloud combos. Synergy abilities come up more often now which makes battles more dynamic without needing to grind for new gear. The new Materia is worth picking up if you're in the late game.",
-    "should_i_log_in" => "If you've been meaning to start or continue — yes. The combat feels more polished than ever and the new Materia adds fresh build options. For players who have already finished, Hard Mode endgame got new rewards worth grinding for."
-  }
-)
+seed_live_patches("ff7_rebirth")
 
 genshin_patch = seed_placeholder_patch(
   game: genshin,

@@ -22,10 +22,12 @@ class Admin::DashboardControllerTest < ActionDispatch::IntegrationTest
     assert_includes @response.body, "Resident Evil Requiem"
     assert_includes @response.body, "GTA 5: Online"
     assert_includes @response.body, "Dota 2"
+    assert_includes @response.body, "Final Fantasy VII Rebirth"
     assert_includes @response.body, "overwatch_2"
     assert_includes @response.body, "pokemon_pokopia"
     assert_includes @response.body, "gta_5_online"
     assert_includes @response.body, "dota_2"
+    assert_includes @response.body, "ff7_rebirth"
     assert_includes @response.body, "Active Admin"
     assert_includes @response.body, "AI chat history"
     assert_select "form[action='#{admin_patch_scrapes_path}']", minimum: 1

@@ -306,6 +306,29 @@ class PatchScrapeRunnerTest < ActiveSupport::TestCase
     importer_class.define_method(:new, original_new)
   end
 
+  test "runs the ff7 rebirth importer when configured" do
+    importer = Class.new do
+      Result = Struct.new(:imported, :skipped, keyword_init: true)
+
+      def call
+        Result.new(imported: 4, skipped: 0)
+      end
+    end.new
+
+    importer_class = PatchImporters::Ff7RebirthImporter.singleton_class
+    original_new = PatchImporters::Ff7RebirthImporter.method(:new)
+    importer_class.define_method(:new) { importer }
+
+    result = PatchScrapeRunner.run("ff7_rebirth")
+
+    assert_equal "ff7_rebirth", result.source
+    assert_equal "Final Fantasy VII Rebirth", result.label
+    assert_equal 4, result.imported
+    assert_equal 0, result.skipped
+  ensure
+    importer_class.define_method(:new, original_new)
+  end
+
   test "runs the pubg battlegrounds importer when configured" do
     importer = Class.new do
       Result = Struct.new(:imported, :skipped, keyword_init: true)

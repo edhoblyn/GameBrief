@@ -185,6 +185,13 @@ class PatchScrapeRunner
       missing_game_error: "Dota 2 game not found in the database.",
       missing_game_hint: "Expected an existing Game named 'Dota 2' or slugged 'dota-2'."
     },
+    "ff7_rebirth" => {
+      label: "Final Fantasy VII Rebirth",
+      importer: PatchImporters::Ff7RebirthImporter,
+      game_slugs: ["final-fantasy-vii-rebirth"],
+      missing_game_error: "Final Fantasy VII Rebirth game not found in the database.",
+      missing_game_hint: "Expected an existing Game named 'Final Fantasy VII Rebirth' or slugged 'final-fantasy-vii-rebirth'."
+    },
     "roblox" => {
       label: "Roblox",
       importer: PatchImporters::RobloxImporter,

@@ -137,6 +137,11 @@ namespace :patches do
     run_scrape("dota_2")
   end
 
+  desc "Scrape and import Final Fantasy VII Rebirth updates from steampowered.com"
+  task scrape_ff7_rebirth: :environment do
+    run_scrape("ff7_rebirth")
+  end
+
   desc "Scrape and import Roblox release notes from create.roblox.com"
   task scrape_roblox: :environment do
     run_scrape("roblox")
