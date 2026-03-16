@@ -788,12 +788,20 @@ seed_event_series(
   ]
 )
 
+warzone&.events&.destroy_all
 seed_event_series(
   game: warzone,
   events: [
-    { title: "Season 02 Reloaded Launch", description: "The Season 02 Reloaded update deploys with playlist refreshes, event content, and mid-season balance changes.", start_date: DateTime.new(2026, 3, 11, 17, 0, 0) },
-    { title: "Black Ops Royale Launch", description: "The new Black Ops Royale experience goes live in Warzone with mode-specific mechanics and rewards.", start_date: DateTime.new(2026, 3, 13, 17, 0, 0) },
-    { title: "Altitude Tactics Event", description: "A limited-time Warzone event built around Season 02 Reloaded, with themed objectives and unlocks.", start_date: DateTime.new(2026, 3, 13, 19, 0, 0) }
+    {
+      title: "Call of Duty: Warzone Season 03",
+      description: "Season 03 launches with major map changes, new weapons, fresh operators, and a brand-new Battle Pass with exclusive cosmetics across 100 tiers.",
+      start_date: DateTime.new(2026, 4, 30, 17, 0, 0)
+    },
+    {
+      title: "Call of Duty: Warzone Season 03 Reloaded",
+      description: "The Season 03 Reloaded mid-season drop arrives with new limited-time modes, operator bundles, bonus Battle Pass content, and in-game event challenges.",
+      start_date: DateTime.new(2026, 6, 11, 17, 0, 0)
+    }
   ]
 )
 
