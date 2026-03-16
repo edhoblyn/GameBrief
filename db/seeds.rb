@@ -187,6 +187,7 @@ puts "Creating patches..."
 seed_live_patches("battlefield_6")
 seed_live_patches("arc_raiders")
 seed_live_patches("resident_evil_requiem")
+seed_live_patches("league_of_legends")
 
 fortnite_patch = seed_placeholder_patch(
   game: fortnite,
@@ -811,47 +812,6 @@ gta_online_patch = seed_placeholder_patch(
     "quick_summary" => "The Bottom Dollar Bounties update adds a brand new business where you hunt down targets for cash payouts up to GTA$85K. Three stylish new classic-inspired vehicles landed alongside new weapons. Nightclub passive income got a bump and CEO cooldowns are shorter, making grinding feel slightly less repetitive.",
     "casual_impact" => "Bounty hunting is one of the more accessible new businesses — you can run it solo and the missions are varied. The CEO cooldown reduction means you can chain missions faster which helps if you only have short play sessions. The new vehicles are great for car collectors.",
     "should_i_log_in" => "Yes — Bottom Dollar Bounties is a fun new activity with solid payouts and the new vehicles alone are worth logging in for. If you've been away for a while, this is one of the more content-rich updates of recent months."
-  }
-)
-
-lol_patch = seed_placeholder_patch(
-  game: lol,
-  title: "Patch 14.12 — Durability & Item Adjustments",
-  content: <<~TEXT,
-    Champion Balance
-
-    Buffs
-    - Jinx: Rocket damage increased at max stacks. Fishbones passive range slightly extended.
-    - Orianna: Ball movement speed increased. Command: Shockwave cooldown reduced from 110s to 100s.
-    - Renekton: Cull the Meek healing increased by 5% in empowered form.
-    - Ivern: Rootcaller root duration increased from 1.5s to 1.7s.
-
-    Nerfs
-    - Yone: Soul Unbound dash speed slightly reduced to lower escape consistency.
-    - Smolder: Dragon Practice stacks reduced from 225 to 200 for super charge.
-    - Varus: Blighted Quiver max stack damage reduced by 4%.
-
-    Item Changes
-    - Heartsteel: Bonus health per stack reduced from 5 to 4 HP. Cap unchanged.
-    - Sundered Sky: Lifeline passive shield slightly increased.
-    - Bloodthirster: AD reduced by 5 but lifesteal increased by 2%.
-
-    Durability Adjustments
-    - Base armour increased by 2 for all supports.
-    - Tenacity from Legend: Tenacity rune increased from 5% to 7% per stack.
-
-    Ranked Changes
-    - Split 3 begins with this patch. All players' LP adjusted to account for seasonal progression reset.
-    - New ranked icon set introduced for Diamond and above.
-
-    Bug Fixes
-    - Fixed Orianna's Ball sometimes snapping to incorrect position after Flash.
-    - Resolved Smolder's Achooo! not applying on-hit effects correctly on the first bounce.
-  TEXT
-  summaries: {
-    "quick_summary" => "Split 3 kicks off with Patch 14.12 and a fresh ranked season reset. Jinx and Orianna got meaningful buffs — Orianna's ultimate is on a shorter cooldown which helps a lot in teamfights. Yone and Smolder were trimmed back as two of the stronger carries in recent patches. Supports get a small base armour bump which helps survivability in lane.",
-    "casual_impact" => "If you play Orianna or Jinx you'll feel noticeably stronger this patch without changing anything. Yone is slightly less frustrating to play against. Split 3 starting means LP resets so now is a good time to push for a new rank without feeling behind.",
-    "should_i_log_in" => "Yes — Split 3 just started which means everyone is climbing from a fresh baseline. It's the best time to push for your seasonal rank icon and the new Diamond cosmetics. Even casual players benefit from the clean slate."
   }
 )
 

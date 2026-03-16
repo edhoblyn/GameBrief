@@ -72,6 +72,11 @@ namespace :patches do
     run_scrape("minecraft")
   end
 
+  desc "Scrape and import League of Legends patch notes from leagueoflegends.com"
+  task scrape_league_of_legends: :environment do
+    run_scrape("league_of_legends")
+  end
+
   desc "Scrape and import VALORANT patch notes from playvalorant.com"
   task scrape_valorant: :environment do
     run_scrape("valorant")

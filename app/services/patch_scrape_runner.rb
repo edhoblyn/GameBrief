@@ -85,6 +85,13 @@ class PatchScrapeRunner
       missing_game_error: "Minecraft game not found in the database.",
       missing_game_hint: "Expected an existing Game named 'Minecraft' or slugged 'minecraft'."
     },
+    "league_of_legends" => {
+      label: "League of Legends",
+      importer: PatchImporters::LeagueOfLegendsImporter,
+      game_slugs: ["league-of-legends"],
+      missing_game_error: "League of Legends game not found in the database.",
+      missing_game_hint: "Expected an existing Game named 'League of Legends' or slugged 'league-of-legends'."
+    },
     "valorant" => {
       label: "VALORANT",
       importer: PatchImporters::ValorantImporter,

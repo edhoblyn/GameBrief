@@ -60,6 +60,11 @@ production:
     queue: default
     schedule: every monday at 12pm
 
+  scrape_league_of_legends_patches:
+    class: ScrapeLeagueOfLegendsJob
+    queue: default
+    schedule: every monday at 12:30pm
+
   scrape_valorant_patches:
     class: ScrapeValorantJob
     queue: default
