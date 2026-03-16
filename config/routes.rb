@@ -41,6 +41,8 @@ Rails.application.routes.draw do
 
   resources :users, only: [:index, :show]
 
+  resources :posts, only: [:create, :destroy]
+
   namespace :admin do
     resource :dashboard, only: [:show], controller: :dashboard
     resource :chat_history, only: [:destroy], controller: :chat_histories
