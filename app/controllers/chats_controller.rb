@@ -30,10 +30,7 @@ class ChatsController < ApplicationController
 
     user_message = chat.messages.create!(role: "user", content: content)
     sse.write(
-      {
-        user_message_count: chat.user_message_count,
-        limit_reached: chat.user_message_limit_reached?
-      },
+      { user_message_count: chat.user_message_count, limit_reached: chat.user_message_limit_reached? },
       event: "accepted"
     )
 
@@ -73,7 +70,12 @@ class ChatsController < ApplicationController
       Here are the patch notes:
       #{@patch.content}
 
-      Keep your answers short, friendly and easy to understand for casual gamers. Avoid jargon where possible.
+      Rules for your responses:
+      - Keep answers short and friendly.
+      - Use bullet points or short paragraphs — never one long block of text.
+      - Use **bold** to highlight the most important changes.
+      - Avoid jargon. If you must use a game term, explain it in plain English.
+      - End with a one-sentence takeaway when relevant.
     PROMPT
   end
 end

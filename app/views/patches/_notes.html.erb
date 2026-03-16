@@ -15,7 +15,7 @@
     <% if display_sections.any? %>
       <div class="patch-show__accordions">
         <% display_sections.each_with_index do |section, index| %>
-          <details class="patch-show__accordion" <%= "open" if index.zero? %>>
+          <details class="patch-show__accordion">
             <summary class="patch-show__accordion-summary">
               <span class="patch-show__accordion-title"><%= section["title"] %></span>
               <% if section["summary"].present? %>
