@@ -9,7 +9,14 @@
        "chatbot__counter"
      end %>
 
-<%= form_with model: [patch, chat, message], html: { class: "chatbot__form" } do |f| %>
+<%= form_with model: [patch, chat, message],
+              html: {
+                class: "chatbot__form",
+                data: {
+                  action: "submit->chat-stream#submit",
+                  chat_stream_target: "form"
+                }
+              } do |f| %>
   <%= hidden_field_tag :return_to, params[:return_to] %>
 
   <div class="chatbot__composer">
@@ -19,24 +26,28 @@
             class: "chatbot__input",
             required: true,
             autocomplete: "off",
-            disabled: limit_reached %>
+            disabled: limit_reached,
+            data: { chat_stream_target: "input" } %>
 
       <div class="chatbot__actions">
         <%= f.submit "Ask Chat",
             class: "btn btn-primary btn-sm",
             style: "color: #fff;",
             disabled: limit_reached,
-            data: { turbo_submits_with: "Thinking..." } %>
+            data: {
+              turbo_submits_with: "Thinking...",
+              chat_stream_target: "submit"
+            } %>
 
-        <p class="<%= counter_class %>">
+        <p class="<%= counter_class %>" data-chat-stream-target="counter">
           <span class="chatbot__counter-label">Questions</span>
-          <span class="chatbot__counter-value"><%= user_message_count %>/<%= Message::MAX_USER_MESSAGES %></span>
+          <span class="chatbot__counter-value" data-chat-stream-target="counterValue"><%= user_message_count %>/<%= Message::MAX_USER_MESSAGES %></span>
         </p>
       </div>
     </div>
 
-    <% if limit_reached %>
-      <p class="chatbot__limit-reached">You have reached the 5-question limit for this chat.</p>
-    <% end %>
+    <p class="chatbot__limit-reached" data-chat-stream-target="limitMessage" <%= "hidden" unless limit_reached %>>
+      You have reached the 5-question limit for this chat.
+    </p>
   </div>
 <% end %>

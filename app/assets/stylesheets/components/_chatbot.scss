@@ -68,6 +68,22 @@
     }
   }
 
+  &__bubble--streaming {
+    white-space: pre-wrap;
+  }
+
+  &__bubble--streaming::after {
+    content: "";
+    display: inline-block;
+    width: 0.42rem;
+    height: 1em;
+    margin-left: 0.2rem;
+    vertical-align: text-bottom;
+    background: rgba(168, 85, 247, 0.9);
+    border-radius: 999px;
+    animation: chatbot-caret 1s steps(1, end) infinite;
+  }
+
   &__form {
     padding: 1rem 1.25rem;
     border-top: 1px solid rgba(255, 255, 255, 0.06);
@@ -180,4 +196,10 @@
 .btn[disabled] {
   opacity: 0.6;
   cursor: wait;
+}
+
+@keyframes chatbot-caret {
+  50% {
+    opacity: 0;
+  }
 }

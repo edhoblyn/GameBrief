@@ -74,6 +74,8 @@ class PatchesControllerTest < ActionDispatch::IntegrationTest
     assert_includes response.body, "A cleaner overview."
     assert_includes response.body, "Weapons"
     assert_includes response.body, "Ask about this patch"
+    assert_includes response.body, 'data-controller="chat-stream"'
+    assert_includes response.body, "submit-&gt;chat-stream#submit"
     assert_includes response.body, "Questions"
     assert_includes response.body, "0/5"
   end
