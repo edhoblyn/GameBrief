@@ -8,6 +8,7 @@
   <div class="d-flex justify-content-end mb-2 me-1">
     <%= f.submit "Ask Chat",
         class: "btn btn-primary btn-sm",
-        style: "color: #fff;" %>
+        style: "color: #fff;",
+        data: { turbo_submits_with: "Thinking..." } %>
   </div>
 <% end %>
