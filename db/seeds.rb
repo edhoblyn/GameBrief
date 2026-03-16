@@ -834,12 +834,25 @@ seed_event_series(
   ]
 )
 
+clash&.events&.destroy_all
 seed_event_series(
   game: clash,
   events: [
-    { title: "March Update 2026", description: "The official March Clash Royale update lands with seasonal changes, new progression beats, and balance adjustments.", start_date: DateTime.new(2026, 3, 2, 9, 0, 0) },
-    { title: "Choose Your Heroes Rollout", description: "The spring rollout of the Choose Your Heroes feature adds a fresh event beat for deck-building and engagement.", start_date: DateTime.new(2026, 3, 15, 10, 0, 0) },
-    { title: "Global Tournaments Return", description: "Global Tournaments come back later in March, giving competitive players another official ladder-style event window.", start_date: DateTime.new(2026, 3, 27, 10, 0, 0) }
+    {
+      title: "Clash Royale April Season",
+      description: "A new Clash Royale season begins — the Pass Royale resets with a fresh theme and exclusive tower skins, emotes, and cosmetics, plus new cards to unlock and upgrade.",
+      start_date: DateTime.new(2026, 4, 1, 8, 0, 0)
+    },
+    {
+      title: "Clash Royale — Global Tournament April 2026",
+      description: "Global Tournaments are open — enter with a limited-use deck and compete for trophies, Gold, and exclusive in-game rewards on the global leaderboard.",
+      start_date: DateTime.new(2026, 4, 10, 8, 0, 0)
+    },
+    {
+      title: "Clash Royale May Season",
+      description: "May's new season arrives in Clash Royale — bringing a fresh Pass Royale, updated shop cosmetics, new card releases, and mid-season content drops.",
+      start_date: DateTime.new(2026, 5, 1, 8, 0, 0)
+    }
   ]
 )
 

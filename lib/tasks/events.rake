@@ -43,6 +43,11 @@ namespace :events do
     run_event_import(EventImporters::ClashOfClansEventImporter, label: "Clash of Clans")
   end
 
+  desc "Import real Clash Royale events from supercell.com/en/games/clashroyale/blog"
+  task import_clash_royale: :environment do
+    run_event_import(EventImporters::ClashRoyaleEventImporter, label: "Clash Royale")
+  end
+
   desc "Import all games' real events (run each source in turn)"
   task import_all: :environment do
     Rake::Task["events:import_apex_legends"].invoke
@@ -50,6 +55,7 @@ namespace :events do
     Rake::Task["events:import_battlefield_6"].invoke
     Rake::Task["events:import_call_of_duty_warzone"].invoke
     Rake::Task["events:import_clash_of_clans"].invoke
+    Rake::Task["events:import_clash_royale"].invoke
     Rake::Task["events:import_valorant"].invoke
   end
 end
