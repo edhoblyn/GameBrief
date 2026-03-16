@@ -13,7 +13,9 @@
     <script>
       (function() {
         var savedTheme = localStorage.getItem("gamebrief-theme");
+        var soundMuted = localStorage.getItem("gamebrief-sound-muted");
         if (savedTheme) document.documentElement.setAttribute("data-theme", savedTheme);
+        document.documentElement.dataset.soundMuted = soundMuted === "true" ? "true" : "false";
       })();
     </script>
 
@@ -29,10 +31,11 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body data-controller="theme">
+  <body class="page-<%= controller.controller_name.dasherize %>-<%= controller.action_name.dasherize %>">
     <%= render "shared/hover_gradient_nav" unless content_for?(:hide_navbar) %>
     <%= render "shared/settings_menu" %>
     <%= render "shared/flashes" %>
+    <div style="height: 4rem;"></div>
 
     <%= yield %>
 

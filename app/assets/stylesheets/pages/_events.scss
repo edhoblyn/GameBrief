@@ -1,5 +1,6 @@
 // ── Events index ─────────────────────────────────────────────────────────────
 .events-index {
+  min-height: calc(100vh - 4rem);
   padding-top: 7rem;
   padding-bottom: 4rem;
 
@@ -13,8 +14,8 @@
     border: 1px solid var(--gb-border);
     border-radius: 16px;
     background:
-      radial-gradient(circle at top right, color-mix(in srgb, var(--gb-accent-secondary) 18%, transparent), transparent 38%),
-      linear-gradient(180deg, color-mix(in srgb, var(--gb-accent) 12%, transparent), rgba(255, 255, 255, 0.02));
+      radial-gradient(circle at top right, color-mix(in srgb, var(--gb-accent-secondary) 12%, transparent), transparent 36%),
+      linear-gradient(180deg, color-mix(in srgb, var(--gb-accent) 8%, transparent), var(--gb-card));
     box-shadow: 0 24px 50px rgba(0, 0, 0, 0.18);
   }
 
@@ -101,7 +102,7 @@
     padding: 0.7rem 0.85rem;
     border: 1px solid var(--gb-border);
     border-radius: 16px;
-    background: linear-gradient(180deg, color-mix(in srgb, var(--gb-accent-secondary) 12%, transparent), rgba(255, 255, 255, 0.03));
+    background: linear-gradient(180deg, color-mix(in srgb, var(--gb-accent-secondary) 8%, transparent), var(--gb-card));
   }
 
   &__summary-value {
@@ -185,7 +186,18 @@
 
   &__game-filter[open] &__game-filter-trigger {
     border-color: var(--gb-accent);
-    background: var(--gb-card);
+    background: color-mix(in srgb, var(--gb-accent) 14%, transparent);
+    color: var(--gb-accent);
+  }
+
+  &__game-filter-trigger--active {
+    background: color-mix(in srgb, var(--gb-accent) 14%, transparent);
+    color: var(--gb-accent);
+    border-color: var(--gb-accent);
+
+    strong {
+      color: var(--gb-accent);
+    }
   }
 
   &__game-filter-menu {
@@ -198,7 +210,7 @@
     padding: 0.8rem;
     border: 1px solid var(--gb-border);
     border-radius: 16px;
-    background: var(--gb-panel);
+    background: var(--gb-card);
     box-shadow: 0 18px 40px rgba(0, 0, 0, 0.3);
   }
 
@@ -253,6 +265,7 @@
     align-items: center;
     gap: 0.55rem;
     padding: 0.4rem 0.45rem;
+    border: 1px solid transparent;
     border-radius: 10px;
     color: var(--gb-text);
     font-size: 0.8rem;
@@ -260,6 +273,12 @@
 
     &:hover {
       background: rgba(255, 255, 255, 0.04);
+    }
+
+    &:has(.events-index__game-filter-checkbox:checked) {
+      background: color-mix(in srgb, var(--gb-accent) 14%, transparent);
+      border-color: var(--gb-accent);
+      color: var(--gb-accent);
     }
   }
 
@@ -345,7 +364,7 @@
     padding: 0.72rem 0.85rem;
     border: 1px solid var(--gb-border);
     border-radius: 18px;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.015));
+    background: var(--gb-card);
     color: inherit;
     text-decoration: none;
     transition: transform 0.15s, border-color 0.15s, background 0.15s;
@@ -354,7 +373,7 @@
       color: inherit;
       text-decoration: none;
       border-color: var(--gb-accent-secondary);
-      background: rgba(255, 255, 255, 0.05);
+      background: color-mix(in srgb, var(--gb-card) 90%, white 10%);
       transform: translateY(-2px);
     }
   }
@@ -450,7 +469,7 @@
     padding: 3rem 1.5rem;
     border: 1px solid var(--gb-border);
     border-radius: 24px;
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--gb-card);
     text-align: center;
   }
 

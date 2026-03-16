@@ -1,4 +1,4 @@
-<div class="app-settings-menu">
+<div class="app-settings-menu" data-controller="theme">
   <details class="app-settings-menu__details">
     <summary class="app-settings-menu__trigger" aria-label="Open settings">
       <i class="fa fa-cog" aria-hidden="true"></i>
@@ -39,14 +39,37 @@
         </button>
       </div>
 
+      <div class="app-settings-menu__section">
+        <p class="app-settings-menu__eyebrow">Sound</p>
+        <h2 class="app-settings-menu__title">Effects</h2>
+
+        <button type="button"
+                class="app-settings-menu__sound-button"
+                data-controller="sound-toggle"
+                data-action="click->sound-toggle#toggle"
+                aria-pressed="false"
+                aria-label="Sound effects on"
+                title="Sound effects on">
+          <span class="app-settings-menu__sound-icon-wrap" aria-hidden="true">
+            <i class="app-settings-menu__sound-icon fa fa-volume-up"></i>
+          </span>
+          <span class="visually-hidden">Toggle sound effects</span>
+        </button>
+      </div>
+
       <% if user_signed_in? %>
         <div class="app-settings-menu__footer">
           <%= button_to destroy_user_session_path,
                         method: :delete,
-                        class: "app-settings-menu__logout",
+                        form: {
+                          class: "app-settings-menu__logout-form",
+                          style: "display:block;margin:0 auto;width:50%;min-width:8.5rem;max-width:8.5rem;"
+                        },
+                        class: "app-settings-menu__logout logout-btn",
+                        style: "display:flex;align-items:center;justify-content:center;width:100%;box-sizing:border-box;white-space:nowrap;",
                         aria: { label: "Log out" },
                         title: "Log out" do %>
-            <i class="fa fa-sign-out" aria-hidden="true"></i>
+            <i class="fa fa-sign-out" aria-hidden="true"></i> Log out
           <% end %>
         </div>
       <% end %>

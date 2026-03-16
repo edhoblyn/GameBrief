@@ -5,7 +5,7 @@
     <div>
       <p class="my-patches-page__eyebrow">Profile</p>
       <h1 class="my-patches-page__title">My Patches</h1>
-      <p class="my-patches-page__subtitle">Recent patch notes from the games you follow.</p>
+      <p class="my-patches-page__subtitle">Recent patch notes from your favourited games.</p>
     </div>
     <div class="my-patches-page__actions">
       <%= link_to my_profile_path, class: "my-patches-page__action" do %>
@@ -26,7 +26,7 @@
     </div>
     <div class="my-patches-page__summary-card">
       <span class="my-patches-page__summary-value"><%= @followed_games.count %></span>
-      <span class="my-patches-page__summary-label">Followed games</span>
+      <span class="my-patches-page__summary-label">Favourited games</span>
     </div>
   </div>
 
@@ -71,8 +71,8 @@
       <div class="my-patches-page__empty-icon">
         <i class="fa fa-file-text"></i>
       </div>
-      <h2 class="my-patches-page__empty-title">No patches found for your followed games</h2>
-      <p class="my-patches-page__empty-copy">Try a wider date range or follow more games to build your patch feed.</p>
+      <h2 class="my-patches-page__empty-title">No patches found for your favourited games</h2>
+      <p class="my-patches-page__empty-copy">Try a wider date range or favourite more games to build your patch feed.</p>
       <div class="my-patches-page__actions">
         <%= link_to my_games_path, class: "my-patches-page__action" do %>
           <i class="fa fa-gamepad"></i>

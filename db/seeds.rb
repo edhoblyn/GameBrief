@@ -65,12 +65,15 @@ upsert_user(email: "apexdaddy@gamebrief.gg",    password: "password123", usernam
 
 puts "Cleaning up orphaned game records..."
 Game.where(name: "Ragnarok: War of Gods").destroy_all
+Game.where(name: "2XKO").destroy_all
+Game.where(name: "Overwatch 2: Invasion Bundle").update_all(name: "Overwatch 2")
+Game.where(name: "Genshin Impact: Blades Weaving Betwixt Brocade").update_all(name: "Genshin Impact")
 
 puts "Importing games from IGDB..."
 
 client = IgdbClient.new
 
-def import_game(client, query, free_to_play: false)
+def import_game(client, query, name: nil, free_to_play: false, single_player: false, multiplayer: false)
   results = client.search_games(query)
   match = results.find { |g| g["name"]&.downcase == query.downcase && g["cover"] }
   match ||= results.find { |g| g["cover"] }
@@ -84,45 +87,47 @@ def import_game(client, query, free_to_play: false)
   game ||= Game.new
 
   game.update!(
-    name: match["name"],
+    name: name || match["name"],
     slug: match["slug"],
     cover_image: cover_url,
-    free_to_play: free_to_play
+    free_to_play: free_to_play,
+    single_player: single_player,
+    multiplayer: multiplayer
   )
 
   game
 end
 
-fortnite  = import_game(client, "Fortnite", free_to_play: true)
-warzone   = import_game(client, "Call of Duty: Warzone", free_to_play: true)
-apex      = import_game(client, "Apex Legends", free_to_play: true)
-destiny   = import_game(client, "Destiny 2", free_to_play: false)
-fifa      = import_game(client, "EA Sports FC 26", free_to_play: false)
-roblox    = import_game(client, "Roblox", free_to_play: true)
-clash     = import_game(client, "Clash Royale", free_to_play: true)
-coc       = import_game(client, "Clash of Clans", free_to_play: true)
-minecraft = import_game(client, "Minecraft", free_to_play: false)
-valorant  = import_game(client, "Valorant", free_to_play: true)
-marvel    = import_game(client, "Marvel Rivals", free_to_play: true)
-helldivers = import_game(client, "Helldivers 2", free_to_play: false)
-overwatch2    = import_game(client, "Overwatch 2", free_to_play: true)
-re_requiem    = import_game(client, "Resident Evil Requiem", free_to_play: false)
-pokemon_pokopia = import_game(client, "Pokémon Pokopia", free_to_play: false)
-battlefront2  = import_game(client, "Star Wars Battlefront II", free_to_play: false)
-horizon_fw    = import_game(client, "Horizon Forbidden West", free_to_play: false)
-ff7_rebirth   = import_game(client, "Final Fantasy VII Rebirth", free_to_play: false)
-spiderman2    = import_game(client, "Marvel's Spider-Man 2", free_to_play: false)
-gta_online    = import_game(client, "Grand Theft Auto V", free_to_play: false)
-lol           = import_game(client, "League of Legends", free_to_play: true)
-cyberpunk     = import_game(client, "Cyberpunk 2077", free_to_play: false)
-space_marine2 = import_game(client, "Warhammer 40,000: Space Marine 2", free_to_play: false)
-twoxko        = import_game(client, "2XKO", free_to_play: true)
-genshin       = import_game(client, "Genshin Impact", free_to_play: true)
-cs2           = import_game(client, "Counter-Strike 2", free_to_play: true)
-dota2         = import_game(client, "Dota 2", free_to_play: true)
-baldurs_gate3 = import_game(client, "Baldur's Gate 3", free_to_play: false)
-pubg          = import_game(client, "PUBG: Battlegrounds", free_to_play: true)
-battlefield6  = import_game(client, "Battlefield 6", free_to_play: false)
+fortnite  = import_game(client, "Fortnite", free_to_play: true, multiplayer: true)
+warzone   = import_game(client, "Call of Duty: Warzone", free_to_play: true, multiplayer: true)
+apex      = import_game(client, "Apex Legends", free_to_play: true, multiplayer: true)
+destiny   = import_game(client, "Destiny 2", free_to_play: false, single_player: true, multiplayer: true)
+fifa      = import_game(client, "EA Sports FC 26", free_to_play: false, single_player: true, multiplayer: true)
+roblox    = import_game(client, "Roblox", free_to_play: true, single_player: true, multiplayer: true)
+clash     = import_game(client, "Clash Royale", free_to_play: true, multiplayer: true)
+coc       = import_game(client, "Clash of Clans", free_to_play: true, multiplayer: true)
+minecraft = import_game(client, "Minecraft", free_to_play: false, single_player: true, multiplayer: true)
+valorant  = import_game(client, "Valorant", free_to_play: true, multiplayer: true)
+marvel    = import_game(client, "Marvel Rivals", free_to_play: true, multiplayer: true)
+helldivers = import_game(client, "Helldivers 2", free_to_play: false, multiplayer: true)
+overwatch2    = import_game(client, "Overwatch 2", name: "Overwatch 2", free_to_play: true, multiplayer: true)
+re_requiem    = import_game(client, "Resident Evil Requiem", free_to_play: false, single_player: true)
+pokemon_pokopia = import_game(client, "Pokémon Pokopia", free_to_play: false, single_player: true)
+battlefront2  = import_game(client, "Star Wars Battlefront II", free_to_play: false, single_player: true, multiplayer: true)
+horizon_fw    = import_game(client, "Horizon Forbidden West", free_to_play: false, single_player: true)
+ff7_rebirth   = import_game(client, "Final Fantasy VII Rebirth", free_to_play: false, single_player: true)
+spiderman2    = import_game(client, "Marvel's Spider-Man 2", free_to_play: false, single_player: true)
+gta_online    = import_game(client, "Grand Theft Auto V", free_to_play: false, single_player: true, multiplayer: true)
+lol           = import_game(client, "League of Legends", free_to_play: true, multiplayer: true)
+cyberpunk     = import_game(client, "Cyberpunk 2077", free_to_play: false, single_player: true)
+space_marine2 = import_game(client, "Warhammer 40,000: Space Marine 2", free_to_play: false, single_player: true, multiplayer: true)
+arc_raiders   = import_game(client, "ARC Raiders", free_to_play: false, multiplayer: true)
+genshin       = import_game(client, "Genshin Impact", name: "Genshin Impact", free_to_play: true, single_player: true, multiplayer: true)
+cs2           = import_game(client, "Counter-Strike 2", free_to_play: true, multiplayer: true)
+dota2         = import_game(client, "Dota 2", free_to_play: true, multiplayer: true)
+baldurs_gate3 = import_game(client, "Baldur's Gate 3", free_to_play: false, single_player: true, multiplayer: true)
+pubg          = import_game(client, "PUBG: Battlegrounds", free_to_play: true, multiplayer: true)
+battlefield6  = import_game(client, "Battlefield 6", free_to_play: false, single_player: true, multiplayer: true)
 
 puts "Setting game genres..."
 
@@ -150,7 +155,7 @@ genre_map = {
   lol           => ["Strategy", "MOBA"],
   cyberpunk     => ["RPG", "Action"],
   space_marine2 => ["Action", "Shooter"],
-  twoxko        => ["Fighting"],
+  arc_raiders   => ["Shooter"],
   genshin       => ["RPG", "Action"],
   cs2           => ["Shooter", "Strategy"],
   dota2         => ["Strategy", "MOBA"],
@@ -958,37 +963,34 @@ space_marine2_patch = seed_placeholder_patch(
   }
 )
 
-twoxko_patch = seed_placeholder_patch(
-  game: twoxko,
-  title: "Open Beta Patch 0.8 — Roster & System Updates",
+arc_raiders_patch = seed_placeholder_patch(
+  game: arc_raiders,
+  title: "Tech Test Update 0.8.4 — Gear, Raiders, and Extraction Tuning",
   content: <<~TEXT,
-    New Champions
-    - Illaoi added to the roster: A bruiser-style fighter with tentacle summons and arena control. Available now.
-    - Ambessa added to the roster: A fast, aggressive duelist with combo-heavy pressure. Available now.
+    Gear and Progression
+    - Burst Rifle and Arc Cannon loot pools retuned so high-rarity drops appear more consistently in contested POIs.
+    - Backpack crafting costs reduced for rare-tier upgrades to make early extraction runs less punishing.
+    - New sponsor contract chain added with three unlockable cosmetic rewards for successful extracts.
 
-    Combat System
-    - Tag mechanic adjusted: Tag-in invincibility window reduced from 12f to 9f to reward reads on unsafe tags.
-    - Assist calls now have a 6-frame startup (up from 4f) for improved counterplay.
-    - Wall splat recovery reduced by 4 frames — allows faster follow-ups after corner combos.
+    Raider and Enemy Tuning
+    - Burst Rifle recoil reduced slightly when firing short controlled bursts.
+    - DMR headshot multiplier lowered from 2.1x to 1.9x to reduce one-tap chains against under-geared squads.
+    - ARC drones now telegraph charge attacks longer before impact.
 
-    Champion Adjustments
-    - Jinx: Fishbones projectile hitbox width increased. Super Mega Death Rocket startup reduced by 3f.
-    - Ekko: Time Winder on-hit detonation window extended by 2f.
-    - Darius: Decimate pull range slightly reduced to limit neutral dominance.
+    Extraction Flow
+    - Extraction beacon activation time reduced by 2 seconds for duos and solos.
+    - Storm warning audio now triggers earlier when a sector is about to collapse.
+    - Downed teammate revive window increased from 20s to 24s in non-ranked playlists.
 
-    Ranked Mode
-    - Season 1 begins with this patch. Placement matches reduced from 10 to 5 for returning beta players.
-    - New rank tier: Void rank added above Masters for top 500 players on each server.
-
-    Bug Fixes
-    - Fixed Illaoi's tentacle summons persisting after a round reset in certain scenarios.
-    - Resolved input buffer not registering correctly after a back dash on certain controllers.
-    - Fixed ranked lobby sometimes showing incorrect opponent rank icons.
+    Stability and Fixes
+    - Fixed players occasionally losing equipped gadgets after reconnecting to a live match.
+    - Resolved an issue causing loot containers to appear opened for clients joining in progress.
+    - Fixed several terrain seams that let players clip into rocks near dam-side extraction zones.
   TEXT
   summaries: {
-    "quick_summary" => "Two big new champions arrive — Illaoi brings tentacle-based arena control and Ambessa is a fast combo-heavy duelist, both shaking up the meta immediately. The tag mechanic got tightened with less invincibility on tag-ins which rewards more reads. Season 1 ranked kicks off with this patch and adds a new Void tier for the top 500.",
-    "casual_impact" => "Illaoi and Ambessa are both very fun to learn and play very differently from the existing roster — worth trying both in casual matches before ranked. Season 1 starting means your placement now matters, but the reduced placement count makes it less of a grind. Jinx mains will enjoy the improved Fishbones hitbox.",
-    "should_i_log_in" => "Yes — Season 1 and two new champions in the same patch is the biggest moment in the game so far. Even if you've been waiting on the sidelines, now is the time to try the game and get your placement matches in before the season progresses."
+    "quick_summary" => "Arc Raiders' latest update focuses on extraction pacing, better loot reliability, and weapon tuning that should make mid-range fights less punishing. Faster beacons and clearer storm warnings improve run consistency, especially for smaller squads. The DMR nerf should also cut down on abrupt wipes from geared teams.",
+    "casual_impact" => "If you bounced off the last test because extractions felt too punishing, this seed update points in the right direction. Cheaper upgrade crafting and a longer revive window make shorter sessions less brutal. Solo and duo runs should feel more viable now.",
+    "should_i_log_in" => "Yes — the mix of faster extractions, better progression, and stability fixes makes this a stronger onboarding patch than the last test build. It looks like a good moment to check whether the survival loop now clicks for you."
   }
 )
 
@@ -1410,11 +1412,11 @@ seed_event_series(
 )
 
 seed_event_series(
-  game: twoxko,
+  game: arc_raiders,
   events: [
-    { title: "Season 1 Ranked Launch", description: "The first competitive season of 2XKO goes live alongside Illaoi and Ambessa — placement matches determine your starting rank.", start_date: DateTime.new(2026, 3, 26, 18, 0, 0) },
-    { title: "2XKO Open Invitational", description: "The first official 2XKO tournament invites top-ranked players for a streamed event with prize money and exclusive cosmetics.", start_date: DateTime.new(2026, 5, 16, 17, 0, 0) },
-    { title: "New Champion Reveal Event", description: "A live community event unveiling the next champion to join the roster, with early access trials for ranked players.", start_date: DateTime.new(2026, 7, 9, 18, 0, 0) }
+    { title: "Tech Test 3 Begins", description: "The next ARC Raiders technical test opens with updated extraction rules, fresh sponsor objectives, and revised squad economy balancing.", start_date: DateTime.new(2026, 3, 26, 18, 0, 0) },
+    { title: "Community Extraction Challenge", description: "Players work together to hit global extraction milestones for banner cosmetics, profile rewards, and a bonus weekend loot modifier.", start_date: DateTime.new(2026, 5, 16, 17, 0, 0) },
+    { title: "Season Zero Preview Broadcast", description: "Embark hosts a live stream covering launch roadmap beats, new enemy variants, and the first post-release progression rewards.", start_date: DateTime.new(2026, 7, 9, 18, 0, 0) }
   ]
 )
 

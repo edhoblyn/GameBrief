@@ -16,21 +16,25 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
   resources :games, only: [:index, :show] do
+    collection do
+      post :suggest
+    end
+
     resources :patches, only: [:index]
   end
   resources :patches, only: [:index, :show] do
     member do
+      get :notes
       post :generate_summary
     end
     resources :chats, only: [:create] do
       resources :messages, only: [:create]
+      member do
+        get :stream
+      end
     end
   end
-  resources :events, only: [:index, :show] do
-    member do
-      post :generate_summary
-    end
-  end
+  resources :events, only: [:index, :show]
   resources :favourites, only: [:create, :destroy]
   resources :reminders, only: [:create, :destroy]
   resources :friendships, only: [:create, :destroy]

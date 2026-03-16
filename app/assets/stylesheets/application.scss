@@ -13,6 +13,8 @@
 
 :root,
 html[data-theme="nebula"] {
+  --gb-navbar-height: 4.5rem;
+  --gb-sticky-offset: calc(var(--gb-navbar-height) + 1.5rem);
   --gb-bg: #0d0d14;
   --gb-surface: #16161f;
   --gb-card: #1a1a27;
@@ -94,6 +96,15 @@ body {
   background-image: var(--gb-theme-gradient);
   background-repeat: no-repeat;
   color: var(--gb-text);
+}
+
+body.page-events-index {
+  background-color: var(--gb-bg);
+  background-image: var(--gb-theme-gradient);
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: 100% 144rem;
+  background-attachment: fixed;
 }
 
 a {

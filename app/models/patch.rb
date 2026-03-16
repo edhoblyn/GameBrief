@@ -13,6 +13,8 @@ class Patch < ApplicationRecord
   has_many :patch_summaries, dependent: :destroy
   has_many :chats, dependent: :destroy
 
+  after_commit :request_ai_presentation_later, on: [:create, :update], if: :saved_change_requiring_ai_presentation?
+
   scope :recent_first, -> { order(Arel.sql("#{effective_published_at_sql} DESC")) }
   scope :scraped_first_recent_first, -> { order(Arel.sql(scraped_first_sql), Arel.sql("#{effective_published_at_sql} DESC")) }
   scope :with_date_filter, lambda { |filter|
@@ -152,5 +154,69 @@ class Patch < ApplicationRecord
     days_back = seed % 180
 
     Time.zone.now.beginning_of_day - days_back.days
+  end
+
+  def structured_sections
+    value = self[:structured_sections]
+    value.is_a?(Array) ? value : []
+  end
+
+  def ai_presentable?
+    content.present?
+  end
+
+  def ai_presentation_ready?
+    ai_presentation_generated_at.present? && !ai_presentation_stale? && structured_sections.any?
+  end
+
+  def ai_presentation_pending?
+    return false if ai_presentation_requested_at.blank?
+
+    ai_presentation_generated_at.blank? || ai_presentation_requested_at > ai_presentation_generated_at
+  end
+
+  def ai_presentation_stale?
+    return true if ai_presentation_generated_at.blank?
+
+    ai_presentation_generated_at < updated_at
+  end
+
+  def request_ai_presentation!
+    return false unless ai_presentable?
+    return false if ai_presentation_pending?
+    return false if ai_presentation_ready?
+
+    update_columns(
+      ai_presentation_requested_at: Time.current,
+      ai_presentation_error: nil
+    )
+    GeneratePatchPresentationJob.perform_later(id)
+    true
+  end
+
+  def display_formatted_content
+    return formatted_content.to_s.strip.presence if ai_presentation_ready?
+
+    fallback_presentation[:formatted_content]
+  end
+
+  def display_structured_sections
+    return structured_sections if ai_presentation_ready?
+
+    fallback_presentation[:structured_sections]
+  end
+
+  private
+
+  def saved_change_requiring_ai_presentation?
+    ai_presentable? && (saved_change_to_content? || saved_change_to_source_url?)
+  end
+
+  def request_ai_presentation_later
+    request_ai_presentation!
+  end
+
+  def fallback_presentation
+    @fallback_presentation ||= PatchPresentationFallbackService.new(content).call
   end
 end

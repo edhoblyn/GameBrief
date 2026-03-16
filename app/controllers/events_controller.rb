@@ -34,6 +34,7 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.includes(:game).find(params[:id])
+    @event.request_ai_summary! if @event.summary.blank?
     @reminder = current_user.reminders.find_by(event: @event)
     @favourite = current_user.favourites.find_by(game: @event.game)
 
@@ -46,17 +47,6 @@ class EventsController < ApplicationController
                            .order(start_date: :asc)
                            .limit(3)
     @latest_patch = @event.game.patches.known_newest_first.first
-  end
-
-  def generate_summary
-    @event = Event.find(params[:id])
-    begin
-      @event.update!(summary: EventSummaryService.new(@event).call)
-      flash[:notice] = "Event summary generated!"
-    rescue => e
-      flash[:alert] = "Failed to generate summary. Please try again."
-    end
-    redirect_to event_path(@event)
   end
 
   private

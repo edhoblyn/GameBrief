@@ -6,6 +6,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @user = User.create!(email: "games-controller@test.com", password: "123456")
     sign_in @user
+    ActionMailer::Base.deliveries.clear
   end
 
   test "should get index" do
@@ -154,13 +155,50 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
     assert_not_includes @response.body, "Clash Royale"
   end
 
-  test "active filters link back to the same page with that filter removed" do
-    get games_url, params: { genre: "Shooter", free_to_play: "true", sort: "name", query: "apex" }
+  test "filters games by single-player flag" do
+    solo_game = Game.create!(name: "Resident Evil Requiem", slug: "resident-evil-requiem", single_player: true)
+    multiplayer_game = Game.create!(name: "Marvel Rivals", slug: "marvel-rivals", multiplayer: true)
+
+    get games_url, params: { single_player: "true" }
 
     assert_response :success
-    assert_select "a[href='#{games_path(query: "apex", sort: "name", free_to_play: "true")}']", text: "Shooter"
-    assert_select "a[href='#{games_path(genre: "Shooter", query: "apex", sort: "name")}']", text: "Free-to-play"
-    assert_select "a[href='#{games_path(genre: "Shooter", query: "apex", free_to_play: "true")}']", text: "A–Z"
+    assert_includes @response.body, solo_game.name
+    assert_not_includes @response.body, multiplayer_game.name
+  end
+
+  test "filters games by multiplayer flag" do
+    multiplayer_game = Game.create!(name: "Counter-Strike 2", slug: "counter-strike-2", multiplayer: true)
+    solo_game = Game.create!(name: "Final Fantasy VII Rebirth", slug: "final-fantasy-vii-rebirth", single_player: true)
+
+    get games_url, params: { multiplayer: "true" }
+
+    assert_response :success
+    assert_includes @response.body, multiplayer_game.name
+    assert_not_includes @response.body, solo_game.name
+  end
+
+  test "combines multiplayer and free-to-play filters" do
+    matching_game = Game.create!(name: "Fortnite", slug: "fortnite", free_to_play: true, multiplayer: true)
+    paid_multiplayer_game = Game.create!(name: "Battlefield 6", slug: "battlefield-6", free_to_play: false, multiplayer: true)
+    free_solo_game = Game.create!(name: "Genshin Impact", slug: "genshin-impact", free_to_play: true, single_player: true)
+
+    get games_url, params: { multiplayer: "true", free_to_play: "true" }
+
+    assert_response :success
+    assert_includes @response.body, matching_game.name
+    assert_not_includes @response.body, paid_multiplayer_game.name
+    assert_not_includes @response.body, free_solo_game.name
+  end
+
+  test "active filters link back to the same page with that filter removed" do
+    get games_url, params: { genre: "Shooter", free_to_play: "true", single_player: "true", multiplayer: "true", sort: "name", query: "apex" }
+
+    assert_response :success
+    assert_select "a[href='#{games_path(query: "apex", sort: "name", free_to_play: "true", single_player: "true", multiplayer: "true")}']", text: "Shooter"
+    assert_select "a[href='#{games_path(genre: "Shooter", query: "apex", sort: "name", single_player: "true", multiplayer: "true")}']", text: "Free-to-play"
+    assert_select "a[href='#{games_path(genre: "Shooter", query: "apex", sort: "name", free_to_play: "true", multiplayer: "true")}']", text: "Single player"
+    assert_select "a[href='#{games_path(genre: "Shooter", query: "apex", sort: "name", free_to_play: "true", single_player: "true")}']", text: "Multiplayer"
+    assert_select "a[href='#{games_path(genre: "Shooter", query: "apex", free_to_play: "true", single_player: "true", multiplayer: "true")}']", text: "A–Z"
   end
 
   test "shows follow button on game cards for unfollowed games" do
@@ -171,7 +209,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_includes @response.body, "See details"
     assert_select "form[action='#{favourites_path}'] input[name='game_id'][value='#{game.id}']", count: 1
-    assert_select "button[aria-label='Follow #{game.name}'] .fa-star-o", count: 1
+    assert_select "button[aria-label='Favourite #{game.name}'] .fa-star-o", count: 1
   end
 
   test "shows active follow button on game cards for followed games" do
@@ -183,6 +221,61 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_includes @response.body, "View updates"
     assert_select "form[action='#{favourite_path(favourite)}'] input[name='_method'][value='delete']", count: 1
-    assert_select "button[aria-label='Unfollow #{game.name}'].game-card__follow-btn--active .fa-star", count: 1
+    assert_select "button[aria-label='Unfavourite #{game.name}'].game-card__follow-btn--active .fa-star", count: 1
+  end
+
+  test "creates a game suggestion from the games page" do
+    assert_difference("GameSuggestion.count", 1) do
+      assert_difference("ActionMailer::Base.deliveries.size", 1) do
+        post suggest_games_url, params: { game_suggestion: { name: "Stardew Valley" } }
+      end
+    end
+
+    assert_redirected_to games_url
+    follow_redirect!
+    assert_includes @response.body, "Thanks. Your game suggestion has been sent for review."
+    assert_equal "Stardew Valley", GameSuggestion.order(:created_at).last.name
+
+    mail = ActionMailer::Base.deliveries.last
+    assert_equal ["gamebrief805@gmail.com"], mail.to
+    assert_includes mail.subject, "Stardew Valley"
+    assert_includes mail.body.encoded, @user.email
+  end
+
+  test "re-renders the games page when a game suggestion is invalid" do
+    assert_no_difference("GameSuggestion.count") do
+      assert_no_difference("ActionMailer::Base.deliveries.size") do
+        post suggest_games_url, params: { game_suggestion: { name: "" } }
+      end
+    end
+
+    assert_response :unprocessable_entity
+    assert_includes @response.body, "Name can&#39;t be blank"
+    assert_select "[data-controller='suggestion-reveal'][data-suggestion-reveal-open-value='true']"
+    assert_select "[data-suggestion-reveal-target='panel']:not([hidden])"
+  end
+
+  test "rejects non-title game suggestion input" do
+    assert_no_difference("GameSuggestion.count") do
+      assert_no_difference("ActionMailer::Base.deliveries.size") do
+        post suggest_games_url, params: { game_suggestion: { name: "please add https://store.example.com/game" } }
+      end
+    end
+
+    assert_response :unprocessable_entity
+    assert_includes @response.body, "must be the game title only"
+  end
+
+  test "rejects suggestions for games already on GameBrief" do
+    Game.create!(name: "Balatro", slug: "balatro")
+
+    assert_no_difference("GameSuggestion.count") do
+      assert_no_difference("ActionMailer::Base.deliveries.size") do
+        post suggest_games_url, params: { game_suggestion: { name: "Balatro" } }
+      end
+    end
+
+    assert_response :unprocessable_entity
+    assert_includes @response.body, "already listed on GameBrief"
   end
 end

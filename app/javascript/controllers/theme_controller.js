@@ -1,6 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 const STORAGE_KEY = "gamebrief-theme"
+const SOUND_STORAGE_KEY = "gamebrief-sound-muted"
 const DEFAULT_THEME = "nebula"
 const THEMES = new Set(["nebula", "ion", "toxic", "ember"])
 
@@ -31,4 +32,5 @@ export default class extends Controller {
       option.setAttribute("aria-pressed", active)
     })
   }
+
 }

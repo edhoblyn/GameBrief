@@ -42,16 +42,14 @@
 
     if (!page || !input || !results) return;
 
-    // Focus → move search bar to top
+    // Move search bar to top on focus, restore if empty on blur
     input.addEventListener('focus', function () {
-      page.classList.add('is-focused');
+      page.classList.add('ff-page--focused');
     });
 
-    // Blur → only return to centre if field is empty
     input.addEventListener('blur', function () {
       if (!input.value.trim()) {
-        page.classList.remove('is-focused');
-        results.innerHTML = '';
+        page.classList.remove('ff-page--focused');
       }
     });
 

@@ -51,9 +51,6 @@
           <p class="event-show__copy">
             <%= @event.description.presence || "Details have not been added for this event yet, but the start date is already being tracked." %>
           </p>
-          <% unless @event.summary.present? %>
-            <%= button_to "Generate AI Summary", generate_summary_event_path(@event), method: :post, class: "event-show__inline-action" %>
-          <% end %>
         </section>
 
         <div class="event-show__hero-actions">

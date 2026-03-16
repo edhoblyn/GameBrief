@@ -1,0 +1,36 @@
+<% display_content = patch.display_formatted_content %>
+<% display_sections = patch.display_structured_sections %>
+
+<%= turbo_frame_tag "patch_notes" do %>
+  <h2 class="patch-show__section-title">Patch Notes</h2>
+  <div class="patch-show__notes">
+    <% if patch.ai_presentation_error.present? %>
+      <p class="patch-show__ai-status patch-show__ai-status--error">AI formatting was not available for this patch yet, so the built-in structured view is shown below.</p>
+    <% end %>
+
+    <% if display_content.present? %>
+      <%= render_structured_patch_markdown(display_content) %>
+    <% end %>
+
+    <% if display_sections.any? %>
+      <div class="patch-show__accordions">
+        <% display_sections.each_with_index do |section, index| %>
+          <details class="patch-show__accordion" <%= "open" if index.zero? %>>
+            <summary class="patch-show__accordion-summary">
+              <span class="patch-show__accordion-title"><%= section["title"] %></span>
+              <% if section["summary"].present? %>
+                <span class="patch-show__accordion-preview"><%= section["summary"] %></span>
+              <% end %>
+            </summary>
+
+            <div class="patch-show__accordion-body">
+              <%= render_structured_patch_markdown(section["content"]) %>
+            </div>
+          </details>
+        <% end %>
+      </div>
+    <% else %>
+      <%= render_patch_notes(patch.formatted_content.presence || patch.content) %>
+    <% end %>
+  </div>
+<% end %>

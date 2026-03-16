@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_13_110036) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_13_183000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -58,6 +58,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_13_110036) do
     t.bigint "game_id", null: false
     t.datetime "start_date"
     t.text "summary"
+    t.datetime "summary_requested_at"
     t.string "title"
     t.datetime "updated_at", null: false
     t.index ["game_id"], name: "index_events_on_game_id"
@@ -82,12 +83,20 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_13_110036) do
     t.index ["user_id"], name: "index_friendships_on_user_id"
   end
 
+  create_table "game_suggestions", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "games", force: :cascade do |t|
     t.string "cover_image"
     t.datetime "created_at", null: false
     t.boolean "free_to_play", default: false, null: false
     t.string "genre", default: [], array: true
+    t.boolean "multiplayer", default: false, null: false
     t.string "name"
+    t.boolean "single_player", default: false, null: false
     t.string "slug"
     t.datetime "updated_at", null: false
     t.index "lower((name)::text)", name: "index_games_on_lower_name", unique: true
@@ -113,11 +122,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_13_110036) do
   end
 
   create_table "patches", force: :cascade do |t|
+    t.text "ai_presentation_error"
+    t.datetime "ai_presentation_generated_at"
+    t.datetime "ai_presentation_requested_at"
     t.text "content"
     t.datetime "created_at", null: false
+    t.text "formatted_content"
     t.bigint "game_id", null: false
     t.datetime "published_at"
     t.string "source_url"
+    t.jsonb "structured_sections", default: [], null: false
     t.string "title"
     t.datetime "updated_at", null: false
     t.index ["game_id"], name: "index_patches_on_game_id"

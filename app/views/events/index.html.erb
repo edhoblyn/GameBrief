@@ -1,5 +1,14 @@
 <% content_for :title, "Events" %>
-
+<style>
+  body.page-events-index {
+    background-color: var(--gb-bg) !important;
+    background-image: var(--gb-theme-gradient) !important;
+    background-repeat: no-repeat !important;
+    background-position: top center !important;
+    background-size: 100% 144rem !important;
+    background-attachment: fixed !important;
+  }
+</style>
 <div class="events-index">
   <div class="container">
     <div class="events-index__hero">
@@ -44,7 +53,7 @@
         </div>
 
         <details class="events-index__game-filter">
-          <summary class="events-index__game-filter-trigger">
+          <summary class="events-index__game-filter-trigger <%= 'events-index__game-filter-trigger--active' if @selected_game_ids.any? %>">
             <span>
               <i class="fa fa-filter"></i>
               Filter by game
