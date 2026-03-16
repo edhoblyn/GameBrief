@@ -165,6 +165,28 @@ class Patch < ApplicationRecord
     content.present?
   end
 
+  def wall_of_text?
+    return false if content.blank?
+
+    normalized_content = content.to_s.gsub(/\r\n?/, "\n")
+    nonblank_lines = normalized_content.lines.map(&:strip).reject(&:blank?)
+    paragraphs = normalized_content.split(/\n{2,}/).map { |paragraph| paragraph.squish }.reject(&:blank?)
+    bullet_count = nonblank_lines.count { |line| line.start_with?("- ", "* ") }
+    heading_count = nonblank_lines.count { |line| line.match?(/\A[#A-Z][^.!?]{1,80}\z/) }
+    long_paragraphs = paragraphs.count { |paragraph| paragraph.length >= 280 }
+
+    return true if normalized_content.length >= 700 && bullet_count.zero? && paragraphs.size >= 3
+    return true if normalized_content.length >= 1200 && bullet_count.zero? && paragraphs.size == 1 && nonblank_lines.size >= 8
+    return true if normalized_content.length >= 1400 && bullet_count.zero? && long_paragraphs >= 2
+    return true if normalized_content.length >= 1800 && heading_count <= 1
+
+    false
+  end
+
+  def prefers_synchronous_ai_formatting?
+    ai_presentable? && wall_of_text? && ai_presentation_error.blank?
+  end
+
   def ai_presentation_ready?
     ai_presentation_generated_at.present? && !ai_presentation_stale? && structured_sections.any?
   end
