@@ -129,6 +129,17 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
     assert_includes @response.body, "Run Patch Scrape"
   end
 
+  test "shows admin scrape button for genshin impact" do
+    @user.update!(role: "admin")
+    game = Game.create!(name: "Genshin Impact", slug: "genshin-impact")
+
+    get game_url(game)
+
+    assert_response :success
+    assert_select "form[action='#{admin_patch_scrapes_path}']"
+    assert_includes @response.body, "Run Patch Scrape"
+  end
+
   test "shows admin scrape button for horizon forbidden west" do
     @user.update!(role: "admin")
     game = Game.create!(name: "Horizon Forbidden West", slug: "horizon-forbidden-west")

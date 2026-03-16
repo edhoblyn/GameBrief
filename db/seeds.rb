@@ -85,7 +85,7 @@ puts "Importing games from IGDB..."
 
 client = IgdbClient.new
 
-def import_game(client, query, name: nil, free_to_play: false, single_player: false, multiplayer: false)
+def import_game(client, query, name: nil, slug: nil, free_to_play: false, single_player: false, multiplayer: false)
   results = client.search_games(query)
   match = results.find { |g| g["name"]&.downcase == query.downcase && g["cover"] }
   match ||= results.find { |g| g["cover"] }
@@ -93,14 +93,16 @@ def import_game(client, query, name: nil, free_to_play: false, single_player: fa
   return nil unless match
 
   cover_url = match["cover"] ? "https:#{match["cover"]["url"].gsub("t_thumb", "t_cover_big")}" : nil
+  resolved_slug = slug || match["slug"]
 
   game = Game.where("LOWER(name) = ?", query.downcase).first
+  game ||= Game.find_by(slug: resolved_slug) if resolved_slug.present?
   game ||= Game.find_by(slug: match["slug"]) if match["slug"].present?
   game ||= Game.new
 
   game.update!(
     name: name || match["name"],
-    slug: match["slug"],
+    slug: resolved_slug,
     cover_image: cover_url,
     free_to_play: free_to_play,
     single_player: single_player,
@@ -134,7 +136,7 @@ lol           = import_game(client, "League of Legends", free_to_play: true, mul
 cyberpunk     = import_game(client, "Cyberpunk 2077", free_to_play: false, single_player: true)
 space_marine2 = import_game(client, "Warhammer 40,000: Space Marine 2", free_to_play: false, single_player: true, multiplayer: true)
 arc_raiders   = import_game(client, "ARC Raiders", free_to_play: false, multiplayer: true)
-genshin       = import_game(client, "Genshin Impact", name: "Genshin Impact", free_to_play: true, single_player: true, multiplayer: true)
+genshin       = import_game(client, "Genshin Impact", name: "Genshin Impact", slug: "genshin-impact", free_to_play: true, single_player: true, multiplayer: true)
 cs2           = import_game(client, "Counter-Strike 2", free_to_play: true, multiplayer: true)
 dota2         = import_game(client, "Dota 2", free_to_play: true, multiplayer: true)
 baldurs_gate3 = import_game(client, "Baldur's Gate 3", free_to_play: false, single_player: true, multiplayer: true)
@@ -186,6 +188,7 @@ puts "Creating patches..."
 
 seed_live_patches("battlefield_6")
 seed_live_patches("baldurs_gate_3")
+seed_live_patches("genshin_impact")
 seed_live_patches("arc_raiders")
 seed_live_patches("resident_evil_requiem")
 seed_live_patches("league_of_legends")

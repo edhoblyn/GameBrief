@@ -47,6 +47,29 @@ class PatchScrapeRunnerTest < ActiveSupport::TestCase
     importer_class.define_method(:new, original_new)
   end
 
+  test "runs the genshin impact importer when configured" do
+    importer = Class.new do
+      Result = Struct.new(:imported, :skipped, keyword_init: true)
+
+      def call
+        Result.new(imported: 7, skipped: 3)
+      end
+    end.new
+
+    importer_class = PatchImporters::GenshinImpactImporter.singleton_class
+    original_new = PatchImporters::GenshinImpactImporter.method(:new)
+    importer_class.define_method(:new) { importer }
+
+    result = PatchScrapeRunner.run("genshin_impact")
+
+    assert_equal "genshin_impact", result.source
+    assert_equal "Genshin Impact", result.label
+    assert_equal 7, result.imported
+    assert_equal 3, result.skipped
+  ensure
+    importer_class.define_method(:new, original_new)
+  end
+
   test "runs the arc raiders importer when configured" do
     importer = Class.new do
       Result = Struct.new(:imported, :skipped, keyword_init: true)
@@ -247,6 +270,7 @@ class PatchScrapeRunnerTest < ActiveSupport::TestCase
   test "only returns scrapeable sources for runnable sources" do
     assert_includes PatchScrapeRunner.runnable_sources, "battlefield_6"
     assert_includes PatchScrapeRunner.runnable_sources, "baldurs_gate_3"
+    assert_includes PatchScrapeRunner.runnable_sources, "genshin_impact"
     assert_includes PatchScrapeRunner.runnable_sources, "arc_raiders"
     assert_includes PatchScrapeRunner.runnable_sources, "apex_legends"
     assert_includes PatchScrapeRunner.runnable_sources, "league_of_legends"

@@ -20,6 +20,11 @@ production:
     queue: default
     schedule: every monday at 5:15am
 
+  scrape_genshin_impact_patches:
+    class: ScrapeGenshinImpactJob
+    queue: default
+    schedule: every monday at 5:20am
+
   scrape_arc_raiders_patches:
     class: ScrapeArcRaidersJob
     queue: default

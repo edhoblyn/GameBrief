@@ -37,6 +37,11 @@ namespace :patches do
     run_scrape("baldurs_gate_3")
   end
 
+  desc "Scrape and import Genshin Impact update posts from hoyolab.com"
+  task scrape_genshin_impact: :environment do
+    run_scrape("genshin_impact")
+  end
+
   desc "Scrape and import Marvel Rivals patch notes from marvelrivals.com"
   task scrape_marvel_rivals: :environment do
     run_scrape("marvel_rivals")

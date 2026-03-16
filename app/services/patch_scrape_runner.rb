@@ -17,6 +17,13 @@ class PatchScrapeRunner
       missing_game_error: "Baldur's Gate 3 game not found in the database.",
       missing_game_hint: "Expected an existing Game named 'Baldur's Gate 3' or slugged 'baldurs-gate-3'."
     },
+    "genshin_impact" => {
+      label: "Genshin Impact",
+      importer: PatchImporters::GenshinImpactImporter,
+      game_slugs: ["genshin-impact", "genshin-impact-blades-weaving-betwixt-brocade"],
+      missing_game_error: "Genshin Impact game not found in the database.",
+      missing_game_hint: "Expected an existing Game named 'Genshin Impact' or slugged 'genshin-impact'."
+    },
     "arc_raiders" => {
       label: "ARC Raiders",
       importer: PatchImporters::ArcRaidersImporter,
