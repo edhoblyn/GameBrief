@@ -1,8 +1,32 @@
 .app-footer {
   text-align: center;
   padding: 2rem 1rem;
-  border-top: 1px solid $dark-border;
+  border-top: 1px solid var(--gb-border);
   margin-top: 4rem;
-  color: $dark-muted;
+  color: var(--gb-muted);
   font-size: 0.82rem;
+
+  &__copy {
+    margin: 0 0 0.65rem;
+  }
+
+  &__links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.9rem;
+    flex-wrap: wrap;
+  }
+
+  &__link {
+    color: var(--gb-text);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.15s ease;
+
+    &:hover {
+      color: var(--gb-accent);
+      text-decoration: none;
+    }
+  }
 }

@@ -1,68 +1,54 @@
-# GameBrief — Planned & Stretch Features
+# GameBrief — Features Planned
+
+> Last updated: 2026-03-14
 
 ---
 
-## Planned Features
-*In scope for the demo — build these before presenting.*
+## Highest Priority Product Gaps
 
-### Highest Demo Priority
+These are the clearest missing features based on the current Rails app and UI.
 
-- **Activity feed** — personalised feed of recent patches and events from followed games
-- **Events page filters** — game filter plus time period filter (This Week / This Month / Future / All)
-- **"New" badge on patches** — add `published_at` and show a green "NEW" badge for the last 7 days
-- **Live streamers on game page** — show currently live Twitch streamers for that game
-- **Colour-coded update categories on game pages** — assign colours to different update types, show a key at the top of the page, and let users click a category to filter updates by type
-- **Email confirmation for reminders** — send a confirmation email with event details and a link back
-- **Patch comparison view** — compare the newest patch with the previous one so users can see what changed quickly
-- **Patch difficulty meter** — label updates as low, medium, or high impact for casual players
-- **Trending now section** — surface the most-followed or most-viewed games, patches, and events
+- Persisted notification preferences instead of `localStorage`-only toggles on `My Profile`
+- Real recommendation logic for the recommendations panel on `My Profile`
+- Editable bio and real profile stats instead of the current hard-coded `My Profile` filler values
+- Loading / disabled states for the patch summary generation actions
 
-### Strong Demo Enhancements
+## Strong Next Features
 
-- **Saved AI chats** — let users revisit past patch conversations instead of starting over each time
-- **Reminder digest emails** — send a weekly email with upcoming followed-game events and fresh patch summaries
-- **Notification centre** — an in-app page for new patches, reminders, and recommendation updates
-- **"For You" recommendations** — suggest games similar to ones the user follows, based on genre or popularity
-- **Game suggestion section on games page** — let users suggest a game to be added, and add games once enough users request them
-- **Player onboarding quiz** — ask users what genres and platforms they like, then pre-fill recommendations
-- **Notification preferences** — choose what to get alerted for: new patches, upcoming events, or both
-- **Release countdowns** — countdown cards for upcoming game launches, seasons, and major events
+- Patch chat history list so users can reopen older patch conversations instead of only continuing the current per-patch chat
+- Notification centre / inbox for reminders, patch drops, and recommendation updates
+- Pagination on games, patches, events, and user search results
+- Better events browse polish beyond the new filters: layout cleanup, stronger empty states, and tighter mobile spacing
+- Reminder confirmation emails or digest emails
 
-### Polish + Utility
+## Social / Community Work Still Missing
 
-- **Platform tags** — label each game as PC, Console, or Mobile
-- **Free to play filter** — filter the games index to show only free-to-play titles
-- **Pagination** — paginate games, patches, and events list pages
-- **Age verification on signup** — collect date of birth; hide 18+ rated games from underage users
-- Styled patch summary cards (one card per summary type)
-- Loading/disabled state on Generate Summary buttons to prevent double-clicks
-- Mobile responsiveness — all pages checked and fixed for small screens
+- Replace mock `For You` / `Communities` feed content with stored app data
+- Real community membership or join/leave flows
+- Richer public player profiles with persisted activity beyond the current basic counts
+- Patch comments or reactions
+- Shareable patch links / share UI
 
-### Stretch Features
+## Product / UX Enhancements
 
-- **Follow other users** — see what games friends are following
-- **Public player profiles** — followed games, recent activity, bio
-- **Patch comments** — leave reactions or tips on a patch page
-- **Patch sentiment reactions** — simple reactions like Hype, Neutral, or Concerned to measure community response
-- **Share a patch** — share via a link or in-app share button
-- **Achievements and badges** — earn badges for milestones like "Followed 5 games" or "Set your first reminder"
-- **Streak tracking** — reward users who check in daily or weekly to read patch notes
-- **Community collections** — curated lists like "Best games for quick matches" or "Top active live-service games"
-- Dedicated section showing unreleased games sourced from IGDB
-- Users can follow upcoming games and get notified at launch
+- Patch comparison view between latest and previous updates
+- Patch difficulty / impact meter for casual players
+- Trending activity feed for followed games
+- Platform tags on game cards and game detail pages
+- Live Twitch / creator module on game pages
+- Player onboarding quiz for genres and platform preferences
 
----
+## Longer-Term Ideas
 
-## Product Ideas
-*Not features to build now — ideas for how the app could grow.*
+- Unreleased games section sourced from IGDB
+- Follow upcoming games and notify users at launch
+- Achievements / streaks / badges
+- Developer-facing analytics or retention dashboard
 
-### Developer-Facing Features
+## Notes
 
-- GameBrief marketed to game developers as a discovery and retention tool
-- New players can find games through the platform
-- Existing players more likely to return when patch notes are easy to understand
-- Potential developer dashboard showing follower counts and patch read rates
-
----
-
-Last updated: Day 3
+- Event filtering is now live on `events#index`, including time-range controls and multi-game filtering.
+- Users can already find friends, add/remove friendships, and open basic player profile pages.
+- `My Profile` still contains presentation-first sections backed by mock data, especially in `For You`, `Communities`, and recommendations.
+- Profile editing supports username plus avatar/cover uploads, but the displayed bio and some profile stats are still hard-coded in the view.
+- Patch chat data is persisted in `chats` and `messages`, but there is not yet a user-facing history/index for browsing older conversations.

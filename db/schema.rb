@@ -10,9 +10,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_11_130000) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_13_183000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.string "name", null: false
+    t.bigint "record_id", null: false
+    t.string "record_type", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.bigint "byte_size", null: false
+    t.string "checksum"
+    t.string "content_type"
+    t.datetime "created_at", null: false
+    t.string "filename", null: false
+    t.string "key", null: false
+    t.text "metadata"
+    t.string "service_name", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "active_storage_variant_records", force: :cascade do |t|
+    t.bigint "blob_id", null: false
+    t.string "variation_digest", null: false
+    t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
 
   create_table "chats", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -30,6 +58,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_11_130000) do
     t.bigint "game_id", null: false
     t.datetime "start_date"
     t.text "summary"
+    t.datetime "summary_requested_at"
     t.string "title"
     t.datetime "updated_at", null: false
     t.index ["game_id"], name: "index_events_on_game_id"
@@ -44,11 +73,30 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_11_130000) do
     t.index ["user_id"], name: "index_favourites_on_user_id"
   end
 
+  create_table "friendships", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "friend_id", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["friend_id"], name: "index_friendships_on_friend_id"
+    t.index ["user_id", "friend_id"], name: "index_friendships_on_user_id_and_friend_id", unique: true
+    t.index ["user_id"], name: "index_friendships_on_user_id"
+  end
+
+  create_table "game_suggestions", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "games", force: :cascade do |t|
     t.string "cover_image"
     t.datetime "created_at", null: false
+    t.boolean "free_to_play", default: false, null: false
     t.string "genre", default: [], array: true
+    t.boolean "multiplayer", default: false, null: false
     t.string "name"
+    t.boolean "single_player", default: false, null: false
     t.string "slug"
     t.datetime "updated_at", null: false
     t.index "lower((name)::text)", name: "index_games_on_lower_name", unique: true
@@ -74,11 +122,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_11_130000) do
   end
 
   create_table "patches", force: :cascade do |t|
+    t.text "ai_presentation_error"
+    t.datetime "ai_presentation_generated_at"
+    t.datetime "ai_presentation_requested_at"
     t.text "content"
     t.datetime "created_at", null: false
+    t.text "formatted_content"
     t.bigint "game_id", null: false
     t.datetime "published_at"
     t.string "source_url"
+    t.jsonb "structured_sections", default: [], null: false
     t.string "title"
     t.datetime "updated_at", null: false
     t.index ["game_id"], name: "index_patches_on_game_id"
@@ -104,18 +157,24 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_11_130000) do
     t.datetime "remember_created_at"
     t.datetime "reset_password_sent_at"
     t.string "reset_password_token"
+    t.string "role", default: "user", null: false
     t.string "uid"
     t.datetime "updated_at", null: false
     t.string "username"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["role"], name: "index_users_on_role"
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "chats", "patches"
   add_foreign_key "chats", "users"
   add_foreign_key "events", "games"
   add_foreign_key "favourites", "games"
   add_foreign_key "favourites", "users"
+  add_foreign_key "friendships", "users"
+  add_foreign_key "friendships", "users", column: "friend_id"
   add_foreign_key "messages", "chats"
   add_foreign_key "patch_summaries", "patches"
   add_foreign_key "patches", "games"

@@ -1,5 +1,6 @@
 class PatchesController < ApplicationController
   SORT_OPTIONS = %w[recommended newest oldest].freeze
+  before_action :set_patch, only: [:show, :notes, :generate_summary]
 
   def index
     @date_filter = params[:date_filter].presence_in(Patch::DATE_FILTERS.keys) || "all"
@@ -22,29 +23,44 @@ class PatchesController < ApplicationController
   end
 
   def show
-    @patch = Patch.includes(:patch_summaries, :game).find(params[:id])
+    disable_store_cache
     @summaries_by_type = @patch.patch_summaries.index_by(&:summary_type)
+    @back_to_patches_path = safe_return_to_path || game_patches_path(@patch.game)
+    @patch.request_ai_presentation! if @patch.ai_presentable? && !@patch.ai_presentation_ready?
     if user_signed_in?
       @chat = @patch.chats.find_by(user: current_user, id: params[:chat_id]) ||
               @patch.chats.find_or_create_by(user: current_user)
     end
   end
 
+  def notes
+    disable_store_cache
+    @patch.request_ai_presentation! if @patch.ai_presentable? && !@patch.ai_presentation_ready?
+    render partial: "notes", locals: { patch: @patch }
+  end
+
   def generate_summary
-    @patch = Patch.find(params[:id])
     summary_type = params[:summary_type].presence || "quick_summary"
     begin
       summary_text = SummaryService.new(@patch, summary_type).call
       @patch.patch_summaries.where(summary_type: summary_type).destroy_all
       @patch.patch_summaries.create!(summary: summary_text, summary_type: summary_type)
       flash[:notice] = "#{SummaryService::LABELS[summary_type]} generated!"
-    rescue => e
+    rescue StandardError
       flash[:alert] = "Failed to generate summary. Please try again."
     end
-    redirect_to patch_path(@patch)
+    redirect_to patch_path(@patch, return_to: safe_return_to_path)
   end
 
   private
+
+  def set_patch
+    @patch = Patch.includes(:patch_summaries, :game).find(params[:id])
+  end
+
+  def disable_store_cache
+    response.headers["Cache-Control"] = "no-store"
+  end
 
   def apply_game_filter(scope)
     return scope if params[:game].blank?

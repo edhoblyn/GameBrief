@@ -1,0 +1,68 @@
+<% content_for :title, "My Events" %>
+
+<div class="my-events-page container">
+  <div class="my-events-page__header">
+    <div>
+      <p class="my-events-page__eyebrow">Profile</p>
+      <h1 class="my-events-page__title">My Events</h1>
+      <p class="my-events-page__subtitle">Upcoming reminders for the events you want to keep track of.</p>
+    </div>
+    <div class="my-events-page__actions">
+      <%= link_to my_profile_path, class: "my-events-page__action" do %>
+        <i class="fa fa-arrow-left"></i>
+        Back to Profile
+      <% end %>
+      <%= link_to events_path, class: "my-events-page__action my-events-page__action--primary" do %>
+        <i class="fa fa-calendar"></i>
+        Browse Events
+      <% end %>
+    </div>
+  </div>
+
+  <div class="my-events-page__summary">
+    <div class="my-events-page__summary-card">
+      <span class="my-events-page__summary-value"><%= @events.count %></span>
+      <span class="my-events-page__summary-label">Saved reminders</span>
+    </div>
+  </div>
+
+  <% if @events.any? %>
+    <div class="my-events-page__timeline">
+      <% @events.each do |reminder| %>
+        <% event = reminder.event %>
+        <%= link_to event_path(event), class: "my-events-page__card" do %>
+          <div class="my-events-page__date">
+            <span class="my-events-page__day"><%= event.start_date.strftime("%-d") %></span>
+            <span class="my-events-page__month"><%= event.start_date.strftime("%b") %></span>
+          </div>
+          <div class="my-events-page__body">
+            <div class="my-events-page__meta">
+              <span class="my-events-page__game"><%= event.game.name %></span>
+              <span class="my-events-page__status">Reminder set</span>
+            </div>
+            <h2 class="my-events-page__card-title"><%= event.title %></h2>
+            <p class="my-events-page__card-copy">
+              <i class="fa fa-calendar"></i>
+              <%= event.start_date.strftime("%-d %B %Y") %>
+            </p>
+          </div>
+          <span class="my-events-page__arrow">
+            <i class="fa fa-arrow-right"></i>
+          </span>
+        <% end %>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="my-events-page__empty">
+      <div class="my-events-page__empty-icon">
+        <i class="fa fa-calendar"></i>
+      </div>
+      <h2 class="my-events-page__empty-title">You do not have any saved event reminders yet</h2>
+      <p class="my-events-page__empty-copy">Browse upcoming events and save reminders to build your personal event list.</p>
+      <%= link_to events_path, class: "my-events-page__action my-events-page__action--primary" do %>
+        <i class="fa fa-search"></i>
+        Browse Events
+      <% end %>
+    </div>
+  <% end %>
+</div>

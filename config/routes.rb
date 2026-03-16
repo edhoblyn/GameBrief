@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
+  devise_for :users, controllers: {
+    omniauth_callbacks: "users/omniauth_callbacks",
+    registrations: "users/registrations"
+  }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -13,10 +16,15 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
   resources :games, only: [:index, :show] do
+    collection do
+      post :suggest
+    end
+
     resources :patches, only: [:index]
   end
   resources :patches, only: [:index, :show] do
     member do
+      get :notes
       post :generate_summary
     end
     resources :chats, only: [:create] do
@@ -26,21 +34,27 @@ Rails.application.routes.draw do
       end
     end
   end
-  resources :events, only: [:index, :show] do
-    member do
-      post :generate_summary
-    end
-  end
+  resources :events, only: [:index, :show]
   resources :favourites, only: [:create, :destroy]
   resources :reminders, only: [:create, :destroy]
+  resources :friendships, only: [:create, :destroy]
 
-  resources :users, only: [:index]
+  resources :users, only: [:index, :show]
 
   namespace :admin do
-    resources :patch_scrapes, only: [:create]
+    resource :dashboard, only: [:show], controller: :dashboard
+    resources :patch_scrapes, only: [:create] do
+      collection do
+        post :run_all
+      end
+    end
+    resources :users, only: [:create, :destroy], controller: :users
   end
 
   get "find-friends", to: "pages#find_friends", as: :find_friends
+  get "my-games", to: "pages#my_games", as: :my_games
+  get "my-patches", to: "pages#my_patches", as: :my_patches
+  get "my-events", to: "pages#my_events", as: :my_events
   get "my-profile", to: "pages#my_profile", as: :my_profile
   get "home", to: "pages#home"
 

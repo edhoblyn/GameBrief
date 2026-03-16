@@ -1,0 +1,239 @@
+// ─── Find Friends page ───────────────────────────────────────────────────────
+
+.ff-page {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  // Start with search bar roughly centred vertically
+  min-height: calc(100vh - 64px);
+  padding-top: 36vh;
+  padding-bottom: 4rem;
+
+  // When user focuses the search bar, slide everything up
+  &--focused {
+    padding-top: 5rem;
+  }
+
+  &--focused .ff-hero {
+    display: none;
+  }
+}
+
+// ─── Back link ───────────────────────────────────────────────────────────────
+
+.ff-back {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+
+  &__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--gb-muted);
+    text-decoration: none;
+    font-size: 0.84rem;
+
+    &:hover { color: var(--gb-text); }
+  }
+}
+
+// ─── Hero ────────────────────────────────────────────────────────────────────
+
+.ff-hero {
+  text-align: center;
+  margin-bottom: 2rem;
+  overflow: hidden;
+
+  &__title {
+    margin: 0 0 0.5rem;
+    color: var(--gb-text);
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 800;
+  }
+
+  &__sub {
+    margin: 0;
+    color: var(--gb-muted);
+    font-size: 0.95rem;
+  }
+}
+
+// ─── Search bar ──────────────────────────────────────────────────────────────
+
+.ff-search {
+  position: relative;
+  width: 90vw;
+  max-width: 520px;
+
+  &__input {
+    width: 100%;
+    padding: 1rem 3rem 1rem 1.25rem;
+    border-radius: 20px;
+    border: 1.5px solid var(--gb-border);
+    background: var(--gb-surface);
+    color: var(--gb-text);
+    font-size: 1rem;
+    transition: border-color 0.2s ease, box-shadow 0.25s ease;
+
+    &::placeholder { color: var(--gb-muted); }
+
+    &:focus {
+      outline: none;
+      border-color: var(--gb-accent);
+      box-shadow:
+        0 0 0 2px color-mix(in srgb, var(--gb-accent) 22%, transparent),
+        0 8px 32px rgba(0, 0, 0, 0.18);
+    }
+  }
+
+  &__icon {
+    position: absolute;
+    right: 1.1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gb-muted);
+    pointer-events: none;
+    transition: color 0.2s;
+
+    .ff-search__input:focus ~ & {
+      color: var(--gb-accent);
+    }
+  }
+}
+
+// ─── Results ─────────────────────────────────────────────────────────────────
+
+.ff-results {
+  width: 94vw;
+  max-width: 600px;
+  margin-top: 1.5rem;
+
+  &__count {
+    margin-bottom: 0.85rem;
+    color: var(--gb-muted);
+    font-size: 0.88rem;
+  }
+
+  &__grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  &__empty {
+    color: var(--gb-muted);
+    text-align: center;
+    padding: 2rem 0;
+  }
+}
+
+// ─── Result cards ────────────────────────────────────────────────────────────
+
+.ff-result-card {
+  &__inner {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--gb-border);
+    border-radius: 18px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015));
+    transition: border-color 0.2s;
+
+    &:hover {
+      border-color: color-mix(in srgb, var(--gb-accent) 40%, transparent);
+    }
+  }
+
+  &__avatar {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--gb-accent), var(--gb-accent-secondary));
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 800;
+  }
+
+  &__info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+
+  &__name {
+    color: var(--gb-text);
+    font-size: 0.97rem;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__email {
+    color: var(--gb-muted);
+    font-size: 0.8rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+// ─── Follow / unfollow button ─────────────────────────────────────────────────
+
+.btn-follow {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid var(--gb-accent, #0d6efd);
+  background: transparent;
+  color: var(--gb-accent, #0d6efd);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+
+  &:hover {
+    background: var(--gb-accent, #0d6efd);
+    color: #fff;
+  }
+
+  &--active {
+    background: var(--gb-accent, #0d6efd);
+    color: #fff;
+
+    &:hover {
+      background: transparent;
+      color: var(--gb-accent, #0d6efd);
+    }
+  }
+}
+
+// ─── Mobile ───────────────────────────────────────────────────────────────────
+
+@media (max-width: 600px) {
+  .ff-page {
+    padding-top: 32vh;
+
+    &--focused {
+      padding-top: 4rem;
+    }
+  }
+
+  .ff-back {
+    top: 1rem;
+    left: 1rem;
+  }
+}

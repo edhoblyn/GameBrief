@@ -1,6 +1,17 @@
 <div class="home-games container">
+  <% clear_genre_params = { query: params[:query], sort: params[:sort], free_to_play: params[:free_to_play], single_player: params[:single_player], multiplayer: params[:multiplayer] }.compact %>
+  <% clear_free_to_play_params = { genre: params[:genre], query: params[:query], sort: params[:sort], single_player: params[:single_player], multiplayer: params[:multiplayer] }.compact %>
+  <% clear_single_player_params = { genre: params[:genre], query: params[:query], sort: params[:sort], free_to_play: params[:free_to_play], multiplayer: params[:multiplayer] }.compact %>
+  <% clear_multiplayer_params = { genre: params[:genre], query: params[:query], sort: params[:sort], free_to_play: params[:free_to_play], single_player: params[:single_player] }.compact %>
+  <% clear_sort_params = { genre: params[:genre], query: params[:query], free_to_play: params[:free_to_play], single_player: params[:single_player], multiplayer: params[:multiplayer] }.compact %>
+
   <div class="home-games__search">
     <%= form_with url: games_path, method: :get, data: { turbo: false } do |f| %>
+      <%= hidden_field_tag :genre, params[:genre] if params[:genre].present? %>
+      <%= hidden_field_tag :sort, params[:sort] if params[:sort].present? %>
+      <%= hidden_field_tag :free_to_play, params[:free_to_play] if params[:free_to_play].present? %>
+      <%= hidden_field_tag :single_player, params[:single_player] if params[:single_player].present? %>
+      <%= hidden_field_tag :multiplayer, params[:multiplayer] if params[:multiplayer].present? %>
       <%= f.text_field :query, placeholder: "Search games...", value: params[:query], class: "home-games__search-input" %>
       <%= f.submit "Search", class: "home-games__search-btn" %>
     <% end %>
@@ -8,21 +19,42 @@
 
   <div class="home-games__filters">
     <div class="home-games__filter-group">
-      <%= link_to "All", games_path(query: params[:query], sort: params[:sort]), class: "filter-btn #{params[:genre].blank? ? 'active' : ''}" %>
+      <%= link_to "All", games_path(query: params[:query], sort: params[:sort]), class: "filter-btn #{params[:genre].blank? && params[:free_to_play].blank? && params[:single_player].blank? && params[:multiplayer].blank? ? 'active' : ''}" %>
       <% ["Shooter", "Battle Royale", "Strategy", "Sports", "Sandbox", "Simulation", "Mobile"].each do |genre| %>
-        <%= link_to genre, games_path(genre: genre, query: params[:query], sort: params[:sort]), class: "filter-btn #{params[:genre] == genre ? 'active' : ''}" %>
+        <% genre_params = params[:genre] == genre ? clear_genre_params : { genre: genre, query: params[:query], sort: params[:sort], free_to_play: params[:free_to_play], single_player: params[:single_player], multiplayer: params[:multiplayer] }.compact %>
+        <%= link_to genre, games_path(genre_params), class: "filter-btn #{params[:genre] == genre ? 'active' : ''}" %>
       <% end %>
+      <% free_to_play_params = params[:free_to_play] == "true" ? clear_free_to_play_params : { genre: params[:genre], query: params[:query], sort: params[:sort], free_to_play: "true", single_player: params[:single_player], multiplayer: params[:multiplayer] }.compact %>
+      <%= link_to "Free-to-play", games_path(free_to_play_params), class: "filter-btn #{params[:free_to_play] == 'true' ? 'active' : ''}" %>
+      <% single_player_params = params[:single_player] == "true" ? clear_single_player_params : { genre: params[:genre], query: params[:query], sort: params[:sort], free_to_play: params[:free_to_play], single_player: "true", multiplayer: params[:multiplayer] }.compact %>
+      <% multiplayer_params = params[:multiplayer] == "true" ? clear_multiplayer_params : { genre: params[:genre], query: params[:query], sort: params[:sort], free_to_play: params[:free_to_play], single_player: params[:single_player], multiplayer: "true" }.compact %>
+      <%= link_to "Single player", games_path(single_player_params), class: "filter-btn #{params[:single_player] == 'true' ? 'active' : ''}" %>
+      <%= link_to "Multiplayer", games_path(multiplayer_params), class: "filter-btn #{params[:multiplayer] == 'true' ? 'active' : ''}" %>
     </div>
     <div class="home-games__sort-group">
-      <%= link_to "A–Z", games_path(genre: params[:genre], query: params[:query], sort: "name"), class: "filter-btn #{params[:sort] == 'name' ? 'active' : ''}" %>
-      <%= link_to "Most Followed", games_path(genre: params[:genre], query: params[:query], sort: "followed"), class: "filter-btn #{params[:sort] == 'followed' ? 'active' : ''}" %>
+      <% az_params = params[:sort] == "name" ? clear_sort_params : { genre: params[:genre], query: params[:query], sort: "name", free_to_play: params[:free_to_play], single_player: params[:single_player], multiplayer: params[:multiplayer] }.compact %>
+      <% followed_params = params[:sort] == "followed" ? clear_sort_params : { genre: params[:genre], query: params[:query], sort: "followed", free_to_play: params[:free_to_play], single_player: params[:single_player], multiplayer: params[:multiplayer] }.compact %>
+      <%= link_to "A–Z", games_path(az_params), class: "filter-btn #{params[:sort] == 'name' ? 'active' : ''}" %>
+      <%= link_to "Most Favourited", games_path(followed_params), class: "filter-btn #{params[:sort] == 'followed' ? 'active' : ''}" %>
     </div>
   </div>
 
-  <h2 class="home-games__heading">Games</h2>
-  <div class="home-games__grid" data-controller="glow-card">
+  <div class="home-games__heading-row">
+    <h2 class="home-games__heading">
+      <% if @active_game_filters %>
+        <span class="home-games__results-count"><%= pluralize(@games.size, "Game") %></span>
+      <% else %>
+        All Games
+      <% end %>
+    </h2>
+  </div>
+  <div class="home-games__grid">
     <% @games.each do |game| %>
-      <%= link_to game_path(game), class: "game-card event-glow-card", data: { "glow-card-target": "card" } do %>
+      <% favourite = @favourites_by_game_id[game.id] %>
+      <article class="game-card event-glow-card">
+        <%= link_to game_path(game), class: "game-card__link", aria: { label: "View #{game.name}" } do %>
+          <span class="visually-hidden">View <%= game.name %></span>
+        <% end %>
         <div class="game-card__cover">
           <% if game.cover_image.present? %>
             <%= image_tag game.cover_image, alt: game.name, class: "game-card__img", loading: "lazy" %>
@@ -34,10 +66,54 @@
           <div class="game-card__overlay"></div>
         </div>
         <div class="game-card__body">
-          <h3 class="game-card__name"><%= game.name %></h3>
-          <span class="game-card__cta">View updates <i class="fa fa-arrow-right"></i></span>
+          <div class="game-card__body-top">
+            <h3 class="game-card__name"><%= game.name %></h3>
+            <div class="game-card__follow">
+              <% if favourite %>
+                <%= button_to favourite_path(favourite), method: :delete, class: "game-card__follow-btn game-card__follow-btn--active", aria: { label: "Unfavourite #{game.name}" }, title: "Unfavourite #{game.name}", form: { data: { controller: "unfollow-animation", action: "submit->unfollow-animation#submit" } } do %>
+                  <i class="fa fa-star" aria-hidden="true"></i>
+                <% end %>
+              <% else %>
+                <%= button_to favourites_path, params: { game_id: game.id }, class: "game-card__follow-btn game-card__follow-btn--inactive", aria: { label: "Favourite #{game.name}" }, title: "Favourite #{game.name}", data: { controller: "follow-sound", action: "click->follow-sound#play" } do %>
+                  <i class="fa fa-star-o" aria-hidden="true"></i>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+          <span class="game-card__cta">
+            <%= favourite ? "View updates" : "See details" %>
+          </span>
         </div>
-      <% end %>
+      </article>
     <% end %>
+  </div>
+
+  <div class="home-games__suggestion-wrap d-flex flex-column align-items-center mt-5" data-controller="suggestion-reveal" data-suggestion-reveal-open-value="<%= @game_suggestion&.errors&.any? %>">
+    <div class="home-games__suggestion-actions d-flex justify-content-center w-100">
+      <button type="button" class="filter-btn home-games__suggestion-trigger" data-suggestion-reveal-target="trigger" data-action="suggestion-reveal#toggle">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+        Suggest a game
+      </button>
+    </div>
+
+    <div class="home-games__suggestion" data-suggestion-reveal-target="panel" <%= "hidden" unless @game_suggestion&.errors&.any? %>>
+      <p class="home-games__suggestion-copy">Submit the exact game title and we will review it for GameBrief.</p>
+
+      <%= form_with model: @game_suggestion, url: suggest_games_path, class: "home-games__suggestion-form", data: { action: "submit->suggestion-reveal#submit" } do |f| %>
+        <div class="home-games__suggestion-fields">
+          <%= f.text_field :name,
+                           placeholder: "Type the full game title",
+                           class: "home-games__search-input home-games__suggestion-input",
+                           data: { "suggestion-reveal-target": "input" },
+                           aria: { describedby: (@game_suggestion.errors[:name].any? ? "game-suggestion-error" : nil) } %>
+          <%= f.submit "Submit", class: "home-games__search-btn home-games__suggestion-submit" %>
+        </div>
+        <p class="home-games__suggestion-note">Title only. Already-listed games, links, and notes are filtered out.</p>
+
+        <% if @game_suggestion.errors[:name].any? %>
+          <p id="game-suggestion-error" class="home-games__suggestion-error"><%= @game_suggestion.errors.full_messages_for(:name).to_sentence %></p>
+        <% end %>
+      <% end %>
+    </div>
   </div>
 </div>

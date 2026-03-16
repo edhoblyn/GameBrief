@@ -3,6 +3,7 @@ require "nokogiri"
 
 class Scrapers::Helldivers2Scraper
   include Scrapers::PublishedAtExtraction
+  include Scrapers::StructuredContentExtraction
 
   INDEX_URL = "https://arrowhead.zendesk.com/hc/en-us/sections/12541983411100-Latest-patch-notes"
   HEADERS = { "User-Agent" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36" }
@@ -33,7 +34,7 @@ class Scrapers::Helldivers2Scraper
   def fetch_patch(url)
     doc = Nokogiri::HTML(URI.open(url, HEADERS))
     title = doc.at("h1")&.text&.squish
-    content = extract_content(doc)
+    content = extract_content(doc, title: title)
 
     return nil if title.blank? || content.blank?
     return nil unless title.match?(TITLE_PATTERN)
@@ -44,22 +45,14 @@ class Scrapers::Helldivers2Scraper
     nil
   end
 
-  def extract_content(doc)
-    selectors = [
+  def extract_content(doc, title:)
+    extract_structured_content(doc, selectors: [
+      ".article-body",
       "article",
       "main",
-      ".article-body",
       "[class*='article']",
       "[class*='content']"
-    ]
-
-    selectors.each do |selector|
-      node = doc.at(selector)
-      text = node&.text&.squish
-      return text if text.present?
-    end
-
-    doc.text.to_s.squish
+    ], title: title)
   end
 
   def normalize_url(href)

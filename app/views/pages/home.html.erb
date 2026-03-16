@@ -1,8 +1,6 @@
 <div class="home-page">
-  <hr class="nav-divider">
-
   <div class="home-landing__corner">
-    <h1 class="home-landing__title">GameBrief</h1>
+    <%= image_tag "logo.svg", alt: "GameBrief", class: "home-landing__logo", height: "36" %>
   </div>
 
   <div class="home-landing">
@@ -10,18 +8,19 @@
       <%= video_tag "owyeah.mp4", autoplay: true, muted: true, loop: true, playsinline: true %>
     </div>
     <div class="home-landing__video-overlay"></div>
+    <div class="home-landing__fade"></div>
 
     <div class="home-landing__content">
       <h2 class="home-landing__heading">Stay in the loop.<br>Skip the wall of text.</h2>
-      <p class="home-landing__subtitle">GameBrief turns complex patch notes into plain-English summaries so you know exactly what changed — and whether it's worth logging in.</p>
+      <p class="home-landing__subtitle">Patch notes. Plain English.</p>
 
       <div class="home-landing__actions">
         <% if user_signed_in? %>
-          <%= link_to "See My Profile", my_profile_path, class: "btn btn-primary btn-lg", style: "color: #fff;" %>
+          <%= link_to "See My Profile", my_profile_path, class: "home-landing__button home-landing__button--primary" %>
         <% else %>
-          <%= link_to "Get Started", new_user_registration_path, class: "btn btn-primary btn-lg" %>
+          <%= link_to "Get Started", new_user_registration_path, class: "home-landing__button home-landing__button--primary" %>
         <% end %>
-        <%= link_to "Explore Games", games_path, class: "btn btn-outline-light btn-lg" %>
+        <%= link_to "Explore Games", games_path, class: "home-landing__button home-landing__button--secondary" %>
       </div>
 
       <div class="home-landing__stats">
@@ -43,18 +42,67 @@
     </div>
   </div>
 
-  <div class="featured-gamers">
-    <p class="featured-gamers__label">Featured Gamers</p>
-    <div class="featured-gamers__list">
-      <% @featured_gamers.each do |gamer| %>
-        <div class="featured-gamers__item">
-          <img src="<%= gamer.avatar_url %>" alt="<%= gamer.username %>" class="featured-gamers__avatar">
-          <span class="featured-gamers__username">@<%= gamer.username %></span>
-          <span class="featured-gamers__followers"><i class="fa fa-user"></i> <%= number_with_delimiter(gamer.follower_count) %></span>
+  <% if @trending_games.any? %>
+    <section class="home-trending">
+      <div class="trending-carousel">
+        <p class="trending-carousel__title">Trending Games</p>
+        <div class="trending-carousel__wrapper">
+          <button class="btn btn-dark" onclick="trendingScroll(-1)">&#8249;</button>
+          <div class="trending-carousel__viewport">
+            <div class="trending-carousel__track" id="trendingTrack">
+              <% @trending_games.each do |game| %>
+                <%= link_to game_path(game), class: "trending-carousel__card" do %>
+                  <% if game.cover_image.present? %>
+                    <%= image_tag game.cover_image, alt: game.name, class: "trending-carousel__img" %>
+                  <% else %>
+                    <div class="trending-carousel__placeholder">
+                      <i class="fa fa-gamepad"></i>
+                    </div>
+                  <% end %>
+                  <p class="trending-carousel__name"><%= game.name %></p>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+          <button class="btn btn-dark" onclick="trendingScroll(1)">&#8250;</button>
         </div>
-      <% end %>
-    </div>
-  </div>
+      </div>
+    </section>
+
+    <script>
+      function trendingScroll(dir) {
+        var track = document.getElementById("trendingTrack");
+        if (!track) return;
+
+        var card = track.querySelector(".trending-carousel__card");
+        if (!card) return;
+
+        var cardWidth = card.offsetWidth + 16; // card + gap
+        var scrollAmount = cardWidth * 5;
+        var maxScrollLeft = track.scrollWidth - track.clientWidth;
+
+        if (dir > 0 && track.scrollLeft >= maxScrollLeft - cardWidth) {
+          track.scrollTo({ left: 0, behavior: "smooth" });
+          return;
+        }
+
+        if (dir < 0 && track.scrollLeft <= cardWidth) {
+          track.scrollTo({ left: maxScrollLeft, behavior: "smooth" });
+          return;
+        }
+
+        track.scrollBy({ left: dir * scrollAmount, behavior: "smooth" });
+      }
+
+      if (window.trendingCarouselInterval) {
+        window.clearInterval(window.trendingCarouselInterval);
+      }
+
+      window.trendingCarouselInterval = window.setInterval(function() {
+        trendingScroll(1);
+      }, 10000);
+    </script>
+  <% end %>
 
 <% if user_signed_in? %>
     <div class="home-landing__logout">

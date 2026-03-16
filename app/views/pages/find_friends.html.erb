@@ -1,53 +1,157 @@
 <% content_for :title, "Find Friends" %>
 
-<div class="container" style="padding-top: 100px;">
-  <div class="mb-4">
-    <%= link_to my_profile_path, class: "btn btn-outline-secondary mb-3" do %>
-      <i class="fa fa-arrow-left"></i> Back to Profile
+<div class="ff-page" id="ffPage">
+
+  <%# Back link — always top-left -%>
+  <div class="ff-back">
+    <%= link_to my_profile_path, class: "ff-back__link" do %>
+      <i class="fa fa-arrow-left"></i> Back
     <% end %>
-    <h1 class="mb-0">Find Friends</h1>
   </div>
 
-  <%= form_with url: find_friends_path, method: :get, local: true, class: "mb-4" do |f| %>
-    <div class="input-group" style="max-width: 480px;">
-      <%= f.text_field :q, value: params[:q], placeholder: "Search by username…",
-            class: "form-control form-control-lg", autofocus: true %>
-      <button type="submit" class="btn btn-primary">
-        <i class="fa fa-search"></i>
-      </button>
-    </div>
-  <% end %>
+  <%# Hero text — fades out when the user focuses the search bar -%>
+  <div class="ff-hero" id="ffHero">
+    <h1 class="ff-hero__title">Find Friends</h1>
+    <p class="ff-hero__sub">Search for players to connect with</p>
+  </div>
 
-  <% if params[:q].present? %>
-    <p class="text-muted mb-3">
-      <%= @users.count %> result<%= "s" if @users.count != 1 %> for "<%= params[:q] %>"
-    </p>
-  <% end %>
+  <%# Search bar -%>
+  <div class="ff-search" id="ffSearch">
+    <input
+      type="text"
+      id="ffInput"
+      class="ff-search__input"
+      placeholder="Search by username…"
+      autocomplete="off"
+    >
+    <span class="ff-search__icon"><i class="fa fa-search"></i></span>
+  </div>
 
-  <% if @users.any? %>
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
-      <% @users.each do |user| %>
-        <div class="col">
-          <div class="card h-100">
-            <div class="card-body d-flex align-items-center gap-3">
-              <div class="profile-sidebar__avatar-placeholder flex-shrink-0"
-                   style="width: 48px; height: 48px; font-size: 1.2rem; border-radius: 50%;">
-                <%= (user.username.presence || user.email).first.upcase %>
-              </div>
-              <div>
-                <h6 class="mb-0 fw-semibold"><%= user.username.presence || user.email %></h6>
-                <% if user.username.present? %>
-                  <small class="text-muted"><%= user.email %></small>
-                <% end %>
-              </div>
-            </div>
-          </div>
-        </div>
-      <% end %>
-    </div>
-  <% elsif params[:q].present? %>
-    <p class="text-muted">No users found for "<%= params[:q] %>".</p>
-  <% else %>
-    <p class="text-muted">Search for a username above to find friends.</p>
-  <% end %>
+  <%# Live results -%>
+  <div class="ff-results" id="ffResults"></div>
+
 </div>
+
+<script>
+  (function () {
+    var page    = document.getElementById('ffPage');
+    var input   = document.getElementById('ffInput');
+    var results = document.getElementById('ffResults');
+    var timer   = null;
+    var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    if (!page || !input || !results) return;
+
+    // Move search bar to top on focus, restore if empty on blur
+    input.addEventListener('focus', function () {
+      page.classList.add('ff-page--focused');
+    });
+
+    input.addEventListener('blur', function () {
+      if (!input.value.trim()) {
+        page.classList.remove('ff-page--focused');
+      }
+    });
+
+    // Live search with debounce
+    input.addEventListener('input', function () {
+      clearTimeout(timer);
+      var q = input.value.trim();
+
+      if (!q) {
+        results.innerHTML = '';
+        return;
+      }
+
+      timer = setTimeout(function () {
+        fetch('<%= find_friends_path %>.json?q=' + encodeURIComponent(q), {
+          headers: { 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' }
+        })
+        .then(function (r) { return r.json(); })
+        .then(function (users) { renderResults(users, q); });
+      }, 250);
+    });
+
+    function renderResults(users, q) {
+      var count = users.length;
+      var label = count + ' result' + (count !== 1 ? 's' : '') + ' for \u201C' + escHtml(q) + '\u201D';
+
+      var html = '<p class="ff-results__count">' + label + '</p>';
+
+      if (count > 0) {
+        html += '<div class="ff-results__grid">';
+        users.forEach(function (u, i) {
+          var isFriend = u.is_friend;
+          html +=
+            '<div class="ff-result-card">' +
+              '<div class="ff-result-card__inner">' +
+                '<div class="ff-result-card__avatar">' + escHtml(u.initial) + '</div>' +
+                '<div class="ff-result-card__info">' +
+                  '<span class="ff-result-card__name">' + escHtml(u.display) + '</span>' +
+                  (u.email ? '<span class="ff-result-card__email">' + escHtml(u.email) + '</span>' : '') +
+                '</div>' +
+                '<button class="btn-follow' + (isFriend ? ' btn-follow--active' : '') + '"' +
+                  ' data-user-id="' + u.id + '"' +
+                  ' data-friendship-id="' + (u.friendship_id || '') + '"' +
+                  ' data-is-friend="' + (isFriend ? '1' : '0') + '"' +
+                  ' title="' + (isFriend ? 'Remove friend' : 'Add friend') + '">' +
+                  (isFriend ? '<i class="fa fa-check"></i>' : '<i class="fa fa-plus"></i>') +
+                '</button>' +
+              '</div>' +
+            '</div>';
+        });
+        html += '</div>';
+      } else {
+        html += '<p class="ff-results__empty">No users found for \u201C' + escHtml(q) + '\u201D.</p>';
+      }
+
+      results.innerHTML = html;
+
+      // Wire up follow buttons
+      results.querySelectorAll('.btn-follow').forEach(function (btn) {
+        btn.addEventListener('click', function () { toggleFollow(this); });
+      });
+    }
+
+    function toggleFollow(btn) {
+      var userId       = btn.dataset.userId;
+      var friendshipId = btn.dataset.friendshipId;
+      var isFriend     = btn.dataset.isFriend === '1';
+
+      if (isFriend) {
+        fetch('/friendships/' + friendshipId, {
+          method: 'DELETE',
+          headers: { 'X-CSRF-Token': csrfToken, 'Accept': 'application/json' }
+        }).then(function () {
+          btn.dataset.isFriend = '0';
+          btn.dataset.friendshipId = '';
+          btn.className = 'btn-follow';
+          btn.innerHTML = '<i class="fa fa-plus"></i>';
+          btn.title = 'Add friend';
+        });
+      } else {
+        fetch('/friendships', {
+          method: 'POST',
+          headers: { 'X-CSRF-Token': csrfToken, 'Accept': 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify({ friend_id: userId })
+        })
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          btn.dataset.isFriend = '1';
+          btn.dataset.friendshipId = data.friendship_id;
+          btn.className = 'btn-follow btn-follow--active';
+          btn.innerHTML = '<i class="fa fa-check"></i>';
+          btn.title = 'Remove friend';
+        });
+      }
+    }
+
+    function escHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+  })();
+</script>

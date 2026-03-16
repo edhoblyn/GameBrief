@@ -1,35 +1,164 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<%
+  profile_name = resource.display_name
+  profile_initial = profile_name.first.to_s.upcase
+%>
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= f.error_notification %>
+<div class="edit-profile-page">
+  <div class="edit-profile-page__shell">
+    <aside class="edit-profile-page__sidebar">
+      <%= link_to my_profile_path, class: "edit-profile-page__back" do %>
+        <i class="fa fa-arrow-left"></i>
+        Back to dashboard
+      <% end %>
 
-  <div class="form-inputs">
-    <%= f.input :email, required: true, autofocus: true %>
+      <div class="edit-profile-card">
+        <div class="edit-profile-card__eyebrow">Profile settings</div>
+        <h1 class="edit-profile-card__title">Edit your profile</h1>
+        <p class="edit-profile-card__copy">Update the identity details that appear across your dashboard, friends feed, and featured gamer surfaces.</p>
 
-    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-      <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
-    <% end %>
+        <div class="edit-profile-card__preview">
+          <% if resource.avatar_image.attached? %>
+            <%= image_tag resource.avatar_image, class: "edit-profile-card__avatar edit-profile-card__avatar--image", alt: "#{profile_name} avatar preview" %>
+          <% elsif resource.avatar_url.present? %>
+            <%= image_tag resource.avatar_url, class: "edit-profile-card__avatar edit-profile-card__avatar--image", alt: "#{profile_name} avatar preview" %>
+          <% else %>
+            <div class="edit-profile-card__avatar">
+              <%= profile_initial %>
+            </div>
+          <% end %>
 
-    <%= f.input :password,
-                hint: "leave it blank if you don't want to change it",
-                required: false,
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :password_confirmation,
-                required: false,
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :current_password,
-                hint: "we need your current password to confirm your changes",
-                required: true,
-                input_html: { autocomplete: "current-password" } %>
+          <div class="edit-profile-card__identity">
+            <strong><%= profile_name %></strong>
+            <span>@<%= resource.profile_handle %></span>
+          </div>
+        </div>
+
+        <div class="edit-profile-card__cover-preview">
+          <% if resource.cover_image.attached? %>
+            <%= image_tag resource.cover_image, alt: "#{profile_name} cover preview", class: "edit-profile-card__cover-image" %>
+          <% else %>
+            <div class="edit-profile-card__cover-fallback">Cover preview</div>
+          <% end %>
+        </div>
+
+        <ul class="edit-profile-card__notes">
+          <li>Upload a new avatar or cover image directly from your device.</li>
+          <li>Change your username and avatar URL without re-entering your password.</li>
+          <li>Email and password changes still require your current password.</li>
+          <li>Your uploaded images appear on the dashboard immediately after saving.</li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="edit-profile-page__main">
+      <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "edit-profile-form" }) do |f| %>
+        <%= f.error_notification class: "edit-profile-form__alert" %>
+
+        <section class="edit-profile-section">
+          <div class="edit-profile-section__header">
+            <div>
+              <p class="edit-profile-section__eyebrow">Public profile</p>
+              <h2>Visible on your dashboard</h2>
+            </div>
+            <p>These details shape how other players see you around GameBrief.</p>
+          </div>
+
+          <div class="edit-profile-form__grid">
+            <%= f.input :username,
+                        required: false,
+                        input_html: { class: "edit-profile-form__input" },
+                        wrapper_html: { class: "edit-profile-form__field" } %>
+            <%= f.input :avatar_image,
+                        as: :file,
+                        required: false,
+                        hint: "Upload a square image for your avatar.",
+                        input_html: { class: "edit-profile-form__input edit-profile-form__input--file", accept: "image/*" },
+                        wrapper_html: { class: "edit-profile-form__field" } %>
+            <%= f.input :cover_image,
+                        as: :file,
+                        required: false,
+                        hint: "Upload a wide image for the banner at the top of your profile.",
+                        input_html: { class: "edit-profile-form__input edit-profile-form__input--file", accept: "image/*" },
+                        wrapper_html: { class: "edit-profile-form__field" } %>
+            <%= f.input :avatar_url,
+                        required: false,
+                        hint: "Optional fallback if you want to use a hosted avatar URL instead of uploading.",
+                        input_html: { class: "edit-profile-form__input", placeholder: "https://example.com/avatar.png" },
+                        wrapper_html: { class: "edit-profile-form__field edit-profile-form__field--full" } %>
+          </div>
+        </section>
+
+        <section class="edit-profile-section">
+          <div class="edit-profile-section__header">
+            <div>
+              <p class="edit-profile-section__eyebrow">Account access</p>
+              <h2>Login and security</h2>
+            </div>
+            <p>Keep your sign-in details current without changing anything you do not need.</p>
+          </div>
+
+          <div class="edit-profile-form__grid">
+            <%= f.input :email,
+                        required: true,
+                        autofocus: true,
+                        input_html: { autocomplete: "email", class: "edit-profile-form__input" },
+                        wrapper_html: { class: "edit-profile-form__field edit-profile-form__field--full" } %>
+
+            <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+              <div class="edit-profile-form__status">
+                Waiting for confirmation for <strong><%= resource.unconfirmed_email %></strong>.
+              </div>
+            <% end %>
+          </div>
+
+          <details class="edit-profile-password-panel">
+            <summary class="edit-profile-password-panel__summary">
+              <span>Change password</span>
+              <i class="fa fa-chevron-down"></i>
+            </summary>
+
+            <div class="edit-profile-password-panel__body">
+              <div class="edit-profile-form__grid">
+                <%= f.input :password,
+                            label: "New Password",
+                            hint: "Leave blank to keep your current password.",
+                            required: false,
+                            input_html: { autocomplete: "new-password", class: "edit-profile-form__input" },
+                            wrapper_html: { class: "edit-profile-form__field" } %>
+                <%= f.input :password_confirmation,
+                            label: "New Password Confirmation",
+                            required: false,
+                            input_html: { autocomplete: "new-password", class: "edit-profile-form__input" },
+                            wrapper_html: { class: "edit-profile-form__field" } %>
+                <%= f.input :current_password,
+                            hint: "Required when changing your email or setting a new password.",
+                            required: false,
+                            input_html: { autocomplete: "current-password", class: "edit-profile-form__input" },
+                            wrapper_html: { class: "edit-profile-form__field edit-profile-form__field--full" } %>
+              </div>
+            </div>
+          </details>
+        </section>
+
+        <div class="edit-profile-form__actions">
+          <%= f.button :submit, "Save changes", class: "edit-profile-form__submit" %>
+          <%= link_to "Cancel", my_profile_path, class: "edit-profile-form__cancel" %>
+        </div>
+      <% end %>
+
+      <section class="edit-profile-danger">
+        <div>
+          <p class="edit-profile-danger__eyebrow">Danger zone</p>
+          <h2>Delete account</h2>
+          <p>This removes your GameBrief account and associated profile settings.</p>
+        </div>
+
+        <%= button_to "Cancel my account",
+                      registration_path(resource_name),
+                      data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" },
+                      method: :delete,
+                      class: "edit-profile-danger__button" %>
+      </section>
+    </main>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Update" %>
-  </div>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
-
-<%= link_to "Back", :back %>
+</div>

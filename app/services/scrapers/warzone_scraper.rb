@@ -3,6 +3,7 @@ require "nokogiri"
 
 class Scrapers::WarzoneScraper
   include Scrapers::PublishedAtExtraction
+  include Scrapers::StructuredContentExtraction
 
   INDEX_URL = "https://www.callofduty.com/patchnotes"
   HEADERS = { "User-Agent" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36" }
@@ -32,7 +33,7 @@ class Scrapers::WarzoneScraper
   def fetch_patch(url)
     doc = Nokogiri::HTML(URI.open(url, HEADERS))
     title = doc.at("h1")&.text&.squish
-    content = extract_content(doc)
+    content = extract_content(doc, title: title)
     published_at = extract_published_at(doc) || extract_published_at_from_url(url)
 
     return nil if title.blank? || content.blank?
@@ -43,21 +44,13 @@ class Scrapers::WarzoneScraper
     nil
   end
 
-  def extract_content(doc)
-    selectors = [
+  def extract_content(doc, title:)
+    extract_structured_content(doc, selectors: [
       "main",
       "article",
       "[class*='article']",
       "[class*='content']"
-    ]
-
-    selectors.each do |selector|
-      node = doc.at(selector)
-      text = node&.text&.squish
-      return text if text.present?
-    end
-
-    doc.text.to_s.squish
+    ], title: title)
   end
 
   def normalize_url(href)

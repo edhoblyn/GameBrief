@@ -5,7 +5,7 @@ class ChatsController < ApplicationController
 
   def create
     @chat = @patch.chats.find_or_create_by(user: current_user)
-    redirect_to patch_path(@patch, chat_id: @chat.id)
+    redirect_to patch_path(@patch, chat_id: @chat.id, return_to: safe_return_to_path)
   end
 
   def stream

@@ -24,7 +24,7 @@ class MessagesController < ApplicationController
           turbo_stream.replace("new_message_container", partial: "messages/form", locals: { patch: @patch, chat: @chat, message: Message.new })
         ]
       end
-      format.html { redirect_to patch_path(@patch, chat_id: @chat.id) }
+      format.html { redirect_to patch_path(@patch, chat_id: @chat.id, return_to: safe_return_to_path) }
     end
   end
 
