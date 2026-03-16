@@ -41,7 +41,7 @@
                 <a href="<%= my_profile_path %>" class="<%= hub_nav_link_class(my_profile_path) %>" style="display:flex;align-items:center;justify-content:flex-start;gap:0.6rem;width:auto;padding:0.68rem 0.7rem;border-radius:0.8rem;text-decoration:none;color:var(--gb-muted);">
                   <span class="hn-dropdown-menu__link-main" style="display:inline-flex;align-items:center;gap:0.65rem;min-width:0;flex:0 1 auto;white-space:nowrap;">
                     <i class="fa fa-user" style="width:16px;flex:0 0 16px;text-align:center;"></i>
-                    <span>My Profile</span>
+                    <span>Profile</span>
                   </span>
                 </a>
               </div>
@@ -49,7 +49,7 @@
                 <a href="<%= my_games_path %>" class="<%= hub_nav_link_class(my_games_path) %>" style="display:flex;align-items:center;justify-content:flex-start;gap:0.6rem;width:auto;padding:0.68rem 0.7rem;border-radius:0.8rem;text-decoration:none;color:var(--gb-muted);">
                   <span class="hn-dropdown-menu__link-main" style="display:inline-flex;align-items:center;gap:0.65rem;min-width:0;flex:0 1 auto;white-space:nowrap;">
                     <i class="fa fa-gamepad" style="width:16px;flex:0 0 16px;text-align:center;"></i>
-                    <span>My Games</span>
+                    <span>Library</span>
                   </span>
                   <span aria-hidden="true" style="flex:1 1 1.25rem;"></span>
                   <span class="hn-dropdown-menu__count-badge" style="display:inline-flex;align-items:center;justify-content:center;min-width:1.8rem;padding:0.18rem 0.48rem;border-radius:999px;background:rgba(124,92,252,0.16);color:var(--gb-text);font-size:0.72rem;font-weight:700;line-height:1;flex-shrink:0;"><%= @followed_games&.count || current_user.favourite_games.count %></span>
@@ -59,7 +59,7 @@
                 <a href="<%= my_patches_path %>" class="<%= hub_nav_link_class(my_patches_path) %>" style="display:flex;align-items:center;justify-content:flex-start;gap:0.6rem;width:auto;padding:0.68rem 0.7rem;border-radius:0.8rem;text-decoration:none;color:var(--gb-muted);">
                   <span class="hn-dropdown-menu__link-main" style="display:inline-flex;align-items:center;gap:0.65rem;min-width:0;flex:0 1 auto;white-space:nowrap;">
                     <i class="fa fa-file-text" style="width:16px;flex:0 0 16px;text-align:center;"></i>
-                    <span>My Patches</span>
+                    <span>Updates</span>
                   </span>
                   <span aria-hidden="true" style="flex:1 1 1.25rem;"></span>
                   <span class="hn-dropdown-menu__count-badge" style="display:inline-flex;align-items:center;justify-content:center;min-width:1.8rem;padding:0.18rem 0.48rem;border-radius:999px;background:rgba(124,92,252,0.16);color:var(--gb-text);font-size:0.72rem;font-weight:700;line-height:1;flex-shrink:0;"><%= @recent_patches&.count || 0 %></span>
@@ -69,7 +69,7 @@
                 <a href="<%= my_events_path %>" class="<%= hub_nav_link_class(my_events_path) %>" style="display:flex;align-items:center;justify-content:flex-start;gap:0.6rem;width:auto;padding:0.68rem 0.7rem;border-radius:0.8rem;text-decoration:none;color:var(--gb-muted);">
                   <span class="hn-dropdown-menu__link-main" style="display:inline-flex;align-items:center;gap:0.65rem;min-width:0;flex:0 1 auto;white-space:nowrap;">
                     <i class="fa fa-calendar" style="width:16px;flex:0 0 16px;text-align:center;"></i>
-                    <span>My Events</span>
+                    <span>Agenda</span>
                   </span>
                   <span aria-hidden="true" style="flex:1 1 1.25rem;"></span>
                   <span class="hn-dropdown-menu__count-badge" style="display:inline-flex;align-items:center;justify-content:center;min-width:1.8rem;padding:0.18rem 0.48rem;border-radius:999px;background:rgba(124,92,252,0.16);color:var(--gb-text);font-size:0.72rem;font-weight:700;line-height:1;flex-shrink:0;"><%= @reminders&.count || current_user.reminders.count %></span>
