@@ -42,6 +42,7 @@ class PatchScrapeRunnerTest < ActiveSupport::TestCase
     assert_includes PatchScrapeRunner.runnable_sources, "overwatch_2"
     assert_includes PatchScrapeRunner.runnable_sources, "pokemon_pokopia"
     assert_includes PatchScrapeRunner.runnable_sources, "resident_evil_requiem"
+    assert_includes PatchScrapeRunner.runnable_sources, "star_wars_battlefront_ii"
     assert_not_includes PatchScrapeRunner.runnable_sources, "fortnite"
     assert_not_includes PatchScrapeRunner.runnable_sources, "helldivers_2"
     assert_not_includes PatchScrapeRunner.runnable_sources, "minecraft"

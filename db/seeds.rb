@@ -680,37 +680,7 @@ if pokemon_pokopia.present? && pokemon_pokopia.patches.where.not(source_url: nil
   pokemon_pokopia.patches.where(source_url: nil).find_each(&:destroy!)
 end
 
-battlefront2_patch = seed_placeholder_patch(
-  game: battlefront2,
-  title: "The Age of Rebellion Update",
-  content: <<~TEXT,
-    New Content
-    - New map: Scarif Beachhead added to all large-scale modes including Galactic Assault and Co-Op.
-    - New hero: Jyn Erso added as a Rebel hero unit with two active abilities and one passive.
-    - New villain: Director Krennic added as an Imperial villain unit.
-
-    Hero & Villain Balance
-    - Luke Skywalker: Rush ability cooldown reduced from 10s to 9s.
-    - Darth Vader: Focused Rage bonus damage duration increased from 5s to 6s.
-    - Rey: Insight passive detection range slightly reduced.
-    - Boba Fett: Jetpack Boost fuel recovery rate increased by 10%.
-
-    Class Adjustments
-    - Officer: Battle Command ability radius increased from 8m to 10m.
-    - Heavy: Ion Torpedo now deals 10% more damage to vehicles.
-    - Specialist: Infiltration ability cloak duration reduced from 10s to 8s.
-
-    Bug Fixes
-    - Fixed Maul's Spin Attack sometimes passing through enemies without registering damage.
-    - Resolved issue where Co-Op objectives would reset after a host migration.
-    - Fixed Scarif Beachhead lighting artifacts on low settings.
-  TEXT
-  summaries: {
-    "quick_summary" => "Scarif from Rogue One joins the map pool which adds one of the most visually distinctive battlegrounds in the game to Galactic Assault. Two new heroes arrive — Jyn Erso and Director Krennic — bringing the Rogue One cast into multiplayer. Class tweaks give the Officer and Heavy roles a bit more impact in large battles.",
-    "casual_impact" => "Scarif is a gorgeous new map that plays differently to anything else in the roster, with beach terrain and tight corridors. Jyn Erso is a mobile and aggressive hero option if you enjoy Rebel playstyle. The Officer buff means support roles feel slightly more rewarding to play.",
-    "should_i_log_in" => "Yes — Scarif and two new heroes are the kind of content drop that makes this game worth revisiting. Even if you haven't played in a while, this is a great excuse to jump back into Galactic Assault."
-  }
-)
+seed_live_patches("star_wars_battlefront_ii")
 
 horizon_fw_patch = seed_placeholder_patch(
   game: horizon_fw,

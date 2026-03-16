@@ -119,6 +119,13 @@ class PatchScrapeRunner
       game_slugs: ["pokemon-pokopia"],
       missing_game_error: "Pokémon Pokopia game not found in the database.",
       missing_game_hint: "Expected an existing Game named 'Pokémon Pokopia' or slugged 'pokemon-pokopia'."
+    },
+    "star_wars_battlefront_ii" => {
+      label: "Star Wars Battlefront II",
+      importer: PatchImporters::StarWarsBattlefront2Importer,
+      game_slugs: ["star-wars-battlefront-ii"],
+      missing_game_error: "Star Wars Battlefront II game not found in the database.",
+      missing_game_hint: "Expected an existing Game named 'Star Wars Battlefront II' or slugged 'star-wars-battlefront-ii'."
     }
   }.freeze
 

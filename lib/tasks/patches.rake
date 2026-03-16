@@ -97,6 +97,11 @@ namespace :patches do
     run_scrape("pokemon_pokopia")
   end
 
+  desc "Scrape and import Star Wars Battlefront II updates from ea.com"
+  task scrape_star_wars_battlefront_ii: :environment do
+    run_scrape("star_wars_battlefront_ii")
+  end
+
   desc "Scrape and import patch notes for all configured games"
   task scrape_all: :environment do
     failures = []
