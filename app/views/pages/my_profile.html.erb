@@ -47,9 +47,9 @@
   profile_name   = current_user.display_name
   profile_handle = current_user.profile_handle
   profile_highlights = [
-    { label: "Favourited games", value: @followed_games.count, icon: "fa-gamepad" },
-    { label: "Patch drops", value: @recent_patches.count, icon: "fa-file-text" },
-    { label: "Event reminders", value: @reminders.count, icon: "fa-calendar" }
+    { label: "Favourited games", value: @followed_games.count, icon: "fa-gamepad",   url: my_games_path },
+    { label: "Patch drops",      value: @recent_patches.count, icon: "fa-file-text", url: my_patches_path },
+    { label: "Event reminders",  value: @reminders.count,      icon: "fa-calendar",  url: my_events_path }
   ]
   next_reminder = @reminders.first
   latest_patch = @recent_patches.first
@@ -188,7 +188,7 @@
         <p class="social-profile-bio">Casual gamer. Patch notes enthusiast. Always one update behind.</p>
         <div class="social-profile-highlights">
           <% profile_highlights.each do |item| %>
-            <div class="profile-highlight-card">
+            <%= link_to item[:url], class: "profile-highlight-card profile-highlight-card--link" do %>
               <div class="profile-highlight-card__icon">
                 <i class="fa <%= item[:icon] %>"></i>
               </div>
@@ -196,7 +196,7 @@
                 <span class="profile-highlight-card__value"><%= item[:value] %></span>
                 <span class="profile-highlight-card__label"><%= item[:label] %></span>
               </div>
-            </div>
+            <% end %>
           <% end %>
         </div>
         <div class="social-profile-stats">

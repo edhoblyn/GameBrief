@@ -397,6 +397,7 @@
 // ── Game card ───────────────────────────────────────────────────────────────
 .game-card {
   display: block;
+  position: relative;
   border-radius: 0.75rem;
   overflow: hidden;
   background: $dark-card;
@@ -448,6 +449,55 @@
 
   &__body {
     padding: 0.875rem 1rem;
+  }
+
+  &__body-top {
+    display: block;
+  }
+
+  &__follow {
+    position: absolute;
+    bottom: 0.6rem;
+    right: 0.6rem;
+    z-index: 2;
+
+    form { margin: 0; }
+  }
+
+  &__follow-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(10, 10, 18, 0.55);
+    backdrop-filter: blur(4px);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, transform 0.15s;
+    padding: 0;
+
+    i { font-size: 0.72rem; pointer-events: none; }
+
+    &--active {
+      color: #ffc65a;
+
+      &:hover {
+        background: rgba(255, 198, 90, 0.15);
+        transform: scale(1.15);
+      }
+    }
+
+    &--inactive {
+      color: rgba(255, 255, 255, 0.35);
+
+      &:hover {
+        color: #ffc65a;
+        background: rgba(255, 198, 90, 0.15);
+        transform: scale(1.15);
+      }
+    }
   }
 
   &__name {
