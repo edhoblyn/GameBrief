@@ -127,6 +127,11 @@ namespace :patches do
     run_scrape("spider_man_2")
   end
 
+  desc "Import curated official GTA 5: Online update notes"
+  task scrape_gta_5_online: :environment do
+    run_scrape("gta_5_online")
+  end
+
   desc "Scrape and import Roblox release notes from create.roblox.com"
   task scrape_roblox: :environment do
     run_scrape("roblox")

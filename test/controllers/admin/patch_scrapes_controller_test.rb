@@ -310,6 +310,16 @@ class Admin::PatchScrapesControllerTest < ActionDispatch::IntegrationTest
     assert_includes @response.body, "Minecraft currently requires an API or alternate endpoint"
   end
 
+  test "does not allow manual scrape runs for GTA 5: Online curated source" do
+    sign_in @admin
+
+    post admin_patch_scrapes_url, params: { source: "gta_5_online" }
+
+    assert_redirected_to admin_dashboard_path
+    follow_redirect!
+    assert_includes @response.body, "GTA 5: Online currently uses curated official Rockstar Support notes"
+  end
+
   test "run all stores scrape diagnostics and redirects to dashboard" do
     sign_in @admin
     original_run_all = PatchScrapeRunner.method(:run_all_with_diagnostics)

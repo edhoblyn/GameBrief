@@ -198,6 +198,7 @@ seed_live_patches("horizon_forbidden_west")
 seed_live_patches("cyberpunk_2077")
 seed_live_patches("space_marine_2")
 seed_live_patches("spider_man_2")
+seed_live_patches("gta_5_online")
 
 fortnite_patch = seed_placeholder_patch(
   game: fortnite,
@@ -725,40 +726,6 @@ ff7_rebirth_patch = seed_placeholder_patch(
     "quick_summary" => "A solid combat-focused patch — Tifa's stacks last longer and Cloud staggers enemies faster in Punisher Mode, making both feel more rewarding to play. Synergy Skill cooldowns are down across the board so co-op moves flow better in longer fights. New Comet Materia adds a magic option for those building elemental party comps.",
     "casual_impact" => "If you play on Normal mode you'll notice combat feeling slightly smoother, especially with Tifa and Cloud combos. Synergy abilities come up more often now which makes battles more dynamic without needing to grind for new gear. The new Materia is worth picking up if you're in the late game.",
     "should_i_log_in" => "If you've been meaning to start or continue — yes. The combat feels more polished than ever and the new Materia adds fresh build options. For players who have already finished, Hard Mode endgame got new rewards worth grinding for."
-  }
-)
-
-gta_online_patch = seed_placeholder_patch(
-  game: gta_online,
-  title: "Bottom Dollar Bounties Update",
-  content: <<~TEXT,
-    New Content
-    - New business: Bottom Dollar Bounties — a bounty hunting operation managed from a new property in Blaine County.
-    - 3 new vehicles added: Declasse Impaler SX, Vapid Clique, and Declasse Vamos.
-    - New weapons: Compact EMP Launcher and Precision Rifle added to Ammu-Nation.
-
-    Business & Economy
-    - Bottom Dollar Bounties contracts pay out between GTA$25,000 and GTA$85,000 depending on target difficulty.
-    - Nightclub income passive generation increased by 10%.
-    - Bunker research speed increased slightly for solo players.
-
-    Vehicle Updates
-    - New HSW upgrades available for 4 additional vehicles at the LS Car Meet.
-    - Several older sports cars added to the Podium Vehicle rotation for the coming weeks.
-
-    Quality of Life
-    - CEO/VIP work cooldown timers reduced by 2 minutes across all mission types.
-    - Improved matchmaking for Contact Missions on lower player count sessions.
-
-    Bug Fixes
-    - Fixed an issue where the Acid Lab delivery missions would fail to trigger correctly after a lobby change.
-    - Resolved a rare freeze when entering the Agency building during a cutscene.
-    - Fixed several floating prop issues in the new Blaine County property.
-  TEXT
-  summaries: {
-    "quick_summary" => "The Bottom Dollar Bounties update adds a brand new business where you hunt down targets for cash payouts up to GTA$85K. Three stylish new classic-inspired vehicles landed alongside new weapons. Nightclub passive income got a bump and CEO cooldowns are shorter, making grinding feel slightly less repetitive.",
-    "casual_impact" => "Bounty hunting is one of the more accessible new businesses — you can run it solo and the missions are varied. The CEO cooldown reduction means you can chain missions faster which helps if you only have short play sessions. The new vehicles are great for car collectors.",
-    "should_i_log_in" => "Yes — Bottom Dollar Bounties is a fun new activity with solid payouts and the new vehicles alone are worth logging in for. If you've been away for a while, this is one of the more content-rich updates of recent months."
   }
 )
 

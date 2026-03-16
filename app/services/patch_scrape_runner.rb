@@ -169,6 +169,15 @@ class PatchScrapeRunner
       missing_game_error: "Marvel's Spider-Man 2 game not found in the database.",
       missing_game_hint: "Expected an existing Game named 'Marvel's Spider-Man 2' or slugged 'marvels-spider-man-2'."
     },
+    "gta_5_online" => {
+      label: "GTA 5: Online",
+      importer: PatchImporters::Gta5OnlineImporter,
+      game_slugs: ["gta-5-online", "grand-theft-auto-v"],
+      manual_trigger_enabled: false,
+      disabled_message: "GTA 5: Online currently uses curated official Rockstar Support notes because Rockstar's public update pages are not reliably scrapeable from the app.",
+      missing_game_error: "GTA 5: Online game not found in the database.",
+      missing_game_hint: "Expected an existing Game named 'GTA 5: Online' or slugged 'gta-5-online'."
+    },
     "roblox" => {
       label: "Roblox",
       importer: PatchImporters::RobloxImporter,

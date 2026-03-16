@@ -260,6 +260,29 @@ class PatchScrapeRunnerTest < ActiveSupport::TestCase
     importer_class.define_method(:new, original_new)
   end
 
+  test "runs the gta 5 online importer when configured" do
+    importer = Class.new do
+      Result = Struct.new(:imported, :skipped, keyword_init: true)
+
+      def call
+        Result.new(imported: 2, skipped: 0)
+      end
+    end.new
+
+    importer_class = PatchImporters::Gta5OnlineImporter.singleton_class
+    original_new = PatchImporters::Gta5OnlineImporter.method(:new)
+    importer_class.define_method(:new) { importer }
+
+    result = PatchScrapeRunner.run("gta_5_online")
+
+    assert_equal "gta_5_online", result.source
+    assert_equal "GTA 5: Online", result.label
+    assert_equal 2, result.imported
+    assert_equal 0, result.skipped
+  ensure
+    importer_class.define_method(:new, original_new)
+  end
+
   test "runs the pubg battlegrounds importer when configured" do
     importer = Class.new do
       Result = Struct.new(:imported, :skipped, keyword_init: true)
@@ -307,8 +330,14 @@ class PatchScrapeRunnerTest < ActiveSupport::TestCase
     assert_includes PatchScrapeRunner.runnable_sources, "space_marine_2"
     assert_includes PatchScrapeRunner.runnable_sources, "spider_man_2"
     assert_includes PatchScrapeRunner.runnable_sources, "star_wars_battlefront_ii"
+    assert_not_includes PatchScrapeRunner.runnable_sources, "gta_5_online"
     assert_not_includes PatchScrapeRunner.runnable_sources, "fortnite"
     assert_not_includes PatchScrapeRunner.runnable_sources, "helldivers_2"
     assert_not_includes PatchScrapeRunner.runnable_sources, "minecraft"
+  end
+
+  test "supports curated sources that are hidden behind the AI admin button" do
+    assert PatchScrapeRunner.scrapeable?("gta_5_online")
+    assert_not PatchScrapeRunner.manual_trigger_enabled?("gta_5_online")
   end
 end
