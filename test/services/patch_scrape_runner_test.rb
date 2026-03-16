@@ -29,4 +29,18 @@ class PatchScrapeRunnerTest < ActiveSupport::TestCase
       PatchScrapeRunner.run("unknown_game")
     end
   end
+
+  test "treats blocked sources as non-scrapeable" do
+    assert_not PatchScrapeRunner.scrapeable?("fortnite")
+    assert_not PatchScrapeRunner.scrapeable?("destiny_2")
+    assert_not PatchScrapeRunner.scrapeable?("helldivers_2")
+    assert_not PatchScrapeRunner.scrapeable?("minecraft")
+  end
+
+  test "only returns scrapeable sources for runnable sources" do
+    assert_includes PatchScrapeRunner.runnable_sources, "apex_legends"
+    assert_not_includes PatchScrapeRunner.runnable_sources, "fortnite"
+    assert_not_includes PatchScrapeRunner.runnable_sources, "helldivers_2"
+    assert_not_includes PatchScrapeRunner.runnable_sources, "minecraft"
+  end
 end

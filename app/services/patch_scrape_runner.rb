@@ -23,6 +23,7 @@ class PatchScrapeRunner
       game_slugs: ["fortnite"],
       ingestion_method: "api",
       manual_trigger_enabled: false,
+      disabled_message: "Fortnite currently requires an API or alternate endpoint because the official news page is behind bot protection.",
       missing_game_error: "Fortnite game not found in the database.",
       missing_game_hint: "Expected an existing Game named 'Fortnite' or slugged 'fortnite'."
     },
@@ -44,6 +45,9 @@ class PatchScrapeRunner
       label: "Helldivers 2",
       importer: PatchImporters::Helldivers2Importer,
       game_slugs: ["helldivers-2"],
+      ingestion_method: "api",
+      manual_trigger_enabled: false,
+      disabled_message: "Helldivers 2 currently requires an API or alternate endpoint because the official patch-notes section is behind bot protection.",
       missing_game_error: "Helldivers 2 game not found in the database.",
       missing_game_hint: "Expected an existing Game named 'Helldivers 2' or slugged 'helldivers-2'."
     },
@@ -53,6 +57,7 @@ class PatchScrapeRunner
       game_slugs: ["destiny-2"],
       ingestion_method: "api",
       manual_trigger_enabled: false,
+      disabled_message: "Destiny 2 currently requires an API or alternate endpoint because the official Bungie news feed is JS-driven and not reliably scrapeable.",
       missing_game_error: "Destiny 2 game not found in the database.",
       missing_game_hint: "Expected an existing Game named 'Destiny 2' or slugged 'destiny-2'."
     },
@@ -60,6 +65,9 @@ class PatchScrapeRunner
       label: "Minecraft",
       importer: PatchImporters::MinecraftImporter,
       game_slugs: ["minecraft"],
+      ingestion_method: "api",
+      manual_trigger_enabled: false,
+      disabled_message: "Minecraft currently requires an API or alternate endpoint because the official changelog section is behind bot protection.",
       missing_game_error: "Minecraft game not found in the database.",
       missing_game_hint: "Expected an existing Game named 'Minecraft' or slugged 'minecraft'."
     },
@@ -98,9 +106,19 @@ class PatchScrapeRunner
   end
 
   def self.runnable_sources
-    SOURCES.filter_map do |source, config|
-      source if config.fetch(:manual_trigger_enabled, true)
+    scrapeable_sources.filter_map do |source|
+      source if fetch(source).fetch(:manual_trigger_enabled, true)
     end
+  end
+
+  def self.scrapeable_sources
+    SOURCES.filter_map do |source, config|
+      source if config.fetch(:ingestion_method, "scrape") == "scrape"
+    end
+  end
+
+  def self.scrapeable?(source)
+    fetch(source).fetch(:ingestion_method, "scrape") == "scrape"
   end
 
   def self.fetch(source)

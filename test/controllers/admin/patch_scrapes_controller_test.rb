@@ -46,25 +46,23 @@ class Admin::PatchScrapesControllerTest < ActionDispatch::IntegrationTest
     assert_includes @response.body, "Unknown scrape source."
   end
 
-  test "shows a friendly alert when fortnite is blocked by the source site" do
+  test "shows a friendly alert when fortnite requires alternate ingestion" do
     sign_in @admin
-    original_run = PatchScrapeRunner.method(:run)
-    http_error = OpenURI::HTTPError.new("403 Forbidden", StringIO.new)
-    http_error.io.define_singleton_method(:status) { ["403", "Forbidden"] }
-
-    PatchScrapeRunner.singleton_class.define_method(:run) do |_source|
-      raise http_error
-    end
-
-    begin
-      post admin_patch_scrapes_url, params: { source: "fortnite" }
-    ensure
-      PatchScrapeRunner.singleton_class.define_method(:run, original_run)
-    end
+    post admin_patch_scrapes_url, params: { source: "fortnite" }
 
     assert_redirected_to admin_dashboard_path
     follow_redirect!
-    assert_includes @response.body, "Fortnite scrape is currently blocked by the official source site"
+    assert_includes @response.body, "Fortnite currently requires an API or alternate endpoint"
+  end
+
+  test "does not allow manual scrape runs for blocked sources" do
+    sign_in @admin
+
+    post admin_patch_scrapes_url, params: { source: "minecraft" }
+
+    assert_redirected_to admin_dashboard_path
+    follow_redirect!
+    assert_includes @response.body, "Minecraft currently requires an API or alternate endpoint"
   end
 
   test "run all stores scrape diagnostics and redirects to dashboard" do

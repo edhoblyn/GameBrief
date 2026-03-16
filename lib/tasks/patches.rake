@@ -2,6 +2,11 @@ namespace :patches do
   def run_scrape(source, continue_on_error: false)
     config = PatchScrapeRunner.fetch(source)
 
+    unless PatchScrapeRunner.scrapeable?(source)
+      puts "SKIPPED: #{config[:disabled_message] || "#{config[:label]} currently requires an API or alternate endpoint."}"
+      return nil
+    end
+
     puts "Scraping #{config[:label]} patch notes..."
     result = PatchScrapeRunner.run(source)
     puts "Done - #{result.imported} imported, #{result.skipped} already existed."
@@ -81,10 +86,12 @@ namespace :patches do
   task scrape_all: :environment do
     failures = []
 
-    PatchScrapeRunner.sources.each do |source|
+    PatchScrapeRunner.scrapeable_sources.each do |source|
       result = run_scrape(source, continue_on_error: true)
       failures << source if result.nil?
     end
+
+    skipped_sources = PatchScrapeRunner.sources - PatchScrapeRunner.scrapeable_sources
 
     if failures.any?
       puts
@@ -92,6 +99,10 @@ namespace :patches do
     else
       puts
       puts "Completed successfully for all sources."
+    end
+
+    if skipped_sources.any?
+      puts "Skipped sources that need alternate ingestion: #{skipped_sources.join(', ')}"
     end
   end
 end
