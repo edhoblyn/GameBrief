@@ -1,0 +1,2444 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e3]:
+      - link "Logo" [ref=e4] [cursor=pointer]:
+        - /url: /counterstrike/Main_Page
+        - img "Logo" [ref=e5]
+      - list [ref=e6]:
+        - listitem [ref=e7]:
+          - link "liquipedia Counter-Strike" [ref=e8] [cursor=pointer]:
+            - /url: "#"
+            - generic [ref=e9]:
+              - text: liquipedia
+              - generic [ref=e10]: Counter-Strike
+          - text:                                                                                             
+      - list [ref=e12]:
+        - listitem [ref=e13]:
+          - button " Trending" [ref=e14] [cursor=pointer]:
+            - generic [ref=e15]: 
+            - text: Trending
+        - listitem [ref=e16]:
+          - button " Tournaments" [ref=e17] [cursor=pointer]:
+            - generic [ref=e18]: 
+            - text: Tournaments
+        - listitem [ref=e19]:
+          - button " Contribute" [ref=e20] [cursor=pointer]:
+            - generic [ref=e21]: 
+            - text: Contribute
+        - text:  
+      - search [ref=e22]:
+        - searchbox "Search" [ref=e23]
+        - button "" [ref=e24] [cursor=pointer]:
+          - generic [ref=e25]: 
+      - list [ref=e26]:
+        - listitem [ref=e27]:
+          - link "" [ref=e28] [cursor=pointer]:
+            - /url: https://tl.net/mytlnet/register
+            - generic [ref=e29]: 
+        - listitem [ref=e30]:
+          - link "" [ref=e31] [cursor=pointer]:
+            - /url: /counterstrike/index.php?title=Special:UserLogin&returnto=S-Tier+Tournaments
+            - generic [ref=e32]: 
+  - generic [ref=e35]:
+    - generic:
+      - list [ref=e36]:
+        - listitem [ref=e37]:
+          - link " Page" [ref=e38] [cursor=pointer]:
+            - /url: /counterstrike/S-Tier_Tournaments
+            - generic [ref=e39]: 
+            - text: Page
+        - listitem [ref=e40]:
+          - link " Talk" [ref=e41] [cursor=pointer]:
+            - /url: /counterstrike/Talk:S-Tier_Tournaments
+            - generic [ref=e42]: 
+            - text: Talk
+        - listitem [ref=e43]:
+          - link " Edit" [ref=e44] [cursor=pointer]:
+            - /url: /counterstrike/index.php?title=S-Tier_Tournaments&action=edit
+            - generic [ref=e45]: 
+            - text: Edit
+        - listitem [ref=e46]:
+          - link " History" [ref=e47] [cursor=pointer]:
+            - /url: /counterstrike/index.php?title=S-Tier_Tournaments&action=history
+            - generic [ref=e48]: 
+            - text: History
+        - text: 
+      - list [ref=e49]:
+        - listitem [ref=e50]:
+          - link "Auto selected" [ref=e51] [cursor=pointer]:
+            - /url: "#"
+            - generic [ref=e52]: 
+            - text: Auto
+          - text:   
+        - listitem [ref=e53]:
+          - link " Share" [ref=e54] [cursor=pointer]:
+            - /url: "#"
+            - generic [ref=e55]: 
+            - text: Share
+          - text:         
+        - listitem [ref=e56]:
+          - link " Tools" [ref=e57] [cursor=pointer]:
+            - /url: "#"
+            - generic [ref=e58]: 
+            - text: Tools
+          - text:             
+  - generic [ref=e59]:
+    - text:  , , , 
+    - generic [ref=e60]:
+      - button " Close top ad" [ref=e62] [cursor=pointer]:
+        - generic [ref=e63]: 
+        - generic [ref=e64]: Close top ad
+      - main [ref=e65]:
+        - generic [ref=e66]:
+          - heading "S-Tier Tournaments" [level=1] [ref=e67]
+          - generic [ref=e68]:
+            - generic [ref=e70]:
+              - list [ref=e73]:
+                - listitem [ref=e74] [cursor=pointer]:
+                  - link "Introduction" [ref=e75]:
+                    - /url: /counterstrike/Portal:Tournaments
+                - listitem [ref=e76] [cursor=pointer]:
+                  - link "Recent Events" [ref=e77]:
+                    - /url: /counterstrike/Recent_Tournament_Results
+                - listitem [ref=e78] [cursor=pointer]:
+                  - link "Valve Events" [ref=e79]:
+                    - /url: /counterstrike/Valve_Tournaments
+                - listitem [ref=e80] [cursor=pointer]:
+                  - generic [ref=e81]: S-Tier Events
+                - listitem [ref=e82] [cursor=pointer]:
+                  - link "A-Tier Events" [ref=e83]:
+                    - /url: /counterstrike/A-Tier_Tournaments
+                - listitem [ref=e84] [cursor=pointer]:
+                  - link "B-Tier Events" [ref=e85]:
+                    - /url: /counterstrike/B-Tier_Tournaments
+                - listitem [ref=e86] [cursor=pointer]:
+                  - link "C-Tier Events" [ref=e87]:
+                    - /url: /counterstrike/C-Tier_Tournaments
+                - listitem [ref=e88] [cursor=pointer]:
+                  - link "Qualifiers" [ref=e89]:
+                    - /url: /counterstrike/Qualifier_Tournaments
+                - listitem [ref=e90] [cursor=pointer]:
+                  - link "Monthly" [ref=e91]:
+                    - /url: /counterstrike/Monthly_Tournaments
+                - listitem [ref=e92] [cursor=pointer]:
+                  - link "Weekly" [ref=e93]:
+                    - /url: /counterstrike/Weekly_Tournaments
+                - listitem [ref=e94] [cursor=pointer]:
+                  - link "Showmatches" [ref=e95]:
+                    - /url: /counterstrike/Showmatches
+                - listitem [ref=e96] [cursor=pointer]:
+                  - link "Points Rankings" [ref=e97]:
+                    - /url: /counterstrike/Points_Rankings
+                - listitem [ref=e98] [cursor=pointer]:
+                  - link "Female Only" [ref=e99]:
+                    - /url: /counterstrike/Female_Tournaments
+              - list [ref=e102]:
+                - listitem [ref=e103] [cursor=pointer]:
+                  - link "Post 2023" [ref=e104]:
+                    - /url: /counterstrike/S-Tier_Tournaments/Post_2023
+                - listitem [ref=e105] [cursor=pointer]:
+                  - link "2012-2023" [ref=e106]:
+                    - /url: /counterstrike/S-Tier_Tournaments/2012-2023
+                - listitem [ref=e107] [cursor=pointer]:
+                  - link "Pre 2012" [ref=e108]:
+                    - /url: /counterstrike/S-Tier_Tournaments/Pre_2012
+              - paragraph [ref=e109]
+              - generic [ref=e111]:
+                - text: S-Tier Tournaments
+                - generic [ref=e112]: (formerly known as Premier Tournaments)
+                - text: offer an outstanding prize pool, are almost exclusively played offline,
+                - text: and feature the best teams from all over the world. They are commonly held by well-established organizers and are considered especially prestigious amongst the community.
+                - text: Highlighted tournaments are special
+                - link "CS2 Major Championship" [ref=e113] [cursor=pointer]:
+                  - /url: /counterstrike/Majors
+                - text: events which feature a large prize pool and are sponsored by
+                - link "Valve" [ref=e114] [cursor=pointer]:
+                  - /url: /counterstrike/Valve
+                - text: .
+              - paragraph [ref=e115]
+              - navigation "Contents" [ref=e116]:
+                - button "Hide the table of contents" [ref=e117] [cursor=pointer]
+                - generic [ref=e118]:
+                  - heading "Contents" [level=2] [ref=e119]
+                  - generic [ref=e120]:
+                    - text: "["
+                    - generic [ref=e121] [cursor=pointer]: hide
+                    - text: "]"
+                - list [ref=e122]:
+                  - listitem [ref=e123]:
+                    - link "1 Tournaments" [ref=e124] [cursor=pointer]:
+                      - /url: "#Tournaments"
+                      - generic [ref=e125]: "1"
+                      - generic [ref=e126]: Tournaments
+                    - list [ref=e127]:
+                      - listitem [ref=e128]:
+                        - link "1.1 2027" [ref=e129] [cursor=pointer]:
+                          - /url: "#2027"
+                          - generic [ref=e130]: "1.1"
+                          - generic [ref=e131]: "2027"
+                      - listitem [ref=e132]:
+                        - link "1.2 2026" [ref=e133] [cursor=pointer]:
+                          - /url: "#2026"
+                          - generic [ref=e134]: "1.2"
+                          - generic [ref=e135]: "2026"
+                      - listitem [ref=e136]:
+                        - link "1.3 2025" [ref=e137] [cursor=pointer]:
+                          - /url: "#2025"
+                          - generic [ref=e138]: "1.3"
+                          - generic [ref=e139]: "2025"
+                      - listitem [ref=e140]:
+                        - link "1.4 2024" [ref=e141] [cursor=pointer]:
+                          - /url: "#2024"
+                          - generic [ref=e142]: "1.4"
+                          - generic [ref=e143]: "2024"
+              - generic [ref=e144]:
+                - heading "Tournaments" [level=2] [ref=e145]
+                - generic [ref=e146]:
+                  - text: "["
+                  - link "edit" [ref=e147] [cursor=pointer]:
+                    - /url: /counterstrike/index.php?title=S-Tier_Tournaments/Post_2023&action=edit&section=T-1
+                  - text: "]"
+              - generic [ref=e148]:
+                - heading "2027" [level=3] [ref=e149]
+                - generic [ref=e150]:
+                  - text: "["
+                  - link "edit" [ref=e151] [cursor=pointer]:
+                    - /url: /counterstrike/index.php?title=S-Tier_Tournaments/Post_2023&action=edit&section=T-2
+                  - text: "]"
+              - definition [ref=e153]:
+                - generic [ref=e155] [cursor=pointer]: For an incomplete list of announced events, click here.
+              - text:                                      
+              - generic [ref=e156]:
+                - heading "2026" [level=3] [ref=e157]
+                - generic [ref=e158]:
+                  - text: "["
+                  - link "edit" [ref=e159] [cursor=pointer]:
+                    - /url: /counterstrike/index.php?title=S-Tier_Tournaments/Post_2023&action=edit&section=T-3
+                  - text: "]"
+              - definition [ref=e161]:
+                - generic [ref=e162]:
+                  - text: "Note: The tournament calendar below also includes"
+                  - link "A-Tier Tournaments" [ref=e163] [cursor=pointer]:
+                    - /url: /counterstrike/A-Tier_Tournaments
+                  - text: hosted by these organizers.
+              - definition [ref=e168]:
+                - generic [ref=e169]:
+                  - text: "Note: Tournaments currently listed as S-Tier are subject to potential downgrade to"
+                  - link "A-Tier" [ref=e170] [cursor=pointer]:
+                    - /url: /counterstrike/A-Tier_Tournaments
+                  - text: depending on the average rank of attending teams.
+              - table [ref=e173]:
+                - rowgroup [ref=e174]:
+                  - row "G Tournament Date Prize Pool Location P# Winner Runner-up" [ref=e175]:
+                    - columnheader "G" [ref=e176]
+                    - columnheader "Tournament" [ref=e177]
+                    - columnheader "Date" [ref=e178]
+                    - columnheader "Prize Pool" [ref=e179]
+                    - columnheader "Location" [ref=e180]
+                    - columnheader "P#" [ref=e181]
+                    - columnheader "Winner" [ref=e182]
+                    - columnheader "Runner-up" [ref=e183]
+                  - row "Counter-Strike 2 PGL Major Singapore 2026 PGL Major Singapore 2026 Nov 25 – Dec 13, 2026 $1,250,000 Singapore Kallang 32  TBD  TBD" [ref=e184]:
+                    - cell "Counter-Strike 2" [ref=e185]:
+                      - link "Counter-Strike 2" [ref=e187] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e188]
+                    - cell "PGL Major Singapore 2026" [ref=e189]:
+                      - link "PGL Major Singapore 2026" [ref=e191] [cursor=pointer]:
+                        - /url: /counterstrike/PGL_Major_Singapore_2026
+                        - img "PGL Major Singapore 2026" [ref=e192]
+                    - cell "PGL Major Singapore 2026" [ref=e193]:
+                      - link "PGL Major Singapore 2026" [ref=e194] [cursor=pointer]:
+                        - /url: /counterstrike/PGL/2026/Singapore
+                    - cell "Nov 25 – Dec 13, 2026" [ref=e195]
+                    - cell "$1,250,000" [ref=e196]
+                    - cell "Singapore Kallang" [ref=e197]:
+                      - generic [ref=e199]:
+                        - img "Singapore" [ref=e201]
+                        - text: Kallang
+                    - cell "32" [ref=e202]
+                    - cell " TBD" [ref=e203]:
+                      - generic [ref=e205]:
+                        - generic [ref=e207]: 
+                        - generic [ref=e208]: TBD
+                    - cell " TBD" [ref=e209]:
+                      - generic [ref=e211]:
+                        - generic [ref=e213]: 
+                        - generic [ref=e214]: TBD
+                  - row "Counter-Strike 2 YaLLa Compass UAE 2026 YaLLa Compass UAE 2026 Nov 16–22, 2026 $600,000 United Arab Emirates United Arab Emirates - Cancelled" [ref=e215]:
+                    - cell "Counter-Strike 2" [ref=e216]:
+                      - link "Counter-Strike 2" [ref=e218] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e219]
+                    - cell "YaLLa Compass UAE 2026" [ref=e220]:
+                      - link "YaLLa Compass UAE 2026" [ref=e222] [cursor=pointer]:
+                        - /url: /counterstrike/YaLLa_Compass_UAE_2026
+                        - img "YaLLa Compass UAE 2026" [ref=e223]
+                    - cell "YaLLa Compass UAE 2026" [ref=e224]:
+                      - link "YaLLa Compass UAE 2026" [ref=e225] [cursor=pointer]:
+                        - /url: /counterstrike/YaLLa_Compass/2026/UAE
+                    - cell "Nov 16–22, 2026" [ref=e226]
+                    - cell "$600,000" [ref=e227]
+                    - cell "United Arab Emirates United Arab Emirates" [ref=e228]:
+                      - generic [ref=e230]:
+                        - img "United Arab Emirates" [ref=e232]
+                        - text: United Arab Emirates
+                    - cell "-" [ref=e233]
+                    - cell "Cancelled" [ref=e234]
+                  - row "Counter-Strike 2 BLAST Rivals Fall 2026 BLAST Rivals Fall 2026 Nov 11–15, 2026 $350,000 Hong Kong Chek Lap Kok 8  TBD  TBD" [ref=e235]:
+                    - cell "Counter-Strike 2" [ref=e236]:
+                      - link "Counter-Strike 2" [ref=e238] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e239]
+                    - cell "BLAST Rivals Fall 2026" [ref=e240]:
+                      - link "BLAST Rivals Fall 2026" [ref=e242] [cursor=pointer]:
+                        - /url: /counterstrike/BLAST_Rivals_Fall_2026
+                        - img "BLAST Rivals Fall 2026" [ref=e243]
+                    - cell "BLAST Rivals Fall 2026" [ref=e244]:
+                      - link "BLAST Rivals Fall 2026" [ref=e245] [cursor=pointer]:
+                        - /url: /counterstrike/BLAST/Rivals/2026/Fall
+                    - cell "Nov 11–15, 2026" [ref=e246]
+                    - cell "$350,000" [ref=e247]
+                    - cell "Hong Kong Chek Lap Kok" [ref=e248]:
+                      - generic [ref=e250]:
+                        - img "Hong Kong" [ref=e252]
+                        - text: Chek Lap Kok
+                    - cell "8" [ref=e253]
+                    - cell " TBD" [ref=e254]:
+                      - generic [ref=e256]:
+                        - generic [ref=e258]: 
+                        - generic [ref=e259]: TBD
+                    - cell " TBD" [ref=e260]:
+                      - generic [ref=e262]:
+                        - generic [ref=e264]: 
+                        - generic [ref=e265]: TBD
+                  - row "Counter-Strike 2 Intel Extreme Masters China 2026 Intel Extreme Masters China 2026 Nov 02–08, 2026 $300,000 China China 16  TBD  TBD" [ref=e266]:
+                    - cell "Counter-Strike 2" [ref=e267]:
+                      - link "Counter-Strike 2" [ref=e269] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e270]
+                    - cell "Intel Extreme Masters China 2026" [ref=e271]:
+                      - link "Intel Extreme Masters China 2026" [ref=e273] [cursor=pointer]:
+                        - /url: /counterstrike/Intel_Extreme_Masters_China_2026
+                        - img "Intel Extreme Masters China 2026" [ref=e274]
+                    - cell "Intel Extreme Masters China 2026" [ref=e275]:
+                      - link "Intel Extreme Masters China 2026" [ref=e276] [cursor=pointer]:
+                        - /url: /counterstrike/Intel_Extreme_Masters/2026/China
+                    - cell "Nov 02–08, 2026" [ref=e277]
+                    - cell "$300,000" [ref=e278]
+                    - cell "China China" [ref=e279]:
+                      - generic [ref=e281]:
+                        - img "China" [ref=e283]
+                        - text: China
+                    - cell "16" [ref=e284]
+                    - cell " TBD" [ref=e285]:
+                      - generic [ref=e287]:
+                        - generic [ref=e289]: 
+                        - generic [ref=e290]: TBD
+                    - cell " TBD" [ref=e291]:
+                      - generic [ref=e293]:
+                        - generic [ref=e295]: 
+                        - generic [ref=e296]: TBD
+                  - row "Counter-Strike 2 PGL Masters Bucharest 2026 PGL Masters Bucharest 2026 Oct 24–31, 2026 $625,000 Romania Bucharest 16  TBD  TBD" [ref=e297]:
+                    - cell "Counter-Strike 2" [ref=e298]:
+                      - link "Counter-Strike 2" [ref=e300] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e301]
+                    - cell "PGL Masters Bucharest 2026" [ref=e302]:
+                      - link "PGL Masters Bucharest 2026" [ref=e304] [cursor=pointer]:
+                        - /url: /counterstrike/PGL_Masters_Bucharest_2026
+                        - img "PGL Masters Bucharest 2026" [ref=e305]
+                    - cell "PGL Masters Bucharest 2026" [ref=e306]:
+                      - link "PGL Masters Bucharest 2026" [ref=e307] [cursor=pointer]:
+                        - /url: /counterstrike/PGL/2026/Masters
+                    - cell "Oct 24–31, 2026" [ref=e308]
+                    - cell "$625,000" [ref=e309]
+                    - cell "Romania Bucharest" [ref=e310]:
+                      - generic [ref=e312]:
+                        - img "Romania" [ref=e314]
+                        - text: Bucharest
+                    - cell "16" [ref=e315]
+                    - cell " TBD" [ref=e316]:
+                      - generic [ref=e318]:
+                        - generic [ref=e320]: 
+                        - generic [ref=e321]: TBD
+                    - cell " TBD" [ref=e322]:
+                      - generic [ref=e324]:
+                        - generic [ref=e326]: 
+                        - generic [ref=e327]: TBD
+                  - row "Counter-Strike 2 Thunderpick World Championship 2026 Thunderpick World Championship 2026 Oct 14–18, 2026 $500,000 Malta Malta 8  TBD  TBD" [ref=e328]:
+                    - cell "Counter-Strike 2" [ref=e329]:
+                      - link "Counter-Strike 2" [ref=e331] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e332]
+                    - cell "Thunderpick World Championship 2026" [ref=e333]:
+                      - link "Thunderpick World Championship 2026" [ref=e335] [cursor=pointer]:
+                        - /url: /counterstrike/Thunderpick_World_Championship_2026
+                        - img "Thunderpick World Championship 2026" [ref=e336]
+                    - cell "Thunderpick World Championship 2026" [ref=e337]:
+                      - link "Thunderpick World Championship 2026" [ref=e338] [cursor=pointer]:
+                        - /url: /counterstrike/Thunderpick/World_Championship/2026
+                    - cell "Oct 14–18, 2026" [ref=e339]
+                    - cell "$500,000" [ref=e340]
+                    - cell "Malta Malta" [ref=e341]:
+                      - generic [ref=e343]:
+                        - img "Malta" [ref=e345]
+                        - text: Malta
+                    - cell "8" [ref=e346]
+                    - cell " TBD" [ref=e347]:
+                      - generic [ref=e349]:
+                        - generic [ref=e351]: 
+                        - generic [ref=e352]: TBD
+                    - cell " TBD" [ref=e353]:
+                      - generic [ref=e355]:
+                        - generic [ref=e357]: 
+                        - generic [ref=e358]: TBD
+                  - row "Counter-Strike 2 Forge of Legends 2026 Oct 13–18, 2026 $500,000 Europe TBA -  TBD  TBD" [ref=e359]:
+                    - cell "Counter-Strike 2" [ref=e360]:
+                      - link "Counter-Strike 2" [ref=e362] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e363]
+                    - cell [ref=e364]
+                    - cell "Forge of Legends 2026" [ref=e366]:
+                      - link "Forge of Legends 2026" [ref=e367] [cursor=pointer]:
+                        - /url: /counterstrike/Forge_of_Legends/2026
+                    - cell "Oct 13–18, 2026" [ref=e368]
+                    - cell "$500,000" [ref=e369]
+                    - cell "Europe TBA" [ref=e370]:
+                      - generic [ref=e372]:
+                        - img "Europe" [ref=e374]
+                        - text: TBA
+                    - cell "-" [ref=e375]
+                    - cell " TBD" [ref=e376]:
+                      - generic [ref=e378]:
+                        - generic [ref=e380]: 
+                        - generic [ref=e381]: TBD
+                    - cell " TBD" [ref=e382]:
+                      - generic [ref=e384]:
+                        - generic [ref=e386]: 
+                        - generic [ref=e387]: TBD
+                  - row "Counter-Strike 2 ESL Pro League Season 24 ESL Pro League Season 24 Oct 03–11, 2026 $300,000 Poland Katowice 16  TBD  TBD" [ref=e388]:
+                    - cell "Counter-Strike 2" [ref=e389]:
+                      - link "Counter-Strike 2" [ref=e391] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e392]
+                    - cell "ESL Pro League Season 24" [ref=e393]:
+                      - link "ESL Pro League Season 24" [ref=e395] [cursor=pointer]:
+                        - /url: /counterstrike/ESL_Pro_League_Season_24
+                        - img "ESL Pro League Season 24" [ref=e396]
+                    - cell "ESL Pro League Season 24" [ref=e397]:
+                      - link "ESL Pro League Season 24" [ref=e398] [cursor=pointer]:
+                        - /url: /counterstrike/ESL/Pro_League/Season_24
+                    - cell "Oct 03–11, 2026" [ref=e399]
+                    - cell "$300,000" [ref=e400]
+                    - cell "Poland Katowice" [ref=e401]:
+                      - generic [ref=e403]:
+                        - img "Poland" [ref=e405]
+                        - text: Katowice
+                    - cell "16" [ref=e406]
+                    - cell " TBD" [ref=e407]:
+                      - generic [ref=e409]:
+                        - generic [ref=e411]: 
+                        - generic [ref=e412]: TBD
+                    - cell " TBD" [ref=e413]:
+                      - generic [ref=e415]:
+                        - generic [ref=e417]: 
+                        - generic [ref=e418]: TBD
+                  - row "Counter-Strike 2 PGL Fall 2026 PGL Fall 2026 Oct 01–11, 2026 $625,000 World TBA 16 Cancelled" [ref=e419]:
+                    - cell "Counter-Strike 2" [ref=e420]:
+                      - link "Counter-Strike 2" [ref=e422] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e423]
+                    - cell "PGL Fall 2026" [ref=e424]:
+                      - link "PGL Fall 2026" [ref=e426] [cursor=pointer]:
+                        - /url: /counterstrike/PGL_Fall_2026
+                        - img "PGL Fall 2026" [ref=e427]
+                    - cell "PGL Fall 2026" [ref=e428]:
+                      - link "PGL Fall 2026" [ref=e429] [cursor=pointer]:
+                        - /url: /counterstrike/PGL/2026/Fall
+                    - cell "Oct 01–11, 2026" [ref=e430]
+                    - cell "$625,000" [ref=e431]
+                    - cell "World TBA" [ref=e432]:
+                      - generic [ref=e434]:
+                        - img "World" [ref=e436]
+                        - text: TBA
+                    - cell "16" [ref=e437]
+                    - cell "Cancelled" [ref=e438]
+                  - row "Counter-Strike 2 StarLadder StarSeries Fall 2026 StarLadder StarSeries Fall 2026 Sep 17–20, 2026 $250,000 Europe Europe 8  TBD  TBD" [ref=e439]:
+                    - cell "Counter-Strike 2" [ref=e440]:
+                      - link "Counter-Strike 2" [ref=e442] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e443]
+                    - cell "StarLadder StarSeries Fall 2026" [ref=e444]:
+                      - link "StarLadder StarSeries Fall 2026" [ref=e446] [cursor=pointer]:
+                        - /url: /counterstrike/StarLadder_StarSeries_Fall_2026
+                        - img "StarLadder StarSeries Fall 2026" [ref=e447]
+                    - cell "StarLadder StarSeries Fall 2026" [ref=e448]:
+                      - link "StarLadder StarSeries Fall 2026" [ref=e449] [cursor=pointer]:
+                        - /url: /counterstrike/StarLadder/StarSeries/2026/Fall
+                    - cell "Sep 17–20, 2026" [ref=e450]
+                    - cell "$250,000" [ref=e451]
+                    - cell "Europe Europe" [ref=e452]:
+                      - generic [ref=e454]:
+                        - link "Europe" [ref=e456] [cursor=pointer]:
+                          - /url: /counterstrike/Category:Europe
+                          - img "Europe" [ref=e457]
+                        - text: Europe
+                    - cell "8" [ref=e458]
+                    - cell " TBD" [ref=e459]:
+                      - generic [ref=e461]:
+                        - generic [ref=e463]: 
+                        - generic [ref=e464]: TBD
+                    - cell " TBD" [ref=e465]:
+                      - generic [ref=e467]:
+                        - generic [ref=e469]: 
+                        - generic [ref=e470]: TBD
+                  - 'row "Counter-Strike 2 FISSURE Playground #5 FISSURE Playground #5 Sep 07–13, 2026 $450,000 China Shenzhen 16  TBD  TBD" [ref=e471]':
+                    - cell "Counter-Strike 2" [ref=e472]:
+                      - link "Counter-Strike 2" [ref=e474] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e475]
+                    - 'cell "FISSURE Playground #5" [ref=e476]':
+                      - 'link "FISSURE Playground #5" [ref=e478] [cursor=pointer]':
+                        - /url: /counterstrike/FISSURE_Playground#5
+                        - 'img "FISSURE Playground #5" [ref=e479]'
+                    - 'cell "FISSURE Playground #5" [ref=e480]':
+                      - 'link "FISSURE Playground #5" [ref=e481] [cursor=pointer]':
+                        - /url: /counterstrike/FISSURE/Playground/5
+                    - cell "Sep 07–13, 2026" [ref=e482]
+                    - cell "$450,000" [ref=e483]
+                    - cell "China Shenzhen" [ref=e484]:
+                      - generic [ref=e486]:
+                        - img "China" [ref=e488]
+                        - text: Shenzhen
+                    - cell "16" [ref=e489]
+                    - cell " TBD" [ref=e490]:
+                      - generic [ref=e492]:
+                        - generic [ref=e494]: 
+                        - generic [ref=e495]: TBD
+                    - cell " TBD" [ref=e496]:
+                      - generic [ref=e498]:
+                        - generic [ref=e500]: 
+                        - generic [ref=e501]: TBD
+                  - row "Counter-Strike 2 YaLLa Compass Summer 2026 YaLLa Compass Summer 2026 Sep 07–13, 2026 $600,000 World TBD - Cancelled" [ref=e502]:
+                    - cell "Counter-Strike 2" [ref=e503]:
+                      - link "Counter-Strike 2" [ref=e505] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e506]
+                    - cell "YaLLa Compass Summer 2026" [ref=e507]:
+                      - link "YaLLa Compass Summer 2026" [ref=e509] [cursor=pointer]:
+                        - /url: /counterstrike/YaLLa_Compass_Summer_2026
+                        - img "YaLLa Compass Summer 2026" [ref=e510]
+                    - cell "YaLLa Compass Summer 2026" [ref=e511]:
+                      - link "YaLLa Compass Summer 2026" [ref=e512] [cursor=pointer]:
+                        - /url: /counterstrike/YaLLa_Compass/2026/Summer
+                    - cell "Sep 07–13, 2026" [ref=e513]
+                    - cell "$600,000" [ref=e514]
+                    - cell "World TBD" [ref=e515]:
+                      - generic [ref=e517]:
+                        - img "World" [ref=e519]
+                        - text: TBD
+                    - cell "-" [ref=e520]
+                    - cell "Cancelled" [ref=e521]
+                  - row "Counter-Strike 2 BLAST Open Fall 2026 BLAST Open Fall 2026 Aug 26 – Sep 06, 2026 $400,000 Europe Europe Denmark Copenhagen 16  TBD  TBD" [ref=e522]:
+                    - cell "Counter-Strike 2" [ref=e523]:
+                      - link "Counter-Strike 2" [ref=e525] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e526]
+                    - cell "BLAST Open Fall 2026" [ref=e527]:
+                      - link "BLAST Open Fall 2026" [ref=e529] [cursor=pointer]:
+                        - /url: /counterstrike/BLAST_Open_Fall_2026
+                        - img "BLAST Open Fall 2026" [ref=e530]
+                    - cell "BLAST Open Fall 2026" [ref=e531]:
+                      - link "BLAST Open Fall 2026" [ref=e532] [cursor=pointer]:
+                        - /url: /counterstrike/BLAST/Open/2026/Fall
+                    - cell "Aug 26 – Sep 06, 2026" [ref=e533]
+                    - cell "$400,000" [ref=e534]
+                    - cell "Europe Europe Denmark Copenhagen" [ref=e535]:
+                      - generic [ref=e536]:
+                        - generic [ref=e537]:
+                          - link "Europe" [ref=e539] [cursor=pointer]:
+                            - /url: /counterstrike/Category:Europe
+                            - img "Europe" [ref=e540]
+                          - text: Europe
+                        - generic [ref=e541]:
+                          - img "Denmark" [ref=e543]
+                          - text: Copenhagen
+                    - cell "16" [ref=e544]
+                    - cell " TBD" [ref=e545]:
+                      - generic [ref=e547]:
+                        - generic [ref=e549]: 
+                        - generic [ref=e550]: TBD
+                    - cell " TBD" [ref=e551]:
+                      - generic [ref=e553]:
+                        - generic [ref=e555]: 
+                        - generic [ref=e556]: TBD
+                  - row "Counter-Strike 2 Esports World Cup 2026 Esports World Cup 2026 Aug 12–23, 2026 $2,000,000 Saudi Arabia Riyadh 32  TBD  TBD" [ref=e557]:
+                    - cell "Counter-Strike 2" [ref=e558]:
+                      - link "Counter-Strike 2" [ref=e560] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e561]
+                    - cell "Esports World Cup 2026" [ref=e562]:
+                      - link "Esports World Cup 2026" [ref=e564] [cursor=pointer]:
+                        - /url: /counterstrike/Esports_World_Cup_2026
+                        - img "Esports World Cup 2026" [ref=e565]
+                    - cell "Esports World Cup 2026" [ref=e566]:
+                      - link "Esports World Cup 2026" [ref=e567] [cursor=pointer]:
+                        - /url: /counterstrike/Esports_World_Cup/2026
+                    - cell "Aug 12–23, 2026" [ref=e568]
+                    - cell "$2,000,000" [ref=e569]
+                    - cell "Saudi Arabia Riyadh" [ref=e570]:
+                      - generic [ref=e572]:
+                        - img "Saudi Arabia" [ref=e574]
+                        - text: Riyadh
+                    - cell "32" [ref=e575]
+                    - cell " TBD" [ref=e576]:
+                      - generic [ref=e578]:
+                        - generic [ref=e580]: 
+                        - generic [ref=e581]: TBD
+                    - cell " TBD" [ref=e582]:
+                      - generic [ref=e584]:
+                        - generic [ref=e586]: 
+                        - generic [ref=e587]: TBD
+                  - row "Counter-Strike 2 PGL Summer 2026 PGL Summer 2026 Aug 06–16, 2026 $625,000 World TBA 16 Cancelled" [ref=e588]:
+                    - cell "Counter-Strike 2" [ref=e589]:
+                      - link "Counter-Strike 2" [ref=e591] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e592]
+                    - cell "PGL Summer 2026" [ref=e593]:
+                      - link "PGL Summer 2026" [ref=e595] [cursor=pointer]:
+                        - /url: /counterstrike/PGL_Summer_2026
+                        - img "PGL Summer 2026" [ref=e596]
+                    - cell "PGL Summer 2026" [ref=e597]:
+                      - link "PGL Summer 2026" [ref=e598] [cursor=pointer]:
+                        - /url: /counterstrike/PGL/2026/Summer
+                    - cell "Aug 06–16, 2026" [ref=e599]
+                    - cell "$625,000" [ref=e600]
+                    - cell "World TBA" [ref=e601]:
+                      - generic [ref=e603]:
+                        - img "World" [ref=e605]
+                        - text: TBA
+                    - cell "16" [ref=e606]
+                    - cell "Cancelled" [ref=e607]
+                  - row "Counter-Strike 2 BLAST Bounty Summer 2026 BLAST Bounty Summer 2026 Jul 30 – Aug 02, 2026 Malta Attard 8  TBD  TBD" [ref=e608]:
+                    - cell "Counter-Strike 2" [ref=e609]:
+                      - link "Counter-Strike 2" [ref=e611] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e612]
+                    - cell "BLAST Bounty Summer 2026" [ref=e613]:
+                      - link "BLAST Bounty Summer 2026" [ref=e615] [cursor=pointer]:
+                        - /url: /counterstrike/BLAST_Bounty_Summer_2026
+                        - img "BLAST Bounty Summer 2026" [ref=e616]
+                    - cell "BLAST Bounty Summer 2026" [ref=e617]:
+                      - link "BLAST Bounty Summer 2026" [ref=e618] [cursor=pointer]:
+                        - /url: /counterstrike/BLAST/Bounty/2026/Summer
+                    - cell "Jul 30 – Aug 02, 2026" [ref=e619]
+                    - cell [ref=e620]
+                    - cell "Malta Attard" [ref=e621]:
+                      - generic [ref=e623]:
+                        - img "Malta" [ref=e625]
+                        - text: Attard
+                    - cell "8" [ref=e626]
+                    - cell " TBD" [ref=e627]:
+                      - generic [ref=e629]:
+                        - generic [ref=e631]: 
+                        - generic [ref=e632]: TBD
+                    - cell " TBD" [ref=e633]:
+                      - generic [ref=e635]:
+                        - generic [ref=e637]: 
+                        - generic [ref=e638]: TBD
+                  - 'row "Counter-Strike 2 FISSURE Playground #4 FISSURE Playground #4 Jul 13–19, 2026 $800,000 World TBA 16 Cancelled" [ref=e639]':
+                    - cell "Counter-Strike 2" [ref=e640]:
+                      - link "Counter-Strike 2" [ref=e642] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e643]
+                    - 'cell "FISSURE Playground #4" [ref=e644]':
+                      - 'link "FISSURE Playground #4" [ref=e646] [cursor=pointer]':
+                        - /url: /counterstrike/FISSURE_Playground#4
+                        - 'img "FISSURE Playground #4" [ref=e647]'
+                    - 'cell "FISSURE Playground #4" [ref=e648]':
+                      - 'link "FISSURE Playground #4" [ref=e649] [cursor=pointer]':
+                        - /url: /counterstrike/FISSURE/Playground/4
+                    - cell "Jul 13–19, 2026" [ref=e650]
+                    - cell "$800,000" [ref=e651]
+                    - cell "World TBA" [ref=e652]:
+                      - generic [ref=e654]:
+                        - img "World" [ref=e656]
+                        - text: TBA
+                    - cell "16" [ref=e657]
+                    - cell "Cancelled" [ref=e658]
+                  - row "Counter-Strike 2 Intel Extreme Masters Cologne Major 2026 Intel Extreme Masters Cologne Major 2026 Jun 02–21, 2026 $1,250,000 Germany Cologne 32  TBD  TBD" [ref=e659]:
+                    - cell "Counter-Strike 2" [ref=e660]:
+                      - link "Counter-Strike 2" [ref=e662] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e663]
+                    - cell "Intel Extreme Masters Cologne Major 2026" [ref=e664]:
+                      - link "Intel Extreme Masters Cologne Major 2026" [ref=e666] [cursor=pointer]:
+                        - /url: /counterstrike/Intel_Extreme_Masters_Cologne_Major_2026
+                        - img "Intel Extreme Masters Cologne Major 2026" [ref=e667]
+                    - cell "Intel Extreme Masters Cologne Major 2026" [ref=e668]:
+                      - link "Intel Extreme Masters Cologne Major 2026" [ref=e669] [cursor=pointer]:
+                        - /url: /counterstrike/Intel_Extreme_Masters/2026/Cologne
+                    - cell "Jun 02–21, 2026" [ref=e670]
+                    - cell "$1,250,000" [ref=e671]
+                    - cell "Germany Cologne" [ref=e672]:
+                      - generic [ref=e674]:
+                        - img "Germany" [ref=e676]
+                        - text: Cologne
+                    - cell "32" [ref=e677]
+                    - cell " TBD" [ref=e678]:
+                      - generic [ref=e680]:
+                        - generic [ref=e682]: 
+                        - generic [ref=e683]: TBD
+                    - cell " TBD" [ref=e684]:
+                      - generic [ref=e686]:
+                        - generic [ref=e688]: 
+                        - generic [ref=e689]: TBD
+                  - row "Counter-Strike 2 CS Asia Championships 2026 CS Asia Championships 2026 May 19–24, 2026 $400,000 China Shanghai 16  TBD  TBD" [ref=e690]:
+                    - cell "Counter-Strike 2" [ref=e691]:
+                      - link "Counter-Strike 2" [ref=e693] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e694]
+                    - cell "CS Asia Championships 2026" [ref=e695]:
+                      - link "CS Asia Championships 2026" [ref=e697] [cursor=pointer]:
+                        - /url: /counterstrike/CS_Asia_Championships_2026
+                        - img "CS Asia Championships 2026" [ref=e698]
+                    - cell "CS Asia Championships 2026" [ref=e699]:
+                      - link "CS Asia Championships 2026" [ref=e700] [cursor=pointer]:
+                        - /url: /counterstrike/CS_Asia_Championships/2026
+                    - cell "May 19–24, 2026" [ref=e701]
+                    - cell "$400,000" [ref=e702]
+                    - cell "China Shanghai" [ref=e703]:
+                      - generic [ref=e705]:
+                        - img "China" [ref=e707]
+                        - text: Shanghai
+                    - cell "16" [ref=e708]
+                    - cell " TBD" [ref=e709]:
+                      - generic [ref=e711]:
+                        - generic [ref=e713]: 
+                        - generic [ref=e714]: TBD
+                    - cell " TBD" [ref=e715]:
+                      - generic [ref=e717]:
+                        - generic [ref=e719]: 
+                        - generic [ref=e720]: TBD
+                  - row "Counter-Strike 2 Intel Extreme Masters Atlanta 2026 Intel Extreme Masters Atlanta 2026 May 11–17, 2026 $300,000 United States Atlanta 16  TBD  TBD" [ref=e721]:
+                    - cell "Counter-Strike 2" [ref=e722]:
+                      - link "Counter-Strike 2" [ref=e724] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e725]
+                    - cell "Intel Extreme Masters Atlanta 2026" [ref=e726]:
+                      - link "Intel Extreme Masters Atlanta 2026" [ref=e728] [cursor=pointer]:
+                        - /url: /counterstrike/Intel_Extreme_Masters_Atlanta_2026
+                        - img "Intel Extreme Masters Atlanta 2026" [ref=e729]
+                    - cell "Intel Extreme Masters Atlanta 2026" [ref=e730]:
+                      - link "Intel Extreme Masters Atlanta 2026" [ref=e731] [cursor=pointer]:
+                        - /url: /counterstrike/Intel_Extreme_Masters/2026/Atlanta
+                    - cell "May 11–17, 2026" [ref=e732]
+                    - cell "$300,000" [ref=e733]
+                    - cell "United States Atlanta" [ref=e734]:
+                      - generic [ref=e736]:
+                        - img "United States" [ref=e738]
+                        - text: Atlanta
+                    - cell "16" [ref=e739]
+                    - cell " TBD" [ref=e740]:
+                      - generic [ref=e742]:
+                        - generic [ref=e744]: 
+                        - generic [ref=e745]: TBD
+                    - cell " TBD" [ref=e746]:
+                      - generic [ref=e748]:
+                        - generic [ref=e750]: 
+                        - generic [ref=e751]: TBD
+                  - row "Counter-Strike 2 PGL Astana 2026 PGL Astana 2026 May 07–17, 2026 $800,000 Kazakhstan Astana 16  TBD  TBD" [ref=e752]:
+                    - cell "Counter-Strike 2" [ref=e753]:
+                      - link "Counter-Strike 2" [ref=e755] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e756]
+                    - cell "PGL Astana 2026" [ref=e757]:
+                      - link "PGL Astana 2026" [ref=e759] [cursor=pointer]:
+                        - /url: /counterstrike/PGL_Astana_2026
+                        - img "PGL Astana 2026" [ref=e760]
+                    - cell "PGL Astana 2026" [ref=e761]:
+                      - link "PGL Astana 2026" [ref=e762] [cursor=pointer]:
+                        - /url: /counterstrike/PGL/2026/Astana
+                    - cell "May 07–17, 2026" [ref=e763]
+                    - cell "$800,000" [ref=e764]
+                    - cell "Kazakhstan Astana" [ref=e765]:
+                      - generic [ref=e767]:
+                        - img "Kazakhstan" [ref=e769]
+                        - text: Astana
+                    - cell "16" [ref=e770]
+                    - cell " TBD" [ref=e771]:
+                      - generic [ref=e773]:
+                        - generic [ref=e775]: 
+                        - generic [ref=e776]: TBD
+                    - cell " TBD" [ref=e777]:
+                      - generic [ref=e779]:
+                        - generic [ref=e781]: 
+                        - generic [ref=e782]: TBD
+                  - row "Counter-Strike 2 BLAST Rivals Spring 2026 BLAST Rivals Spring 2026 Apr 29 – May 03, 2026 $350,000 United States Fort Worth 8  TBD  TBD" [ref=e783]:
+                    - cell "Counter-Strike 2" [ref=e784]:
+                      - link "Counter-Strike 2" [ref=e786] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e787]
+                    - cell "BLAST Rivals Spring 2026" [ref=e788]:
+                      - link "BLAST Rivals Spring 2026" [ref=e790] [cursor=pointer]:
+                        - /url: /counterstrike/BLAST_Rivals_Spring_2026
+                        - img "BLAST Rivals Spring 2026" [ref=e791]
+                    - cell "BLAST Rivals Spring 2026" [ref=e792]:
+                      - link "BLAST Rivals Spring 2026" [ref=e793] [cursor=pointer]:
+                        - /url: /counterstrike/BLAST/Rivals/2026/Spring
+                    - cell "Apr 29 – May 03, 2026" [ref=e794]
+                    - cell "$350,000" [ref=e795]
+                    - cell "United States Fort Worth" [ref=e796]:
+                      - generic [ref=e798]:
+                        - img "United States" [ref=e800]
+                        - text: Fort Worth
+                    - cell "8" [ref=e801]
+                    - cell " TBD" [ref=e802]:
+                      - generic [ref=e804]:
+                        - generic [ref=e806]: 
+                        - generic [ref=e807]: TBD
+                    - cell " TBD" [ref=e808]:
+                      - generic [ref=e810]:
+                        - generic [ref=e812]: 
+                        - generic [ref=e813]: TBD
+                  - 'row "Counter-Strike 2 FISSURE Playground #3 FISSURE Playground #3 Apr 20–26, 2026 $450,000 China Shenzhen 16 Cancelled" [ref=e814]':
+                    - cell "Counter-Strike 2" [ref=e815]:
+                      - link "Counter-Strike 2" [ref=e817] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e818]
+                    - 'cell "FISSURE Playground #3" [ref=e819]':
+                      - 'link "FISSURE Playground #3" [ref=e821] [cursor=pointer]':
+                        - /url: /counterstrike/FISSURE_Playground#3
+                        - 'img "FISSURE Playground #3" [ref=e822]'
+                    - 'cell "FISSURE Playground #3" [ref=e823]':
+                      - 'link "FISSURE Playground #3" [ref=e824] [cursor=pointer]':
+                        - /url: /counterstrike/FISSURE/Playground/3
+                    - cell "Apr 20–26, 2026" [ref=e825]
+                    - cell "$450,000" [ref=e826]
+                    - cell "China Shenzhen" [ref=e827]:
+                      - generic [ref=e829]:
+                        - img "China" [ref=e831]
+                        - text: Shenzhen
+                    - cell "16" [ref=e832]
+                    - cell "Cancelled" [ref=e833]
+                  - row "Counter-Strike 2 YaLLa Compass Qatar 2026 YaLLa Compass Qatar 2026 Apr 20–26, 2026 $600,000 Qatar Qatar - Cancelled" [ref=e834]:
+                    - cell "Counter-Strike 2" [ref=e835]:
+                      - link "Counter-Strike 2" [ref=e837] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e838]
+                    - cell "YaLLa Compass Qatar 2026" [ref=e839]:
+                      - link "YaLLa Compass Qatar 2026" [ref=e841] [cursor=pointer]:
+                        - /url: /counterstrike/YaLLa_Compass_Qatar_2026
+                        - img "YaLLa Compass Qatar 2026" [ref=e842]
+                    - cell "YaLLa Compass Qatar 2026" [ref=e843]:
+                      - link "YaLLa Compass Qatar 2026" [ref=e844] [cursor=pointer]:
+                        - /url: /counterstrike/YaLLa_Compass/2026/Qatar
+                    - cell "Apr 20–26, 2026" [ref=e845]
+                    - cell "$600,000" [ref=e846]
+                    - cell "Qatar Qatar" [ref=e847]:
+                      - generic [ref=e849]:
+                        - img "Qatar" [ref=e851]
+                        - text: Qatar
+                    - cell "-" [ref=e852]
+                    - cell "Cancelled" [ref=e853]
+                  - row "Counter-Strike 2 Intel Extreme Masters Rio 2026 Intel Extreme Masters Rio 2026 Apr 13–19, 2026 $300,000 Brazil Rio de Janeiro 16  TBD  TBD" [ref=e854]:
+                    - cell "Counter-Strike 2" [ref=e855]:
+                      - link "Counter-Strike 2" [ref=e857] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e858]
+                    - cell "Intel Extreme Masters Rio 2026" [ref=e859]:
+                      - link "Intel Extreme Masters Rio 2026" [ref=e861] [cursor=pointer]:
+                        - /url: /counterstrike/Intel_Extreme_Masters_Rio_2026
+                        - img "Intel Extreme Masters Rio 2026" [ref=e862]
+                    - cell "Intel Extreme Masters Rio 2026" [ref=e863]:
+                      - link "Intel Extreme Masters Rio 2026" [ref=e864] [cursor=pointer]:
+                        - /url: /counterstrike/Intel_Extreme_Masters/2026/Rio
+                    - cell "Apr 13–19, 2026" [ref=e865]
+                    - cell "$300,000" [ref=e866]
+                    - cell "Brazil Rio de Janeiro" [ref=e867]:
+                      - generic [ref=e869]:
+                        - img "Brazil" [ref=e871]
+                        - text: Rio de Janeiro
+                    - cell "16" [ref=e872]
+                    - cell " TBD" [ref=e873]:
+                      - generic [ref=e875]:
+                        - generic [ref=e877]: 
+                        - generic [ref=e878]: TBD
+                    - cell " TBD" [ref=e879]:
+                      - generic [ref=e881]:
+                        - generic [ref=e883]: 
+                        - generic [ref=e884]: TBD
+                  - row "Counter-Strike 2 BLAST Open Spring 2026 BLAST Open Spring 2026 Mar 18–29, 2026 $400,000 Netherlands Rotterdam Denmark Copenhagen 16  TBD  TBD" [ref=e885]:
+                    - cell "Counter-Strike 2" [ref=e886]:
+                      - link "Counter-Strike 2" [ref=e888] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e889]
+                    - cell "BLAST Open Spring 2026" [ref=e890]:
+                      - link "BLAST Open Spring 2026" [ref=e892] [cursor=pointer]:
+                        - /url: /counterstrike/BLAST_Open_Spring_2026
+                        - img "BLAST Open Spring 2026" [ref=e893]
+                    - cell "BLAST Open Spring 2026" [ref=e894]:
+                      - link "BLAST Open Spring 2026" [ref=e895] [cursor=pointer]:
+                        - /url: /counterstrike/BLAST/Open/2026/Spring
+                    - cell "Mar 18–29, 2026" [ref=e896]
+                    - cell "$400,000" [ref=e897]
+                    - cell "Netherlands Rotterdam Denmark Copenhagen" [ref=e898]:
+                      - generic [ref=e899]:
+                        - generic [ref=e900]:
+                          - img "Netherlands" [ref=e902]
+                          - text: Rotterdam
+                        - generic [ref=e903]:
+                          - img "Denmark" [ref=e905]
+                          - text: Copenhagen
+                    - cell "16" [ref=e906]
+                    - cell " TBD" [ref=e907]:
+                      - generic [ref=e909]:
+                        - generic [ref=e911]: 
+                        - generic [ref=e912]: TBD
+                    - cell " TBD" [ref=e913]:
+                      - generic [ref=e915]:
+                        - generic [ref=e917]: 
+                        - generic [ref=e918]: TBD
+                  - row "Counter-Strike 2 ESL Pro League Season 23 ESL Pro League Season 23 Mar 13–15, 2026 $275,000 Sweden Stockholm 8 Natus Vincere Natus Vincere Aurora Gaming Aurora Gaming" [ref=e919]:
+                    - cell "Counter-Strike 2" [ref=e920]:
+                      - link "Counter-Strike 2" [ref=e922] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e923]
+                    - cell "ESL Pro League Season 23" [ref=e924]:
+                      - link "ESL Pro League Season 23" [ref=e926] [cursor=pointer]:
+                        - /url: /counterstrike/ESL_Pro_League_Season_23
+                        - img "ESL Pro League Season 23" [ref=e927]
+                    - cell "ESL Pro League Season 23" [ref=e928]:
+                      - link "ESL Pro League Season 23" [ref=e929] [cursor=pointer]:
+                        - /url: /counterstrike/ESL/Pro_League/Season_23
+                    - cell "Mar 13–15, 2026" [ref=e930]
+                    - cell "$275,000" [ref=e931]
+                    - cell "Sweden Stockholm" [ref=e932]:
+                      - generic [ref=e934]:
+                        - img "Sweden" [ref=e936]
+                        - text: Stockholm
+                    - cell "8" [ref=e937]
+                    - cell "Natus Vincere Natus Vincere" [ref=e938]:
+                      - generic [ref=e940]:
+                        - link "Natus Vincere" [ref=e942] [cursor=pointer]:
+                          - /url: /counterstrike/Natus_Vincere
+                        - link "Natus Vincere" [ref=e944] [cursor=pointer]:
+                          - /url: /counterstrike/Natus_Vincere
+                    - cell "Aurora Gaming Aurora Gaming" [ref=e945]:
+                      - generic [ref=e947]:
+                        - link "Aurora Gaming" [ref=e949] [cursor=pointer]:
+                          - /url: /counterstrike/Aurora_Gaming
+                        - link "Aurora Gaming" [ref=e951] [cursor=pointer]:
+                          - /url: /counterstrike/Aurora_Gaming
+                  - row "Counter-Strike 2 PGL Cluj-Napoca 2026 PGL Cluj-Napoca 2026 Feb 14–22, 2026 $625,000 Romania Cluj-Napoca 16 Team Vitality Team Vitality PARIVISION PARIVISION" [ref=e952]:
+                    - cell "Counter-Strike 2" [ref=e953]:
+                      - link "Counter-Strike 2" [ref=e955] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e956]
+                    - cell "PGL Cluj-Napoca 2026" [ref=e957]:
+                      - link "PGL Cluj-Napoca 2026" [ref=e959] [cursor=pointer]:
+                        - /url: /counterstrike/PGL_Cluj-Napoca_2026
+                        - img "PGL Cluj-Napoca 2026" [ref=e960]
+                    - cell "PGL Cluj-Napoca 2026" [ref=e961]:
+                      - link "PGL Cluj-Napoca 2026" [ref=e962] [cursor=pointer]:
+                        - /url: /counterstrike/PGL/2026/Cluj-Napoca
+                    - cell "Feb 14–22, 2026" [ref=e963]
+                    - cell "$625,000" [ref=e964]
+                    - cell "Romania Cluj-Napoca" [ref=e965]:
+                      - generic [ref=e967]:
+                        - img "Romania" [ref=e969]
+                        - text: Cluj-Napoca
+                    - cell "16" [ref=e970]
+                    - cell "Team Vitality Team Vitality" [ref=e971]:
+                      - generic [ref=e973]:
+                        - link "Team Vitality" [ref=e975] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Vitality
+                        - link "Team Vitality" [ref=e977] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Vitality
+                    - cell "PARIVISION PARIVISION" [ref=e978]:
+                      - generic [ref=e980]:
+                        - link "PARIVISION" [ref=e982] [cursor=pointer]:
+                          - /url: /counterstrike/PARIVISION
+                        - link "PARIVISION" [ref=e984] [cursor=pointer]:
+                          - /url: /counterstrike/PARIVISION
+                  - row "Counter-Strike 2 Intel Extreme Masters Kraków 2026 Intel Extreme Masters Kraków 2026 Jan 28 – Feb 08, 2026 $1,000,000 Poland Kraków 24 Team Vitality Team Vitality FURIA FURIA" [ref=e985]:
+                    - cell "Counter-Strike 2" [ref=e986]:
+                      - link "Counter-Strike 2" [ref=e988] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e989]
+                    - cell "Intel Extreme Masters Kraków 2026" [ref=e990]:
+                      - link "Intel Extreme Masters Kraków 2026" [ref=e992] [cursor=pointer]:
+                        - /url: /counterstrike/Intel_Extreme_Masters_Krak%C3%B3w_2026
+                        - img "Intel Extreme Masters Kraków 2026" [ref=e993]
+                    - cell "Intel Extreme Masters Kraków 2026" [ref=e994]:
+                      - link "Intel Extreme Masters Kraków 2026" [ref=e995] [cursor=pointer]:
+                        - /url: /counterstrike/Intel_Extreme_Masters/2026/Krak%C3%B3w
+                    - cell "Jan 28 – Feb 08, 2026" [ref=e996]
+                    - cell "$1,000,000" [ref=e997]
+                    - cell "Poland Kraków" [ref=e998]:
+                      - generic [ref=e1000]:
+                        - img "Poland" [ref=e1002]
+                        - text: Kraków
+                    - cell "24" [ref=e1003]
+                    - cell "Team Vitality Team Vitality" [ref=e1004]:
+                      - generic [ref=e1006]:
+                        - link "Team Vitality" [ref=e1008] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Vitality
+                        - link "Team Vitality" [ref=e1010] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Vitality
+                    - cell "FURIA FURIA" [ref=e1011]:
+                      - generic [ref=e1013]:
+                        - link "FURIA" [ref=e1015] [cursor=pointer]:
+                          - /url: /counterstrike/FURIA
+                        - link "FURIA" [ref=e1017] [cursor=pointer]:
+                          - /url: /counterstrike/FURIA
+                  - row "Counter-Strike 2 BLAST Bounty Winter 2026 BLAST Bounty Winter 2026 Jan 22–25, 2026 $452,500 Malta Attard 8 PARIVISION PARIVISION Team Falcons Team Falcons" [ref=e1018]:
+                    - cell "Counter-Strike 2" [ref=e1019]:
+                      - link "Counter-Strike 2" [ref=e1021] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e1022]
+                    - cell "BLAST Bounty Winter 2026" [ref=e1023]:
+                      - link "BLAST Bounty Winter 2026" [ref=e1025] [cursor=pointer]:
+                        - /url: /counterstrike/BLAST_Bounty_Winter_2026
+                        - img "BLAST Bounty Winter 2026" [ref=e1026]
+                    - cell "BLAST Bounty Winter 2026" [ref=e1027]:
+                      - link "BLAST Bounty Winter 2026" [ref=e1028] [cursor=pointer]:
+                        - /url: /counterstrike/BLAST/Bounty/2026/Winter
+                    - cell "Jan 22–25, 2026" [ref=e1029]
+                    - cell "$452,500" [ref=e1030]
+                    - cell "Malta Attard" [ref=e1031]:
+                      - generic [ref=e1033]:
+                        - img "Malta" [ref=e1035]
+                        - text: Attard
+                    - cell "8" [ref=e1036]
+                    - cell "PARIVISION PARIVISION" [ref=e1037]:
+                      - generic [ref=e1039]:
+                        - link "PARIVISION" [ref=e1041] [cursor=pointer]:
+                          - /url: /counterstrike/PARIVISION
+                        - link "PARIVISION" [ref=e1043] [cursor=pointer]:
+                          - /url: /counterstrike/PARIVISION
+                    - cell "Team Falcons Team Falcons" [ref=e1044]:
+                      - generic [ref=e1046]:
+                        - link "Team Falcons" [ref=e1048] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Falcons
+                        - link "Team Falcons" [ref=e1050] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Falcons
+              - generic [ref=e1051]:
+                - heading "2025" [level=3] [ref=e1052]
+                - generic [ref=e1053]:
+                  - text: "["
+                  - link "edit" [ref=e1054] [cursor=pointer]:
+                    - /url: /counterstrike/index.php?title=S-Tier_Tournaments/Post_2023&action=edit&section=T-4
+                  - text: "]"
+              - table [ref=e1057]:
+                - rowgroup [ref=e1058]:
+                  - row "G Tournament Date Prize Pool Location P# Winner Runner-up" [ref=e1059]:
+                    - columnheader "G" [ref=e1060]
+                    - columnheader "Tournament" [ref=e1061]
+                    - columnheader "Date" [ref=e1062]
+                    - columnheader "Prize Pool" [ref=e1063]
+                    - columnheader "Location" [ref=e1064]
+                    - columnheader "P#" [ref=e1065]
+                    - columnheader "Winner" [ref=e1066]
+                    - columnheader "Runner-up" [ref=e1067]
+                  - row "Counter-Strike 2 StarLadder Budapest Major 2025 StarLadder Budapest Major 2025 Nov 24 – Dec 14, 2025 $1,250,000 Hungary Budapest 32 Team Vitality Team Vitality FaZe Clan FaZe Clan" [ref=e1068]:
+                    - cell "Counter-Strike 2" [ref=e1069]:
+                      - link "Counter-Strike 2" [ref=e1071] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e1072]
+                    - cell "StarLadder Budapest Major 2025" [ref=e1073]:
+                      - link "StarLadder Budapest Major 2025" [ref=e1075] [cursor=pointer]:
+                        - /url: /counterstrike/StarLadder_Budapest_Major_2025
+                        - img "StarLadder Budapest Major 2025" [ref=e1076]
+                    - cell "StarLadder Budapest Major 2025" [ref=e1077]:
+                      - link "StarLadder Budapest Major 2025" [ref=e1078] [cursor=pointer]:
+                        - /url: /counterstrike/StarLadder/2025/Major
+                    - cell "Nov 24 – Dec 14, 2025" [ref=e1079]
+                    - cell "$1,250,000" [ref=e1080]
+                    - cell "Hungary Budapest" [ref=e1081]:
+                      - generic [ref=e1083]:
+                        - img "Hungary" [ref=e1085]
+                        - text: Budapest
+                    - cell "32" [ref=e1086]
+                    - cell "Team Vitality Team Vitality" [ref=e1087]:
+                      - generic [ref=e1089]:
+                        - link "Team Vitality" [ref=e1091] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Vitality
+                        - link "Team Vitality" [ref=e1093] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Vitality
+                    - cell "FaZe Clan FaZe Clan" [ref=e1094]:
+                      - generic [ref=e1096]:
+                        - link "FaZe Clan" [ref=e1098] [cursor=pointer]:
+                          - /url: /counterstrike/FaZe_Clan
+                        - link "FaZe Clan" [ref=e1100] [cursor=pointer]:
+                          - /url: /counterstrike/FaZe_Clan
+                  - row "Counter-Strike 2 YaLLa Compass Dubai 2025 YaLLa Compass Dubai 2025 Nov 19–23, 2025 $600,000 United Arab Emirates Dubai 12 Cancelled" [ref=e1101]:
+                    - cell "Counter-Strike 2" [ref=e1102]:
+                      - link "Counter-Strike 2" [ref=e1104] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e1105]
+                    - cell "YaLLa Compass Dubai 2025" [ref=e1106]:
+                      - link "YaLLa Compass Dubai 2025" [ref=e1108] [cursor=pointer]:
+                        - /url: /counterstrike/YaLLa_Compass_Dubai_2025
+                        - img "YaLLa Compass Dubai 2025" [ref=e1109]
+                    - cell "YaLLa Compass Dubai 2025" [ref=e1110]:
+                      - link "YaLLa Compass Dubai 2025" [ref=e1111] [cursor=pointer]:
+                        - /url: /counterstrike/YaLLa_Compass/2025/Dubai
+                    - cell "Nov 19–23, 2025" [ref=e1112]
+                    - cell "$600,000" [ref=e1113]
+                    - cell "United Arab Emirates Dubai" [ref=e1114]:
+                      - generic [ref=e1116]:
+                        - img "United Arab Emirates" [ref=e1118]
+                        - text: Dubai
+                    - cell "12" [ref=e1119]
+                    - cell "Cancelled" [ref=e1120]
+                  - row "Counter-Strike 2 BLAST Rivals Fall 2025 BLAST Rivals Fall 2025 Nov 12–16, 2025 $350,000 Hong Kong Chek Lap Kok 8 FURIA FURIA Team Falcons Team Falcons" [ref=e1121]:
+                    - cell "Counter-Strike 2" [ref=e1122]:
+                      - link "Counter-Strike 2" [ref=e1124] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e1125]
+                    - cell "BLAST Rivals Fall 2025" [ref=e1126]:
+                      - link "BLAST Rivals Fall 2025" [ref=e1128] [cursor=pointer]:
+                        - /url: /counterstrike/BLAST_Rivals_Fall_2025
+                        - img "BLAST Rivals Fall 2025" [ref=e1129]
+                    - cell "BLAST Rivals Fall 2025" [ref=e1130]:
+                      - link "BLAST Rivals Fall 2025" [ref=e1131] [cursor=pointer]:
+                        - /url: /counterstrike/BLAST/Rivals/2025/Fall
+                    - cell "Nov 12–16, 2025" [ref=e1132]
+                    - cell "$350,000" [ref=e1133]
+                    - cell "Hong Kong Chek Lap Kok" [ref=e1134]:
+                      - generic [ref=e1136]:
+                        - img "Hong Kong" [ref=e1138]
+                        - text: Chek Lap Kok
+                    - cell "8" [ref=e1139]
+                    - cell "FURIA FURIA" [ref=e1140]:
+                      - generic [ref=e1142]:
+                        - link "FURIA" [ref=e1144] [cursor=pointer]:
+                          - /url: /counterstrike/FURIA
+                        - link "FURIA" [ref=e1146] [cursor=pointer]:
+                          - /url: /counterstrike/FURIA
+                    - cell "Team Falcons Team Falcons" [ref=e1147]:
+                      - generic [ref=e1149]:
+                        - link "Team Falcons" [ref=e1151] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Falcons
+                        - link "Team Falcons" [ref=e1153] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Falcons
+                  - row "Counter-Strike 2 Skyesports World Tour 2025 Skyesports World Tour 2025 Nov 10–16, 2025 $500,000 India India 8 Cancelled" [ref=e1154]:
+                    - cell "Counter-Strike 2" [ref=e1155]:
+                      - link "Counter-Strike 2" [ref=e1157] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e1158]
+                    - cell "Skyesports World Tour 2025" [ref=e1159]:
+                      - link "Skyesports World Tour 2025" [ref=e1161] [cursor=pointer]:
+                        - /url: /counterstrike/Skyesports_World_Tour_2025
+                        - img "Skyesports World Tour 2025" [ref=e1162]
+                    - cell "Skyesports World Tour 2025" [ref=e1163]:
+                      - link "Skyesports World Tour 2025" [ref=e1164] [cursor=pointer]:
+                        - /url: /counterstrike/Skyesports/World_Tour/2025
+                    - cell "Nov 10–16, 2025" [ref=e1165]
+                    - cell "$500,000" [ref=e1166]
+                    - cell "India India" [ref=e1167]:
+                      - generic [ref=e1169]:
+                        - img "India" [ref=e1171]
+                        - text: India
+                    - cell "8" [ref=e1172]
+                    - cell "Cancelled" [ref=e1173]
+                  - row "Counter-Strike 2 Intel Extreme Masters Chengdu 2025 Intel Extreme Masters Chengdu 2025 Nov 03–09, 2025 $300,000 China Chengdu 16 FURIA FURIA Team Vitality Team Vitality" [ref=e1174]:
+                    - cell "Counter-Strike 2" [ref=e1175]:
+                      - link "Counter-Strike 2" [ref=e1177] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e1178]
+                    - cell "Intel Extreme Masters Chengdu 2025" [ref=e1179]:
+                      - link "Intel Extreme Masters Chengdu 2025" [ref=e1181] [cursor=pointer]:
+                        - /url: /counterstrike/Intel_Extreme_Masters_Chengdu_2025
+                        - img "Intel Extreme Masters Chengdu 2025" [ref=e1182]
+                    - cell "Intel Extreme Masters Chengdu 2025" [ref=e1183]:
+                      - link "Intel Extreme Masters Chengdu 2025" [ref=e1184] [cursor=pointer]:
+                        - /url: /counterstrike/Intel_Extreme_Masters/2025/Chengdu
+                    - cell "Nov 03–09, 2025" [ref=e1185]
+                    - cell "$300,000" [ref=e1186]
+                    - cell "China Chengdu" [ref=e1187]:
+                      - generic [ref=e1189]:
+                        - img "China" [ref=e1191]
+                        - text: Chengdu
+                    - cell "16" [ref=e1192]
+                    - cell "FURIA FURIA" [ref=e1193]:
+                      - generic [ref=e1195]:
+                        - link "FURIA" [ref=e1197] [cursor=pointer]:
+                          - /url: /counterstrike/FURIA
+                        - link "FURIA" [ref=e1199] [cursor=pointer]:
+                          - /url: /counterstrike/FURIA
+                    - cell "Team Vitality Team Vitality" [ref=e1200]:
+                      - generic [ref=e1202]:
+                        - link "Team Vitality" [ref=e1204] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Vitality
+                        - link "Team Vitality" [ref=e1206] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Vitality
+                  - row "Counter-Strike 2 ESL Pro League Season 22 ESL Pro League Season 22 Sep 28 – Oct 12, 2025 $400,000 Sweden Stockholm 24 Team Vitality Team Vitality Team Falcons Team Falcons" [ref=e1207]:
+                    - cell "Counter-Strike 2" [ref=e1208]:
+                      - link "Counter-Strike 2" [ref=e1210] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e1211]
+                    - cell "ESL Pro League Season 22" [ref=e1212]:
+                      - link "ESL Pro League Season 22" [ref=e1214] [cursor=pointer]:
+                        - /url: /counterstrike/ESL_Pro_League_Season_22
+                        - img "ESL Pro League Season 22" [ref=e1215]
+                    - cell "ESL Pro League Season 22" [ref=e1216]:
+                      - link "ESL Pro League Season 22" [ref=e1217] [cursor=pointer]:
+                        - /url: /counterstrike/ESL/Pro_League/Season_22
+                    - cell "Sep 28 – Oct 12, 2025" [ref=e1218]
+                    - cell "$400,000" [ref=e1219]
+                    - cell "Sweden Stockholm" [ref=e1220]:
+                      - generic [ref=e1222]:
+                        - img "Sweden" [ref=e1224]
+                        - text: Stockholm
+                    - cell "24" [ref=e1225]
+                    - cell "Team Vitality Team Vitality" [ref=e1226]:
+                      - generic [ref=e1228]:
+                        - link "Team Vitality" [ref=e1230] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Vitality
+                        - link "Team Vitality" [ref=e1232] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Vitality
+                    - cell "Team Falcons Team Falcons" [ref=e1233]:
+                      - generic [ref=e1235]:
+                        - link "Team Falcons" [ref=e1237] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Falcons
+                        - link "Team Falcons" [ref=e1239] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Falcons
+                  - row "Counter-Strike 2 Skyesports Championship 2025 Skyesports Championship 2025 Sep 15–21, 2025 $500,000 India India 8 Cancelled" [ref=e1240]:
+                    - cell "Counter-Strike 2" [ref=e1241]:
+                      - link "Counter-Strike 2" [ref=e1243] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e1244]
+                    - cell "Skyesports Championship 2025" [ref=e1245]:
+                      - link "Skyesports Championship 2025" [ref=e1247] [cursor=pointer]:
+                        - /url: /counterstrike/Skyesports_Championship_2025
+                        - img "Skyesports Championship 2025" [ref=e1248]
+                    - cell "Skyesports Championship 2025" [ref=e1249]:
+                      - link "Skyesports Championship 2025" [ref=e1250] [cursor=pointer]:
+                        - /url: /counterstrike/Skyesports/Championship/2025
+                    - cell "Sep 15–21, 2025" [ref=e1251]
+                    - cell "$500,000" [ref=e1252]
+                    - cell "India India" [ref=e1253]:
+                      - generic [ref=e1255]:
+                        - img "India" [ref=e1257]
+                        - text: India
+                    - cell "8" [ref=e1258]
+                    - cell "Cancelled" [ref=e1259]
+                  - 'row "Counter-Strike 2 FISSURE Playground #2 FISSURE Playground #2 Sep 12–21, 2025 $500,000 Serbia Belgrade 16 FURIA FURIA The MongolZ The MongolZ" [ref=e1260]':
+                    - cell "Counter-Strike 2" [ref=e1261]:
+                      - link "Counter-Strike 2" [ref=e1263] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e1264]
+                    - 'cell "FISSURE Playground #2" [ref=e1265]':
+                      - 'link "FISSURE Playground #2" [ref=e1267] [cursor=pointer]':
+                        - /url: /counterstrike/FISSURE_Playground#2
+                        - 'img "FISSURE Playground #2" [ref=e1268]'
+                    - 'cell "FISSURE Playground #2" [ref=e1269]':
+                      - 'link "FISSURE Playground #2" [ref=e1270] [cursor=pointer]':
+                        - /url: /counterstrike/FISSURE/Playground/2
+                    - cell "Sep 12–21, 2025" [ref=e1271]
+                    - cell "$500,000" [ref=e1272]
+                    - cell "Serbia Belgrade" [ref=e1273]:
+                      - generic [ref=e1275]:
+                        - img "Serbia" [ref=e1277]
+                        - text: Belgrade
+                    - cell "16" [ref=e1278]
+                    - cell "FURIA FURIA" [ref=e1279]:
+                      - generic [ref=e1281]:
+                        - link "FURIA" [ref=e1283] [cursor=pointer]:
+                          - /url: /counterstrike/FURIA
+                        - link "FURIA" [ref=e1285] [cursor=pointer]:
+                          - /url: /counterstrike/FURIA
+                    - cell "The MongolZ The MongolZ" [ref=e1286]:
+                      - generic [ref=e1288]:
+                        - link "The MongolZ" [ref=e1290] [cursor=pointer]:
+                          - /url: /counterstrike/The_MongolZ
+                        - link "The MongolZ" [ref=e1292] [cursor=pointer]:
+                          - /url: /counterstrike/The_MongolZ
+                  - row "Counter-Strike 2 BLAST Open Fall 2025 BLAST Open Fall 2025 Sep 05–07, 2025 $330,000 United Kingdom London 6 G2 Esports G2 Esports Team Vitality Team Vitality" [ref=e1293]:
+                    - cell "Counter-Strike 2" [ref=e1294]:
+                      - link "Counter-Strike 2" [ref=e1296] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e1297]
+                    - cell "BLAST Open Fall 2025" [ref=e1298]:
+                      - link "BLAST Open Fall 2025" [ref=e1300] [cursor=pointer]:
+                        - /url: /counterstrike/BLAST_Open_Fall_2025
+                        - img "BLAST Open Fall 2025" [ref=e1301]
+                    - cell "BLAST Open Fall 2025" [ref=e1302]:
+                      - link "BLAST Open Fall 2025" [ref=e1303] [cursor=pointer]:
+                        - /url: /counterstrike/BLAST/Open/2025/Fall
+                    - cell "Sep 05–07, 2025" [ref=e1304]
+                    - cell "$330,000" [ref=e1305]
+                    - cell "United Kingdom London" [ref=e1306]:
+                      - generic [ref=e1308]:
+                        - img "United Kingdom" [ref=e1310]
+                        - text: London
+                    - cell "6" [ref=e1311]
+                    - cell "G2 Esports G2 Esports" [ref=e1312]:
+                      - generic [ref=e1314]:
+                        - link "G2 Esports" [ref=e1316] [cursor=pointer]:
+                          - /url: /counterstrike/G2_Esports
+                        - link "G2 Esports" [ref=e1318] [cursor=pointer]:
+                          - /url: /counterstrike/G2_Esports
+                    - cell "Team Vitality Team Vitality" [ref=e1319]:
+                      - generic [ref=e1321]:
+                        - link "Team Vitality" [ref=e1323] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Vitality
+                        - link "Team Vitality" [ref=e1325] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Vitality
+                  - row "Counter-Strike 2 Esports World Cup 2025 Esports World Cup 2025 Aug 20–24, 2025 $1,250,000 Saudi Arabia Riyadh 16 The MongolZ The MongolZ Aurora Gaming Aurora Gaming" [ref=e1326]:
+                    - cell "Counter-Strike 2" [ref=e1327]:
+                      - link "Counter-Strike 2" [ref=e1329] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e1330]
+                    - cell "Esports World Cup 2025" [ref=e1331]:
+                      - link "Esports World Cup 2025" [ref=e1333] [cursor=pointer]:
+                        - /url: /counterstrike/Esports_World_Cup_2025
+                        - img "Esports World Cup 2025" [ref=e1334]
+                    - cell "Esports World Cup 2025" [ref=e1335]:
+                      - link "Esports World Cup 2025" [ref=e1336] [cursor=pointer]:
+                        - /url: /counterstrike/Esports_World_Cup/2025
+                    - cell "Aug 20–24, 2025" [ref=e1337]
+                    - cell "$1,250,000" [ref=e1338]
+                    - cell "Saudi Arabia Riyadh" [ref=e1339]:
+                      - generic [ref=e1341]:
+                        - img "Saudi Arabia" [ref=e1343]
+                        - text: Riyadh
+                    - cell "16" [ref=e1344]
+                    - cell "The MongolZ The MongolZ" [ref=e1345]:
+                      - generic [ref=e1347]:
+                        - link "The MongolZ" [ref=e1349] [cursor=pointer]:
+                          - /url: /counterstrike/The_MongolZ
+                        - link "The MongolZ" [ref=e1351] [cursor=pointer]:
+                          - /url: /counterstrike/The_MongolZ
+                    - cell "Aurora Gaming Aurora Gaming" [ref=e1352]:
+                      - generic [ref=e1354]:
+                        - link "Aurora Gaming" [ref=e1356] [cursor=pointer]:
+                          - /url: /counterstrike/Aurora_Gaming
+                        - link "Aurora Gaming" [ref=e1358] [cursor=pointer]:
+                          - /url: /counterstrike/Aurora_Gaming
+                  - row "Counter-Strike 2 BLAST Bounty Fall 2025 BLAST Bounty Fall 2025 Aug 14–17, 2025 $480,000 Malta Attard 8 Team Spirit Team Spirit The MongolZ The MongolZ" [ref=e1359]:
+                    - cell "Counter-Strike 2" [ref=e1360]:
+                      - link "Counter-Strike 2" [ref=e1362] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e1363]
+                    - cell "BLAST Bounty Fall 2025" [ref=e1364]:
+                      - link "BLAST Bounty Fall 2025" [ref=e1366] [cursor=pointer]:
+                        - /url: /counterstrike/BLAST_Bounty_Fall_2025
+                        - img "BLAST Bounty Fall 2025" [ref=e1367]
+                    - cell "BLAST Bounty Fall 2025" [ref=e1368]:
+                      - link "BLAST Bounty Fall 2025" [ref=e1369] [cursor=pointer]:
+                        - /url: /counterstrike/BLAST/Bounty/2025/Fall
+                    - cell "Aug 14–17, 2025" [ref=e1370]
+                    - cell "$480,000" [ref=e1371]
+                    - cell "Malta Attard" [ref=e1372]:
+                      - generic [ref=e1374]:
+                        - img "Malta" [ref=e1376]
+                        - text: Attard
+                    - cell "8" [ref=e1377]
+                    - cell "Team Spirit Team Spirit" [ref=e1378]:
+                      - generic [ref=e1380]:
+                        - link "Team Spirit" [ref=e1382] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Spirit
+                        - link "Team Spirit" [ref=e1384] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Spirit
+                    - cell "The MongolZ The MongolZ" [ref=e1385]:
+                      - generic [ref=e1387]:
+                        - link "The MongolZ" [ref=e1389] [cursor=pointer]:
+                          - /url: /counterstrike/The_MongolZ
+                        - link "The MongolZ" [ref=e1391] [cursor=pointer]:
+                          - /url: /counterstrike/The_MongolZ
+                  - row "Counter-Strike 2 Intel Extreme Masters Cologne 2025 Intel Extreme Masters Cologne 2025 Jul 23 – Aug 03, 2025 $1,000,000 Germany Cologne 24 Team Spirit Team Spirit MOUZ MOUZ" [ref=e1392]:
+                    - cell "Counter-Strike 2" [ref=e1393]:
+                      - link "Counter-Strike 2" [ref=e1395] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e1396]
+                    - cell "Intel Extreme Masters Cologne 2025" [ref=e1397]:
+                      - link "Intel Extreme Masters Cologne 2025" [ref=e1399] [cursor=pointer]:
+                        - /url: /counterstrike/Intel_Extreme_Masters_Cologne_2025
+                        - img "Intel Extreme Masters Cologne 2025" [ref=e1400]
+                    - cell "Intel Extreme Masters Cologne 2025" [ref=e1401]:
+                      - link "Intel Extreme Masters Cologne 2025" [ref=e1402] [cursor=pointer]:
+                        - /url: /counterstrike/Intel_Extreme_Masters/2025/Cologne
+                    - cell "Jul 23 – Aug 03, 2025" [ref=e1403]
+                    - cell "$1,000,000" [ref=e1404]
+                    - cell "Germany Cologne" [ref=e1405]:
+                      - generic [ref=e1407]:
+                        - img "Germany" [ref=e1409]
+                        - text: Cologne
+                    - cell "24" [ref=e1410]
+                    - cell "Team Spirit Team Spirit" [ref=e1411]:
+                      - generic [ref=e1413]:
+                        - link "Team Spirit" [ref=e1415] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Spirit
+                        - link "Team Spirit" [ref=e1417] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Spirit
+                    - cell "MOUZ MOUZ" [ref=e1418]:
+                      - generic [ref=e1420]:
+                        - link "MOUZ" [ref=e1422] [cursor=pointer]:
+                          - /url: /counterstrike/MOUZ
+                        - link "MOUZ" [ref=e1424] [cursor=pointer]:
+                          - /url: /counterstrike/MOUZ
+                  - row "Counter-Strike 2 BLAST.tv Austin Major 2025 BLAST.tv Austin Major 2025 Jun 03–22, 2025 $1,250,000 United States Austin 32 Team Vitality Team Vitality The MongolZ The MongolZ" [ref=e1425]:
+                    - cell "Counter-Strike 2" [ref=e1426]:
+                      - link "Counter-Strike 2" [ref=e1428] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e1429]
+                    - cell "BLAST.tv Austin Major 2025" [ref=e1430]:
+                      - link "BLAST.tv Austin Major 2025" [ref=e1432] [cursor=pointer]:
+                        - /url: /counterstrike/BLAST.tv_Austin_Major_2025
+                        - img "BLAST.tv Austin Major 2025" [ref=e1433]
+                    - cell "BLAST.tv Austin Major 2025" [ref=e1434]:
+                      - link "BLAST.tv Austin Major 2025" [ref=e1435] [cursor=pointer]:
+                        - /url: /counterstrike/BLAST/Major/2025/Austin
+                    - cell "Jun 03–22, 2025" [ref=e1436]
+                    - cell "$1,250,000" [ref=e1437]
+                    - cell "United States Austin" [ref=e1438]:
+                      - generic [ref=e1440]:
+                        - img "United States" [ref=e1442]
+                        - text: Austin
+                    - cell "32" [ref=e1443]
+                    - cell "Team Vitality Team Vitality" [ref=e1444]:
+                      - generic [ref=e1446]:
+                        - link "Team Vitality" [ref=e1448] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Vitality
+                        - link "Team Vitality" [ref=e1450] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Vitality
+                    - cell "The MongolZ The MongolZ" [ref=e1451]:
+                      - generic [ref=e1453]:
+                        - link "The MongolZ" [ref=e1455] [cursor=pointer]:
+                          - /url: /counterstrike/The_MongolZ
+                        - link "The MongolZ" [ref=e1457] [cursor=pointer]:
+                          - /url: /counterstrike/The_MongolZ
+                  - row "Counter-Strike 2 Intel Extreme Masters Dallas 2025 Intel Extreme Masters Dallas 2025 May 19–25, 2025 $300,000 United States Dallas 16 Team Vitality Team Vitality MOUZ MOUZ" [ref=e1458]:
+                    - cell "Counter-Strike 2" [ref=e1459]:
+                      - link "Counter-Strike 2" [ref=e1461] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e1462]
+                    - cell "Intel Extreme Masters Dallas 2025" [ref=e1463]:
+                      - link "Intel Extreme Masters Dallas 2025" [ref=e1465] [cursor=pointer]:
+                        - /url: /counterstrike/Intel_Extreme_Masters_Dallas_2025
+                        - img "Intel Extreme Masters Dallas 2025" [ref=e1466]
+                    - cell "Intel Extreme Masters Dallas 2025" [ref=e1467]:
+                      - link "Intel Extreme Masters Dallas 2025" [ref=e1468] [cursor=pointer]:
+                        - /url: /counterstrike/Intel_Extreme_Masters/2025/Dallas
+                    - cell "May 19–25, 2025" [ref=e1469]
+                    - cell "$300,000" [ref=e1470]
+                    - cell "United States Dallas" [ref=e1471]:
+                      - generic [ref=e1473]:
+                        - img "United States" [ref=e1475]
+                        - text: Dallas
+                    - cell "16" [ref=e1476]
+                    - cell "Team Vitality Team Vitality" [ref=e1477]:
+                      - generic [ref=e1479]:
+                        - link "Team Vitality" [ref=e1481] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Vitality
+                        - link "Team Vitality" [ref=e1483] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Vitality
+                    - cell "MOUZ MOUZ" [ref=e1484]:
+                      - generic [ref=e1486]:
+                        - link "MOUZ" [ref=e1488] [cursor=pointer]:
+                          - /url: /counterstrike/MOUZ
+                        - link "MOUZ" [ref=e1490] [cursor=pointer]:
+                          - /url: /counterstrike/MOUZ
+                  - row "Counter-Strike 2 PGL Astana 2025 PGL Astana 2025 May 10–18, 2025 $625,000 Kazakhstan Astana 16 Team Spirit Team Spirit Astralis Astralis" [ref=e1491]:
+                    - cell "Counter-Strike 2" [ref=e1492]:
+                      - link "Counter-Strike 2" [ref=e1494] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e1495]
+                    - cell "PGL Astana 2025" [ref=e1496]:
+                      - link "PGL Astana 2025" [ref=e1498] [cursor=pointer]:
+                        - /url: /counterstrike/PGL_Astana_2025
+                        - img "PGL Astana 2025" [ref=e1499]
+                    - cell "PGL Astana 2025" [ref=e1500]:
+                      - link "PGL Astana 2025" [ref=e1501] [cursor=pointer]:
+                        - /url: /counterstrike/PGL/2025/Astana
+                    - cell "May 10–18, 2025" [ref=e1502]
+                    - cell "$625,000" [ref=e1503]
+                    - cell "Kazakhstan Astana" [ref=e1504]:
+                      - generic [ref=e1506]:
+                        - img "Kazakhstan" [ref=e1508]
+                        - text: Astana
+                    - cell "16" [ref=e1509]
+                    - cell "Team Spirit Team Spirit" [ref=e1510]:
+                      - generic [ref=e1512]:
+                        - link "Team Spirit" [ref=e1514] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Spirit
+                        - link "Team Spirit" [ref=e1516] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Spirit
+                    - cell "Astralis Astralis" [ref=e1517]:
+                      - generic [ref=e1519]:
+                        - link "Astralis" [ref=e1521] [cursor=pointer]:
+                          - /url: /counterstrike/Astralis
+                        - link "Astralis" [ref=e1523] [cursor=pointer]:
+                          - /url: /counterstrike/Astralis
+                  - row "Counter-Strike 2 BLAST Rivals Spring 2025 BLAST Rivals Spring 2025 Apr 30 – May 04, 2025 $350,000 Denmark Copenhagen 8 Team Vitality Team Vitality Team Falcons Team Falcons" [ref=e1524]:
+                    - cell "Counter-Strike 2" [ref=e1525]:
+                      - link "Counter-Strike 2" [ref=e1527] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e1528]
+                    - cell "BLAST Rivals Spring 2025" [ref=e1529]:
+                      - link "BLAST Rivals Spring 2025" [ref=e1531] [cursor=pointer]:
+                        - /url: /counterstrike/BLAST_Rivals_Spring_2025
+                        - img "BLAST Rivals Spring 2025" [ref=e1532]
+                    - cell "BLAST Rivals Spring 2025" [ref=e1533]:
+                      - link "BLAST Rivals Spring 2025" [ref=e1534] [cursor=pointer]:
+                        - /url: /counterstrike/BLAST/Rivals/2025/Spring
+                    - cell "Apr 30 – May 04, 2025" [ref=e1535]
+                    - cell "$350,000" [ref=e1536]
+                    - cell "Denmark Copenhagen" [ref=e1537]:
+                      - generic [ref=e1539]:
+                        - img "Denmark" [ref=e1541]
+                        - text: Copenhagen
+                    - cell "8" [ref=e1542]
+                    - cell "Team Vitality Team Vitality" [ref=e1543]:
+                      - generic [ref=e1545]:
+                        - link "Team Vitality" [ref=e1547] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Vitality
+                        - link "Team Vitality" [ref=e1549] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Vitality
+                    - cell "Team Falcons Team Falcons" [ref=e1550]:
+                      - generic [ref=e1552]:
+                        - link "Team Falcons" [ref=e1554] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Falcons
+                        - link "Team Falcons" [ref=e1556] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Falcons
+                  - row "Counter-Strike 2 Intel Extreme Masters Melbourne 2025 Intel Extreme Masters Melbourne 2025 Apr 21–27, 2025 $300,000 Australia Melbourne 16 Team Vitality Team Vitality Team Falcons Team Falcons" [ref=e1557]:
+                    - cell "Counter-Strike 2" [ref=e1558]:
+                      - link "Counter-Strike 2" [ref=e1560] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e1561]
+                    - cell "Intel Extreme Masters Melbourne 2025" [ref=e1562]:
+                      - link "Intel Extreme Masters Melbourne 2025" [ref=e1564] [cursor=pointer]:
+                        - /url: /counterstrike/Intel_Extreme_Masters_Melbourne_2025
+                        - img "Intel Extreme Masters Melbourne 2025" [ref=e1565]
+                    - cell "Intel Extreme Masters Melbourne 2025" [ref=e1566]:
+                      - link "Intel Extreme Masters Melbourne 2025" [ref=e1567] [cursor=pointer]:
+                        - /url: /counterstrike/Intel_Extreme_Masters/2025/Melbourne
+                    - cell "Apr 21–27, 2025" [ref=e1568]
+                    - cell "$300,000" [ref=e1569]
+                    - cell "Australia Melbourne" [ref=e1570]:
+                      - generic [ref=e1572]:
+                        - img "Australia" [ref=e1574]
+                        - text: Melbourne
+                    - cell "16" [ref=e1575]
+                    - cell "Team Vitality Team Vitality" [ref=e1576]:
+                      - generic [ref=e1578]:
+                        - link "Team Vitality" [ref=e1580] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Vitality
+                        - link "Team Vitality" [ref=e1582] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Vitality
+                    - cell "Team Falcons Team Falcons" [ref=e1583]:
+                      - generic [ref=e1585]:
+                        - link "Team Falcons" [ref=e1587] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Falcons
+                        - link "Team Falcons" [ref=e1589] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Falcons
+                  - row "Counter-Strike 2 PGL Bucharest 2025 PGL Bucharest 2025 Apr 06–13, 2025 $625,000 Romania Bucharest 16 Team Falcons Team Falcons G2 Esports G2 Esports" [ref=e1590]:
+                    - cell "Counter-Strike 2" [ref=e1591]:
+                      - link "Counter-Strike 2" [ref=e1593] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e1594]
+                    - cell "PGL Bucharest 2025" [ref=e1595]:
+                      - link "PGL Bucharest 2025" [ref=e1597] [cursor=pointer]:
+                        - /url: /counterstrike/PGL_Bucharest_2025
+                        - img "PGL Bucharest 2025" [ref=e1598]
+                    - cell "PGL Bucharest 2025" [ref=e1599]:
+                      - link "PGL Bucharest 2025" [ref=e1600] [cursor=pointer]:
+                        - /url: /counterstrike/PGL/2025/Bucharest
+                    - cell "Apr 06–13, 2025" [ref=e1601]
+                    - cell "$625,000" [ref=e1602]
+                    - cell "Romania Bucharest" [ref=e1603]:
+                      - generic [ref=e1605]:
+                        - img "Romania" [ref=e1607]
+                        - text: Bucharest
+                    - cell "16" [ref=e1608]
+                    - cell "Team Falcons Team Falcons" [ref=e1609]:
+                      - generic [ref=e1611]:
+                        - link "Team Falcons" [ref=e1613] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Falcons
+                        - link "Team Falcons" [ref=e1615] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Falcons
+                    - cell "G2 Esports G2 Esports" [ref=e1616]:
+                      - generic [ref=e1618]:
+                        - link "G2 Esports" [ref=e1620] [cursor=pointer]:
+                          - /url: /counterstrike/G2_Esports
+                        - link "G2 Esports" [ref=e1622] [cursor=pointer]:
+                          - /url: /counterstrike/G2_Esports
+                  - row "Counter-Strike 2 BLAST Open Spring 2025 BLAST Open Spring 2025 Mar 19–30, 2025 $400,000 Portugal Lisbon Denmark Copenhagen 16 Team Vitality Team Vitality MOUZ MOUZ" [ref=e1623]:
+                    - cell "Counter-Strike 2" [ref=e1624]:
+                      - link "Counter-Strike 2" [ref=e1626] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e1627]
+                    - cell "BLAST Open Spring 2025" [ref=e1628]:
+                      - link "BLAST Open Spring 2025" [ref=e1630] [cursor=pointer]:
+                        - /url: /counterstrike/BLAST_Open_Spring_2025
+                        - img "BLAST Open Spring 2025" [ref=e1631]
+                    - cell "BLAST Open Spring 2025" [ref=e1632]:
+                      - link "BLAST Open Spring 2025" [ref=e1633] [cursor=pointer]:
+                        - /url: /counterstrike/BLAST/Open/2025/Spring
+                    - cell "Mar 19–30, 2025" [ref=e1634]
+                    - cell "$400,000" [ref=e1635]
+                    - cell "Portugal Lisbon Denmark Copenhagen" [ref=e1636]:
+                      - generic [ref=e1637]:
+                        - generic [ref=e1638]:
+                          - img "Portugal" [ref=e1640]
+                          - text: Lisbon
+                        - generic [ref=e1641]:
+                          - img "Denmark" [ref=e1643]
+                          - text: Copenhagen
+                    - cell "16" [ref=e1644]
+                    - cell "Team Vitality Team Vitality" [ref=e1645]:
+                      - generic [ref=e1647]:
+                        - link "Team Vitality" [ref=e1649] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Vitality
+                        - link "Team Vitality" [ref=e1651] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Vitality
+                    - cell "MOUZ MOUZ" [ref=e1652]:
+                      - generic [ref=e1654]:
+                        - link "MOUZ" [ref=e1656] [cursor=pointer]:
+                          - /url: /counterstrike/MOUZ
+                        - link "MOUZ" [ref=e1658] [cursor=pointer]:
+                          - /url: /counterstrike/MOUZ
+                  - row "Counter-Strike 2 ESL Pro League Season 21 ESL Pro League Season 21 Mar 01–16, 2025 $400,000 Sweden Stockholm 24 Team Vitality Team Vitality MOUZ MOUZ" [ref=e1659]:
+                    - cell "Counter-Strike 2" [ref=e1660]:
+                      - link "Counter-Strike 2" [ref=e1662] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e1663]
+                    - cell "ESL Pro League Season 21" [ref=e1664]:
+                      - link "ESL Pro League Season 21" [ref=e1666] [cursor=pointer]:
+                        - /url: /counterstrike/ESL_Pro_League_Season_21
+                        - img "ESL Pro League Season 21" [ref=e1667]
+                    - cell "ESL Pro League Season 21" [ref=e1668]:
+                      - link "ESL Pro League Season 21" [ref=e1669] [cursor=pointer]:
+                        - /url: /counterstrike/ESL/Pro_League/Season_21
+                    - cell "Mar 01–16, 2025" [ref=e1670]
+                    - cell "$400,000" [ref=e1671]
+                    - cell "Sweden Stockholm" [ref=e1672]:
+                      - generic [ref=e1674]:
+                        - img "Sweden" [ref=e1676]
+                        - text: Stockholm
+                    - cell "24" [ref=e1677]
+                    - cell "Team Vitality Team Vitality" [ref=e1678]:
+                      - generic [ref=e1680]:
+                        - link "Team Vitality" [ref=e1682] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Vitality
+                        - link "Team Vitality" [ref=e1684] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Vitality
+                    - cell "MOUZ MOUZ" [ref=e1685]:
+                      - generic [ref=e1687]:
+                        - link "MOUZ" [ref=e1689] [cursor=pointer]:
+                          - /url: /counterstrike/MOUZ
+                        - link "MOUZ" [ref=e1691] [cursor=pointer]:
+                          - /url: /counterstrike/MOUZ
+                  - row "Counter-Strike 2 PGL Cluj-Napoca 2025 PGL Cluj-Napoca 2025 Feb 14–23, 2025 $1,250,000 Romania Bucharest Romania Cluj-Napoca 16 MOUZ MOUZ Team Falcons Team Falcons" [ref=e1692]:
+                    - cell "Counter-Strike 2" [ref=e1693]:
+                      - link "Counter-Strike 2" [ref=e1695] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e1696]
+                    - cell "PGL Cluj-Napoca 2025" [ref=e1697]:
+                      - link "PGL Cluj-Napoca 2025" [ref=e1699] [cursor=pointer]:
+                        - /url: /counterstrike/PGL_Cluj-Napoca_2025
+                        - img "PGL Cluj-Napoca 2025" [ref=e1700]
+                    - cell "PGL Cluj-Napoca 2025" [ref=e1701]:
+                      - link "PGL Cluj-Napoca 2025" [ref=e1702] [cursor=pointer]:
+                        - /url: /counterstrike/PGL/2025/Cluj-Napoca
+                    - cell "Feb 14–23, 2025" [ref=e1703]
+                    - cell "$1,250,000" [ref=e1704]
+                    - cell "Romania Bucharest Romania Cluj-Napoca" [ref=e1705]:
+                      - generic [ref=e1706]:
+                        - generic [ref=e1707]:
+                          - img "Romania" [ref=e1709]
+                          - text: Bucharest
+                        - generic [ref=e1710]:
+                          - img "Romania" [ref=e1712]
+                          - text: Cluj-Napoca
+                    - cell "16" [ref=e1713]
+                    - cell "MOUZ MOUZ" [ref=e1714]:
+                      - generic [ref=e1716]:
+                        - link "MOUZ" [ref=e1718] [cursor=pointer]:
+                          - /url: /counterstrike/MOUZ
+                        - link "MOUZ" [ref=e1720] [cursor=pointer]:
+                          - /url: /counterstrike/MOUZ
+                    - cell "Team Falcons Team Falcons" [ref=e1721]:
+                      - generic [ref=e1723]:
+                        - link "Team Falcons" [ref=e1725] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Falcons
+                        - link "Team Falcons" [ref=e1727] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Falcons
+                  - row "Counter-Strike 2 Intel Extreme Masters Katowice 2025 Intel Extreme Masters Katowice 2025 Jan 29 – Feb 09, 2025 $1,000,000 Poland Katowice 24 Team Vitality Team Vitality Team Spirit Team Spirit" [ref=e1728]:
+                    - cell "Counter-Strike 2" [ref=e1729]:
+                      - link "Counter-Strike 2" [ref=e1731] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e1732]
+                    - cell "Intel Extreme Masters Katowice 2025" [ref=e1733]:
+                      - link "Intel Extreme Masters Katowice 2025" [ref=e1735] [cursor=pointer]:
+                        - /url: /counterstrike/Intel_Extreme_Masters_Katowice_2025
+                        - img "Intel Extreme Masters Katowice 2025" [ref=e1736]
+                    - cell "Intel Extreme Masters Katowice 2025" [ref=e1737]:
+                      - link "Intel Extreme Masters Katowice 2025" [ref=e1738] [cursor=pointer]:
+                        - /url: /counterstrike/Intel_Extreme_Masters/2025/Katowice
+                    - cell "Jan 29 – Feb 09, 2025" [ref=e1739]
+                    - cell "$1,000,000" [ref=e1740]
+                    - cell "Poland Katowice" [ref=e1741]:
+                      - generic [ref=e1743]:
+                        - img "Poland" [ref=e1745]
+                        - text: Katowice
+                    - cell "24" [ref=e1746]
+                    - cell "Team Vitality Team Vitality" [ref=e1747]:
+                      - generic [ref=e1749]:
+                        - link "Team Vitality" [ref=e1751] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Vitality
+                        - link "Team Vitality" [ref=e1753] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Vitality
+                    - cell "Team Spirit Team Spirit" [ref=e1754]:
+                      - generic [ref=e1756]:
+                        - link "Team Spirit" [ref=e1758] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Spirit
+                        - link "Team Spirit" [ref=e1760] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Spirit
+                  - row "Counter-Strike 2 BLAST Bounty Spring 2025 BLAST Bounty Spring 2025 Jan 23–26, 2025 $482,500 Denmark Copenhagen 8 Team Spirit Team Spirit Eternal Fire Eternal Fire" [ref=e1761]:
+                    - cell "Counter-Strike 2" [ref=e1762]:
+                      - link "Counter-Strike 2" [ref=e1764] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e1765]
+                    - cell "BLAST Bounty Spring 2025" [ref=e1766]:
+                      - link "BLAST Bounty Spring 2025" [ref=e1768] [cursor=pointer]:
+                        - /url: /counterstrike/BLAST_Bounty_Spring_2025
+                        - img "BLAST Bounty Spring 2025" [ref=e1769]
+                    - cell "BLAST Bounty Spring 2025" [ref=e1770]:
+                      - link "BLAST Bounty Spring 2025" [ref=e1771] [cursor=pointer]:
+                        - /url: /counterstrike/BLAST/Bounty/2025/Spring
+                    - cell "Jan 23–26, 2025" [ref=e1772]
+                    - cell "$482,500" [ref=e1773]
+                    - cell "Denmark Copenhagen" [ref=e1774]:
+                      - generic [ref=e1776]:
+                        - img "Denmark" [ref=e1778]
+                        - text: Copenhagen
+                    - cell "8" [ref=e1779]
+                    - cell "Team Spirit Team Spirit" [ref=e1780]:
+                      - generic [ref=e1782]:
+                        - link "Team Spirit" [ref=e1784] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Spirit
+                        - link "Team Spirit" [ref=e1786] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Spirit
+                    - cell "Eternal Fire Eternal Fire" [ref=e1787]:
+                      - generic [ref=e1789]:
+                        - link "Eternal Fire" [ref=e1791] [cursor=pointer]:
+                          - /url: /counterstrike/Eternal_Fire
+                        - link "Eternal Fire" [ref=e1793] [cursor=pointer]:
+                          - /url: /counterstrike/Eternal_Fire
+              - generic [ref=e1794]:
+                - heading "2024" [level=3] [ref=e1795]
+                - generic [ref=e1796]:
+                  - text: "["
+                  - link "edit" [ref=e1797] [cursor=pointer]:
+                    - /url: /counterstrike/index.php?title=S-Tier_Tournaments/Post_2023&action=edit&section=T-5
+                  - text: "]"
+              - table [ref=e1800]:
+                - rowgroup [ref=e1801]:
+                  - row "G Tournament Date Prize Pool Location P# Winner Runner-up" [ref=e1802]:
+                    - columnheader "G" [ref=e1803]
+                    - columnheader "Tournament" [ref=e1804]
+                    - columnheader "Date" [ref=e1805]
+                    - columnheader "Prize Pool" [ref=e1806]
+                    - columnheader "Location" [ref=e1807]
+                    - columnheader "P#" [ref=e1808]
+                    - columnheader "Winner" [ref=e1809]
+                    - columnheader "Runner-up" [ref=e1810]
+                  - row "Counter-Strike 2 Perfect World Shanghai Major 2024 Perfect World Shanghai Major 2024 Nov 30 – Dec 15, 2024 $1,250,000 China Shanghai 24 Team Spirit Team Spirit FaZe Clan FaZe Clan" [ref=e1811]:
+                    - cell "Counter-Strike 2" [ref=e1812]:
+                      - link "Counter-Strike 2" [ref=e1814] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e1815]
+                    - cell "Perfect World Shanghai Major 2024" [ref=e1816]:
+                      - link "Perfect World Shanghai Major 2024" [ref=e1818] [cursor=pointer]:
+                        - /url: /counterstrike/Perfect_World_Shanghai_Major_2024
+                        - img "Perfect World Shanghai Major 2024" [ref=e1819]
+                    - cell "Perfect World Shanghai Major 2024" [ref=e1820]:
+                      - link "Perfect World Shanghai Major 2024" [ref=e1821] [cursor=pointer]:
+                        - /url: /counterstrike/Perfect_World/Major/2024/Shanghai
+                    - cell "Nov 30 – Dec 15, 2024" [ref=e1822]
+                    - cell "$1,250,000" [ref=e1823]
+                    - cell "China Shanghai" [ref=e1824]:
+                      - generic [ref=e1826]:
+                        - img "China" [ref=e1828]
+                        - text: Shanghai
+                    - cell "24" [ref=e1829]
+                    - cell "Team Spirit Team Spirit" [ref=e1830]:
+                      - generic [ref=e1832]:
+                        - link "Team Spirit" [ref=e1834] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Spirit
+                        - link "Team Spirit" [ref=e1836] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Spirit
+                    - cell "FaZe Clan FaZe Clan" [ref=e1837]:
+                      - generic [ref=e1839]:
+                        - link "FaZe Clan" [ref=e1841] [cursor=pointer]:
+                          - /url: /counterstrike/FaZe_Clan
+                        - link "FaZe Clan" [ref=e1843] [cursor=pointer]:
+                          - /url: /counterstrike/FaZe_Clan
+                  - 'row "Counter-Strike 2 BLAST Premier: World Final 2024 BLAST Premier: World Final 2024 Oct 30 – Nov 03, 2024 $1,000,000 Singapore Sentosa 8 G2 Esports G2 Esports Team Spirit Team Spirit" [ref=e1844]':
+                    - cell "Counter-Strike 2" [ref=e1845]:
+                      - link "Counter-Strike 2" [ref=e1847] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e1848]
+                    - 'cell "BLAST Premier: World Final 2024" [ref=e1849]':
+                      - 'link "BLAST Premier: World Final 2024" [ref=e1851] [cursor=pointer]':
+                        - /url: /counterstrike/BLAST_Premier:_World_Final_2024
+                        - 'img "BLAST Premier: World Final 2024" [ref=e1852]'
+                    - 'cell "BLAST Premier: World Final 2024" [ref=e1853]':
+                      - 'link "BLAST Premier: World Final 2024" [ref=e1854] [cursor=pointer]':
+                        - /url: /counterstrike/BLAST/Premier/2024/World_Final
+                    - cell "Oct 30 – Nov 03, 2024" [ref=e1855]
+                    - cell "$1,000,000" [ref=e1856]
+                    - cell "Singapore Sentosa" [ref=e1857]:
+                      - generic [ref=e1859]:
+                        - img "Singapore" [ref=e1861]
+                        - text: Sentosa
+                    - cell "8" [ref=e1862]
+                    - cell "G2 Esports G2 Esports" [ref=e1863]:
+                      - generic [ref=e1865]:
+                        - link "G2 Esports" [ref=e1867] [cursor=pointer]:
+                          - /url: /counterstrike/G2_Esports
+                        - link "G2 Esports" [ref=e1869] [cursor=pointer]:
+                          - /url: /counterstrike/G2_Esports
+                    - cell "Team Spirit Team Spirit" [ref=e1870]:
+                      - generic [ref=e1872]:
+                        - link "Team Spirit" [ref=e1874] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Spirit
+                        - link "Team Spirit" [ref=e1876] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Spirit
+                  - row "Counter-Strike 2 Intel Extreme Masters Rio 2024 Intel Extreme Masters Rio 2024 Oct 07–13, 2024 $250,000 Brazil Rio de Janeiro 16 Natus Vincere Natus Vincere MOUZ MOUZ" [ref=e1877]:
+                    - cell "Counter-Strike 2" [ref=e1878]:
+                      - link "Counter-Strike 2" [ref=e1880] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e1881]
+                    - cell "Intel Extreme Masters Rio 2024" [ref=e1882]:
+                      - link "Intel Extreme Masters Rio 2024" [ref=e1884] [cursor=pointer]:
+                        - /url: /counterstrike/Intel_Extreme_Masters_Rio_2024
+                        - img "Intel Extreme Masters Rio 2024" [ref=e1885]
+                    - cell "Intel Extreme Masters Rio 2024" [ref=e1886]:
+                      - link "Intel Extreme Masters Rio 2024" [ref=e1887] [cursor=pointer]:
+                        - /url: /counterstrike/Intel_Extreme_Masters/2024/Rio
+                    - cell "Oct 07–13, 2024" [ref=e1888]
+                    - cell "$250,000" [ref=e1889]
+                    - cell "Brazil Rio de Janeiro" [ref=e1890]:
+                      - generic [ref=e1892]:
+                        - img "Brazil" [ref=e1894]
+                        - text: Rio de Janeiro
+                    - cell "16" [ref=e1895]
+                    - cell "Natus Vincere Natus Vincere" [ref=e1896]:
+                      - generic [ref=e1898]:
+                        - link "Natus Vincere" [ref=e1900] [cursor=pointer]:
+                          - /url: /counterstrike/Natus_Vincere
+                        - link "Natus Vincere" [ref=e1902] [cursor=pointer]:
+                          - /url: /counterstrike/Natus_Vincere
+                    - cell "MOUZ MOUZ" [ref=e1903]:
+                      - generic [ref=e1905]:
+                        - link "MOUZ" [ref=e1907] [cursor=pointer]:
+                          - /url: /counterstrike/MOUZ
+                        - link "MOUZ" [ref=e1909] [cursor=pointer]:
+                          - /url: /counterstrike/MOUZ
+                  - 'row "Counter-Strike 2 BLAST Premier: Fall Final 2024 BLAST Premier: Fall Final 2024 Sep 25–29, 2024 $425,000 Denmark Copenhagen 8 G2 Esports G2 Esports Natus Vincere Natus Vincere" [ref=e1910]':
+                    - cell "Counter-Strike 2" [ref=e1911]:
+                      - link "Counter-Strike 2" [ref=e1913] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e1914]
+                    - 'cell "BLAST Premier: Fall Final 2024" [ref=e1915]':
+                      - 'link "BLAST Premier: Fall Final 2024" [ref=e1917] [cursor=pointer]':
+                        - /url: /counterstrike/BLAST_Premier:_Fall_Final_2024
+                        - 'img "BLAST Premier: Fall Final 2024" [ref=e1918]'
+                    - 'cell "BLAST Premier: Fall Final 2024" [ref=e1919]':
+                      - 'link "BLAST Premier: Fall Final 2024" [ref=e1920] [cursor=pointer]':
+                        - /url: /counterstrike/BLAST/Premier/2024/Fall
+                    - cell "Sep 25–29, 2024" [ref=e1921]
+                    - cell "$425,000" [ref=e1922]
+                    - cell "Denmark Copenhagen" [ref=e1923]:
+                      - generic [ref=e1925]:
+                        - img "Denmark" [ref=e1927]
+                        - text: Copenhagen
+                    - cell "8" [ref=e1928]
+                    - cell "G2 Esports G2 Esports" [ref=e1929]:
+                      - generic [ref=e1931]:
+                        - link "G2 Esports" [ref=e1933] [cursor=pointer]:
+                          - /url: /counterstrike/G2_Esports
+                        - link "G2 Esports" [ref=e1935] [cursor=pointer]:
+                          - /url: /counterstrike/G2_Esports
+                    - cell "Natus Vincere Natus Vincere" [ref=e1936]:
+                      - generic [ref=e1938]:
+                        - link "Natus Vincere" [ref=e1940] [cursor=pointer]:
+                          - /url: /counterstrike/Natus_Vincere
+                        - link "Natus Vincere" [ref=e1942] [cursor=pointer]:
+                          - /url: /counterstrike/Natus_Vincere
+                  - row "Counter-Strike 2 ESL Pro League Season 20 ESL Pro League Season 20 Sep 03–22, 2024 $750,000 Malta Saint Julian's 32 Natus Vincere Natus Vincere Eternal Fire Eternal Fire" [ref=e1943]:
+                    - cell "Counter-Strike 2" [ref=e1944]:
+                      - link "Counter-Strike 2" [ref=e1946] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e1947]
+                    - cell "ESL Pro League Season 20" [ref=e1948]:
+                      - link "ESL Pro League Season 20" [ref=e1950] [cursor=pointer]:
+                        - /url: /counterstrike/ESL_Pro_League_Season_20
+                        - img "ESL Pro League Season 20" [ref=e1951]
+                    - cell "ESL Pro League Season 20" [ref=e1952]:
+                      - link "ESL Pro League Season 20" [ref=e1953] [cursor=pointer]:
+                        - /url: /counterstrike/ESL/Pro_League/Season_20
+                    - cell "Sep 03–22, 2024" [ref=e1954]
+                    - cell "$750,000" [ref=e1955]
+                    - cell "Malta Saint Julian's" [ref=e1956]:
+                      - generic [ref=e1958]:
+                        - img "Malta" [ref=e1960]
+                        - text: Saint Julian's
+                    - cell "32" [ref=e1961]
+                    - cell "Natus Vincere Natus Vincere" [ref=e1962]:
+                      - generic [ref=e1964]:
+                        - link "Natus Vincere" [ref=e1966] [cursor=pointer]:
+                          - /url: /counterstrike/Natus_Vincere
+                        - link "Natus Vincere" [ref=e1968] [cursor=pointer]:
+                          - /url: /counterstrike/Natus_Vincere
+                    - cell "Eternal Fire Eternal Fire" [ref=e1969]:
+                      - generic [ref=e1971]:
+                        - link "Eternal Fire" [ref=e1973] [cursor=pointer]:
+                          - /url: /counterstrike/Eternal_Fire
+                        - link "Eternal Fire" [ref=e1975] [cursor=pointer]:
+                          - /url: /counterstrike/Eternal_Fire
+                  - 'row "Counter-Strike 2 BetBoom Dacha Belgrade 2024 #2 BetBoom Dacha Belgrade 2024 #2 Aug 24 – Sep 01, 2024 $505,000 Serbia Belgrade 12 Team Spirit Team Spirit Eternal Fire Eternal Fire" [ref=e1976]':
+                    - cell "Counter-Strike 2" [ref=e1977]:
+                      - link "Counter-Strike 2" [ref=e1979] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e1980]
+                    - 'cell "BetBoom Dacha Belgrade 2024 #2" [ref=e1981]':
+                      - 'link "BetBoom Dacha Belgrade 2024 #2" [ref=e1983] [cursor=pointer]':
+                        - /url: /counterstrike/BetBoom_Dacha_Belgrade_2024#2
+                        - 'img "BetBoom Dacha Belgrade 2024 #2" [ref=e1984]'
+                    - 'cell "BetBoom Dacha Belgrade 2024 #2" [ref=e1985]':
+                      - 'link "BetBoom Dacha Belgrade 2024 #2" [ref=e1986] [cursor=pointer]':
+                        - /url: /counterstrike/BetBoom_Dacha/2024/Belgrade/2
+                    - cell "Aug 24 – Sep 01, 2024" [ref=e1987]
+                    - cell "$505,000" [ref=e1988]
+                    - cell "Serbia Belgrade" [ref=e1989]:
+                      - generic [ref=e1991]:
+                        - img "Serbia" [ref=e1993]
+                        - text: Belgrade
+                    - cell "12" [ref=e1994]
+                    - cell "Team Spirit Team Spirit" [ref=e1995]:
+                      - generic [ref=e1997]:
+                        - link "Team Spirit" [ref=e1999] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Spirit
+                        - link "Team Spirit" [ref=e2001] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Spirit
+                    - cell "Eternal Fire Eternal Fire" [ref=e2002]:
+                      - generic [ref=e2004]:
+                        - link "Eternal Fire" [ref=e2006] [cursor=pointer]:
+                          - /url: /counterstrike/Eternal_Fire
+                        - link "Eternal Fire" [ref=e2008] [cursor=pointer]:
+                          - /url: /counterstrike/Eternal_Fire
+                  - row "Counter-Strike 2 Intel Extreme Masters Cologne 2024 Intel Extreme Masters Cologne 2024 Aug 07–18, 2024 $1,000,000 Germany Cologne 24 Team Vitality Team Vitality Natus Vincere Natus Vincere" [ref=e2009]:
+                    - cell "Counter-Strike 2" [ref=e2010]:
+                      - link "Counter-Strike 2" [ref=e2012] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e2013]
+                    - cell "Intel Extreme Masters Cologne 2024" [ref=e2014]:
+                      - link "Intel Extreme Masters Cologne 2024" [ref=e2016] [cursor=pointer]:
+                        - /url: /counterstrike/Intel_Extreme_Masters_Cologne_2024
+                        - img "Intel Extreme Masters Cologne 2024" [ref=e2017]
+                    - cell "Intel Extreme Masters Cologne 2024" [ref=e2018]:
+                      - link "Intel Extreme Masters Cologne 2024" [ref=e2019] [cursor=pointer]:
+                        - /url: /counterstrike/Intel_Extreme_Masters/2024/Cologne
+                    - cell "Aug 07–18, 2024" [ref=e2020]
+                    - cell "$1,000,000" [ref=e2021]
+                    - cell "Germany Cologne" [ref=e2022]:
+                      - generic [ref=e2024]:
+                        - img "Germany" [ref=e2026]
+                        - text: Cologne
+                    - cell "24" [ref=e2027]
+                    - cell "Team Vitality Team Vitality" [ref=e2028]:
+                      - generic [ref=e2030]:
+                        - link "Team Vitality" [ref=e2032] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Vitality
+                        - link "Team Vitality" [ref=e2034] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Vitality
+                    - cell "Natus Vincere Natus Vincere" [ref=e2035]:
+                      - generic [ref=e2037]:
+                        - link "Natus Vincere" [ref=e2039] [cursor=pointer]:
+                          - /url: /counterstrike/Natus_Vincere
+                        - link "Natus Vincere" [ref=e2041] [cursor=pointer]:
+                          - /url: /counterstrike/Natus_Vincere
+                  - 'row "Counter-Strike 2 BLAST Premier: Fall Groups 2024 BLAST Premier: Fall Groups 2024 Jul 29 – Aug 04, 2024 $190,000 Denmark Copenhagen 16  TBD  TBD" [ref=e2042]':
+                    - cell "Counter-Strike 2" [ref=e2043]:
+                      - link "Counter-Strike 2" [ref=e2045] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e2046]
+                    - 'cell "BLAST Premier: Fall Groups 2024" [ref=e2047]':
+                      - 'link "BLAST Premier: Fall Groups 2024" [ref=e2049] [cursor=pointer]':
+                        - /url: /counterstrike/BLAST_Premier:_Fall_Groups_2024
+                        - 'img "BLAST Premier: Fall Groups 2024" [ref=e2050]'
+                    - 'cell "BLAST Premier: Fall Groups 2024" [ref=e2051]':
+                      - 'link "BLAST Premier: Fall Groups 2024" [ref=e2052] [cursor=pointer]':
+                        - /url: /counterstrike/BLAST/Premier/2024/Fall/Groups
+                    - cell "Jul 29 – Aug 04, 2024" [ref=e2053]
+                    - cell "$190,000" [ref=e2054]
+                    - cell "Denmark Copenhagen" [ref=e2055]:
+                      - generic [ref=e2057]:
+                        - img "Denmark" [ref=e2059]
+                        - text: Copenhagen
+                    - cell "16" [ref=e2060]
+                    - cell " TBD" [ref=e2061]:
+                      - generic [ref=e2063]:
+                        - generic [ref=e2065]: 
+                        - generic [ref=e2066]: TBD
+                    - cell " TBD" [ref=e2067]:
+                      - generic [ref=e2069]:
+                        - generic [ref=e2071]: 
+                        - generic [ref=e2072]: TBD
+                  - row "Counter-Strike 2 Esports World Cup 2024 Esports World Cup 2024 Jul 17–21, 2024 $1,050,000 Saudi Arabia Riyadh 15 Natus Vincere Natus Vincere G2 Esports G2 Esports" [ref=e2073]:
+                    - cell "Counter-Strike 2" [ref=e2074]:
+                      - link "Counter-Strike 2" [ref=e2076] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e2077]
+                    - cell "Esports World Cup 2024" [ref=e2078]:
+                      - link "Esports World Cup 2024" [ref=e2080] [cursor=pointer]:
+                        - /url: /counterstrike/Esports_World_Cup_2024
+                        - img "Esports World Cup 2024" [ref=e2081]
+                    - cell "Esports World Cup 2024" [ref=e2082]:
+                      - link "Esports World Cup 2024" [ref=e2083] [cursor=pointer]:
+                        - /url: /counterstrike/Esports_World_Cup/2024
+                    - cell "Jul 17–21, 2024" [ref=e2084]
+                    - cell "$1,050,000" [ref=e2085]
+                    - cell "Saudi Arabia Riyadh" [ref=e2086]:
+                      - generic [ref=e2088]:
+                        - img "Saudi Arabia" [ref=e2090]
+                        - text: Riyadh
+                    - cell "15" [ref=e2091]
+                    - cell "Natus Vincere Natus Vincere" [ref=e2092]:
+                      - generic [ref=e2094]:
+                        - link "Natus Vincere" [ref=e2096] [cursor=pointer]:
+                          - /url: /counterstrike/Natus_Vincere
+                        - link "Natus Vincere" [ref=e2098] [cursor=pointer]:
+                          - /url: /counterstrike/Natus_Vincere
+                    - cell "G2 Esports G2 Esports" [ref=e2099]:
+                      - generic [ref=e2101]:
+                        - link "G2 Esports" [ref=e2103] [cursor=pointer]:
+                          - /url: /counterstrike/G2_Esports
+                        - link "G2 Esports" [ref=e2105] [cursor=pointer]:
+                          - /url: /counterstrike/G2_Esports
+                  - 'row "Counter-Strike 2 BLAST Premier: Spring Final 2024 BLAST Premier: Spring Final 2024 Jun 12–16, 2024 $425,000 United Kingdom London 8 Team Spirit Team Spirit Natus Vincere Natus Vincere" [ref=e2106]':
+                    - cell "Counter-Strike 2" [ref=e2107]:
+                      - link "Counter-Strike 2" [ref=e2109] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e2110]
+                    - 'cell "BLAST Premier: Spring Final 2024" [ref=e2111]':
+                      - 'link "BLAST Premier: Spring Final 2024" [ref=e2113] [cursor=pointer]':
+                        - /url: /counterstrike/BLAST_Premier:_Spring_Final_2024
+                        - 'img "BLAST Premier: Spring Final 2024" [ref=e2114]'
+                    - 'cell "BLAST Premier: Spring Final 2024" [ref=e2115]':
+                      - 'link "BLAST Premier: Spring Final 2024" [ref=e2116] [cursor=pointer]':
+                        - /url: /counterstrike/BLAST/Premier/2024/Spring
+                    - cell "Jun 12–16, 2024" [ref=e2117]
+                    - cell "$425,000" [ref=e2118]
+                    - cell "United Kingdom London" [ref=e2119]:
+                      - generic [ref=e2121]:
+                        - img "United Kingdom" [ref=e2123]
+                        - text: London
+                    - cell "8" [ref=e2124]
+                    - cell "Team Spirit Team Spirit" [ref=e2125]:
+                      - generic [ref=e2127]:
+                        - link "Team Spirit" [ref=e2129] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Spirit
+                        - link "Team Spirit" [ref=e2131] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Spirit
+                    - cell "Natus Vincere Natus Vincere" [ref=e2132]:
+                      - generic [ref=e2134]:
+                        - link "Natus Vincere" [ref=e2136] [cursor=pointer]:
+                          - /url: /counterstrike/Natus_Vincere
+                        - link "Natus Vincere" [ref=e2138] [cursor=pointer]:
+                          - /url: /counterstrike/Natus_Vincere
+                  - row "Counter-Strike 2 YaLLa Compass 2024 YaLLa Compass 2024 Jun 05–09, 2024 $400,000 United Arab Emirates Abu Dhabi 12 The MongolZ The MongolZ Ninjas in Pyjamas Ninjas in Pyjamas" [ref=e2139]:
+                    - cell "Counter-Strike 2" [ref=e2140]:
+                      - link "Counter-Strike 2" [ref=e2142] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e2143]
+                    - cell "YaLLa Compass 2024" [ref=e2144]:
+                      - link "YaLLa Compass 2024" [ref=e2146] [cursor=pointer]:
+                        - /url: /counterstrike/YaLLa_Compass_2024
+                        - img "YaLLa Compass 2024" [ref=e2147]
+                    - cell "YaLLa Compass 2024" [ref=e2148]:
+                      - link "YaLLa Compass 2024" [ref=e2149] [cursor=pointer]:
+                        - /url: /counterstrike/YaLLa_Compass/2024
+                    - cell "Jun 05–09, 2024" [ref=e2150]
+                    - cell "$400,000" [ref=e2151]
+                    - cell "United Arab Emirates Abu Dhabi" [ref=e2152]:
+                      - generic [ref=e2154]:
+                        - img "United Arab Emirates" [ref=e2156]
+                        - text: Abu Dhabi
+                    - cell "12" [ref=e2157]
+                    - cell "The MongolZ The MongolZ" [ref=e2158]:
+                      - generic [ref=e2160]:
+                        - link "The MongolZ" [ref=e2162] [cursor=pointer]:
+                          - /url: /counterstrike/The_MongolZ
+                        - link "The MongolZ" [ref=e2164] [cursor=pointer]:
+                          - /url: /counterstrike/The_MongolZ
+                    - cell "Ninjas in Pyjamas Ninjas in Pyjamas" [ref=e2165]:
+                      - generic [ref=e2167]:
+                        - link "Ninjas in Pyjamas" [ref=e2169] [cursor=pointer]:
+                          - /url: /counterstrike/Ninjas_in_Pyjamas
+                        - link "Ninjas in Pyjamas" [ref=e2171] [cursor=pointer]:
+                          - /url: /counterstrike/Ninjas_in_Pyjamas
+                  - row "Counter-Strike 2 Intel Extreme Masters Dallas 2024 Intel Extreme Masters Dallas 2024 May 27 – Jun 02, 2024 $250,000 United States Dallas 16 G2 Esports G2 Esports Team Vitality Team Vitality" [ref=e2172]:
+                    - cell "Counter-Strike 2" [ref=e2173]:
+                      - link "Counter-Strike 2" [ref=e2175] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e2176]
+                    - cell "Intel Extreme Masters Dallas 2024" [ref=e2177]:
+                      - link "Intel Extreme Masters Dallas 2024" [ref=e2179] [cursor=pointer]:
+                        - /url: /counterstrike/Intel_Extreme_Masters_Dallas_2024
+                        - img "Intel Extreme Masters Dallas 2024" [ref=e2180]
+                    - cell "Intel Extreme Masters Dallas 2024" [ref=e2181]:
+                      - link "Intel Extreme Masters Dallas 2024" [ref=e2182] [cursor=pointer]:
+                        - /url: /counterstrike/Intel_Extreme_Masters/2024/Dallas
+                    - cell "May 27 – Jun 02, 2024" [ref=e2183]
+                    - cell "$250,000" [ref=e2184]
+                    - cell "United States Dallas" [ref=e2185]:
+                      - generic [ref=e2187]:
+                        - img "United States" [ref=e2189]
+                        - text: Dallas
+                    - cell "16" [ref=e2190]
+                    - cell "G2 Esports G2 Esports" [ref=e2191]:
+                      - generic [ref=e2193]:
+                        - link "G2 Esports" [ref=e2195] [cursor=pointer]:
+                          - /url: /counterstrike/G2_Esports
+                        - link "G2 Esports" [ref=e2197] [cursor=pointer]:
+                          - /url: /counterstrike/G2_Esports
+                    - cell "Team Vitality Team Vitality" [ref=e2198]:
+                      - generic [ref=e2200]:
+                        - link "Team Vitality" [ref=e2202] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Vitality
+                        - link "Team Vitality" [ref=e2204] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Vitality
+                  - 'row "Counter-Strike 2 BetBoom Dacha Belgrade 2024 #1 BetBoom Dacha Belgrade 2024 #1 May 14–19, 2024 $500,000 Serbia Belgrade 8 MOUZ MOUZ Team Spirit Team Spirit" [ref=e2205]':
+                    - cell "Counter-Strike 2" [ref=e2206]:
+                      - link "Counter-Strike 2" [ref=e2208] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e2209]
+                    - 'cell "BetBoom Dacha Belgrade 2024 #1" [ref=e2210]':
+                      - 'link "BetBoom Dacha Belgrade 2024 #1" [ref=e2212] [cursor=pointer]':
+                        - /url: /counterstrike/BetBoom_Dacha_Belgrade_2024#1
+                        - 'img "BetBoom Dacha Belgrade 2024 #1" [ref=e2213]'
+                    - 'cell "BetBoom Dacha Belgrade 2024 #1" [ref=e2214]':
+                      - 'link "BetBoom Dacha Belgrade 2024 #1" [ref=e2215] [cursor=pointer]':
+                        - /url: /counterstrike/BetBoom_Dacha/2024/Belgrade/1
+                    - cell "May 14–19, 2024" [ref=e2216]
+                    - cell "$500,000" [ref=e2217]
+                    - cell "Serbia Belgrade" [ref=e2218]:
+                      - generic [ref=e2220]:
+                        - img "Serbia" [ref=e2222]
+                        - text: Belgrade
+                    - cell "8" [ref=e2223]
+                    - cell "MOUZ MOUZ" [ref=e2224]:
+                      - generic [ref=e2226]:
+                        - link "MOUZ" [ref=e2228] [cursor=pointer]:
+                          - /url: /counterstrike/MOUZ
+                        - link "MOUZ" [ref=e2230] [cursor=pointer]:
+                          - /url: /counterstrike/MOUZ
+                    - cell "Team Spirit Team Spirit" [ref=e2231]:
+                      - generic [ref=e2233]:
+                        - link "Team Spirit" [ref=e2235] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Spirit
+                        - link "Team Spirit" [ref=e2237] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Spirit
+                  - row "Counter-Strike 2 ESL Pro League Season 19 ESL Pro League Season 19 Apr 23 – May 12, 2024 $750,000 Malta Saint Julian's 32 MOUZ MOUZ Team Vitality Team Vitality" [ref=e2238]:
+                    - cell "Counter-Strike 2" [ref=e2239]:
+                      - link "Counter-Strike 2" [ref=e2241] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e2242]
+                    - cell "ESL Pro League Season 19" [ref=e2243]:
+                      - link "ESL Pro League Season 19" [ref=e2245] [cursor=pointer]:
+                        - /url: /counterstrike/ESL_Pro_League_Season_19
+                        - img "ESL Pro League Season 19" [ref=e2246]
+                    - cell "ESL Pro League Season 19" [ref=e2247]:
+                      - link "ESL Pro League Season 19" [ref=e2248] [cursor=pointer]:
+                        - /url: /counterstrike/ESL/Pro_League/Season_19
+                    - cell "Apr 23 – May 12, 2024" [ref=e2249]
+                    - cell "$750,000" [ref=e2250]
+                    - cell "Malta Saint Julian's" [ref=e2251]:
+                      - generic [ref=e2253]:
+                        - img "Malta" [ref=e2255]
+                        - text: Saint Julian's
+                    - cell "32" [ref=e2256]
+                    - cell "MOUZ MOUZ" [ref=e2257]:
+                      - generic [ref=e2259]:
+                        - link "MOUZ" [ref=e2261] [cursor=pointer]:
+                          - /url: /counterstrike/MOUZ
+                        - link "MOUZ" [ref=e2263] [cursor=pointer]:
+                          - /url: /counterstrike/MOUZ
+                    - cell "Team Vitality Team Vitality" [ref=e2264]:
+                      - generic [ref=e2266]:
+                        - link "Team Vitality" [ref=e2268] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Vitality
+                        - link "Team Vitality" [ref=e2270] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Vitality
+                  - row "Counter-Strike 2 Intel Extreme Masters Chengdu 2024 Intel Extreme Masters Chengdu 2024 Apr 08–14, 2024 $250,000 China Chengdu 16 FaZe Clan FaZe Clan MOUZ MOUZ" [ref=e2271]:
+                    - cell "Counter-Strike 2" [ref=e2272]:
+                      - link "Counter-Strike 2" [ref=e2274] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e2275]
+                    - cell "Intel Extreme Masters Chengdu 2024" [ref=e2276]:
+                      - link "Intel Extreme Masters Chengdu 2024" [ref=e2278] [cursor=pointer]:
+                        - /url: /counterstrike/Intel_Extreme_Masters_Chengdu_2024
+                        - img "Intel Extreme Masters Chengdu 2024" [ref=e2279]
+                    - cell "Intel Extreme Masters Chengdu 2024" [ref=e2280]:
+                      - link "Intel Extreme Masters Chengdu 2024" [ref=e2281] [cursor=pointer]:
+                        - /url: /counterstrike/Intel_Extreme_Masters/2024/Chengdu
+                    - cell "Apr 08–14, 2024" [ref=e2282]
+                    - cell "$250,000" [ref=e2283]
+                    - cell "China Chengdu" [ref=e2284]:
+                      - generic [ref=e2286]:
+                        - img "China" [ref=e2288]
+                        - text: Chengdu
+                    - cell "16" [ref=e2289]
+                    - cell "FaZe Clan FaZe Clan" [ref=e2290]:
+                      - generic [ref=e2292]:
+                        - link "FaZe Clan" [ref=e2294] [cursor=pointer]:
+                          - /url: /counterstrike/FaZe_Clan
+                        - link "FaZe Clan" [ref=e2296] [cursor=pointer]:
+                          - /url: /counterstrike/FaZe_Clan
+                    - cell "MOUZ MOUZ" [ref=e2297]:
+                      - generic [ref=e2299]:
+                        - link "MOUZ" [ref=e2301] [cursor=pointer]:
+                          - /url: /counterstrike/MOUZ
+                        - link "MOUZ" [ref=e2303] [cursor=pointer]:
+                          - /url: /counterstrike/MOUZ
+                  - row "Counter-Strike 2 PGL Major Copenhagen 2024 PGL Major Copenhagen 2024 Mar 17–31, 2024 $1,250,000 Denmark Copenhagen 24 Natus Vincere Natus Vincere FaZe Clan FaZe Clan" [ref=e2304]:
+                    - cell "Counter-Strike 2" [ref=e2305]:
+                      - link "Counter-Strike 2" [ref=e2307] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e2308]
+                    - cell "PGL Major Copenhagen 2024" [ref=e2309]:
+                      - link "PGL Major Copenhagen 2024" [ref=e2311] [cursor=pointer]:
+                        - /url: /counterstrike/PGL_Major_Copenhagen_2024
+                        - img "PGL Major Copenhagen 2024" [ref=e2312]
+                    - cell "PGL Major Copenhagen 2024" [ref=e2313]:
+                      - link "PGL Major Copenhagen 2024" [ref=e2314] [cursor=pointer]:
+                        - /url: /counterstrike/PGL/2024/Copenhagen
+                    - cell "Mar 17–31, 2024" [ref=e2315]
+                    - cell "$1,250,000" [ref=e2316]
+                    - cell "Denmark Copenhagen" [ref=e2317]:
+                      - generic [ref=e2319]:
+                        - img "Denmark" [ref=e2321]
+                        - text: Copenhagen
+                    - cell "24" [ref=e2322]
+                    - cell "Natus Vincere Natus Vincere" [ref=e2323]:
+                      - generic [ref=e2325]:
+                        - link "Natus Vincere" [ref=e2327] [cursor=pointer]:
+                          - /url: /counterstrike/Natus_Vincere
+                        - link "Natus Vincere" [ref=e2329] [cursor=pointer]:
+                          - /url: /counterstrike/Natus_Vincere
+                    - cell "FaZe Clan FaZe Clan" [ref=e2330]:
+                      - generic [ref=e2332]:
+                        - link "FaZe Clan" [ref=e2334] [cursor=pointer]:
+                          - /url: /counterstrike/FaZe_Clan
+                        - link "FaZe Clan" [ref=e2336] [cursor=pointer]:
+                          - /url: /counterstrike/FaZe_Clan
+                  - row "Counter-Strike 2 Intel Extreme Masters Katowice 2024 Intel Extreme Masters Katowice 2024 Jan 31 – Feb 11, 2024 $1,000,000 Poland Katowice 24 Team Spirit Team Spirit FaZe Clan FaZe Clan" [ref=e2337]:
+                    - cell "Counter-Strike 2" [ref=e2338]:
+                      - link "Counter-Strike 2" [ref=e2340] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e2341]
+                    - cell "Intel Extreme Masters Katowice 2024" [ref=e2342]:
+                      - link "Intel Extreme Masters Katowice 2024" [ref=e2344] [cursor=pointer]:
+                        - /url: /counterstrike/Intel_Extreme_Masters_Katowice_2024
+                        - img "Intel Extreme Masters Katowice 2024" [ref=e2345]
+                    - cell "Intel Extreme Masters Katowice 2024" [ref=e2346]:
+                      - link "Intel Extreme Masters Katowice 2024" [ref=e2347] [cursor=pointer]:
+                        - /url: /counterstrike/Intel_Extreme_Masters/2024/Katowice
+                    - cell "Jan 31 – Feb 11, 2024" [ref=e2348]
+                    - cell "$1,000,000" [ref=e2349]
+                    - cell "Poland Katowice" [ref=e2350]:
+                      - generic [ref=e2352]:
+                        - img "Poland" [ref=e2354]
+                        - text: Katowice
+                    - cell "24" [ref=e2355]
+                    - cell "Team Spirit Team Spirit" [ref=e2356]:
+                      - generic [ref=e2358]:
+                        - link "Team Spirit" [ref=e2360] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Spirit
+                        - link "Team Spirit" [ref=e2362] [cursor=pointer]:
+                          - /url: /counterstrike/Team_Spirit
+                    - cell "FaZe Clan FaZe Clan" [ref=e2363]:
+                      - generic [ref=e2365]:
+                        - link "FaZe Clan" [ref=e2367] [cursor=pointer]:
+                          - /url: /counterstrike/FaZe_Clan
+                        - link "FaZe Clan" [ref=e2369] [cursor=pointer]:
+                          - /url: /counterstrike/FaZe_Clan
+                  - 'row "Counter-Strike 2 BLAST Premier: Spring Groups 2024 BLAST Premier: Spring Groups 2024 Jan 22–28, 2024 $190,000 Denmark Copenhagen 16  TBD  TBD" [ref=e2370]':
+                    - cell "Counter-Strike 2" [ref=e2371]:
+                      - link "Counter-Strike 2" [ref=e2373] [cursor=pointer]:
+                        - /url: /counterstrike/Counter-Strike_2
+                        - img "Counter-Strike 2" [ref=e2374]
+                    - 'cell "BLAST Premier: Spring Groups 2024" [ref=e2375]':
+                      - 'link "BLAST Premier: Spring Groups 2024" [ref=e2377] [cursor=pointer]':
+                        - /url: /counterstrike/BLAST_Premier:_Spring_Groups_2024
+                        - 'img "BLAST Premier: Spring Groups 2024" [ref=e2378]'
+                    - 'cell "BLAST Premier: Spring Groups 2024" [ref=e2379]':
+                      - 'link "BLAST Premier: Spring Groups 2024" [ref=e2380] [cursor=pointer]':
+                        - /url: /counterstrike/BLAST/Premier/2024/Spring/Groups
+                    - cell "Jan 22–28, 2024" [ref=e2381]
+                    - cell "$190,000" [ref=e2382]
+                    - cell "Denmark Copenhagen" [ref=e2383]:
+                      - generic [ref=e2385]:
+                        - img "Denmark" [ref=e2387]
+                        - text: Copenhagen
+                    - cell "16" [ref=e2388]
+                    - cell " TBD" [ref=e2389]:
+                      - generic [ref=e2391]:
+                        - generic [ref=e2393]: 
+                        - generic [ref=e2394]: TBD
+                    - cell " TBD" [ref=e2395]:
+                      - generic [ref=e2397]:
+                        - generic [ref=e2399]: 
+                        - generic [ref=e2400]: TBD
+            - generic [ref=e2404]:
+              - link "Category" [ref=e2405] [cursor=pointer]:
+                - /url: /counterstrike/Special:Categories
+              - text: ":"
+              - list [ref=e2406]:
+                - listitem [ref=e2407]:
+                  - link "Competitions" [ref=e2408] [cursor=pointer]:
+                    - /url: /counterstrike/Category:Competitions
+  - contentinfo [ref=e2409]:
+    - generic [ref=e2411]:
+      - generic [ref=e2412]:
+        - link "Liquipedia Portal" [ref=e2413] [cursor=pointer]:
+          - /url: https://liquipedia.net
+        - list [ref=e2414]:
+          - listitem [ref=e2415]:
+            - link "Send an email" [ref=e2416] [cursor=pointer]:
+              - /url: mailto:contact@liquipedia.net
+          - listitem [ref=e2417]:
+            - link "Chat with us" [ref=e2418] [cursor=pointer]:
+              - /url: https://discord.gg/liquipedia
+          - listitem [ref=e2419]:
+            - link "Contact" [ref=e2420] [cursor=pointer]:
+              - /url: /commons/Contact
+        - list [ref=e2421]:
+          - listitem [ref=e2422]:
+            - link "Discord" [ref=e2423] [cursor=pointer]:
+              - /url: https://discord.gg/liquipedia
+              - generic [ref=e2424]: 
+          - listitem [ref=e2425]:
+            - link "Twitter" [ref=e2426] [cursor=pointer]:
+              - /url: https://twitter.com/LiquipediaNet
+              - generic [ref=e2427]: 
+          - listitem [ref=e2428]:
+            - link "Facebook" [ref=e2429] [cursor=pointer]:
+              - /url: https://www.facebook.com/Liquipedia
+              - generic [ref=e2430]: 
+          - listitem [ref=e2431]:
+            - link "YouTube" [ref=e2432] [cursor=pointer]:
+              - /url: https://www.youtube.com/user/Liquipedia
+              - generic [ref=e2433]: 
+          - listitem [ref=e2434]:
+            - link "Twitch" [ref=e2435] [cursor=pointer]:
+              - /url: https://www.twitch.tv/liquipedia
+              - generic [ref=e2436]: 
+          - listitem [ref=e2437]:
+            - link "GitHub" [ref=e2438] [cursor=pointer]:
+              - /url: https://github.com/Liquipedia
+              - generic [ref=e2439]: 
+      - generic [ref=e2441]:
+        - tabpanel [ref=e2442]:
+          - heading "About" [level=4] [ref=e2443]
+          - list [ref=e2444]:
+            - listitem [ref=e2445]:
+              - link "Privacy policy" [ref=e2446] [cursor=pointer]:
+                - /url: /counterstrike/Liquipedia:Privacy_policy
+            - listitem [ref=e2447]:
+              - link "About Liquipedia Counter-Strike Wiki" [ref=e2448] [cursor=pointer]:
+                - /url: /counterstrike/Liquipedia:About
+            - listitem [ref=e2449]:
+              - link "Disclaimers" [ref=e2450] [cursor=pointer]:
+                - /url: /counterstrike/Liquipedia:General_disclaimer
+            - listitem [ref=e2451]:
+              - link "API" [ref=e2452] [cursor=pointer]:
+                - /url: https://liquipedia.net/api
+            - listitem [ref=e2453]:
+              - link "Update consent preferences" [ref=e2454] [cursor=pointer]:
+                - /url: "#"
+                - button "Update consent preferences" [ref=e2455]
+            - listitem [ref=e2456]:
+              - link:
+                - /url: "#"
+        - tabpanel [ref=e2457]:
+          - heading "Affiliated Sites" [level=4] [ref=e2458]
+          - list [ref=e2459]:
+            - listitem [ref=e2460]:
+              - link "TL.net" [ref=e2461] [cursor=pointer]:
+                - /url: https://tl.net
+    - list [ref=e2463]:
+      - listitem [ref=e2464]: This page was last edited on 19 April 2024, at 13:15.
+      - listitem [ref=e2465]:
+        - text: Text/code is available under
+        - link "CC-BY-SA" [ref=e2466] [cursor=pointer]:
+          - /url: /counterstrike/Liquipedia:Copyrights
+        - text: . Licenses for other media varies.
+  - generic [ref=e2468]:
+    - generic:
+      - link "Language Picker English" [ref=e2469] [cursor=pointer]:
+        - /url: javascript:;
+        - img "Language Picker" [ref=e2470]
+        - text: English
+      - generic:
+        - link "Close Language Picker":
+          - /url: javascript:;
+          - img "Close Language Picker"
+        - list:
+          - listitem:
+            - link "Deutsch":
+              - /url: javascript:;
+          - listitem:
+            - link "English":
+              - /url: javascript:;
+          - listitem:
+            - link "Español":
+              - /url: javascript:;
+          - listitem:
+            - link "Français":
+              - /url: javascript:;
+          - listitem:
+            - link "Italiano":
+              - /url: javascript:;
+          - listitem:
+            - link "Nederlands":
+              - /url: javascript:;
+          - listitem:
+            - link "Polski":
+              - /url: javascript:;
+          - listitem:
+            - link "Português":
+              - /url: javascript:;
+          - listitem:
+            - link "Limba română":
+              - /url: javascript:;
+    - generic [ref=e2472]:
+      - generic [ref=e2473]:
+        - heading "You control your privacy" [level=2] [ref=e2474]
+        - paragraph [ref=e2475]:
+          - text: We and up to
+          - link "1117 vendors" [ref=e2476] [cursor=pointer]:
+            - /url: javascript:;
+          - text: process, store and/or access personal data from you and your device. This data can include your type of browser, settings, cookies, unique identifiers, IP address, and geo location. Your consent can be updated or withdrawn at any time by clicking the link in our privacy policy or footer.
+      - generic [ref=e2477]:
+        - paragraph [ref=e2478]:
+          - text: "We're requesting consent to offer:"
+          - strong [ref=e2479]: Personalised advertising and content, advertising and content measurement, audience research and services development
+        - paragraph [ref=e2480]: Advertising and content can be personalised based on your profile. Your activity on this service can be used to build or improve a profile about you for personalised advertising and content. Advertising and content performance can be measured. Reports can be generated based on your activity and those of others. Your activity on this service can help develop and improve products and services.
+    - generic [ref=e2481]:
+      - generic [ref=e2482]:
+        - button "Advanced Settings" [ref=e2483] [cursor=pointer]
+        - button "Accept" [ref=e2484] [cursor=pointer]
+      - generic [ref=e2485]:
+        - link "NitroPay" [ref=e2487] [cursor=pointer]:
+          - /url: https://nitropay.com
+          - img "NitroPay" [ref=e2488]
+        - paragraph [ref=e2489]: Your consents are specific to this site & device.

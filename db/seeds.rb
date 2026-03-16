@@ -990,14 +990,7 @@ seed_event_series(
   ]
 )
 
-seed_event_series(
-  game: cs2,
-  events: [
-    { title: "CS2 Major: Copenhagen 2026", description: "One of the year's two CS Majors lands in Copenhagen — the biggest tournament in the Counter-Strike calendar.", start_date: DateTime.new(2026, 5, 4, 13, 0, 0) },
-    { title: "Operation Launch", description: "A new CS2 Operation goes live with a mission pass, new case, and community-created maps added to casual and deathmatch.", start_date: DateTime.new(2026, 4, 14, 17, 0, 0) },
-    { title: "Train Map Return Event", description: "A featured week celebrating Train's return to Active Duty with community challenges and limited sprays.", start_date: DateTime.new(2026, 3, 25, 17, 0, 0) }
-  ]
-)
+seed_live_events(game: cs2, importer_class: EventImporters::CounterStrike2EventImporter)
 
 seed_event_series(
   game: dota2,
