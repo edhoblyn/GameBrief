@@ -48,9 +48,6 @@
                 <%= render "messages/form", patch: @patch, chat: @chat, message: Message.new %>
               </div>
 
-              <p class="chatbot__limit text-muted small mt-2 text-end">
-                <%= @chat.messages.where(role: "user").count %> / <%= Message::MAX_USER_MESSAGES %> messages used
-              </p>
             </div>
           </div>
         </div>

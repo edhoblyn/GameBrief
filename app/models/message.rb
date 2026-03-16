@@ -1,7 +1,7 @@
 class Message < ApplicationRecord
   belongs_to :chat
 
-  MAX_USER_MESSAGES = 10
+  MAX_USER_MESSAGES = 5
 
   validates :role, presence: true, inclusion: { in: %w[user assistant] }
   validates :content, presence: true

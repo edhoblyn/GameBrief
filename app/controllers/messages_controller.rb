@@ -18,11 +18,12 @@ class MessagesController < ApplicationController
 
     respond_to do |format|
       format.turbo_stream do
-        render turbo_stream: [
-          turbo_stream.append("messages", partial: "messages/message", locals: { message: @message }),
-          turbo_stream.append("messages", partial: "messages/message", locals: { message: @assistant_message }),
-          turbo_stream.replace("new_message_container", partial: "messages/form", locals: { patch: @patch, chat: @chat, message: Message.new })
-        ]
+        streams = []
+        streams << turbo_stream.append("messages", partial: "messages/message", locals: { message: @message }) if @message.persisted?
+        streams << turbo_stream.append("messages", partial: "messages/message", locals: { message: @assistant_message }) if @assistant_message&.persisted?
+        streams << turbo_stream.replace("new_message_container", partial: "messages/form", locals: { patch: @patch, chat: @chat, message: Message.new })
+
+        render turbo_stream: streams
       end
       format.html { redirect_to patch_path(@patch, chat_id: @chat.id, return_to: safe_return_to_path) }
     end
