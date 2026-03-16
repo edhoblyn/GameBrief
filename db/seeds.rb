@@ -108,7 +108,7 @@ def import_game(client, query, name: nil, slug: nil, free_to_play: false, single
     cover_url = match["cover"] ? "https:#{match["cover"]["url"].gsub("t_thumb", "t_cover_big")}" : nil
     resolved_slug = slug || match["slug"]
 
-    game = Game.where("LOWER(name) = ?", query.downcase).first
+    game = Game.where("LOWER(name) = ?", (name || query).downcase).first
     game ||= Game.find_by(slug: resolved_slug) if resolved_slug.present?
     game ||= Game.find_by(slug: match["slug"]) if match["slug"].present?
     game ||= Game.new
@@ -170,7 +170,7 @@ arc_raiders   = import_game(client, "ARC Raiders", free_to_play: false, multipla
 genshin       = import_game(client, "Genshin Impact", name: "Genshin Impact", slug: "genshin-impact", free_to_play: true, single_player: true, multiplayer: true)
 cs2           = import_game(client, "Counter-Strike 2", free_to_play: true, multiplayer: true)
 dota2         = import_game(client, "Dota 2", free_to_play: true, multiplayer: true)
-baldurs_gate3 = import_game(client, "Baldur's Gate 3", free_to_play: false, single_player: true, multiplayer: true)
+baldurs_gate3 = import_game(client, "Baldur's Gate 3", name: "Baldur's Gate 3", slug: "baldurs-gate-3", free_to_play: false, single_player: true, multiplayer: true)
 pubg          = import_game(client, "PUBG: Battlegrounds", free_to_play: true, multiplayer: true)
 battlefield6  = import_game(client, "Battlefield 6", free_to_play: false, single_player: true, multiplayer: true)
 
