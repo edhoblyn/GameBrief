@@ -16,6 +16,7 @@ class Event < ApplicationRecord
     return false if summary.present?
     return false unless ai_summarizable?
     return false unless summary_tracking_supported?
+    return false if EventSummaryService.provider_temporarily_unavailable?
     return false if ai_summary_pending?
 
     update_columns(summary_requested_at: Time.current)

@@ -3,6 +3,14 @@ require "test_helper"
 class EventTest < ActiveSupport::TestCase
   include ActiveJob::TestHelper
 
+  setup do
+    EventSummaryService.reset_provider_cooldown!
+  end
+
+  teardown do
+    EventSummaryService.reset_provider_cooldown!
+  end
+
   test "is ai summarizable when it has enough source text" do
     event = Event.new(
       title: "Spring Finals",
@@ -45,6 +53,21 @@ class EventTest < ActiveSupport::TestCase
     )
 
     clear_enqueued_jobs
+
+    assert_not event.request_ai_summary!
+    assert_no_enqueued_jobs only: GenerateEventSummaryJob
+  end
+
+  test "does not queue a summary job when the provider is temporarily unavailable" do
+    game = Game.create!(name: "Unavailable Provider Game", slug: "unavailable-provider-game")
+    event = game.events.create!(
+      title: "Spring Finals",
+      description: "A large competitive event with new in-game drops, watch rewards, featured matches, and a full weekend schedule.",
+      start_date: 4.days.from_now
+    )
+
+    clear_enqueued_jobs
+    EventSummaryService.disable_provider_temporarily!(duration: 5.minutes)
 
     assert_not event.request_ai_summary!
     assert_no_enqueued_jobs only: GenerateEventSummaryJob
