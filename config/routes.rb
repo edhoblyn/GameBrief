@@ -43,6 +43,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resource :dashboard, only: [:show], controller: :dashboard
+    resource :chat_history, only: [:destroy], controller: :chat_histories
     resources :patch_scrapes, only: [:create] do
       collection do
         post :run_all
