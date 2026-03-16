@@ -117,7 +117,7 @@
   </aside>
 
   <!-- Social main -->
-  <main class="social-main" data-controller="social-feed" style="display: flex; flex-direction: column;">
+  <main class="social-main" data-controller="social-feed">
 
     <!-- Profile header -->
     <div class="social-profile-header">
@@ -181,51 +181,95 @@
     </div>
 
 
-    <div class="p-3" style="display: flex; flex-direction: column; gap: 10px; max-width: 75%;">
-        <p style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--gb-muted); margin-bottom: 4px;">Feed</p>
-        <% if @feed_posts.any? %>
-          <% @feed_posts.each do |post| %>
-            <div style="padding: 14px 16px; border-radius: 18px 18px 18px 4px; background: linear-gradient(135deg, rgba(124,92,252,0.12), rgba(79,156,249,0.07)); border: 1px solid rgba(124,92,252,0.25); transition: border-color 0.15s, transform 0.15s;">
-              <div class="d-flex align-items-center gap-2 mb-2">
-                <div style="width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg, var(--gb-accent), var(--gb-accent-strong)); display: flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 700; color: #fff; flex-shrink: 0;">
-                  <%= post.user.display_name.first.upcase %>
-                </div>
-                <span style="font-size: 0.85rem; font-weight: 600; color: var(--gb-text);"><%= post.user.display_name %></span>
-                <span style="color: var(--gb-muted); font-size: 0.75rem; margin-left: auto;"><%= time_ago_in_words(post.created_at) %> ago</span>
-                <% if post.user == current_user %>
-                  <%= button_to post_path(post), method: :delete, class: "btn btn-link btn-sm p-0", style: "color: rgba(255,255,255,0.25); font-size: 0.75rem; line-height: 1;", form: { data: { turbo_confirm: "Delete this post?" } } do %>
-                    <i class="fa fa-trash"></i>
+    <div class="for-you-layout">
+      <div class="for-you-feed">
+        <div class="p-3" style="display: flex; flex-direction: column; gap: 10px;">
+          <p style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--gb-muted); margin-bottom: 4px;">Feed</p>
+          <% if @feed_posts.any? %>
+            <% @feed_posts.each do |post| %>
+              <div style="padding: 14px 16px; border-radius: 18px 18px 18px 4px; background: linear-gradient(135deg, rgba(124,92,252,0.12), rgba(79,156,249,0.07)); border: 1px solid rgba(124,92,252,0.25); transition: border-color 0.15s, transform 0.15s;">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                  <div style="width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg, var(--gb-accent), var(--gb-accent-strong)); display: flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 700; color: #fff; flex-shrink: 0;">
+                    <%= post.user.display_name.first.upcase %>
+                  </div>
+                  <span style="font-size: 0.85rem; font-weight: 600; color: var(--gb-text);"><%= post.user.display_name %></span>
+                  <span style="color: var(--gb-muted); font-size: 0.75rem; margin-left: auto;"><%= time_ago_in_words(post.created_at) %> ago</span>
+                  <% if post.user == current_user %>
+                    <%= button_to post_path(post), method: :delete, class: "btn btn-link btn-sm p-0", style: "color: rgba(255,255,255,0.25); font-size: 0.75rem; line-height: 1;", form: { data: { turbo_confirm: "Delete this post?" } } do %>
+                      <i class="fa fa-trash"></i>
+                    <% end %>
                   <% end %>
-                <% end %>
+                </div>
+                <p style="margin: 0; font-size: 0.88rem; color: var(--gb-text); line-height: 1.55;"><%= post.body %></p>
               </div>
-              <p style="margin: 0; font-size: 0.88rem; color: var(--gb-text); line-height: 1.55;"><%= post.body %></p>
-            </div>
+            <% end %>
+          <% else %>
+            <p class="text-muted" style="font-size: 0.85rem;">No posts yet.</p>
           <% end %>
-        <% else %>
-          <p class="text-muted" style="font-size: 0.85rem;">No posts yet.</p>
-        <% end %>
-    </div>
+        </div>
 
-    <div class="px-3 pb-3 d-flex justify-content-between align-items-center mt-auto">
-      <div>
-        <button id="new-post-btn" onclick="document.getElementById('new-post-form').style.display='flex'; this.style.display='none';" class="btn btn-primary btn-sm" style="border-radius: 999px; font-size: 0.82rem; padding: 0.35rem 1.1rem;">
-          <i class="fa fa-pencil me-1"></i> Post
-        </button>
+        <div class="px-3 pb-3 d-flex justify-content-between align-items-center">
+          <div>
+            <button id="new-post-btn" onclick="document.getElementById('new-post-form').style.display='flex'; this.style.display='none';" class="btn btn-primary btn-sm" style="border-radius: 999px; font-size: 0.82rem; padding: 0.35rem 1.1rem;">
+              <i class="fa fa-pencil me-1"></i> Post
+            </button>
 
-        <div id="new-post-form" style="display: none; padding: 14px 16px; border-radius: 16px; background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02)); border: 1px solid rgba(255,255,255,0.1);">
-          <%= form_with url: posts_path, scope: :post, class: "d-flex flex-column gap-2" do |f| %>
-            <%= f.text_area :body, placeholder: "What's on your mind?", rows: 2, class: "form-control", style: "background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 10px; font-size: 0.95rem; resize: none; line-height: 1.5;" %>
-            <div class="d-flex gap-2 justify-content-end">
-              <button type="button" onclick="document.getElementById('new-post-form').style.display='none'; document.getElementById('new-post-btn').style.display='inline-flex';" class="btn btn-sm" style="border-radius: 999px; font-size: 0.78rem; color: var(--gb-muted);">Cancel</button>
-              <%= f.submit "Post", class: "btn btn-primary btn-sm", style: "border-radius: 999px; font-size: 0.78rem; padding: 0.3rem 1rem;" %>
+            <div id="new-post-form" style="display: none; padding: 14px 16px; border-radius: 16px; background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02)); border: 1px solid rgba(255,255,255,0.1);">
+              <%= form_with url: posts_path, scope: :post, class: "d-flex flex-column gap-2" do |f| %>
+                <%= f.text_area :body, placeholder: "What's on your mind?", rows: 2, class: "form-control", style: "background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 10px; font-size: 0.95rem; resize: none; line-height: 1.5;" %>
+                <div class="d-flex gap-2 justify-content-end">
+                  <button type="button" onclick="document.getElementById('new-post-form').style.display='none'; document.getElementById('new-post-btn').style.display='inline-flex';" class="btn btn-sm" style="border-radius: 999px; font-size: 0.78rem; color: var(--gb-muted);">Cancel</button>
+                  <%= f.submit "Post", class: "btn btn-primary btn-sm", style: "border-radius: 999px; font-size: 0.78rem; padding: 0.3rem 1rem;" %>
+                </div>
+              <% end %>
             </div>
+          </div>
+
+          <%= link_to find_friends_path, class: "btn btn-primary btn-sm", style: "border-radius: 999px; font-size: 0.82rem; padding: 0.35rem 1.1rem;" do %>
+            <i class="fa fa-users me-1"></i> Find Friends
           <% end %>
         </div>
       </div>
 
-      <%= link_to find_friends_path, class: "btn btn-primary btn-sm", style: "border-radius: 999px; font-size: 0.82rem; padding: 0.35rem 1.1rem;" do %>
-        <i class="fa fa-users me-1"></i> Find Friends
-      <% end %>
+      <aside class="for-you-sidebar">
+        <section id="my-events" class="profile-rail-card">
+          <div class="profile-rail-card__header">
+            <h3 class="profile-rail-card__title">Upcoming Event</h3>
+            <%= link_to "All events", my_events_path, class: "profile-rail-card__link" %>
+          </div>
+          <% if next_reminder.present? %>
+            <%= link_to event_path(next_reminder.event), class: "profile-rail-feature" do %>
+              <span class="profile-rail-feature__eyebrow"><%= next_reminder.event.game.name %></span>
+              <h4 class="profile-rail-feature__title"><%= next_reminder.event.title %></h4>
+              <p class="profile-rail-feature__meta">
+                <i class="fa fa-calendar"></i>
+                <%= next_reminder.event.start_date.strftime("%-d %b %Y") %>
+              </p>
+            <% end %>
+          <% else %>
+            <p class="profile-rail-card__empty">No reminders set yet. <%= link_to "Browse events", events_path %>.</p>
+          <% end %>
+        </section>
+
+        <section id="my-patches" class="profile-rail-card">
+          <div class="profile-rail-card__header">
+            <h3 class="profile-rail-card__title">Latest Patch</h3>
+            <%= link_to "View patches", my_patches_path, class: "profile-rail-card__link" %>
+          </div>
+          <% if latest_patch.present? %>
+            <%= link_to patch_path(latest_patch), class: "profile-rail-feature" do %>
+              <span class="profile-rail-feature__eyebrow"><%= latest_patch.game.name %></span>
+              <h4 class="profile-rail-feature__title"><%= latest_patch.title %></h4>
+              <p class="profile-rail-feature__meta">
+                <i class="fa fa-clock-o"></i>
+                <%= latest_patch.display_published_at.to_date.to_fs(:long) %>
+              </p>
+            <% end %>
+          <% else %>
+            <p class="profile-rail-card__empty">No recent patches for your favourited games.</p>
+          <% end %>
+        </section>
+      </aside>
     </div>
 
   </main>
