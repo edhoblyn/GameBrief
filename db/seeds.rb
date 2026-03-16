@@ -959,12 +959,15 @@ seed_event_series(
   ]
 )
 
+ff7_rebirth&.events&.destroy_all
 seed_event_series(
   game: ff7_rebirth,
   events: [
-    { title: "Queen's Blood World Championship", description: "The first official Queen's Blood card game tournament with online qualifiers and a grand finals broadcast.", start_date: DateTime.new(2026, 4, 12, 14, 0, 0) },
-    { title: "Chadley's Combat Simulator Challenge", description: "A limited-time battle simulator event with new encounter configurations and exclusive accessory rewards.", start_date: DateTime.new(2026, 5, 24, 17, 0, 0) },
-    { title: "Piano Performance Showcase", description: "A community event spotlighting the in-game piano minigame with fan submissions and developer-curated highlights.", start_date: DateTime.new(2026, 6, 28, 18, 0, 0) }
+    {
+      title: "Final Fantasy VII — 30th Anniversary",
+      description: "Final Fantasy VII celebrates its 30th anniversary — Square Enix typically marks major FF7 milestones with special announcements, retrospectives, and news about the ongoing Remake trilogy.",
+      start_date: DateTime.new(2027, 1, 31, 12, 0, 0)
+    }
   ]
 )
 
