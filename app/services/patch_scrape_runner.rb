@@ -141,6 +141,13 @@ class PatchScrapeRunner
       missing_game_error: "Cyberpunk 2077 game not found in the database.",
       missing_game_hint: "Expected an existing Game named 'Cyberpunk 2077' or slugged 'cyberpunk-2077'."
     },
+    "spider_man_2" => {
+      label: "Marvel's Spider-Man 2",
+      importer: PatchImporters::SpiderMan2Importer,
+      game_slugs: ["marvels-spider-man-2"],
+      missing_game_error: "Marvel's Spider-Man 2 game not found in the database.",
+      missing_game_hint: "Expected an existing Game named 'Marvel's Spider-Man 2' or slugged 'marvels-spider-man-2'."
+    },
     "roblox" => {
       label: "Roblox",
       importer: PatchImporters::RobloxImporter,

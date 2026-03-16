@@ -168,6 +168,29 @@ class PatchScrapeRunnerTest < ActiveSupport::TestCase
     importer_class.define_method(:new, original_new)
   end
 
+  test "runs the spider-man 2 importer when configured" do
+    importer = Class.new do
+      Result = Struct.new(:imported, :skipped, keyword_init: true)
+
+      def call
+        Result.new(imported: 6, skipped: 2)
+      end
+    end.new
+
+    importer_class = PatchImporters::SpiderMan2Importer.singleton_class
+    original_new = PatchImporters::SpiderMan2Importer.method(:new)
+    importer_class.define_method(:new) { importer }
+
+    result = PatchScrapeRunner.run("spider_man_2")
+
+    assert_equal "spider_man_2", result.source
+    assert_equal "Marvel's Spider-Man 2", result.label
+    assert_equal 6, result.imported
+    assert_equal 2, result.skipped
+  ensure
+    importer_class.define_method(:new, original_new)
+  end
+
   test "runs the pubg battlegrounds importer when configured" do
     importer = Class.new do
       Result = Struct.new(:imported, :skipped, keyword_init: true)
@@ -210,6 +233,7 @@ class PatchScrapeRunnerTest < ActiveSupport::TestCase
     assert_includes PatchScrapeRunner.runnable_sources, "resident_evil_requiem"
     assert_includes PatchScrapeRunner.runnable_sources, "horizon_forbidden_west"
     assert_includes PatchScrapeRunner.runnable_sources, "cyberpunk_2077"
+    assert_includes PatchScrapeRunner.runnable_sources, "spider_man_2"
     assert_includes PatchScrapeRunner.runnable_sources, "star_wars_battlefront_ii"
     assert_not_includes PatchScrapeRunner.runnable_sources, "fortnite"
     assert_not_includes PatchScrapeRunner.runnable_sources, "helldivers_2"

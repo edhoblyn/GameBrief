@@ -140,6 +140,17 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
     assert_includes @response.body, "Run Patch Scrape"
   end
 
+  test "shows admin scrape button for marvel's spider-man 2" do
+    @user.update!(role: "admin")
+    game = Game.create!(name: "Marvel's Spider-Man 2", slug: "marvels-spider-man-2")
+
+    get game_url(game)
+
+    assert_response :success
+    assert_select "form[action='#{admin_patch_scrapes_path}']"
+    assert_includes @response.body, "Run Patch Scrape"
+  end
+
   test "shows ai badge instead of scrape button for blocked sources" do
     @user.update!(role: "admin")
     game = Game.create!(name: "Fortnite", slug: "fortnite")

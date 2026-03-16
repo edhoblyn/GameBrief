@@ -95,6 +95,11 @@ production:
     queue: default
     schedule: every monday at 1:55pm
 
+  scrape_spider_man_2_patches:
+    class: ScrapeSpiderMan2Job
+    queue: default
+    schedule: every monday at 1:57pm
+
   scrape_roblox_patches:
     class: ScrapeRobloxJob
     queue: default

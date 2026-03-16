@@ -107,6 +107,11 @@ namespace :patches do
     run_scrape("cyberpunk_2077")
   end
 
+  desc "Scrape and import Marvel's Spider-Man 2 PC patch notes from steampowered.com"
+  task scrape_spider_man_2: :environment do
+    run_scrape("spider_man_2")
+  end
+
   desc "Scrape and import Roblox release notes from create.roblox.com"
   task scrape_roblox: :environment do
     run_scrape("roblox")

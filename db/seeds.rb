@@ -192,6 +192,7 @@ seed_live_patches("counter_strike_2")
 seed_live_patches("pubg_battlegrounds")
 seed_live_patches("horizon_forbidden_west")
 seed_live_patches("cyberpunk_2077")
+seed_live_patches("spider_man_2")
 
 fortnite_patch = seed_placeholder_patch(
   game: fortnite,
@@ -722,37 +723,6 @@ ff7_rebirth_patch = seed_placeholder_patch(
   }
 )
 
-spiderman2_patch = seed_placeholder_patch(
-  game: spiderman2,
-  title: "Update 1.003.001 — New Game+ & Balance Pass",
-  content: <<~TEXT,
-    New Content
-    - New Game+ added: Carry over all suits, gadgets, and upgrades from your completed save. New NG+ exclusive suits unlocked upon starting.
-    - Ultimate difficulty added as part of New Game+.
-    - New Trophy set added for New Game+ completion milestones.
-
-    Combat Balance
-    - Peter (Symbiote): Venom Punch damage increased by 8%. Symbiote Surge cooldown reduced by 5s.
-    - Miles: Venom Dash now chains to a second enemy if the first is defeated within 1.5s.
-    - Web Wings: Dive speed increased slightly for more satisfying aerial traversal.
-    - Gadgets: Web Grabber pull radius increased to catch more grouped enemies.
-
-    Suit Tech Adjustments
-    - Focus Generation: Passive rate increased slightly across all combat suits.
-    - Symbiote Tendrils (Peter): Tendril damage reduced by 6% to rebalance endgame encounters.
-
-    Bug Fixes
-    - Fixed a crash triggered by switching characters rapidly during a specific main mission cutscene.
-    - Resolved an issue where photo mode filters were not saving correctly between sessions.
-    - Fixed suit colour variants not unlocking correctly for certain DLC suits.
-  TEXT
-  summaries: {
-    "quick_summary" => "New Game+ is the headline addition — you carry everything over and unlock exclusive new suits while tackling an Ultimate difficulty mode. Miles got a nice combo buff where Venom Dash chains between enemies, and the Symbiote Surge for Peter is up more often. Web Wings diving feels snappier which makes traversal even more satisfying.",
-    "casual_impact" => "If you've finished the story, New Game+ gives you a great reason to replay with all your upgrades intact and new suits to unlock. The combat tweaks make Miles feel a bit more fluid in combo chains. Traversal with the Web Wings is slightly more responsive which is a welcome quality of life improvement.",
-    "should_i_log_in" => "Yes — New Game+ and Ultimate difficulty are significant additions that give completionists and challenge seekers a fresh goal. If you haven't played yet, now is the perfect time with all updates applied and the full experience available."
-  }
-)
-
 gta_online_patch = seed_placeholder_patch(
   game: gta_online,
   title: "Bottom Dollar Bounties Update",
@@ -1079,15 +1049,6 @@ seed_event_series(
     { title: "Queen's Blood World Championship", description: "The first official Queen's Blood card game tournament with online qualifiers and a grand finals broadcast.", start_date: DateTime.new(2026, 4, 12, 14, 0, 0) },
     { title: "Chadley's Combat Simulator Challenge", description: "A limited-time battle simulator event with new encounter configurations and exclusive accessory rewards.", start_date: DateTime.new(2026, 5, 24, 17, 0, 0) },
     { title: "Piano Performance Showcase", description: "A community event spotlighting the in-game piano minigame with fan submissions and developer-curated highlights.", start_date: DateTime.new(2026, 6, 28, 18, 0, 0) }
-  ]
-)
-
-seed_event_series(
-  game: spiderman2,
-  events: [
-    { title: "New Game+ Launch Week", description: "The New Game+ mode goes live with a community celebration week featuring developer streams and challenge milestones.", start_date: DateTime.new(2026, 3, 22, 17, 0, 0) },
-    { title: "Photo Mode Community Contest", description: "An official photo mode contest where players submit their best shots of Manhattan for featured prizes.", start_date: DateTime.new(2026, 4, 26, 18, 0, 0) },
-    { title: "Ultimate Difficulty Leaderboard Event", description: "A timed Ultimate difficulty challenge where top players compete for placement on a global leaderboard.", start_date: DateTime.new(2026, 6, 7, 17, 0, 0) }
   ]
 )
 
