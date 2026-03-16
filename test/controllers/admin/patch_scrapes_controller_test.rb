@@ -176,6 +176,26 @@ class Admin::PatchScrapesControllerTest < ActionDispatch::IntegrationTest
     assert_includes @response.body, "Horizon Forbidden West scrape finished: 6 imported, 2 skipped."
   end
 
+  test "runs cyberpunk 2077 scrape for admins" do
+    sign_in @admin
+    result = PatchScrapeRunner::Result.new(source: "cyberpunk_2077", label: "Cyberpunk 2077", imported: 5, skipped: 1)
+    original_run = PatchScrapeRunner.method(:run)
+
+    PatchScrapeRunner.singleton_class.define_method(:run) do |_source|
+      result
+    end
+
+    begin
+      post admin_patch_scrapes_url, params: { source: "cyberpunk_2077" }
+    ensure
+      PatchScrapeRunner.singleton_class.define_method(:run, original_run)
+    end
+
+    assert_redirected_to admin_dashboard_path
+    follow_redirect!
+    assert_includes @response.body, "Cyberpunk 2077 scrape finished: 5 imported, 1 skipped."
+  end
+
   test "shows an alert for an unknown source" do
     sign_in @admin
 

@@ -90,6 +90,11 @@ production:
     queue: default
     schedule: every monday at 1:50pm
 
+  scrape_cyberpunk_2077_patches:
+    class: ScrapeCyberpunk2077Job
+    queue: default
+    schedule: every monday at 1:55pm
+
   scrape_roblox_patches:
     class: ScrapeRobloxJob
     queue: default

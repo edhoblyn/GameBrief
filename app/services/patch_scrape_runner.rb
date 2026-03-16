@@ -134,6 +134,13 @@ class PatchScrapeRunner
       missing_game_error: "Horizon Forbidden West game not found in the database.",
       missing_game_hint: "Expected an existing Game named 'Horizon Forbidden West' or slugged 'horizon-forbidden-west'."
     },
+    "cyberpunk_2077" => {
+      label: "Cyberpunk 2077",
+      importer: PatchImporters::Cyberpunk2077Importer,
+      game_slugs: ["cyberpunk-2077"],
+      missing_game_error: "Cyberpunk 2077 game not found in the database.",
+      missing_game_hint: "Expected an existing Game named 'Cyberpunk 2077' or slugged 'cyberpunk-2077'."
+    },
     "roblox" => {
       label: "Roblox",
       importer: PatchImporters::RobloxImporter,

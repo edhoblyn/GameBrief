@@ -102,6 +102,11 @@ namespace :patches do
     run_scrape("horizon_forbidden_west")
   end
 
+  desc "Scrape and import Cyberpunk 2077 patch notes from steampowered.com"
+  task scrape_cyberpunk_2077: :environment do
+    run_scrape("cyberpunk_2077")
+  end
+
   desc "Scrape and import Roblox release notes from create.roblox.com"
   task scrape_roblox: :environment do
     run_scrape("roblox")

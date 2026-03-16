@@ -191,6 +191,7 @@ seed_live_patches("league_of_legends")
 seed_live_patches("counter_strike_2")
 seed_live_patches("pubg_battlegrounds")
 seed_live_patches("horizon_forbidden_west")
+seed_live_patches("cyberpunk_2077")
 
 fortnite_patch = seed_placeholder_patch(
   game: fortnite,
@@ -786,38 +787,6 @@ gta_online_patch = seed_placeholder_patch(
   }
 )
 
-cyberpunk_patch = seed_placeholder_patch(
-  game: cyberpunk,
-  title: "Update 2.12 — Phantom Liberty Fixes & Tuning",
-  content: <<~TEXT,
-    Gameplay Adjustments
-    - Cyberware capacity slots rebalanced — Legendary implants now cost 1 fewer slot than before.
-    - Sandevistan activation speed improved for all tiers. MK.5 Sandevistan time dilation increased from 85% to 90%.
-    - Mantis Blades: Heavy attack damage increased by 8%. Aerial finisher cooldown reduced.
-    - Sonic Shock quickhack now correctly prevents enemies from calling for backup in all scenarios.
-
-    Phantom Liberty
-    - New gig added in Dogtown: The Afterimage — a multi-stage contract involving stolen BD recordings.
-    - Two additional NCPD Scanner Hustles added to the northern Dogtown district.
-    - Reed's safehouse now accessible post-story as a player apartment.
-
-    Difficulty & Economy
-    - Edgerunner difficulty slightly adjusted — Trauma Team response time increased from 45s to 55s.
-    - Iconic weapon crafting costs reduced by 15% across all categories.
-    - Ripperdoc prices reduced by 10% for Tier 4 and Tier 5 cyberware.
-
-    Bug Fixes
-    - Fixed a crash occurring when loading a save near the Corpo Plaza fast travel point.
-    - Resolved an issue where the Temperance ending would not trigger correctly if a specific optional dialogue was skipped.
-    - Fixed V's apartment radio stations not persisting after a game restart.
-  TEXT
-  summaries: {
-    "quick_summary" => "Sandevistans got buffed — the MK.5 now slows time even more making it one of the best builds in the game. Cyberware slots are more generous for Legendary implants so you can fit more into your build without sacrificing as much. Phantom Liberty gets a new Dogtown gig and Reed's safehouse opens up as a post-story apartment.",
-    "casual_impact" => "Iconic weapons and Tier 5 cyberware are cheaper to craft and buy, which makes endgame builds more accessible without hardcore grinding. The new Dogtown gig adds fresh content for players who have already finished the DLC. Mantis Blades players will notice a solid damage bump.",
-    "should_i_log_in" => "Yes if you haven't finished Phantom Liberty — the new gig and apartment additions make Dogtown feel more lived-in. If you're starting fresh, this is the most polished the game has ever been and an excellent time to jump in."
-  }
-)
-
 space_marine2_patch = seed_placeholder_patch(
   game: space_marine2,
   title: "Update 4.0 — Eternal War & PvP Overhaul",
@@ -1137,15 +1106,6 @@ seed_event_series(
     { title: "Split 3 Ranked Season Start", description: "Split 3 begins with Patch 14.12 — all players receive LP adjustments and the new ranked icons go live.", start_date: DateTime.new(2026, 4, 2, 10, 0, 0) },
     { title: "MSI 2026", description: "The Mid-Season Invitational brings together the top teams from every major region to compete for global glory.", start_date: DateTime.new(2026, 5, 1, 12, 0, 0) },
     { title: "World Championship 2026", description: "The pinnacle of the competitive season — the World Championship crowns the best team in League of Legends.", start_date: DateTime.new(2026, 10, 3, 12, 0, 0) }
-  ]
-)
-
-seed_event_series(
-  game: cyberpunk,
-  events: [
-    { title: "Night City Wire: Phantom Retrospective", description: "A developer broadcast looking back at Phantom Liberty and teasing upcoming content updates for 2026.", start_date: DateTime.new(2026, 4, 10, 18, 0, 0) },
-    { title: "New Gig Drop: The Afterimage", description: "The new Dogtown multi-stage contract goes live alongside a limited-time community challenge with unique rewards.", start_date: DateTime.new(2026, 4, 17, 17, 0, 0) },
-    { title: "Edgerunner Community Day", description: "A community celebration with fan art showcases, speed run competitions, and developer Q&A streams.", start_date: DateTime.new(2026, 6, 21, 17, 0, 0) }
   ]
 )
 
