@@ -2,10 +2,15 @@ require "test_helper"
 
 class Admin::PatchScrapesControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
+  include ActiveJob::TestHelper
 
   setup do
     @admin = User.create!(email: "admin-scrape@test.com", password: "123456", role: "admin")
     @user = User.create!(email: "non-admin-scrape@test.com", password: "123456", role: "user")
+    ActiveJob::Base.queue_adapter = :test
+    clear_enqueued_jobs
+    clear_performed_jobs
+    AdminPatchScrapeLogStore.clear(@admin)
   end
 
   test "forbids non-admin users" do
@@ -298,13 +303,18 @@ class Admin::PatchScrapesControllerTest < ActionDispatch::IntegrationTest
     end
 
     begin
-      post run_all_admin_patch_scrapes_url
+      assert_enqueued_with(job: RunAllPatchScrapesJob, args: [@admin.id]) do
+        post run_all_admin_patch_scrapes_url
+      end
+
+      perform_enqueued_jobs
     ensure
       PatchScrapeRunner.singleton_class.define_method(:run_all_with_diagnostics, original_run_all)
     end
 
     assert_redirected_to admin_dashboard_path
     follow_redirect!
+    assert_includes @response.body, "All scrapes started in the background."
     assert_includes @response.body, "Latest run output"
     assert_includes @response.body, "Minecraft"
   end
