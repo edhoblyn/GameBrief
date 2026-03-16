@@ -1073,6 +1073,23 @@ seed_event_series(
   ]
 )
 
+horizon_fw&.events&.destroy_all
+seed_event_series(
+  game: horizon_fw,
+  events: [
+    {
+      title: "Horizon Forbidden West — PC 2nd Anniversary",
+      description: "Horizon Forbidden West on PC turns two years old. Guerrilla Games typically acknowledges Horizon milestones with community posts, behind-the-scenes content, and a good excuse to revisit Aloy's journey through the Forbidden West.",
+      start_date: DateTime.new(2026, 3, 21, 12, 0, 0)
+    },
+    {
+      title: "Horizon Forbidden West — PS5 4th Anniversary",
+      description: "Horizon Forbidden West marks four years on PlayStation. Guerrilla historically celebrates Horizon anniversaries with developer retrospectives, community highlights, and news about the franchise's future.",
+      start_date: DateTime.new(2027, 2, 18, 12, 0, 0)
+    }
+  ]
+)
+
 battlefield6&.events&.destroy_all
 seed_event_series(
   game: battlefield6,
