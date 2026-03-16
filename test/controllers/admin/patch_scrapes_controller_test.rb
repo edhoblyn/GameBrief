@@ -76,6 +76,26 @@ class Admin::PatchScrapesControllerTest < ActionDispatch::IntegrationTest
     assert_includes @response.body, "Battlefield 6 scrape finished: 4 imported, 2 skipped."
   end
 
+  test "runs baldur's gate 3 scrape for admins" do
+    sign_in @admin
+    result = PatchScrapeRunner::Result.new(source: "baldurs_gate_3", label: "Baldur's Gate 3", imported: 6, skipped: 1)
+    original_run = PatchScrapeRunner.method(:run)
+
+    PatchScrapeRunner.singleton_class.define_method(:run) do |_source|
+      result
+    end
+
+    begin
+      post admin_patch_scrapes_url, params: { source: "baldurs_gate_3" }
+    ensure
+      PatchScrapeRunner.singleton_class.define_method(:run, original_run)
+    end
+
+    assert_redirected_to admin_dashboard_path
+    follow_redirect!
+    assert_includes @response.body, "Baldur&#39;s Gate 3 scrape finished: 6 imported, 1 skipped."
+  end
+
   test "runs league of legends scrape for admins" do
     sign_in @admin
     result = PatchScrapeRunner::Result.new(source: "league_of_legends", label: "League of Legends", imported: 5, skipped: 1)

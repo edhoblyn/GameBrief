@@ -185,6 +185,7 @@ end
 puts "Creating patches..."
 
 seed_live_patches("battlefield_6")
+seed_live_patches("baldurs_gate_3")
 seed_live_patches("arc_raiders")
 seed_live_patches("resident_evil_requiem")
 seed_live_patches("league_of_legends")

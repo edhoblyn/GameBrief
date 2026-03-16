@@ -15,6 +15,11 @@ production:
     queue: default
     schedule: every monday at 5am
 
+  scrape_baldurs_gate_3_patches:
+    class: ScrapeBaldursGate3Job
+    queue: default
+    schedule: every monday at 5:15am
+
   scrape_arc_raiders_patches:
     class: ScrapeArcRaidersJob
     queue: default

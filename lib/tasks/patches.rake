@@ -32,6 +32,11 @@ namespace :patches do
     run_scrape("battlefield_6")
   end
 
+  desc "Scrape and import Baldur's Gate 3 patch updates from steampowered.com"
+  task scrape_baldurs_gate_3: :environment do
+    run_scrape("baldurs_gate_3")
+  end
+
   desc "Scrape and import Marvel Rivals patch notes from marvelrivals.com"
   task scrape_marvel_rivals: :environment do
     run_scrape("marvel_rivals")

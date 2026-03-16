@@ -10,6 +10,13 @@ class PatchScrapeRunner
       missing_game_error: "Battlefield 6 game not found in the database.",
       missing_game_hint: "Expected an existing Game named 'Battlefield 6' or slugged 'battlefield-6'."
     },
+    "baldurs_gate_3" => {
+      label: "Baldur's Gate 3",
+      importer: PatchImporters::BaldursGate3Importer,
+      game_slugs: ["baldurs-gate-3"],
+      missing_game_error: "Baldur's Gate 3 game not found in the database.",
+      missing_game_hint: "Expected an existing Game named 'Baldur's Gate 3' or slugged 'baldurs-gate-3'."
+    },
     "arc_raiders" => {
       label: "ARC Raiders",
       importer: PatchImporters::ArcRaidersImporter,
