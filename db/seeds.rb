@@ -907,12 +907,12 @@ seed_event_series(
   ]
 )
 
+minecraft&.events&.destroy_all
 seed_event_series(
   game: minecraft,
   events: [
-    { title: "Minecraft Live Spring 2026", description: "Minecraft Live returns in the spring with announcements, previews, and community-focused reveals for the year ahead.", start_date: DateTime.new(2026, 3, 21, 17, 0, 0) },
-    { title: "Chase the Skies Game Drop", description: "The Chase the Skies game drop rolls out as a major official content beat for Minecraft in mid-June.", start_date: DateTime.new(2026, 6, 17, 17, 0, 0) },
-    { title: "Minecraft Live Fall 2026", description: "A second Minecraft Live-style event later in the year keeps the seed data feeling like a real ongoing Mojang calendar.", start_date: DateTime.new(2026, 9, 26, 17, 0, 0) }
+    { title: "Spring 2026 Game Drop", description: "Mojang's next Game Drop brings new biomes, mobs, blocks, and items to Java and Bedrock Edition simultaneously — free for all players who own the game.", start_date: DateTime.new(2026, 4, 22, 17, 0, 0) },
+    { title: "Minecraft Live 2026", description: "The annual Minecraft Live showcase — Mojang reveals the next major update, community votes on new mobs, and drops news about the franchise's future.", start_date: DateTime.new(2026, 10, 15, 17, 0, 0) }
   ]
 )
 
@@ -1106,5 +1106,7 @@ seed_event_series(
     }
   ]
 )
+
+spiderman2&.events&.destroy_all
 
 puts "Seeds finished!"

@@ -34,7 +34,15 @@
       "Bash(curl -s \"https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=2767030&count=10&feeds=steam_community_announcements\")",
       "Bash(curl -sL \"https://www.marvelrivals.com/en-us/news/\" -A \"Mozilla/5.0 \\(Macintosh; Intel Mac OS X 10_15_7\\) AppleWebKit/537.36\")",
       "Bash(curl -sL \"https://www.marvelrivals.com/news/\" -A \"Mozilla/5.0\" -o /tmp/mr_news.html -w \"%{http_code}\")",
-      "Read(//private/tmp/**)"
+      "Read(//private/tmp/**)",
+      "Bash(curl -sL \"https://www.minecraft.net/en-us/articles\" -A \"Mozilla/5.0 \\(Macintosh; Intel Mac OS X 10_15_7\\) AppleWebKit/537.36\" -o /tmp/mc_news.html -w \"%{http_code}\")",
+      "Read(//tmp/**)",
+      "Bash(ruby -e \":*)",
+      "Bash(curl -sL \"https://www.minecraft.net/en-us/article/our-cutest-drop-ever-has-a-name\" -A \"Mozilla/5.0\")",
+      "Bash(curl -s \"https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=2328520&count=8&feeds=steam_community_announcements\")",
+      "Bash(curl -s \"https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=2328520&count=8\")",
+      "Bash(curl -sL \"https://www.minecraft.net/en-us/feeds/community-content/articles.atom\" -A \"Mozilla/5.0\")",
+      "Bash(curl -sL \"https://www.minecraft.net/en-us/article/drops-past-present-future\" -A \"Mozilla/5.0 \\(Macintosh; Intel Mac OS X 10_15_7\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/120.0.0.0 Safari/537.36\")"
     ],
     "deny": []
   }
