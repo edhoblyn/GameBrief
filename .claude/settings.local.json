@@ -32,7 +32,9 @@
       "Bash(find . -path */sprockets* -name *.cache)",
       "Bash(bin/rails runner \":*)",
       "Bash(curl -s \"https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=2767030&count=10&feeds=steam_community_announcements\")",
-      "Bash(curl -sL \"https://www.marvelrivals.com/en-us/news/\" -A \"Mozilla/5.0 \\(Macintosh; Intel Mac OS X 10_15_7\\) AppleWebKit/537.36\")"
+      "Bash(curl -sL \"https://www.marvelrivals.com/en-us/news/\" -A \"Mozilla/5.0 \\(Macintosh; Intel Mac OS X 10_15_7\\) AppleWebKit/537.36\")",
+      "Bash(curl -sL \"https://www.marvelrivals.com/news/\" -A \"Mozilla/5.0\" -o /tmp/mr_news.html -w \"%{http_code}\")",
+      "Read(//private/tmp/**)"
     ],
     "deny": []
   }

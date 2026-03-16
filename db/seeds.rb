@@ -918,12 +918,12 @@ seed_event_series(
 
 seed_live_events(game: valorant, importer_class: EventImporters::ValorantEventImporter)
 
+marvel&.events&.destroy_all
 seed_event_series(
   game: marvel,
   events: [
-    { title: "Season 2 Launch Window", description: "A realistic live-service season launch beat for Marvel Rivals with balance changes, battle pass content, and featured missions.", start_date: DateTime.new(2026, 4, 12, 18, 0, 0) },
-    { title: "Midtown Mayhem Playlist Event", description: "A themed featured playlist event centered on Midtown, daily objectives, and team-up bonus rewards.", start_date: DateTime.new(2026, 5, 19, 19, 0, 0) },
-    { title: "New Hero Spotlight Week", description: "A hero release week-style event that fits the cadence of a modern hero shooter, with missions and cosmetic unlocks.", start_date: DateTime.new(2026, 6, 25, 18, 0, 0) }
+    { title: "Season 7 Launch", description: "Marvel Rivals Season 7 begins — new heroes join the roster, a fresh Battle Pass with exclusive skins, a new ranked season, and balance updates across the cast.", start_date: DateTime.new(2026, 4, 10, 18, 0, 0) },
+    { title: "Season 7.5 Mid-Season Update", description: "The mid-season patch drops with new hero additions, balance tuning, bonus mission chains, and mid-season cosmetic bundles available for a limited time.", start_date: DateTime.new(2026, 5, 8, 18, 0, 0) }
   ]
 )
 
