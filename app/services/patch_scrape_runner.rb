@@ -155,12 +155,42 @@ class PatchScrapeRunner
       missing_game_error: "Cyberpunk 2077 game not found in the database.",
       missing_game_hint: "Expected an existing Game named 'Cyberpunk 2077' or slugged 'cyberpunk-2077'."
     },
+    "space_marine_2" => {
+      label: "Warhammer 40,000: Space Marine 2",
+      importer: PatchImporters::SpaceMarine2Importer,
+      game_slugs: ["warhammer-40000-space-marine-2"],
+      missing_game_error: "Warhammer 40,000: Space Marine 2 game not found in the database.",
+      missing_game_hint: "Expected an existing Game named 'Warhammer 40,000: Space Marine 2' or slugged 'warhammer-40000-space-marine-2'."
+    },
     "spider_man_2" => {
       label: "Marvel's Spider-Man 2",
       importer: PatchImporters::SpiderMan2Importer,
       game_slugs: ["marvels-spider-man-2"],
       missing_game_error: "Marvel's Spider-Man 2 game not found in the database.",
       missing_game_hint: "Expected an existing Game named 'Marvel's Spider-Man 2' or slugged 'marvels-spider-man-2'."
+    },
+    "gta_5_online" => {
+      label: "GTA 5: Online",
+      importer: PatchImporters::Gta5OnlineImporter,
+      game_slugs: ["gta-5-online", "grand-theft-auto-v"],
+      manual_trigger_enabled: false,
+      disabled_message: "GTA 5: Online currently uses curated official Rockstar Support notes because Rockstar's public update pages are not reliably scrapeable from the app.",
+      missing_game_error: "GTA 5: Online game not found in the database.",
+      missing_game_hint: "Expected an existing Game named 'GTA 5: Online' or slugged 'gta-5-online'."
+    },
+    "dota_2" => {
+      label: "Dota 2",
+      importer: PatchImporters::Dota2Importer,
+      game_slugs: ["dota-2"],
+      missing_game_error: "Dota 2 game not found in the database.",
+      missing_game_hint: "Expected an existing Game named 'Dota 2' or slugged 'dota-2'."
+    },
+    "ff7_rebirth" => {
+      label: "Final Fantasy VII Rebirth",
+      importer: PatchImporters::Ff7RebirthImporter,
+      game_slugs: ["final-fantasy-vii-rebirth"],
+      missing_game_error: "Final Fantasy VII Rebirth game not found in the database.",
+      missing_game_hint: "Expected an existing Game named 'Final Fantasy VII Rebirth' or slugged 'final-fantasy-vii-rebirth'."
     },
     "roblox" => {
       label: "Roblox",

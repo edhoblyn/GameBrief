@@ -117,9 +117,29 @@ namespace :patches do
     run_scrape("cyberpunk_2077")
   end
 
+  desc "Scrape and import Warhammer 40,000: Space Marine 2 patch notes from community.focus-entmt.com"
+  task scrape_space_marine_2: :environment do
+    run_scrape("space_marine_2")
+  end
+
   desc "Scrape and import Marvel's Spider-Man 2 PC patch notes from steampowered.com"
   task scrape_spider_man_2: :environment do
     run_scrape("spider_man_2")
+  end
+
+  desc "Import curated official GTA 5: Online update notes"
+  task scrape_gta_5_online: :environment do
+    run_scrape("gta_5_online")
+  end
+
+  desc "Scrape and import Dota 2 updates from steampowered.com"
+  task scrape_dota_2: :environment do
+    run_scrape("dota_2")
+  end
+
+  desc "Scrape and import Final Fantasy VII Rebirth updates from steampowered.com"
+  task scrape_ff7_rebirth: :environment do
+    run_scrape("ff7_rebirth")
   end
 
   desc "Scrape and import Roblox release notes from create.roblox.com"

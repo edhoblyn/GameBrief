@@ -214,6 +214,29 @@ class PatchScrapeRunnerTest < ActiveSupport::TestCase
     importer_class.define_method(:new, original_new)
   end
 
+  test "runs the space marine 2 importer when configured" do
+    importer = Class.new do
+      Result = Struct.new(:imported, :skipped, keyword_init: true)
+
+      def call
+        Result.new(imported: 5, skipped: 2)
+      end
+    end.new
+
+    importer_class = PatchImporters::SpaceMarine2Importer.singleton_class
+    original_new = PatchImporters::SpaceMarine2Importer.method(:new)
+    importer_class.define_method(:new) { importer }
+
+    result = PatchScrapeRunner.run("space_marine_2")
+
+    assert_equal "space_marine_2", result.source
+    assert_equal "Warhammer 40,000: Space Marine 2", result.label
+    assert_equal 5, result.imported
+    assert_equal 2, result.skipped
+  ensure
+    importer_class.define_method(:new, original_new)
+  end
+
   test "runs the spider-man 2 importer when configured" do
     importer = Class.new do
       Result = Struct.new(:imported, :skipped, keyword_init: true)
@@ -233,6 +256,75 @@ class PatchScrapeRunnerTest < ActiveSupport::TestCase
     assert_equal "Marvel's Spider-Man 2", result.label
     assert_equal 6, result.imported
     assert_equal 2, result.skipped
+  ensure
+    importer_class.define_method(:new, original_new)
+  end
+
+  test "runs the gta 5 online importer when configured" do
+    importer = Class.new do
+      Result = Struct.new(:imported, :skipped, keyword_init: true)
+
+      def call
+        Result.new(imported: 2, skipped: 0)
+      end
+    end.new
+
+    importer_class = PatchImporters::Gta5OnlineImporter.singleton_class
+    original_new = PatchImporters::Gta5OnlineImporter.method(:new)
+    importer_class.define_method(:new) { importer }
+
+    result = PatchScrapeRunner.run("gta_5_online")
+
+    assert_equal "gta_5_online", result.source
+    assert_equal "GTA 5: Online", result.label
+    assert_equal 2, result.imported
+    assert_equal 0, result.skipped
+  ensure
+    importer_class.define_method(:new, original_new)
+  end
+
+  test "runs the dota 2 importer when configured" do
+    importer = Class.new do
+      Result = Struct.new(:imported, :skipped, keyword_init: true)
+
+      def call
+        Result.new(imported: 6, skipped: 1)
+      end
+    end.new
+
+    importer_class = PatchImporters::Dota2Importer.singleton_class
+    original_new = PatchImporters::Dota2Importer.method(:new)
+    importer_class.define_method(:new) { importer }
+
+    result = PatchScrapeRunner.run("dota_2")
+
+    assert_equal "dota_2", result.source
+    assert_equal "Dota 2", result.label
+    assert_equal 6, result.imported
+    assert_equal 1, result.skipped
+  ensure
+    importer_class.define_method(:new, original_new)
+  end
+
+  test "runs the ff7 rebirth importer when configured" do
+    importer = Class.new do
+      Result = Struct.new(:imported, :skipped, keyword_init: true)
+
+      def call
+        Result.new(imported: 4, skipped: 0)
+      end
+    end.new
+
+    importer_class = PatchImporters::Ff7RebirthImporter.singleton_class
+    original_new = PatchImporters::Ff7RebirthImporter.method(:new)
+    importer_class.define_method(:new) { importer }
+
+    result = PatchScrapeRunner.run("ff7_rebirth")
+
+    assert_equal "ff7_rebirth", result.source
+    assert_equal "Final Fantasy VII Rebirth", result.label
+    assert_equal 4, result.imported
+    assert_equal 0, result.skipped
   ensure
     importer_class.define_method(:new, original_new)
   end
@@ -281,10 +373,18 @@ class PatchScrapeRunnerTest < ActiveSupport::TestCase
     assert_includes PatchScrapeRunner.runnable_sources, "resident_evil_requiem"
     assert_includes PatchScrapeRunner.runnable_sources, "horizon_forbidden_west"
     assert_includes PatchScrapeRunner.runnable_sources, "cyberpunk_2077"
+    assert_includes PatchScrapeRunner.runnable_sources, "space_marine_2"
     assert_includes PatchScrapeRunner.runnable_sources, "spider_man_2"
     assert_includes PatchScrapeRunner.runnable_sources, "star_wars_battlefront_ii"
+    assert_includes PatchScrapeRunner.runnable_sources, "dota_2"
+    assert_not_includes PatchScrapeRunner.runnable_sources, "gta_5_online"
     assert_not_includes PatchScrapeRunner.runnable_sources, "fortnite"
     assert_not_includes PatchScrapeRunner.runnable_sources, "helldivers_2"
     assert_not_includes PatchScrapeRunner.runnable_sources, "minecraft"
+  end
+
+  test "supports curated sources that are hidden behind the AI admin button" do
+    assert PatchScrapeRunner.scrapeable?("gta_5_online")
+    assert_not PatchScrapeRunner.manual_trigger_enabled?("gta_5_online")
   end
 end

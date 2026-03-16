@@ -196,7 +196,10 @@ seed_live_patches("counter_strike_2")
 seed_live_patches("pubg_battlegrounds")
 seed_live_patches("horizon_forbidden_west")
 seed_live_patches("cyberpunk_2077")
+seed_live_patches("space_marine_2")
 seed_live_patches("spider_man_2")
+seed_live_patches("gta_5_online")
+seed_live_patches("dota_2")
 
 fortnite_patch = seed_placeholder_patch(
   game: fortnite,
@@ -693,109 +696,7 @@ if pokemon_pokopia.present? && pokemon_pokopia.patches.where.not(source_url: nil
 end
 
 seed_live_patches("star_wars_battlefront_ii")
-
-ff7_rebirth_patch = seed_placeholder_patch(
-  game: ff7_rebirth,
-  title: "Version 1.040 — Combat & Synergy Updates",
-  content: <<~TEXT,
-    Combat Adjustments
-    - Cloud: Punisher Mode now builds stagger gauge 10% faster on counter-attacks.
-    - Tifa: Unbridled Strength stacks now persist for 5 additional seconds before resetting.
-    - Aerith: Tempest casting speed increased. ATB charge from Ward Shift improved.
-    - Barret: Overcharge now deals 8% more damage at max gauge.
-    - Red XIII: Vengeance Mode duration increased from 20s to 22s.
-
-    Synergy Abilities
-    - Cloud + Tifa: Synergy Skill cooldown reduced from 90s to 80s.
-    - Aerith + Red XIII: Bloom damage radius increased.
-    - Barret + Yuffie: Chain Attack damage bonus increased by 5%.
-
-    Materia & Equipment
-    - New Materia: Comet — available from specific Moogle Emporium vendors post-Chapter 10.
-    - New accessory: Champion Belt added to Hard Mode endgame rewards.
-    - Elemental Materia now pairs correctly with all weapon slots on Aerith's rods.
-
-    Bug Fixes
-    - Fixed a rare issue where some Chapter Select saves would not carry over correct party equipment.
-    - Resolved Chadley's Battle Simulator progress sometimes not saving after a crash.
-    - Fixed an issue where music tracks would not transition correctly during certain boss encounters.
-  TEXT
-  summaries: {
-    "quick_summary" => "A solid combat-focused patch — Tifa's stacks last longer and Cloud staggers enemies faster in Punisher Mode, making both feel more rewarding to play. Synergy Skill cooldowns are down across the board so co-op moves flow better in longer fights. New Comet Materia adds a magic option for those building elemental party comps.",
-    "casual_impact" => "If you play on Normal mode you'll notice combat feeling slightly smoother, especially with Tifa and Cloud combos. Synergy abilities come up more often now which makes battles more dynamic without needing to grind for new gear. The new Materia is worth picking up if you're in the late game.",
-    "should_i_log_in" => "If you've been meaning to start or continue — yes. The combat feels more polished than ever and the new Materia adds fresh build options. For players who have already finished, Hard Mode endgame got new rewards worth grinding for."
-  }
-)
-
-gta_online_patch = seed_placeholder_patch(
-  game: gta_online,
-  title: "Bottom Dollar Bounties Update",
-  content: <<~TEXT,
-    New Content
-    - New business: Bottom Dollar Bounties — a bounty hunting operation managed from a new property in Blaine County.
-    - 3 new vehicles added: Declasse Impaler SX, Vapid Clique, and Declasse Vamos.
-    - New weapons: Compact EMP Launcher and Precision Rifle added to Ammu-Nation.
-
-    Business & Economy
-    - Bottom Dollar Bounties contracts pay out between GTA$25,000 and GTA$85,000 depending on target difficulty.
-    - Nightclub income passive generation increased by 10%.
-    - Bunker research speed increased slightly for solo players.
-
-    Vehicle Updates
-    - New HSW upgrades available for 4 additional vehicles at the LS Car Meet.
-    - Several older sports cars added to the Podium Vehicle rotation for the coming weeks.
-
-    Quality of Life
-    - CEO/VIP work cooldown timers reduced by 2 minutes across all mission types.
-    - Improved matchmaking for Contact Missions on lower player count sessions.
-
-    Bug Fixes
-    - Fixed an issue where the Acid Lab delivery missions would fail to trigger correctly after a lobby change.
-    - Resolved a rare freeze when entering the Agency building during a cutscene.
-    - Fixed several floating prop issues in the new Blaine County property.
-  TEXT
-  summaries: {
-    "quick_summary" => "The Bottom Dollar Bounties update adds a brand new business where you hunt down targets for cash payouts up to GTA$85K. Three stylish new classic-inspired vehicles landed alongside new weapons. Nightclub passive income got a bump and CEO cooldowns are shorter, making grinding feel slightly less repetitive.",
-    "casual_impact" => "Bounty hunting is one of the more accessible new businesses — you can run it solo and the missions are varied. The CEO cooldown reduction means you can chain missions faster which helps if you only have short play sessions. The new vehicles are great for car collectors.",
-    "should_i_log_in" => "Yes — Bottom Dollar Bounties is a fun new activity with solid payouts and the new vehicles alone are worth logging in for. If you've been away for a while, this is one of the more content-rich updates of recent months."
-  }
-)
-
-space_marine2_patch = seed_placeholder_patch(
-  game: space_marine2,
-  title: "Update 4.0 — Eternal War & PvP Overhaul",
-  content: <<~TEXT,
-    New Content
-    - PvP mode: Eternal War returns with a full overhaul. Three new maps added: Iron Bastion, Relic Gate, and Ashfall Crossing.
-    - New PvP chapter: Dark Angels playable in Eternal War with unique class cosmetics.
-    - New Operations mission: The Reclamation — a 3-player co-op mission set in a corrupted forge world.
-
-    Operations Balance
-    - Bulwark: Shield bash stagger duration increased from 1.2s to 1.5s.
-    - Vanguard: Grapnel Launcher cooldown reduced from 18s to 15s.
-    - Heavy: Melta Charge explosion radius increased by 10%.
-    - Assault: Jump Pack damage on landing increased by 8%.
-
-    PvP Tuning
-    - All bolt weapons: Damage falloff starts at slightly longer range.
-    - Chainsword: Heavy attack speed increased to close the gap against ranged spam.
-    - Class ability cooldowns reduced across the board by 5-10% in PvP.
-
-    Progression
-    - Chapter Requisition cap increased from 1500 to 2000.
-    - New cosmetic tier: Artificer Armour unlocks added for all 6 classes at Chapter Master rank.
-
-    Bug Fixes
-    - Fixed Tyranid Carnifex sometimes not triggering its charge animation correctly.
-    - Resolved an issue where co-op mission rewards would not appear after a host disconnect.
-    - Fixed certain pauldron cosmetics clipping through capes on the Bulwark class.
-  TEXT
-  summaries: {
-    "quick_summary" => "PvP Eternal War gets a major overhaul with three new maps and the Dark Angels chapter joining the roster. A new co-op Operations mission called The Reclamation adds fresh PvE content. The Vanguard got a nice buff with a shorter Grapnel cooldown and the Assault class hits harder on landing — both feel more impactful in firefights.",
-    "casual_impact" => "If you mainly play co-op Operations, the new Reclamation mission is worth running and class buffs make every role feel a bit more capable. The Artificer Armour cosmetic tier gives long-term players a new prestige goal. PvP is now more polished if you've been avoiding it.",
-    "should_i_log_in" => "Yes — this is one of the biggest updates the game has received. New PvP maps, a new chapter, and a new co-op mission all at once make this a great week to come back regardless of your preferred mode."
-  }
-)
+seed_live_patches("ff7_rebirth")
 
 genshin_patch = seed_placeholder_patch(
   game: genshin,
@@ -828,44 +729,6 @@ genshin_patch = seed_placeholder_patch(
     "quick_summary" => "Version 5.5 opens the Crimson Highlands — a volcanic new area in Natlan with new domains and exploration mechanics. Mavuika is the headline 5-star, a hard-hitting Pyro DPS with an off-field summon that works well in reaction teams. The Spiral Abyss reset favours Pyro characters heavily this cycle so Mavuika and Hu Tao players are well positioned.",
     "casual_impact" => "The Crimson Highlands is a great area to explore even without the new characters — packed with puzzles and new Primogems to collect. Hu Tao feels slightly better to play with reduced stamina drain on her Charged Attacks. Kachina is an accessible 4-star support worth pulling from the banner if you need a Geo unit.",
     "should_i_log_in" => "Yes — new region means new exploration Primogems and a fresh Spiral Abyss rotation. Even if you're skipping Mavuika's banner, the Crimson Highlands alone is worth logging in to explore over the next few weeks."
-  }
-)
-
-dota2_patch = seed_placeholder_patch(
-  game: dota2,
-  title: "Patch 7.37 — The Spring Equilibrium",
-  content: <<~TEXT,
-    General Changes
-    - Roshan now spawns with a random buff active from a pool of 5 options — visible to both teams.
-    - Outpost capture time reduced from 6s to 5s.
-    - Bounty Runes now grant 40 gold (up from 30) and appear every 3 minutes (up from 5).
-
-    Hero Adjustments
-
-    Buffs
-    - Invoker: Quas base damage increased. Exort orb damage scaling improved at levels 1-3.
-    - Phantom Assassin: Blur evasion increased from 15/20/25/30% to 20/25/30/35%.
-    - Tidehunter: Anchor Smash cooldown reduced from 12s to 10s.
-    - Chen: Holy Persuasion now works on Ancient neutral creeps at level 4.
-
-    Nerfs
-    - Muerta: Dead Shot slow duration reduced from 3s to 2.5s.
-    - Primal Beast: Onslaught cooldown increased by 2s at all levels.
-    - Viper: Corrosive Skin feedback damage reduced by 10%.
-
-    Item Changes
-    - Aghanim's Scepter recipe cost reduced from 1200 to 1000 gold.
-    - Black King Bar duration at level 1 increased from 9s to 10s.
-    - Daedalus: Critical strike chance increased from 30% to 32%.
-
-    Bug Fixes
-    - Fixed Invoker's Tornado not correctly lifting units affected by Root.
-    - Resolved a rare case where Roshan's Aegis timer would display incorrectly for one team.
-  TEXT
-  summaries: {
-    "quick_summary" => "Patch 7.37 shakes up the early game with more frequent Bounty Runes that pay out more gold, making the first 10 minutes more active. Phantom Assassin gets a significant evasion buff making her harder to kill in drawn-out fights. Muerta and Primal Beast were reined in after dominating recent patches.",
-    "casual_impact" => "Bounty Runes coming every 3 minutes makes map awareness more rewarding early on — grabbing them consistently matters more now. Aghanim's Scepter is 200 gold cheaper which helps every hero that needs it. Phantom Assassin is a strong carry pick this patch if you're looking for something new to try.",
-    "should_i_log_in" => "Yes — 7.37 is a meaningful meta shift with hero balance changes across the board and a new Roshan mechanic that adds variety to every game. Whether you're a returning player or playing regularly, this patch freshens things up nicely."
   }
 )
 

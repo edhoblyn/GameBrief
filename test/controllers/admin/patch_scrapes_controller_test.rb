@@ -241,6 +241,26 @@ class Admin::PatchScrapesControllerTest < ActionDispatch::IntegrationTest
     assert_includes @response.body, "Cyberpunk 2077 scrape finished: 5 imported, 1 skipped."
   end
 
+  test "runs space marine 2 scrape for admins" do
+    sign_in @admin
+    result = PatchScrapeRunner::Result.new(source: "space_marine_2", label: "Warhammer 40,000: Space Marine 2", imported: 6, skipped: 2)
+    original_run = PatchScrapeRunner.method(:run)
+
+    PatchScrapeRunner.singleton_class.define_method(:run) do |_source|
+      result
+    end
+
+    begin
+      post admin_patch_scrapes_url, params: { source: "space_marine_2" }
+    ensure
+      PatchScrapeRunner.singleton_class.define_method(:run, original_run)
+    end
+
+    assert_redirected_to admin_dashboard_path
+    follow_redirect!
+    assert_includes @response.body, "Warhammer 40,000: Space Marine 2 scrape finished: 6 imported, 2 skipped."
+  end
+
   test "runs spider-man 2 scrape for admins" do
     sign_in @admin
     result = PatchScrapeRunner::Result.new(source: "spider_man_2", label: "Marvel's Spider-Man 2", imported: 7, skipped: 1)
@@ -259,6 +279,46 @@ class Admin::PatchScrapesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to admin_dashboard_path
     follow_redirect!
     assert_includes @response.body, "Marvel&#39;s Spider-Man 2 scrape finished: 7 imported, 1 skipped."
+  end
+
+  test "runs dota 2 scrape for admins" do
+    sign_in @admin
+    result = PatchScrapeRunner::Result.new(source: "dota_2", label: "Dota 2", imported: 6, skipped: 1)
+    original_run = PatchScrapeRunner.method(:run)
+
+    PatchScrapeRunner.singleton_class.define_method(:run) do |_source|
+      result
+    end
+
+    begin
+      post admin_patch_scrapes_url, params: { source: "dota_2" }
+    ensure
+      PatchScrapeRunner.singleton_class.define_method(:run, original_run)
+    end
+
+    assert_redirected_to admin_dashboard_path
+    follow_redirect!
+    assert_includes @response.body, "Dota 2 scrape finished: 6 imported, 1 skipped."
+  end
+
+  test "runs ff7 rebirth scrape for admins" do
+    sign_in @admin
+    result = PatchScrapeRunner::Result.new(source: "ff7_rebirth", label: "Final Fantasy VII Rebirth", imported: 4, skipped: 0)
+    original_run = PatchScrapeRunner.method(:run)
+
+    PatchScrapeRunner.singleton_class.define_method(:run) do |_source|
+      result
+    end
+
+    begin
+      post admin_patch_scrapes_url, params: { source: "ff7_rebirth" }
+    ensure
+      PatchScrapeRunner.singleton_class.define_method(:run, original_run)
+    end
+
+    assert_redirected_to admin_dashboard_path
+    follow_redirect!
+    assert_includes @response.body, "Final Fantasy VII Rebirth scrape finished: 4 imported, 0 skipped."
   end
 
   test "shows an alert for an unknown source" do
@@ -288,6 +348,16 @@ class Admin::PatchScrapesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to admin_dashboard_path
     follow_redirect!
     assert_includes @response.body, "Minecraft currently requires an API or alternate endpoint"
+  end
+
+  test "does not allow manual scrape runs for GTA 5: Online curated source" do
+    sign_in @admin
+
+    post admin_patch_scrapes_url, params: { source: "gta_5_online" }
+
+    assert_redirected_to admin_dashboard_path
+    follow_redirect!
+    assert_includes @response.body, "GTA 5: Online currently uses curated official Rockstar Support notes"
   end
 
   test "run all stores scrape diagnostics and redirects to dashboard" do
