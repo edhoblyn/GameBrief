@@ -12,16 +12,16 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
     get my_games_url
 
     assert_response :success
-    assert_select "a[href='#{my_games_path}'].profile-sidebar__nav-link--active", text: /My Games/
-    assert_select "a[href='#{my_profile_path}'].profile-sidebar__nav-link--active", count: 0
+    assert_select "a[href='#{my_games_path}'].hn-dropdown-menu__link--active", text: /My Games/
+    assert_select "a[href='#{my_profile_path}'].hn-dropdown-menu__link--active", count: 0
   end
 
   test "highlights find friends in the loadout menu on find friends page" do
     get find_friends_url
 
     assert_response :success
-    assert_select "a[href='#{find_friends_path}'].profile-sidebar__nav-link--active", text: /Find friends/
-    assert_select "a[href='#{my_profile_path}'].profile-sidebar__nav-link--active", count: 0
+    assert_select "a[href='#{find_friends_path}'].hn-dropdown-menu__link--active", text: /Find friends/
+    assert_select "a[href='#{my_profile_path}'].hn-dropdown-menu__link--active", count: 0
   end
 
   test "shows logout button in the shared top-right settings menu" do
