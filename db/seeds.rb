@@ -103,24 +103,42 @@ def import_game(client, query, name: nil, slug: nil, free_to_play: false, single
   match = results.find { |g| g["name"]&.downcase == query.downcase && g["cover"] }
   match ||= results.find { |g| g["cover"] }
   match ||= results.first
-  return nil unless match
 
-  cover_url = match["cover"] ? "https:#{match["cover"]["url"].gsub("t_thumb", "t_cover_big")}" : nil
-  resolved_slug = slug || match["slug"]
+  if match
+    cover_url = match["cover"] ? "https:#{match["cover"]["url"].gsub("t_thumb", "t_cover_big")}" : nil
+    resolved_slug = slug || match["slug"]
 
-  game = Game.where("LOWER(name) = ?", query.downcase).first
-  game ||= Game.find_by(slug: resolved_slug) if resolved_slug.present?
-  game ||= Game.find_by(slug: match["slug"]) if match["slug"].present?
-  game ||= Game.new
+    game = Game.where("LOWER(name) = ?", query.downcase).first
+    game ||= Game.find_by(slug: resolved_slug) if resolved_slug.present?
+    game ||= Game.find_by(slug: match["slug"]) if match["slug"].present?
+    game ||= Game.new
 
-  game.update!(
-    name: name || match["name"],
-    slug: resolved_slug,
-    cover_image: cover_url,
-    free_to_play: free_to_play,
-    single_player: single_player,
-    multiplayer: multiplayer
-  )
+    game.update!(
+      name: name || match["name"],
+      slug: resolved_slug,
+      cover_image: cover_url,
+      free_to_play: free_to_play,
+      single_player: single_player,
+      multiplayer: multiplayer
+    )
+  else
+    resolved_name = name || query
+    resolved_slug = slug || query.parameterize
+    puts "Warning: IGDB returned no results for '#{query}' — creating record without cover image."
+
+    game = Game.where("LOWER(name) = ?", resolved_name.downcase).first
+    game ||= Game.find_by(slug: resolved_slug)
+    game ||= Game.new
+
+    game.update!(
+      name: resolved_name,
+      slug: resolved_slug,
+      cover_image: nil,
+      free_to_play: free_to_play,
+      single_player: single_player,
+      multiplayer: multiplayer
+    )
+  end
 
   game
 end

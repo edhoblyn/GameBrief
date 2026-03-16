@@ -158,9 +158,9 @@ class PatchScrapeRunner
     "space_marine_2" => {
       label: "Warhammer 40,000: Space Marine 2",
       importer: PatchImporters::SpaceMarine2Importer,
-      game_slugs: ["warhammer-40000-space-marine-2"],
+      game_slugs: ["warhammer-40000-space-marine-2", "warhammer-40000-space-marine-ii"],
       missing_game_error: "Warhammer 40,000: Space Marine 2 game not found in the database.",
-      missing_game_hint: "Expected an existing Game named 'Warhammer 40,000: Space Marine 2' or slugged 'warhammer-40000-space-marine-2'."
+      missing_game_hint: "Expected an existing Game named 'Warhammer 40,000: Space Marine 2' or slugged 'warhammer-40000-space-marine-2' / 'warhammer-40000-space-marine-ii'."
     },
     "spider_man_2" => {
       label: "Marvel's Spider-Man 2",
