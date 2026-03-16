@@ -38,12 +38,18 @@ namespace :events do
     run_event_import(EventImporters::CallOfDutyWarzoneEventImporter, label: "Call of Duty: Warzone")
   end
 
+  desc "Import real Clash of Clans events from supercell.com/en/games/clashofclans/blog"
+  task import_clash_of_clans: :environment do
+    run_event_import(EventImporters::ClashOfClansEventImporter, label: "Clash of Clans")
+  end
+
   desc "Import all games' real events (run each source in turn)"
   task import_all: :environment do
     Rake::Task["events:import_apex_legends"].invoke
     Rake::Task["events:import_arc_raiders"].invoke
     Rake::Task["events:import_battlefield_6"].invoke
     Rake::Task["events:import_call_of_duty_warzone"].invoke
+    Rake::Task["events:import_clash_of_clans"].invoke
     Rake::Task["events:import_valorant"].invoke
   end
 end

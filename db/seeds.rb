@@ -843,12 +843,25 @@ seed_event_series(
   ]
 )
 
+coc&.events&.destroy_all
 seed_event_series(
   game: coc,
   events: [
-    { title: "Dragon Escape Season", description: "The March season begins in Clash of Clans with a themed pass, seasonal challenges, and fresh cosmetic rewards.", start_date: DateTime.new(2026, 3, 1, 8, 0, 0) },
-    { title: "Dragon Duke Unleashed", description: "A featured seasonal event tied to the Dragon Duke theme goes live with themed progression and rewards.", start_date: DateTime.new(2026, 3, 1, 9, 0, 0) },
-    { title: "Clan Games and Super Troop Discounts", description: "Late-month Clan Games return alongside Super Troop discounts, making this one of the more active official event windows.", start_date: DateTime.new(2026, 3, 22, 8, 0, 0) }
+    {
+      title: "Clash of Clans — Clan Games March 2026",
+      description: "Clan Games are back — complete individual challenges to earn points for your Clan and unlock tiered rewards including Magic Items, Book of Heroes, and cosmetics.",
+      start_date: DateTime.new(2026, 3, 22, 8, 0, 0)
+    },
+    {
+      title: "Clash of Clans April Season",
+      description: "A new Clash of Clans season begins — the April Gold Pass launches with a fresh themed skin, season challenges, and exclusive cosmetic rewards for Gold Pass holders.",
+      start_date: DateTime.new(2026, 4, 1, 8, 0, 0)
+    },
+    {
+      title: "Clash of Clans — Clan Games April 2026",
+      description: "Clan Games return for April — team up with your Clan to complete challenges and earn Magic Items, Book of Building, and other progression rewards.",
+      start_date: DateTime.new(2026, 4, 22, 8, 0, 0)
+    }
   ]
 )
 
