@@ -1,4 +1,5 @@
 <% content_for :title, "My Profile" %>
+<meta name="turbo-cache-control" content="no-cache">
 
 <%
 
@@ -78,7 +79,7 @@
           <button type="button" class="social-stat" data-bs-toggle="modal" data-bs-target="#friendsModal">
             <span class="social-stat__count"><%= current_user.friends.count %> <%= current_user.friends.count == 1 ? "Friend" : "Friends" %></span>
             <% if @pending_received_count > 0 %>
-              <span class="social-stat__count pending-badge"><%= @pending_received_count %></span>
+              <span class="pending-badge"><%= @pending_received_count %></span>
             <% end %>
           </button>
           <button type="button" class="social-stat" data-bs-toggle="modal" data-bs-target="#findFriendsModal">
@@ -241,31 +242,66 @@
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body" style="padding: 12px 16px;">
-        <% if @friends.any? %>
-          <% @friends.each do |friend| %>
-            <div style="display: flex; align-items: center; gap: 12px; padding: 10px 4px; border-bottom: 1px solid rgba(255,255,255,0.05);">
-              <%= link_to user_path(friend), style: "display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0; text-decoration: none;" do %>
+        <% if @pending_requests.any? %>
+          <p style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--gb-muted, #8891b4); margin: 0 4px 8px;">Requests (<%= @pending_requests.count %>)</p>
+          <% @pending_requests.each do |req| %>
+            <div style="display: flex; align-items: center; gap: 12px; padding: 10px 4px; border-bottom: 1px solid rgba(255,255,255,0.05);"
+                 id="modal-pending-<%= req.id %>"
+                 data-user-path="<%= user_path(req.user) %>"
+                 data-user-name="<%= req.user.display_name %>"
+                 data-user-handle="<%= req.user.profile_handle %>"
+                 data-user-initial="<%= req.user.display_name.first.upcase %>">
+              <%= link_to user_path(req.user), style: "display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0; text-decoration: none;" do %>
                 <div style="width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, var(--gb-accent, #7c5cfc), #4f9cf9); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 700; color: #fff; flex-shrink: 0; overflow: hidden;">
-                  <% if friend.avatar_image.attached? %>
-                    <%= image_tag friend.avatar_image, style: "width: 100%; height: 100%; object-fit: cover;" %>
-                  <% elsif friend.avatar_url.present? %>
-                    <%= image_tag friend.avatar_url, style: "width: 100%; height: 100%; object-fit: cover;" %>
+                  <% if req.user.avatar_image.attached? %>
+                    <%= image_tag req.user.avatar_image, style: "width: 100%; height: 100%; object-fit: cover;" %>
+                  <% elsif req.user.avatar_url.present? %>
+                    <%= image_tag req.user.avatar_url, style: "width: 100%; height: 100%; object-fit: cover;" %>
                   <% else %>
-                    <%= friend.display_name.first.upcase %>
+                    <%= req.user.display_name.first.upcase %>
                   <% end %>
                 </div>
                 <div style="min-width: 0;">
-                  <div style="font-size: 0.88rem; font-weight: 700; color: var(--gb-text, #e8eaf6); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><%= friend.display_name %></div>
-                  <div style="font-size: 0.75rem; color: var(--gb-muted, #8891b4);">@<%= friend.profile_handle %></div>
+                  <div style="font-size: 0.88rem; font-weight: 700; color: var(--gb-text, #e8eaf6); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><%= req.user.display_name %></div>
+                  <div style="font-size: 0.75rem; color: var(--gb-muted, #8891b4);">@<%= req.user.profile_handle %></div>
                 </div>
               <% end %>
+              <div style="display: flex; gap: 4px; flex-shrink: 0;">
+                <button class="ff-modal-action-btn modal-pending-accept" data-friendship-id="<%= req.id %>" data-card="modal-pending-<%= req.id %>" style="border-color: #22c55e; background: rgba(34,197,94,0.2); color: #22c55e;" title="Accept"><i class="fa fa-check"></i></button>
+                <button class="ff-modal-action-btn modal-pending-decline" data-friendship-id="<%= req.id %>" data-card="modal-pending-<%= req.id %>" style="border-color: rgba(255,80,80,0.4); color: rgba(255,80,80,0.7);" title="Decline"><i class="fa fa-times"></i></button>
+              </div>
             </div>
           <% end %>
-        <% else %>
-          <p style="font-size: 0.85rem; color: var(--gb-muted, #8891b4); text-align: center; padding: 24px 0; margin: 0;">
-            No friends yet. <%= link_to "Find some!", find_friends_path, style: "color: var(--gb-accent, #7c5cfc);" %>
-          </p>
+          <div style="margin: 12px 4px 8px; border-top: 1px solid rgba(255,255,255,0.06);"></div>
+          <p style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--gb-muted, #8891b4); margin: 8px 4px 8px;">Friends (<%= @friends.count %>)</p>
         <% end %>
+        <div id="modal-friends-list">
+          <% if @friends.any? %>
+            <% @friends.each do |friend| %>
+              <div style="display: flex; align-items: center; gap: 12px; padding: 10px 4px; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                <%= link_to user_path(friend), style: "display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0; text-decoration: none;" do %>
+                  <div style="width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, var(--gb-accent, #7c5cfc), #4f9cf9); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 700; color: #fff; flex-shrink: 0; overflow: hidden;">
+                    <% if friend.avatar_image.attached? %>
+                      <%= image_tag friend.avatar_image, style: "width: 100%; height: 100%; object-fit: cover;" %>
+                    <% elsif friend.avatar_url.present? %>
+                      <%= image_tag friend.avatar_url, style: "width: 100%; height: 100%; object-fit: cover;" %>
+                    <% else %>
+                      <%= friend.display_name.first.upcase %>
+                    <% end %>
+                  </div>
+                  <div style="min-width: 0;">
+                    <div style="font-size: 0.88rem; font-weight: 700; color: var(--gb-text, #e8eaf6); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><%= friend.display_name %></div>
+                    <div style="font-size: 0.75rem; color: var(--gb-muted, #8891b4);">@<%= friend.profile_handle %></div>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+          <% else %>
+            <p id="modal-no-friends" style="font-size: 0.85rem; color: var(--gb-muted, #8891b4); text-align: center; padding: 24px 0; margin: 0;">
+              No friends yet. <%= link_to "Find some!", find_friends_path, style: "color: var(--gb-accent, #7c5cfc);" %>
+            </p>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
@@ -294,6 +330,103 @@
 </div>
 
 <script>
+  // Wire up accept/decline buttons inside the Friends modal
+  (function () {
+    var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    document.querySelectorAll('.modal-pending-accept').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var friendshipId = btn.dataset.friendshipId;
+        var cardId = btn.dataset.card;
+        var card = document.getElementById(cardId);
+        var userPath    = card ? card.dataset.userPath    : '#';
+        var userName    = card ? card.dataset.userName    : '';
+        var userHandle  = card ? card.dataset.userHandle  : '';
+        var userInitial = card ? card.dataset.userInitial : '';
+
+        fetch('/friendships/' + friendshipId, {
+          method: 'PATCH',
+          headers: { 'X-CSRF-Token': csrfToken, 'Accept': 'application/json' }
+        }).then(function () {
+          if (card) card.remove();
+          updatePendingSection();
+          addFriendCard(userPath, userName, userHandle, userInitial);
+          updateFriendCount(1);
+        });
+      });
+    });
+
+    document.querySelectorAll('.modal-pending-decline').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var friendshipId = btn.dataset.friendshipId;
+        var cardId = btn.dataset.card;
+        fetch('/friendships/' + friendshipId, {
+          method: 'DELETE',
+          headers: { 'X-CSRF-Token': csrfToken, 'Accept': 'application/json' }
+        }).then(function () {
+          var card = document.getElementById(cardId);
+          if (card) card.remove();
+          updatePendingSection();
+        });
+      });
+    });
+
+    function updatePendingSection() {
+      var modal = document.getElementById('friendsModal');
+      if (!modal) return;
+      var remaining = modal.querySelectorAll('[id^="modal-pending-"]').length;
+      if (remaining === 0) {
+        modal.querySelectorAll('.modal-body > p').forEach(function (p) {
+          if (p.textContent.includes('Requests') || p.textContent.includes('Friends (')) p.remove();
+        });
+        modal.querySelectorAll('.modal-body > div[style*="border-top"]').forEach(function (d) { d.remove(); });
+      }
+      // Update the pending badge on the stat button
+      var badge = document.querySelector('.pending-badge');
+      if (badge) {
+        if (remaining === 0) {
+          badge.remove();
+        } else {
+          badge.textContent = remaining;
+        }
+      }
+    }
+
+    function addFriendCard(userPath, userName, userHandle, userInitial) {
+      var list = document.getElementById('modal-friends-list');
+      if (!list) return;
+      // Remove "no friends" placeholder if present
+      var placeholder = document.getElementById('modal-no-friends');
+      if (placeholder) placeholder.remove();
+      var row = document.createElement('div');
+      row.style.cssText = 'display:flex;align-items:center;gap:12px;padding:10px 4px;border-bottom:1px solid rgba(255,255,255,0.05);';
+      row.innerHTML =
+        '<a href="' + userPath + '" style="display:flex;align-items:center;gap:12px;flex:1;min-width:0;text-decoration:none;">' +
+          '<div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--gb-accent,#7c5cfc),#4f9cf9);display:flex;align-items:center;justify-content:center;font-size:0.85rem;font-weight:700;color:#fff;flex-shrink:0;">' + userInitial + '</div>' +
+          '<div style="min-width:0;">' +
+            '<div style="font-size:0.88rem;font-weight:700;color:var(--gb-text,#e8eaf6);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + userName + '</div>' +
+            '<div style="font-size:0.75rem;color:var(--gb-muted,#8891b4);">@' + userHandle + '</div>' +
+          '</div>' +
+        '</a>';
+      list.appendChild(row);
+    }
+
+    function updateFriendCount(delta) {
+      // Update modal title
+      var title = document.getElementById('friendsModalLabel');
+      if (title) {
+        var current = parseInt(title.textContent.match(/\d+/) || [0], 10);
+        title.textContent = 'Friends \u00b7 ' + (current + delta);
+      }
+      // Update the stat button on the profile
+      var statBtn = document.querySelector('[data-bs-target="#friendsModal"] .social-stat__count');
+      if (statBtn) {
+        var n = parseInt(statBtn.textContent.match(/\d+/) || [0], 10) + delta;
+        statBtn.textContent = n + (n === 1 ? ' Friend' : ' Friends');
+      }
+    }
+  })();
+
   (function () {
     var modal   = document.getElementById('findFriendsModal');
     var input   = document.getElementById('ffModalInput');
@@ -335,7 +468,7 @@
       users.forEach(function (u) {
         var btnHtml = '';
         if (u.pending_sent) {
-          btnHtml = '<button class="ff-modal-action-btn" data-user-id="' + u.id + '" data-friendship-id="' + u.friendship_id + '" data-action="cancel" style="border-color:rgba(255,255,255,0.2);color:var(--gb-muted,#8891b4);" title="Cancel request"><i class="fa fa-clock-o"></i></button>';
+          btnHtml = '<button class="ff-modal-action-btn" data-user-id="' + u.id + '" data-friendship-id="' + u.friendship_id + '" data-action="cancel" style="border-color:rgba(255,255,255,0.2);color:var(--gb-muted,#8891b4);" title="Cancel request"><i class="fa fa-paper-plane"></i></button>';
         } else if (u.pending_received) {
           btnHtml =
             '<button class="ff-modal-action-btn" data-user-id="' + u.id + '" data-friendship-id="' + u.incoming_request_id + '" data-action="accept" style="border-color:var(--gb-accent,#7c5cfc);background:rgba(124,92,252,0.2);color:var(--gb-accent,#7c5cfc);" title="Accept"><i class="fa fa-check"></i></button>' +
@@ -381,7 +514,7 @@
           btn.dataset.action = 'cancel';
           btn.dataset.friendshipId = data.friendship_id;
           btn.title = 'Cancel request';
-          btn.innerHTML = '<i class="fa fa-clock-o"></i>';
+          btn.innerHTML = '<i class="fa fa-paper-plane"></i>';
           btn.style.borderColor = 'rgba(255,255,255,0.2)';
           btn.style.color = 'var(--gb-muted,#8891b4)';
           btn.style.background = 'transparent';
