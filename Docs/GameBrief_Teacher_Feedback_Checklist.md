@@ -78,13 +78,13 @@
 
 ## My Events
 
-- [ ] Rename `My events` to `Event reminders`
-- [ ] Match the UX closely to `My Patches`
-- [ ] Add a similar search bar to `My Patches`
-- [ ] Add a similar `Organise by game` button
-- [ ] Remove the `Browse events` button
-- [ ] Remove the saved reminders div
-- [ ] Add a grey bordered div style to match the profile page
+- [x] Rename `My events` to `Event reminders`
+- [x] Match the UX closely to `My Patches`
+- [x] Add a similar search bar to `My Patches`
+- [x] Add a similar `Organise by game` button
+- [x] Remove the `Browse events` button
+- [x] Remove the saved reminders div
+- [x] Add a grey bordered div style to match the profile page
 
 ## Spacer
 
