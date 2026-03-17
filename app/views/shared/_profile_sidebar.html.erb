@@ -1,0 +1,99 @@
+<aside class="profile-sidebar profile-sidebar--hidden" id="profile-sidebar">
+  <div class="profile-sidebar__user">
+    <div class="profile-sidebar__avatar">
+      <% if current_user.avatar_image.attached? %>
+        <%= image_tag current_user.avatar_image, class: "profile-sidebar__avatar-img" %>
+      <% elsif current_user.avatar_url.present? %>
+        <%= image_tag current_user.avatar_url, class: "profile-sidebar__avatar-img" %>
+      <% else %>
+        <div class="profile-sidebar__avatar-placeholder">
+          <%= current_user.email.first.upcase %>
+        </div>
+      <% end %>
+    </div>
+    <div class="profile-sidebar__name"><%= current_user.display_name %></div>
+    <div class="profile-sidebar__handle">@<%= current_user.profile_handle %></div>
+  </div>
+
+  <nav class="profile-sidebar__nav">
+    <a href="<%= root_path %>" class="profile-sidebar__nav-link">
+      <i class="fa fa-home"></i> Home
+    </a>
+    <a href="<%= my_profile_path %>" class="profile-sidebar__nav-link <%= 'profile-sidebar__nav-link--active' if active == :profile %>">
+      <i class="fa fa-user"></i> Profile
+    </a>
+    <a href="<%= my_games_path %>" class="profile-sidebar__nav-link <%= 'profile-sidebar__nav-link--active' if active == :library %>">
+      <i class="fa fa-gamepad"></i> Library
+      <span class="profile-sidebar__count-badge ms-auto"><%= @followed_games.count %></span>
+    </a>
+    <a href="<%= my_patches_path %>" class="profile-sidebar__nav-link <%= 'profile-sidebar__nav-link--active' if active == :updates %>">
+      <i class="fa fa-file-text"></i> Updates
+      <span class="profile-sidebar__count-badge ms-auto"><%= @recent_patches.count %></span>
+    </a>
+    <a href="<%= my_events_path %>" class="profile-sidebar__nav-link <%= 'profile-sidebar__nav-link--active' if active == :agenda %>">
+      <i class="fa fa-calendar"></i> Agenda
+      <span class="profile-sidebar__count-badge ms-auto"><%= @reminders.count %></span>
+    </a>
+    <%= link_to find_friends_path, class: "profile-sidebar__nav-link" do %>
+      <i class="fa fa-users"></i> Find friends
+    <% end %>
+  </nav>
+
+  <section class="profile-sidebar__section">
+    <div class="profile-sidebar__section-header">
+      <h3 class="profile-sidebar__section-title">Notifications</h3>
+      <span class="profile-sidebar__section-badge">Live</span>
+    </div>
+
+    <div class="profile-sidebar__control-list">
+      <button type="button"
+              class="profile-sidebar__control profile-sidebar__control--active"
+              data-action="click->notification-toggles#toggle"
+              data-notification-toggles-target="toggle"
+              data-notification-key="patch-alerts"
+              data-notification-default-state="on"
+              aria-pressed="true">
+        <span class="profile-sidebar__control-copy">
+          <span class="profile-sidebar__control-label">Patch alerts</span>
+          <span class="profile-sidebar__control-meta">Major game updates and fresh patch drops</span>
+        </span>
+        <span class="profile-sidebar__control-state profile-sidebar__control-state--active"
+              data-notification-toggles-target="state">On</span>
+      </button>
+
+      <button type="button"
+              class="profile-sidebar__control profile-sidebar__control--active"
+              data-action="click->notification-toggles#toggle"
+              data-notification-toggles-target="toggle"
+              data-notification-key="event-reminders"
+              data-notification-default-state="on"
+              aria-pressed="true">
+        <span class="profile-sidebar__control-copy">
+          <span class="profile-sidebar__control-label">Event reminders</span>
+          <span class="profile-sidebar__control-meta">Upcoming events from your favourited games</span>
+        </span>
+        <span class="profile-sidebar__control-state profile-sidebar__control-state--active"
+              data-notification-toggles-target="state">On</span>
+      </button>
+
+      <button type="button"
+              class="profile-sidebar__control"
+              data-action="click->notification-toggles#toggle"
+              data-notification-toggles-target="toggle"
+              data-notification-key="recommendation-updates"
+              data-notification-default-state="off"
+              aria-pressed="false">
+        <span class="profile-sidebar__control-copy">
+          <span class="profile-sidebar__control-label">Recommendation updates</span>
+          <span class="profile-sidebar__control-meta">Suggestions based on your activity</span>
+        </span>
+        <span class="profile-sidebar__control-state"
+              data-notification-toggles-target="state">Off</span>
+      </button>
+    </div>
+  </section>
+
+  <div class="profile-sidebar__footer">
+    <%= link_to "Sign out", destroy_user_session_path, data: { "turbo-method": :delete }, class: "profile-sidebar__signout" %>
+  </div>
+</aside>

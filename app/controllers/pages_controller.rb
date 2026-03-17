@@ -30,8 +30,11 @@ class PagesController < ApplicationController
   end
 
   def my_profile
-    @feed_posts = Post.where(user: [current_user] + current_user.friends)
-                      .order(created_at: :desc)
+    feed_user_ids = [current_user.id] + current_user.friend_ids
+    @feed_posts = Post.where(user_id: feed_user_ids)
+                      .left_joins(:likes)
+                      .group(:id)
+                      .order(Arel.sql("EXTRACT(EPOCH FROM posts.created_at) + COUNT(likes.id) * 3600 DESC"))
   end
 
   def my_games

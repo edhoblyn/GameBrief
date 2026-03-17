@@ -1,63 +1,59 @@
 <% content_for :title, "My Games" %>
 
-<div class="my-games-page container">
-  <div class="my-games-page__header">
-    <div>
-      <p class="my-games-page__eyebrow">Profile</p>
-      <h1 class="my-games-page__title">My Games</h1>
-      <p class="my-games-page__subtitle">Favourited games, all in one place.</p>
-    </div>
-    <div class="my-games-page__actions">
-      <%= link_to my_profile_path, class: "my-games-page__action" do %>
-        <i class="fa fa-arrow-left"></i>
-        Back to Profile
-      <% end %>
-      <%= link_to games_path, class: "my-games-page__action my-games-page__action--primary" do %>
-        <i class="fa fa-plus"></i>
-        Discover Games
-      <% end %>
-    </div>
-  </div>
+<div class="container my-profile-layout" data-controller="notification-toggles">
 
-  <div class="my-games-page__summary">
-    <div class="my-games-page__summary-card">
-      <span class="my-games-page__summary-value"><%= @games.count %></span>
-      <span class="my-games-page__summary-label">Favourited games</span>
-    </div>
-  </div>
+  <%= render "shared/profile_sidebar", active: :library %>
 
-  <% if @games.any? %>
-    <div class="my-games-page__grid">
-      <% @games.each do |game| %>
-        <%= link_to game_path(game), class: "game-card event-glow-card" do %>
-          <div class="game-card__cover">
-            <% if game.cover_image.present? %>
-              <%= image_tag game.cover_image, alt: game.name, class: "game-card__img", loading: "lazy" %>
-            <% else %>
-              <div class="game-card__placeholder">
-                <i class="fa fa-gamepad"></i>
+  <main class="social-main">
+    <div class="my-games-page">
+      <div class="my-games-page__header">
+        <div class="my-games-page__heading">
+          <h1 class="my-games-page__title">My Games</h1>
+          <p class="my-games-page__subtitle">Favourited games, all in one place.</p>
+        </div>
+        <div class="my-games-page__actions">
+          <%= link_to games_path, class: "my-games-page__action my-games-page__action--primary" do %>
+            <i class="fa fa-plus"></i>
+            Discover Games
+          <% end %>
+        </div>
+      </div>
+
+      <% if @games.any? %>
+        <div class="my-games-page__grid">
+          <% @games.each do |game| %>
+            <%= link_to game_path(game), class: "game-card event-glow-card" do %>
+              <div class="game-card__cover">
+                <% if game.cover_image.present? %>
+                  <%= image_tag game.cover_image, alt: game.name, class: "game-card__img", loading: "lazy" %>
+                <% else %>
+                  <div class="game-card__placeholder">
+                    <i class="fa fa-gamepad"></i>
+                  </div>
+                <% end %>
+                <div class="game-card__overlay"></div>
+              </div>
+              <div class="game-card__body">
+                <h3 class="game-card__name"><%= game.name %></h3>
+                <span class="game-card__cta">View updates <i class="fa fa-arrow-right"></i></span>
               </div>
             <% end %>
-            <div class="game-card__overlay"></div>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="my-games-page__empty">
+          <div class="my-games-page__empty-icon">
+            <i class="fa fa-gamepad"></i>
           </div>
-          <div class="game-card__body">
-            <h3 class="game-card__name"><%= game.name %></h3>
-            <span class="game-card__cta">View updates <i class="fa fa-arrow-right"></i></span>
-          </div>
-        <% end %>
+          <h2 class="my-games-page__empty-title">You have not favourited any games yet</h2>
+          <p class="my-games-page__empty-copy">Favourite games to build your personal dashboard for patches, events, and reminders.</p>
+          <%= link_to games_path, class: "my-games-page__action my-games-page__action--primary" do %>
+            <i class="fa fa-search"></i>
+            Browse Games
+          <% end %>
+        </div>
       <% end %>
     </div>
-  <% else %>
-    <div class="my-games-page__empty">
-      <div class="my-games-page__empty-icon">
-        <i class="fa fa-gamepad"></i>
-      </div>
-      <h2 class="my-games-page__empty-title">You have not favourited any games yet</h2>
-      <p class="my-games-page__empty-copy">Favourite games to build your personal dashboard for patches, events, and reminders.</p>
-      <%= link_to games_path, class: "my-games-page__action my-games-page__action--primary" do %>
-        <i class="fa fa-search"></i>
-        Browse Games
-      <% end %>
-    </div>
-  <% end %>
+  </main>
+
 </div>

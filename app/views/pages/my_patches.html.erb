@@ -1,76 +1,83 @@
 <% content_for :title, "My Patches" %>
 
-<div class="my-patches-page container">
-  <div class="my-patches-page__header">
-    <div>
-      <p class="my-patches-page__eyebrow">Profile</p>
-      <h1 class="my-patches-page__title">My Patches</h1>
-      <p class="my-patches-page__subtitle">Recent patch notes from your favourited games.</p>
-    </div>
-  </div>
+<div class="container my-profile-layout" data-controller="notification-toggles">
 
-  <div class="my-patches-page__filters">
-    <%= form_with url: my_patches_path, method: :get, local: true, class: "my-patches-page__filter-form" do %>
-      <div class="my-patches-page__filter-group">
-        <%= label_tag :date_filter, "Date range", class: "my-patches-page__filter-label" %>
-        <%= select_tag :date_filter,
-              options_for_select(Patch::DATE_FILTERS.map { |value, label| [label, value] }, @date_filter),
-              class: "my-patches-page__filter-select",
-              onchange: "this.form.requestSubmit()" %>
+  <%= render "shared/profile_sidebar", active: :updates %>
+
+  <main class="social-main">
+    <div class="my-patches-page">
+      <div class="my-patches-page__header">
+        <div>
+          <h1 class="my-patches-page__title">My Patches</h1>
+          <p class="my-patches-page__subtitle">Recent patch notes from your favourited games.</p>
+        </div>
       </div>
 
-      <div class="my-patches-page__sort-group">
-        <%= link_to "Newest", my_patches_path(date_filter: @date_filter, sort: "newest"), class: "filter-btn #{@sort == 'newest' ? 'active' : ''}" %>
-        <%= link_to "Oldest", my_patches_path(date_filter: @date_filter, sort: "oldest"), class: "filter-btn #{@sort == 'oldest' ? 'active' : ''}" %>
-      </div>
-    <% end %>
-  </div>
+      <div class="my-patches-page__filters">
+        <%= form_with url: my_patches_path, method: :get, local: true, class: "my-patches-page__filter-form" do %>
+          <div class="my-patches-page__filter-group">
+            <%= label_tag :date_filter, "Date range", class: "my-patches-page__filter-label" %>
+            <%= select_tag :date_filter,
+                  options_for_select(Patch::DATE_FILTERS.map { |value, label| [label, value] }, @date_filter),
+                  class: "my-patches-page__filter-select",
+                  onchange: "this.form.requestSubmit()" %>
+          </div>
 
-  <% if @patches.any? %>
-    <div class="patch-show__accordions">
-      <% @patches.group_by(&:game).each do |game, patches| %>
-        <details class="patch-show__accordion">
-          <summary class="patch-show__accordion-summary">
-            <span class="patch-show__accordion-title"><%= game.name %></span>
-            <span class="patch-show__accordion-preview"><%= pluralize(patches.count, "patch") %></span>
-          </summary>
-          <div class="patch-show__accordion-body">
-            <% patches.each do |patch| %>
-              <%= link_to patch_path(patch, return_to: request.fullpath), class: "patch-list-card" do %>
-                <div class="patch-list-card__icon"><i class="fa fa-file-text-o"></i></div>
-                <span class="patch-list-card__title">
-                  <%= patch.title %>
-                  <span class="patch-list-card__meta">
-                    <small class="d-block text-muted mb-0"><%= patch.display_published_at.to_date.to_fs(:long) %></small>
-                    <% if patch.freshly_published? %>
-                      <span class="patch-fresh-badge">New</span>
-                    <% end %>
-                  </span>
-                </span>
-                <span class="patch-list-card__arrow"><i class="fa fa-chevron-right"></i></span>
-              <% end %>
+          <div class="my-patches-page__sort-group">
+            <%= link_to "Newest", my_patches_path(date_filter: @date_filter, sort: "newest"), class: "filter-btn #{@sort == 'newest' ? 'active' : ''}" %>
+            <%= link_to "Oldest", my_patches_path(date_filter: @date_filter, sort: "oldest"), class: "filter-btn #{@sort == 'oldest' ? 'active' : ''}" %>
+          </div>
+        <% end %>
+      </div>
+
+      <% if @patches.any? %>
+        <div class="patch-show__accordions">
+          <% @patches.group_by(&:game).each do |game, patches| %>
+            <details class="patch-show__accordion">
+              <summary class="patch-show__accordion-summary">
+                <span class="patch-show__accordion-title"><%= game.name %></span>
+                <span class="patch-show__accordion-preview"><%= pluralize(patches.count, "patch") %></span>
+              </summary>
+              <div class="patch-show__accordion-body">
+                <% patches.each do |patch| %>
+                  <%= link_to patch_path(patch, return_to: request.fullpath), class: "patch-list-card" do %>
+                    <div class="patch-list-card__icon"><i class="fa fa-file-text-o"></i></div>
+                    <span class="patch-list-card__title">
+                      <%= patch.title %>
+                      <span class="patch-list-card__meta">
+                        <small class="d-block text-muted mb-0"><%= patch.display_published_at.to_date.to_fs(:long) %></small>
+                        <% if patch.freshly_published? %>
+                          <span class="patch-fresh-badge">New</span>
+                        <% end %>
+                      </span>
+                    </span>
+                    <span class="patch-list-card__arrow"><i class="fa fa-chevron-right"></i></span>
+                  <% end %>
+                <% end %>
+              </div>
+            </details>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="my-patches-page__empty">
+          <div class="my-patches-page__empty-icon">
+            <i class="fa fa-file-text"></i>
+          </div>
+          <h2 class="my-patches-page__empty-title">No patches found for your favourited games</h2>
+          <p class="my-patches-page__empty-copy">Try a wider date range or favourite more games to build your patch feed.</p>
+          <div class="my-patches-page__actions">
+            <%= link_to my_games_path, class: "my-patches-page__action" do %>
+              <i class="fa fa-gamepad"></i>
+              View My Games
+            <% end %>
+            <%= link_to games_path, class: "my-patches-page__action my-patches-page__action--primary" do %>
+              <i class="fa fa-search"></i>
+              Browse All Games
             <% end %>
           </div>
-        </details>
+        </div>
       <% end %>
     </div>
-  <% else %>
-    <div class="my-patches-page__empty">
-      <div class="my-patches-page__empty-icon">
-        <i class="fa fa-file-text"></i>
-      </div>
-      <h2 class="my-patches-page__empty-title">No patches found for your favourited games</h2>
-      <p class="my-patches-page__empty-copy">Try a wider date range or favourite more games to build your patch feed.</p>
-      <div class="my-patches-page__actions">
-        <%= link_to my_games_path, class: "my-patches-page__action" do %>
-          <i class="fa fa-gamepad"></i>
-          View My Games
-        <% end %>
-        <%= link_to games_path, class: "my-patches-page__action my-patches-page__action--primary" do %>
-          <i class="fa fa-search"></i>
-          Browse All Games
-        <% end %>
-      </div>
-    </div>
-  <% end %>
+  </main>
+
 </div>
