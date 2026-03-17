@@ -1,4 +1,5 @@
 import "@hotwired/turbo-rails"
+import "bootstrap"
 import "controllers"
 
 document.addEventListener("turbo:submit-start", () => {

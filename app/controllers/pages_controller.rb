@@ -48,6 +48,7 @@ class PagesController < ApplicationController
                       .left_joins(:likes)
                       .group(:id)
                       .order(Arel.sql("EXTRACT(EPOCH FROM posts.created_at) + COUNT(likes.id) * 3600 DESC"))
+    @friends = current_user.friends
   end
 
   def my_games

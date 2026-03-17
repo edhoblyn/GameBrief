@@ -369,7 +369,6 @@
       var action       = btn.dataset.action;
       var userId       = btn.dataset.userId;
       var friendshipId = btn.dataset.friendshipId;
-      var card         = document.getElementById('modal-card-' + userId);
 
       if (action === 'add') {
         fetch('/friendships', {
@@ -406,7 +405,6 @@
         })
         .then(function (r) { return r.json(); })
         .then(function (data) {
-          // Replace both buttons with a single Friends button
           var wrap = btn.closest('div[style*="flex-shrink"]');
           if (wrap) {
             wrap.innerHTML = '<button class="ff-modal-action-btn" data-action="unfriend" data-user-id="' + userId + '" data-friendship-id="' + data.friendship_id + '" style="border-color:var(--gb-accent,#7c5cfc);background:rgba(124,92,252,0.2);color:var(--gb-accent,#7c5cfc);" title="Remove friend"><i class="fa fa-check"></i></button>';

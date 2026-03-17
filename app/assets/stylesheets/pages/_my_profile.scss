@@ -704,6 +704,8 @@ $sidebar-width: 260px;
   padding: 0.55rem 0.8rem;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.03);
+  border: none;
+  cursor: pointer;
 
   &:hover { color: $dark-text; text-decoration: none; }
 
