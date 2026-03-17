@@ -65,7 +65,7 @@
 
 ## Posts
 
-- [ ] Implement the like functionality
+- [x] Implement the like functionality
 
 ## My Patches
 

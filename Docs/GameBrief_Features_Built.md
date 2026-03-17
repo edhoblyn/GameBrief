@@ -69,7 +69,7 @@
 - GPT-4o responses generated through RubyLLM
 - Prior chat history is replayed for follow-up questions
 - Patch content is injected into chatbot instructions for context
-- User message limit of 10 per chat
+- User message limit of 5 per chat
 
 ## Events + Reminders
 
@@ -82,6 +82,12 @@
 - `My Events` page lists saved reminders
 - `My Events` page includes reminder counts plus an empty state when no reminders exist
 - One-sentence AI event summaries generated and stored on the event record
+
+## Posts + Likes
+
+- Create and delete social posts from the profile page
+- Like and unlike posts; one like per user per post
+- Individual player profile pages are publicly accessible (no login required)
 
 ## My Profile + Discovery
 
