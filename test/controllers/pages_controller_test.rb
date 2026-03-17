@@ -39,4 +39,19 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
     assert_select "button.app-settings-menu__sound-button[data-sound-toggle][aria-label='Sound effects on'][title='Sound effects on'][aria-pressed='false']"
     assert_select "button.app-settings-menu__sound-button i.app-settings-menu__sound-icon.fa-solid.fa-volume"
   end
+
+  test "does not render the shared spacer on the homepage" do
+    get root_url
+
+    assert_response :success
+    assert_select ".app-layout-spacer", count: 0
+    assert_select ".home-landing__heading", text: /Stay in the loop/i
+  end
+
+  test "keeps the shared spacer on non-home pages" do
+    get my_games_url
+
+    assert_response :success
+    assert_select ".app-layout-spacer", count: 1
+  end
 end

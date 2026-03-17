@@ -47,7 +47,7 @@
       <div class="trending-carousel">
         <p class="trending-carousel__title">Trending Games</p>
         <div class="trending-carousel__wrapper">
-          <button class="btn btn-dark" onclick="trendingScroll(-1)">&#8249;</button>
+          <button type="button" class="trending-carousel__control" aria-label="Scroll trending games left" onclick="trendingScroll(-1)">&#8249;</button>
           <div class="trending-carousel__viewport">
             <div class="trending-carousel__track" id="trendingTrack">
               <% @trending_games.each do |game| %>
@@ -64,51 +64,63 @@
               <% end %>
             </div>
           </div>
-          <button class="btn btn-dark" onclick="trendingScroll(1)">&#8250;</button>
+          <button type="button" class="trending-carousel__control" aria-label="Scroll trending games right" onclick="trendingScroll(1)">&#8250;</button>
         </div>
       </div>
     </section>
 
     <script>
-      function trendingScroll(dir) {
+      (function() {
         var track = document.getElementById("trendingTrack");
         if (!track) return;
 
-        var card = track.querySelector(".trending-carousel__card");
-        if (!card) return;
-
-        var cardWidth = card.offsetWidth + 16; // card + gap
-        var scrollAmount = cardWidth * 5;
-        var maxScrollLeft = track.scrollWidth - track.clientWidth;
-
-        if (dir > 0 && track.scrollLeft >= maxScrollLeft - cardWidth) {
-          track.scrollTo({ left: 0, behavior: "smooth" });
-          return;
+        function cardWidth() {
+          var card = track.querySelector(".trending-carousel__card");
+          return card ? card.getBoundingClientRect().width + 16 : 0;
         }
 
-        if (dir < 0 && track.scrollLeft <= cardWidth) {
-          track.scrollTo({ left: maxScrollLeft, behavior: "smooth" });
-          return;
+        window.trendingScroll = function(dir) {
+          var width = cardWidth();
+          if (!width) return;
+
+          var visibleCards = Math.max(1, Math.round(track.clientWidth / width));
+          var scrollAmount = width * Math.max(1, visibleCards - 1);
+          var maxScrollLeft = track.scrollWidth - track.clientWidth;
+
+          if (dir > 0 && track.scrollLeft >= maxScrollLeft - width) {
+            track.scrollTo({ left: 0, behavior: "smooth" });
+            return;
+          }
+
+          if (dir < 0 && track.scrollLeft <= width) {
+            track.scrollTo({ left: maxScrollLeft, behavior: "smooth" });
+            return;
+          }
+
+          track.scrollBy({ left: dir * scrollAmount, behavior: "smooth" });
+        };
+
+        function stopAutoScroll() {
+          if (window.trendingCarouselInterval) {
+            window.clearInterval(window.trendingCarouselInterval);
+          }
         }
 
-        track.scrollBy({ left: dir * scrollAmount, behavior: "smooth" });
-      }
+        function startAutoScroll() {
+          stopAutoScroll();
+          window.trendingCarouselInterval = window.setInterval(function() {
+            window.trendingScroll(1);
+          }, 8000);
+        }
 
-      if (window.trendingCarouselInterval) {
-        window.clearInterval(window.trendingCarouselInterval);
-      }
+        track.addEventListener("mouseenter", stopAutoScroll);
+        track.addEventListener("mouseleave", startAutoScroll);
+        track.addEventListener("focusin", stopAutoScroll);
+        track.addEventListener("focusout", startAutoScroll);
 
-      window.trendingCarouselInterval = window.setInterval(function() {
-        trendingScroll(1);
-      }, 10000);
+        startAutoScroll();
+      })();
     </script>
   <% end %>
 
-<% if user_signed_in? %>
-    <div class="home-landing__logout">
-      <%= button_to destroy_user_session_path, method: :delete, class: "logout-btn" do %>
-        <i class="fa fa-sign-out"></i> Log out
-      <% end %>
-    </div>
-  <% end %>
 </div>
