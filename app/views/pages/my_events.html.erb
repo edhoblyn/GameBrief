@@ -1,17 +1,14 @@
 <% content_for :title, "Event Reminders" %>
 
-<div class="my-events-page container">
+<div class="container my-profile-layout">
+  <%= render "shared/profile_sidebar", active: :agenda %>
+
+  <main class="social-main">
+  <div class="my-events-page">
   <div class="my-events-page__header">
     <div>
-      <p class="my-events-page__eyebrow">Profile</p>
       <h1 class="my-events-page__title">Event Reminders</h1>
       <p class="my-events-page__subtitle">Upcoming reminders for the events you want to keep track of.</p>
-    </div>
-    <div class="my-events-page__actions">
-      <%= link_to my_profile_path, class: "my-events-page__action" do %>
-        <i class="fa fa-arrow-left"></i>
-        Back to Profile
-      <% end %>
     </div>
   </div>
 
@@ -141,4 +138,6 @@
     </div>
   <% end %>
 
+  </div>
+  </main>
 </div>
