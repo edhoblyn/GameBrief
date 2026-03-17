@@ -58,7 +58,8 @@
       "Bash(grep \"games-grid\\\\|admin-game-card\" public/assets/application-*.css)",
       "Bash(bin/rails assets:clobber)",
       "Bash(bin/rails generate:*)",
-      "Bash(bin/rails assets:precompile 2>&1 | tail -5)"
+      "Bash(bin/rails assets:precompile 2>&1 | tail -5)",
+      "Bash(git restore:*)"
     ],
     "deny": []
   }

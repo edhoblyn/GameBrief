@@ -1,26 +1,18 @@
-<% content_for :title, "My Patch Updates" %>
 
 <div class="my-patches-page container">
-  <div class="my-patches-page__header">
-    <div>
-      <p class="my-patches-page__eyebrow">Profile</p>
-      <h1 class="my-patches-page__title">My Patch Updates</h1>
-      <p class="my-patches-page__subtitle">Recent patch notes from your favourited games.</p>
-    </div>
-    <div class="my-patches-page__actions">
-      <%= link_to my_profile_path, class: "my-patches-page__action" do %>
-        <i class="fa fa-arrow-left"></i>
-        Back to Profile
-      <% end %>
-    </div>
-  </div>
 
   <main class="social-main">
     <div class="my-patches-page">
       <div class="my-patches-page__header">
         <div>
-          <h1 class="my-patches-page__title">My Patches</h1>
+          <h1 class="my-patches-page__title">My Patch Updates</h1>
           <p class="my-patches-page__subtitle">Recent patch notes from your favourited games.</p>
+        </div>
+        <div class="my-patches-page__actions">
+          <%= link_to my_profile_path, class: "my-patches-page__action" do %>
+            <i class="fa fa-arrow-left"></i>
+            Back to Profile
+          <% end %>
         </div>
       </div>
 

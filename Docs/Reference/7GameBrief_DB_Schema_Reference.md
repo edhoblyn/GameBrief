@@ -1,7 +1,7 @@
 # GameBrief — Database Schema Reference
 
 > Last updated: 2026-03-17
-> Schema version: 2026_03_16_110000
+> Schema version: 2026_03_17_104151
 
 ## users
 
@@ -22,7 +22,7 @@
 | created_at | datetime | |
 | updated_at | datetime | |
 
-Relationships: has_many favourites, games (through favourites), reminders, chats, friendships, posts
+Relationships: has_many favourites, games (through favourites), reminders, chats, friendships, posts, likes
 
 ---
 
@@ -186,7 +186,23 @@ Relationships: belongs_to user, belongs_to friend (User)
 | created_at | datetime | |
 | updated_at | datetime | |
 
-Relationships: belongs_to user
+Relationships: belongs_to user, has_many likes
+
+---
+
+## likes
+
+| Column | Type | Notes |
+| --- | --- | --- |
+| id | bigint | PK |
+| user_id | bigint | FK → users |
+| post_id | bigint | FK → posts |
+| created_at | datetime | |
+| updated_at | datetime | |
+
+Unique index on `[user_id, post_id]`. One like per user per post.
+
+Relationships: belongs_to user, belongs_to post
 
 ---
 
