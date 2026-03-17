@@ -14,24 +14,10 @@
     <div class="events-index__hero">
       <div class="events-index__hero-copy">
         <p class="events-index__eyebrow">Events</p>
-        <h1 class="events-index__title">Track what is happening next across the games you care about.</h1>
+        <h1 class="events-index__title">Upcoming events across all games on GameBrief.</h1>
         <p class="events-index__subtitle">
-          Browse upcoming events, scan what is happening this week, and jump straight into details for the games you already follow.
+          Browse every scheduled event in one place. Filter by time or game to find what is coming up next.
         </p>
-      </div>
-
-      <div class="events-index__actions">
-        <% if user_signed_in? %>
-          <%= link_to my_events_path, class: "events-index__action" do %>
-            <i class="fa fa-bell-o"></i>
-            My Events
-          <% end %>
-        <% end %>
-
-        <%= link_to games_path, class: "events-index__action events-index__action--primary" do %>
-          <i class="fa fa-gamepad"></i>
-          Browse Games
-        <% end %>
       </div>
     </div>
 

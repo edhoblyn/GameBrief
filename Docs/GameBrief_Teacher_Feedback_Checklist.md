@@ -27,9 +27,9 @@
 
 ## Events Index
 
-- [ ] Remove the `Browse games` button
-- [ ] Remove the `My events` button
-- [ ] Update the hero card copy so it clearly explains this is the general events index page
+- [x] Remove the `Browse games` button
+- [x] Remove the `My events` button
+- [x] Update the hero card copy so it clearly explains this is the general events index page
 
 ## Event Show Page
 
