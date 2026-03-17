@@ -1,8 +1,8 @@
 <% content_for :title, "#{@user.display_name}'s Profile" %>
 
-<div class="container" style="padding-top: 5rem; padding-bottom: 3rem; max-width: 860px;">
+<div class="pub-profile-layout">
 
-  <div class="mb-3">
+  <div class="pub-profile-back">
     <% if user_signed_in? && current_user.admin? %>
       <%= link_to users_path, class: "ff-back__link" do %>
         <i class="fa fa-arrow-left"></i> Back to Players
@@ -14,124 +14,136 @@
     <% end %>
   </div>
 
-  <!-- Profile header -->
-  <div class="social-main" style="border-radius: 28px; overflow: hidden; margin-bottom: 1.5rem;">
-    <% banner_style = @user.cover_image.attached? ? "background-image: linear-gradient(rgba(7,10,22,0.18), rgba(7,10,22,0.52)), url('#{url_for(@user.cover_image)}');" : nil %>
-    <div class="social-profile-banner"<%= banner_style.present? ? " style=\"#{banner_style}\"".html_safe : "" %>></div>
+  <div class="social-main pub-profile-card">
 
-    <div class="social-profile-info">
-      <div class="social-profile-top-row">
-        <div class="social-profile-avatar-wrap" style="cursor: default;">
-          <% if @user.avatar_image.attached? %>
-            <%= image_tag @user.avatar_image, class: "social-profile-avatar social-profile-avatar--img", alt: @user.display_name %>
-          <% elsif @user.avatar_url.present? %>
-            <%= image_tag @user.avatar_url, class: "social-profile-avatar social-profile-avatar--img", alt: @user.display_name %>
-          <% else %>
-            <div class="social-profile-avatar">
-              <%= @user.display_name.first.upcase %>
-            </div>
-          <% end %>
-        </div>
+    <!-- Profile header -->
+    <div class="social-profile-header">
+      <% banner_style = @user.cover_image.attached? ? "background-image: linear-gradient(rgba(7,10,22,0.18), rgba(7,10,22,0.52)), url('#{url_for(@user.cover_image)}');" : nil %>
+      <div class="social-profile-banner"<%= banner_style.present? ? " style=\"#{banner_style}\"".html_safe : "" %>></div>
 
-        <div>
-          <% if !user_signed_in? %>
-            <%# Guest: no action button %>
-          <% elsif current_user == @user %>
-            <%= link_to "Edit Profile", edit_user_registration_path, class: "btn-edit-profile" %>
-          <% else %>
-            <button
-              id="profile-friend-btn"
-              class="social-profile-action <%= @existing_friendship ? '' : 'social-profile-action--primary' %>"
-              data-user-id="<%= @user.id %>"
-              data-friendship-id="<%= @existing_friendship&.id || '' %>"
-              data-is-friend="<%= @existing_friendship ? '1' : '0' %>">
-              <% if @existing_friendship %>
-                <i class="fa fa-check me-1"></i> Friends
-              <% else %>
-                <i class="fa fa-plus me-1"></i> Add Friend
-              <% end %>
-            </button>
-          <% end %>
-        </div>
-      </div>
-
-      <div class="social-profile-identity">
-        <h2 class="social-profile-name"><%= @user.display_name %></h2>
-        <span class="social-profile-handle">@<%= @user.profile_handle %></span>
-      </div>
-
-      <div class="social-profile-stats">
-        <span class="social-stat">
-          <span class="social-stat__count"><%= @friends_count %></span>
-          <span class="social-stat__label"><%= @friends_count == 1 ? "Friend" : "Friends" %></span>
-        </span>
-        <span class="social-stat">
-          <span class="social-stat__count"><%= @posts_count %></span>
-          <span class="social-stat__label"><%= @posts_count == 1 ? "Post" : "Posts" %></span>
-        </span>
-        <span class="social-stat">
-          <span class="social-stat__count"><%= @games_count %></span>
-          <span class="social-stat__label">Games</span>
-        </span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Body -->
-  <div class="for-you-layout">
-
-    <!-- Posts feed -->
-    <div class="for-you-feed">
-      <div class="p-3" style="display: flex; flex-direction: column; gap: 10px;">
-        <p style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--gb-muted); margin-bottom: 4px;">Posts</p>
-
-        <% if user_signed_in? %>
-          <% if @posts.any? %>
-            <% @posts.each do |post| %>
-              <div style="padding: 14px 16px; border-radius: 18px 18px 18px 4px; background: linear-gradient(135deg, rgba(124,92,252,0.12), rgba(79,156,249,0.07)); border: 1px solid rgba(124,92,252,0.25);">
-                <div class="d-flex align-items-center gap-2 mb-2">
-                  <div style="width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg, var(--gb-accent), var(--gb-accent-strong)); display: flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 700; color: #fff; flex-shrink: 0;">
-                    <%= @user.display_name.first.upcase %>
-                  </div>
-                  <span style="font-size: 0.85rem; font-weight: 600; color: var(--gb-text);"><%= @user.display_name %></span>
-                  <span style="color: var(--gb-muted); font-size: 0.75rem; margin-left: auto;"><%= time_ago_in_words(post.created_at) %> ago</span>
-                </div>
-                <p style="margin: 0; font-size: 0.88rem; color: var(--gb-text); line-height: 1.55;"><%= post.body %></p>
+      <div class="social-profile-info">
+        <div class="social-profile-top-row">
+          <div class="social-profile-avatar-wrap" style="cursor: default;">
+            <% if @user.avatar_image.attached? %>
+              <%= image_tag @user.avatar_image, class: "social-profile-avatar social-profile-avatar--img", alt: @user.display_name %>
+            <% elsif @user.avatar_url.present? %>
+              <%= image_tag @user.avatar_url, class: "social-profile-avatar social-profile-avatar--img", alt: @user.display_name %>
+            <% else %>
+              <div class="social-profile-avatar">
+                <%= @user.display_name.first.upcase %>
               </div>
             <% end %>
-          <% else %>
-            <p class="text-muted" style="font-size: 0.85rem;">No posts yet.</p>
-          <% end %>
-        <% else %>
-          <p class="text-muted" style="font-size: 0.85rem;"><%= link_to "Sign in", new_user_session_path %> to view posts.</p>
-        <% end %>
+          </div>
+
+          <div>
+            <% if !user_signed_in? %>
+              <%# guest: no action %>
+            <% elsif current_user == @user %>
+              <%= link_to "Edit Profile", edit_user_registration_path, class: "btn-edit-profile" %>
+            <% else %>
+              <button
+                id="profile-friend-btn"
+                class="social-profile-action <%= @existing_friendship ? '' : 'social-profile-action--primary' %>"
+                data-user-id="<%= @user.id %>"
+                data-friendship-id="<%= @existing_friendship&.id || '' %>"
+                data-is-friend="<%= @existing_friendship ? '1' : '0' %>">
+                <% if @existing_friendship %>
+                  <i class="fa fa-check me-1"></i> Friends
+                <% else %>
+                  <i class="fa fa-plus me-1"></i> Add Friend
+                <% end %>
+              </button>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="social-profile-identity">
+          <h2 class="social-profile-name"><%= @user.display_name %></h2>
+          <span class="social-profile-handle">@<%= @user.profile_handle %></span>
+        </div>
+
+        <div class="social-profile-stats">
+          <span class="social-stat">
+            <span class="social-stat__count"><%= @friends_count %></span>
+            <span class="social-stat__label"><%= @friends_count == 1 ? "Friend" : "Friends" %></span>
+          </span>
+          <span class="social-stat">
+            <span class="social-stat__count"><%= @posts_count %></span>
+            <span class="social-stat__label"><%= @posts_count == 1 ? "Post" : "Posts" %></span>
+          </span>
+          <span class="social-stat">
+            <span class="social-stat__count"><%= @games_count %></span>
+            <span class="social-stat__label">Games</span>
+          </span>
+        </div>
       </div>
     </div>
 
-    <!-- Favourite games sidebar -->
-    <aside class="for-you-sidebar">
-      <section class="profile-rail-card">
-        <div class="profile-rail-card__header">
-          <h3 class="profile-rail-card__title">Favourite Games</h3>
-          <span class="profile-rail-card__eyebrow"><%= @games_count %></span>
+    <!-- Body -->
+    <div class="for-you-layout">
+
+      <!-- Posts feed -->
+      <div class="for-you-feed">
+        <div class="px-3 pt-3 pb-2">
+          <p style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--gb-muted); margin: 0;">Posts</p>
         </div>
 
-        <% if @favourite_games.any? %>
-          <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-            <% @favourite_games.each do |game| %>
-              <%= link_to game_path(game), class: "profile-rail-feature" do %>
-                <span class="profile-rail-feature__eyebrow"><i class="fa fa-gamepad"></i></span>
-                <h4 class="profile-rail-feature__title"><%= game.name %></h4>
+        <div class="p-3" style="display: flex; flex-direction: column; gap: 10px;">
+          <% if user_signed_in? %>
+            <% if @posts.any? %>
+              <% @posts.each do |post| %>
+                <div style="border-radius: 18px; border: 1px solid rgba(124,92,252,0.25); overflow: hidden; background: rgba(255,255,255,0.02);">
+                  <div style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: linear-gradient(135deg, rgba(124,92,252,0.15), rgba(79,156,249,0.08)); border-bottom: 1px solid rgba(255,255,255,0.06);">
+                    <div style="width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg, var(--gb-accent), var(--gb-accent-strong)); display: flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 700; color: #fff; flex-shrink: 0; overflow: hidden;">
+                      <% if @user.avatar_image.attached? %>
+                        <%= image_tag @user.avatar_image, style: "width: 100%; height: 100%; object-fit: cover;" %>
+                      <% else %>
+                        <%= @user.display_name.first.upcase %>
+                      <% end %>
+                    </div>
+                    <span style="font-size: 0.85rem; font-weight: 700; color: var(--gb-text);"><%= @user.display_name %></span>
+                    <span style="color: var(--gb-muted); font-size: 0.72rem; margin-left: auto;"><%= time_ago_in_words(post.created_at) %> ago</span>
+                  </div>
+                  <div style="padding: 12px 14px 12px;">
+                    <p style="margin: 0; font-size: 0.88rem; color: var(--gb-text); line-height: 1.6;"><%= post.body %></p>
+                  </div>
+                </div>
               <% end %>
+            <% else %>
+              <p style="color: var(--gb-muted); font-size: 0.85rem; margin: 0.5rem 0;">No posts yet.</p>
             <% end %>
-          </div>
-        <% else %>
-          <p class="profile-rail-card__empty">No favourited games yet.</p>
-        <% end %>
-      </section>
-    </aside>
+          <% else %>
+            <p style="color: var(--gb-muted); font-size: 0.85rem; margin: 0.5rem 0;"><%= link_to "Sign in", new_user_session_path %> to view posts.</p>
+          <% end %>
+        </div>
+      </div>
 
+      <!-- Sidebar -->
+      <aside class="for-you-sidebar">
+        <section class="profile-rail-card">
+          <div class="profile-rail-card__header">
+            <h3 class="profile-rail-card__title">Favourite Games</h3>
+            <span class="profile-rail-card__eyebrow"><%= @games_count %></span>
+          </div>
+
+          <% if @favourite_games.any? %>
+            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+              <% @favourite_games.each do |game| %>
+                <%= link_to game_path(game), class: "profile-rail-feature" do %>
+                  <span class="profile-rail-feature__eyebrow"><i class="fa fa-gamepad"></i></span>
+                  <h4 class="profile-rail-feature__title"><%= game.name %></h4>
+                <% end %>
+              <% end %>
+            </div>
+          <% else %>
+            <p class="profile-rail-card__empty">No favourited games yet.</p>
+          <% end %>
+        </section>
+      </aside>
+
+    </div>
   </div>
+
 </div>
 
 <% if user_signed_in? && current_user != @user %>
