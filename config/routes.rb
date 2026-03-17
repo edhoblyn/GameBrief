@@ -39,7 +39,11 @@ Rails.application.routes.draw do
   resources :reminders, only: [:create, :destroy]
   resources :friendships, only: [:create, :update, :destroy]
 
-  resources :users, only: [:index, :show]
+  resources :users, only: [:index, :show] do
+    member do
+      get :card
+    end
+  end
 
   resources :posts, only: [:create, :destroy] do
     resources :likes, only: [:create, :destroy]

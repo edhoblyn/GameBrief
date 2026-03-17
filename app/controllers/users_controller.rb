@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :require_admin_for_index!, only: :index
-  skip_before_action :authenticate_user!, only: :show
+  skip_before_action :authenticate_user!, only: [:show, :card]
 
   def index
     @users = User.where.not(id: current_user.id).order(:email)
@@ -18,6 +18,21 @@ class UsersController < ApplicationController
       @existing_friendship = current_user.friendships.find_by(friend: @user)
       @incoming_request    = Friendship.find_by(user: @user, friend: current_user, status: "pending")
     end
+  end
+
+  def card
+    @user            = User.find(params[:id])
+    @favourite_games = @user.favourite_games.order(:name)
+    @friends_count   = @user.friends.count
+    @posts_count     = @user.posts.count
+    @games_count     = @favourite_games.count
+
+    if user_signed_in? && current_user != @user
+      @existing_friendship = current_user.friendships.find_by(friend: @user)
+      @incoming_request    = Friendship.find_by(user: @user, friend: current_user, status: "pending")
+    end
+
+    render layout: false
   end
 
   private

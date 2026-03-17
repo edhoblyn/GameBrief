@@ -1,6 +1,40 @@
 // My Profile — social feed layout
 $sidebar-width: 260px;
 
+// ── Public Profile — standalone card page ────────────────────────────────────
+.pub-profile-page {
+  min-height: 100vh;
+  background: var(--gb-bg);
+  padding: 5.5rem 1.5rem 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__back {
+    width: 100%;
+    max-width: 480px;
+    margin-bottom: 1rem;
+  }
+}
+
+.pub-profile-card-mini--page {
+  width: 100%;
+  max-width: 480px;
+  position: static; // override sticky from panel context
+}
+
+@media (min-width: 768px) {
+  .pub-profile-page {
+    padding-top: 6.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .pub-profile-page {
+    padding: 4.5rem 0.75rem 2rem;
+  }
+}
+
 // ── Public Profile ────────────────────────────────────────────────────────────
 .pub-profile-layout {
   min-height: 100vh;

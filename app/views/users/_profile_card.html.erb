@@ -1,0 +1,94 @@
+<%# Compact profile card — shared by show.html.erb (full page) and card.html.erb (AJAX panel) %>
+
+<%# Banner %>
+<% banner_style = @user.cover_image.attached? ? "background-image: url('#{url_for(@user.cover_image)}');" : nil %>
+<div class="pub-profile-card-mini__banner"<%= banner_style.present? ? " style=\"#{banner_style}\"".html_safe : "" %>></div>
+
+<%# Avatar row: avatar left, friend button right — overlaps banner via negative margin %>
+<div class="pub-profile-card-mini__top-row">
+  <div class="pub-profile-card-mini__avatar-wrap">
+    <% if @user.avatar_image.attached? %>
+      <%= image_tag @user.avatar_image, class: "social-profile-avatar social-profile-avatar--img", style: "width:72px;height:72px;", alt: @user.display_name %>
+    <% elsif @user.avatar_url.present? %>
+      <%= image_tag @user.avatar_url, class: "social-profile-avatar social-profile-avatar--img", style: "width:72px;height:72px;", alt: @user.display_name %>
+    <% else %>
+      <div class="social-profile-avatar" style="width:72px;height:72px;font-size:1.5rem;">
+        <%= @user.display_name.first.upcase %>
+      </div>
+    <% end %>
+  </div>
+
+  <% if !user_signed_in? %>
+    <%# guest — no action %>
+  <% elsif current_user == @user %>
+    <%= link_to "Edit Profile", edit_user_registration_path, class: "btn-edit-profile" %>
+  <% elsif @incoming_request %>
+    <div class="card-friend-wrap" style="display: flex; gap: 0.5rem;">
+      <button class="social-profile-action social-profile-action--primary card-friend-btn"
+        data-action="accept" data-friendship-id="<%= @incoming_request.id %>">
+        <i class="fa fa-check me-1"></i> Accept
+      </button>
+      <button class="social-profile-action card-friend-btn"
+        data-action="decline" data-friendship-id="<%= @incoming_request.id %>" data-user-id="<%= @user.id %>">
+        Decline
+      </button>
+    </div>
+  <% elsif @existing_friendship&.status == "pending" %>
+    <button class="social-profile-action card-friend-btn"
+      data-action="cancel" data-friendship-id="<%= @existing_friendship.id %>" data-user-id="<%= @user.id %>">
+      <i class="fa fa-clock-o me-1"></i> Pending
+    </button>
+  <% elsif @existing_friendship&.status == "accepted" %>
+    <button class="social-profile-action card-friend-btn"
+      data-action="unfriend" data-user-id="<%= @user.id %>"
+      data-friendship-id="<%= @existing_friendship.id %>">
+      <i class="fa fa-check me-1"></i> Friends
+    </button>
+  <% else %>
+    <button class="social-profile-action social-profile-action--primary card-friend-btn"
+      data-action="add" data-user-id="<%= @user.id %>">
+      <i class="fa fa-plus me-1"></i> Add Friend
+    </button>
+  <% end %>
+</div>
+
+<%# Name + handle %>
+<div class="social-profile-identity" style="padding: 0.4rem 1rem 0.5rem;">
+  <h2 class="social-profile-name" style="font-size: 1.2rem;"><%= @user.display_name %></h2>
+  <span class="social-profile-handle">@<%= @user.profile_handle %></span>
+</div>
+
+<%# Stats %>
+<div class="social-profile-stats" style="padding: 0 1rem 1rem;">
+  <span class="social-stat">
+    <span class="social-stat__count"><%= @friends_count %></span>
+    <span class="social-stat__label"><%= @friends_count == 1 ? "Friend" : "Friends" %></span>
+  </span>
+  <span class="social-stat">
+    <span class="social-stat__count"><%= @posts_count %></span>
+    <span class="social-stat__label"><%= @posts_count == 1 ? "Post" : "Posts" %></span>
+  </span>
+  <span class="social-stat">
+    <span class="social-stat__count"><%= @games_count %></span>
+    <span class="social-stat__label">Games</span>
+  </span>
+</div>
+
+<%# Favourite games %>
+<div style="border-top: 1px solid var(--gb-border); padding: 0.75rem 1rem 1rem;">
+  <p style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--gb-muted); margin: 0 0 0.75rem;">
+    Favourite Games
+  </p>
+  <% if @favourite_games.any? %>
+    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+      <% @favourite_games.each do |game| %>
+        <%= link_to game_path(game), class: "profile-rail-feature" do %>
+          <span class="profile-rail-feature__eyebrow"><i class="fa fa-gamepad"></i></span>
+          <h4 class="profile-rail-feature__title"><%= game.name %></h4>
+        <% end %>
+      <% end %>
+    </div>
+  <% else %>
+    <p style="color: var(--gb-muted); font-size: 0.85rem; margin: 0;">No favourite games yet.</p>
+  <% end %>
+</div>

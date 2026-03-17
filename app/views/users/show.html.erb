@@ -1,166 +1,16 @@
 <% content_for :title, "#{@user.display_name}'s Profile" %>
 
-<div class="pub-profile-layout">
+<div class="pub-profile-page">
 
-  <div class="pub-profile-back">
-    <%= link_to my_profile_path, class: "my-patches-page__action" do %>
+  <div class="pub-profile-page__back">
+    <%= link_to :back, class: "my-patches-page__action" do %>
       <i class="fa fa-arrow-left"></i>
-      Back to Profile
+      Back
     <% end %>
   </div>
 
-  <div class="social-main pub-profile-card">
-
-    <!-- Profile header -->
-    <div class="social-profile-header">
-      <% banner_style = @user.cover_image.attached? ? "background-image: linear-gradient(rgba(7,10,22,0.18), rgba(7,10,22,0.52)), url('#{url_for(@user.cover_image)}');" : nil %>
-      <div class="social-profile-banner"<%= banner_style.present? ? " style=\"#{banner_style}\"".html_safe : "" %>></div>
-
-      <div class="social-profile-info">
-        <div class="social-profile-top-row">
-          <div class="social-profile-avatar-wrap" style="cursor: default;">
-            <% if @user.avatar_image.attached? %>
-              <%= image_tag @user.avatar_image, class: "social-profile-avatar social-profile-avatar--img", alt: @user.display_name %>
-            <% elsif @user.avatar_url.present? %>
-              <%= image_tag @user.avatar_url, class: "social-profile-avatar social-profile-avatar--img", alt: @user.display_name %>
-            <% else %>
-              <div class="social-profile-avatar">
-                <%= @user.display_name.first.upcase %>
-              </div>
-            <% end %>
-          </div>
-
-          <div>
-            <% if !user_signed_in? %>
-              <%# guest: no action %>
-            <% elsif current_user == @user %>
-              <%= link_to "Edit Profile", edit_user_registration_path, class: "btn-edit-profile" %>
-            <% elsif @incoming_request %>
-              <%# They sent us a request — show accept + decline %>
-              <div style="display: flex; gap: 0.5rem;">
-                <button id="profile-accept-btn"
-                  class="social-profile-action social-profile-action--primary"
-                  data-friendship-id="<%= @incoming_request.id %>">
-                  <i class="fa fa-check me-1"></i> Accept
-                </button>
-                <button id="profile-decline-btn"
-                  class="social-profile-action"
-                  data-friendship-id="<%= @incoming_request.id %>">
-                  Decline
-                </button>
-              </div>
-            <% elsif @existing_friendship&.status == "pending" %>
-              <%# We sent them a request — show pending / cancel %>
-              <button id="profile-friend-btn"
-                class="social-profile-action"
-                data-friendship-id="<%= @existing_friendship.id %>"
-                data-action="cancel">
-                <i class="fa fa-clock-o me-1"></i> Pending
-              </button>
-            <% elsif @existing_friendship&.status == "accepted" %>
-              <button id="profile-friend-btn"
-                class="social-profile-action"
-                data-user-id="<%= @user.id %>"
-                data-friendship-id="<%= @existing_friendship.id %>"
-                data-action="unfriend">
-                <i class="fa fa-check me-1"></i> Friends
-              </button>
-            <% else %>
-              <button id="profile-friend-btn"
-                class="social-profile-action social-profile-action--primary"
-                data-user-id="<%= @user.id %>"
-                data-action="add">
-                <i class="fa fa-plus me-1"></i> Add Friend
-              </button>
-            <% end %>
-          </div>
-        </div>
-
-        <div class="social-profile-identity">
-          <h2 class="social-profile-name"><%= @user.display_name %></h2>
-          <span class="social-profile-handle">@<%= @user.profile_handle %></span>
-        </div>
-
-        <div class="social-profile-stats">
-          <span class="social-stat">
-            <span class="social-stat__count"><%= @friends_count %></span>
-            <span class="social-stat__label"><%= @friends_count == 1 ? "Friend" : "Friends" %></span>
-          </span>
-          <span class="social-stat">
-            <span class="social-stat__count"><%= @posts_count %></span>
-            <span class="social-stat__label"><%= @posts_count == 1 ? "Post" : "Posts" %></span>
-          </span>
-          <span class="social-stat">
-            <span class="social-stat__count"><%= @games_count %></span>
-            <span class="social-stat__label">Games</span>
-          </span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Body -->
-    <div class="for-you-layout">
-
-      <!-- Posts feed -->
-      <div class="for-you-feed">
-        <div class="px-3 pt-3 pb-2">
-          <p style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--gb-muted); margin: 0;">Posts</p>
-        </div>
-
-        <div class="p-3" style="display: flex; flex-direction: column; gap: 10px;">
-          <% if user_signed_in? %>
-            <% if @posts.any? %>
-              <% @posts.each do |post| %>
-                <div style="border-radius: 18px; border: 1px solid rgba(124,92,252,0.25); overflow: hidden; background: rgba(255,255,255,0.02);">
-                  <div style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: linear-gradient(135deg, rgba(124,92,252,0.15), rgba(79,156,249,0.08)); border-bottom: 1px solid rgba(255,255,255,0.06);">
-                    <div style="width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg, var(--gb-accent), var(--gb-accent-strong)); display: flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 700; color: #fff; flex-shrink: 0; overflow: hidden;">
-                      <% if @user.avatar_image.attached? %>
-                        <%= image_tag @user.avatar_image, style: "width: 100%; height: 100%; object-fit: cover;" %>
-                      <% else %>
-                        <%= @user.display_name.first.upcase %>
-                      <% end %>
-                    </div>
-                    <span style="font-size: 0.85rem; font-weight: 700; color: var(--gb-text);"><%= @user.display_name %></span>
-                    <span style="color: var(--gb-muted); font-size: 0.72rem; margin-left: auto;"><%= time_ago_in_words(post.created_at) %> ago</span>
-                  </div>
-                  <div style="padding: 12px 14px 12px;">
-                    <p style="margin: 0; font-size: 0.88rem; color: var(--gb-text); line-height: 1.6;"><%= post.body %></p>
-                  </div>
-                </div>
-              <% end %>
-            <% else %>
-              <p style="color: var(--gb-muted); font-size: 0.85rem; margin: 0.5rem 0;">No posts yet.</p>
-            <% end %>
-          <% else %>
-            <p style="color: var(--gb-muted); font-size: 0.85rem; margin: 0.5rem 0;"><%= link_to "Sign in", new_user_session_path %> to view posts.</p>
-          <% end %>
-        </div>
-      </div>
-
-      <!-- Sidebar -->
-      <aside class="for-you-sidebar">
-        <section class="profile-rail-card">
-          <div class="profile-rail-card__header">
-            <h3 class="profile-rail-card__title">Favourite Games</h3>
-            <span class="profile-rail-card__eyebrow"><%= @games_count %></span>
-          </div>
-
-          <% if @favourite_games.any? %>
-            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-              <% @favourite_games.each do |game| %>
-                <%= link_to game_path(game), class: "profile-rail-feature" do %>
-                  <span class="profile-rail-feature__eyebrow"><i class="fa fa-gamepad"></i></span>
-                  <h4 class="profile-rail-feature__title"><%= game.name %></h4>
-                <% end %>
-              <% end %>
-            </div>
-          <% else %>
-            <p class="profile-rail-card__empty">No favourited games yet.</p>
-          <% end %>
-        </section>
-      </aside>
-
-    </div>
+  <div class="pub-profile-card-mini pub-profile-card-mini--page" data-user-id="<%= @user.id %>">
+    <%= render "profile_card" %>
   </div>
 
 </div>
@@ -169,107 +19,90 @@
 <script>
 (function () {
   var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+  wireFriendButtons(document.querySelector('.pub-profile-card-mini'), csrfToken);
 
-  var btn         = document.getElementById('profile-friend-btn');
-  var acceptBtn   = document.getElementById('profile-accept-btn');
-  var declineBtn  = document.getElementById('profile-decline-btn');
+  function wireFriendButtons(scope, csrf) {
+    if (!scope) return;
 
-  if (btn) {
-    btn.addEventListener('click', function () {
-      var action       = btn.dataset.action;
-      var userId       = btn.dataset.userId;
-      var friendshipId = btn.dataset.friendshipId;
-
-      if (action === 'add') {
-        fetch('/friendships', {
-          method: 'POST',
-          headers: { 'X-CSRF-Token': csrfToken, 'Accept': 'application/json', 'Content-Type': 'application/json' },
-          body: JSON.stringify({ friend_id: userId })
-        })
-        .then(function (r) { return r.json(); })
-        .then(function (data) {
-          btn.dataset.action = 'cancel';
-          btn.dataset.friendshipId = data.friendship_id;
-          btn.classList.remove('social-profile-action--primary');
-          btn.innerHTML = '<i class="fa fa-clock-o me-1"></i> Pending';
-        });
-
-      } else if (action === 'cancel') {
-        fetch('/friendships/' + friendshipId, {
-          method: 'DELETE',
-          headers: { 'X-CSRF-Token': csrfToken, 'Accept': 'application/json' }
-        }).then(function () {
-          btn.dataset.action = 'add';
-          btn.dataset.friendshipId = '';
-          btn.classList.add('social-profile-action--primary');
-          btn.innerHTML = '<i class="fa fa-plus me-1"></i> Add Friend';
-        });
-
-      } else if (action === 'unfriend') {
-        fetch('/friendships/' + friendshipId, {
-          method: 'DELETE',
-          headers: { 'X-CSRF-Token': csrfToken, 'Accept': 'application/json' }
-        }).then(function () {
-          btn.dataset.action = 'add';
-          btn.dataset.friendshipId = '';
-          btn.dataset.userId = '<%= @user.id %>';
-          btn.classList.add('social-profile-action--primary');
-          btn.innerHTML = '<i class="fa fa-plus me-1"></i> Add Friend';
-        });
-      }
+    scope.querySelectorAll('.card-friend-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () { handleFriendAction(btn, scope, csrf); });
     });
   }
 
-  if (acceptBtn) {
-    acceptBtn.addEventListener('click', function () {
-      var friendshipId = acceptBtn.dataset.friendshipId;
-      fetch('/friendships/' + friendshipId, {
-        method: 'PATCH',
-        headers: { 'X-CSRF-Token': csrfToken, 'Accept': 'application/json' }
+  function handleFriendAction(btn, scope, csrf) {
+    var action       = btn.dataset.action;
+    var userId       = btn.dataset.userId;
+    var friendshipId = btn.dataset.friendshipId;
+
+    if (action === 'add') {
+      fetch('/friendships', {
+        method: 'POST',
+        headers: { 'X-CSRF-Token': csrf, 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ friend_id: userId })
       })
       .then(function (r) { return r.json(); })
       .then(function (data) {
-        // Replace the accept/decline pair with a single Friends button
-        var wrap = acceptBtn.closest('div');
-        wrap.innerHTML =
-          '<button id="profile-friend-btn" class="social-profile-action"' +
+        btn.dataset.action = 'cancel';
+        btn.dataset.friendshipId = data.friendship_id;
+        btn.classList.remove('social-profile-action--primary');
+        btn.innerHTML = '<i class="fa fa-clock-o me-1"></i> Pending';
+      });
+
+    } else if (action === 'cancel') {
+      fetch('/friendships/' + friendshipId, {
+        method: 'DELETE',
+        headers: { 'X-CSRF-Token': csrf, 'Accept': 'application/json' }
+      }).then(function () {
+        btn.dataset.action = 'add';
+        btn.dataset.friendshipId = '';
+        btn.classList.add('social-profile-action--primary');
+        btn.innerHTML = '<i class="fa fa-plus me-1"></i> Add Friend';
+      });
+
+    } else if (action === 'accept') {
+      fetch('/friendships/' + friendshipId, {
+        method: 'PATCH',
+        headers: { 'X-CSRF-Token': csrf, 'Accept': 'application/json' }
+      })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        var wrap = btn.closest('.card-friend-wrap') || btn.parentElement;
+        wrap.outerHTML =
+          '<button class="social-profile-action card-friend-btn"' +
             ' data-action="unfriend"' +
+            ' data-user-id="' + userId + '"' +
             ' data-friendship-id="' + data.friendship_id + '">' +
             '<i class="fa fa-check me-1"></i> Friends' +
           '</button>';
-        // Re-wire the new button
-        var newBtn = document.getElementById('profile-friend-btn');
-        if (newBtn) newBtn.addEventListener('click', function () {
-          fetch('/friendships/' + newBtn.dataset.friendshipId, {
-            method: 'DELETE',
-            headers: { 'X-CSRF-Token': csrfToken, 'Accept': 'application/json' }
-          }).then(function () {
-            newBtn.dataset.action = 'add';
-            newBtn.dataset.friendshipId = '';
-            newBtn.classList.add('social-profile-action--primary');
-            newBtn.innerHTML = '<i class="fa fa-plus me-1"></i> Add Friend';
-          });
-        });
+        wireFriendButtons(scope, csrf);
       });
-    });
-  }
 
-  if (declineBtn) {
-    declineBtn.addEventListener('click', function () {
-      var friendshipId = declineBtn.dataset.friendshipId;
+    } else if (action === 'decline') {
       fetch('/friendships/' + friendshipId, {
         method: 'DELETE',
-        headers: { 'X-CSRF-Token': csrfToken, 'Accept': 'application/json' }
+        headers: { 'X-CSRF-Token': csrf, 'Accept': 'application/json' }
       }).then(function () {
-        var wrap = declineBtn.closest('div');
-        wrap.innerHTML =
-          '<button id="profile-friend-btn" class="social-profile-action social-profile-action--primary"' +
+        var wrap = btn.closest('.card-friend-wrap') || btn.parentElement;
+        wrap.outerHTML =
+          '<button class="social-profile-action social-profile-action--primary card-friend-btn"' +
             ' data-action="add"' +
-            ' data-user-id="<%= @user.id %>">' +
+            ' data-user-id="' + userId + '">' +
             '<i class="fa fa-plus me-1"></i> Add Friend' +
           '</button>';
+        wireFriendButtons(scope, csrf);
       });
-    });
+
+    } else if (action === 'unfriend') {
+      fetch('/friendships/' + friendshipId, {
+        method: 'DELETE',
+        headers: { 'X-CSRF-Token': csrf, 'Accept': 'application/json' }
+      }).then(function () {
+        btn.dataset.action = 'add';
+        btn.dataset.friendshipId = '';
+        btn.classList.add('social-profile-action--primary');
+        btn.innerHTML = '<i class="fa fa-plus me-1"></i> Add Friend';
+      });
+    }
   }
 })();
 </script>
