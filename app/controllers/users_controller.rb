@@ -16,6 +16,7 @@ class UsersController < ApplicationController
 
     if user_signed_in? && current_user != @user
       @existing_friendship = current_user.friendships.find_by(friend: @user)
+      @incoming_request    = Friendship.find_by(user: @user, friend: current_user, status: "pending")
     end
   end
 

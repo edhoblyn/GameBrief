@@ -1,6 +1,41 @@
 // My Profile — social feed layout
 $sidebar-width: 260px;
 
+// ── Public Profile ────────────────────────────────────────────────────────────
+.pub-profile-layout {
+  min-height: 100vh;
+  background: var(--gb-bg);
+  padding: 5.5rem 1.5rem 3rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.pub-profile-back {
+  margin-bottom: 1rem;
+}
+
+.pub-profile-card {
+  min-height: unset;
+  overflow: visible;
+
+  .for-you-sidebar {
+    position: static;
+    max-height: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .pub-profile-layout {
+    padding-top: 6.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .pub-profile-layout {
+    padding: 4.5rem 0.75rem 2rem;
+  }
+}
+
 .my-profile-layout {
   display: flex;
   width: 100%;
