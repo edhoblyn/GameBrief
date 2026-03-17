@@ -1,8 +1,5 @@
 <div class="game-show">
   <% all_patches_path = game_patches_path(@game) %>
-  <% filter_base_params = {} %>
-  <% clear_date_filter_params = { sort: @patch_sort == "newest" ? nil : @patch_sort }.compact %>
-  <% clear_sort_params = { date_filter: @patch_date_filter == "all" ? nil : @patch_date_filter }.compact %>
 
   <div class="game-show__header">
     <% if @game.cover_image.present? %>
@@ -72,9 +69,6 @@
           <div class="game-show__section-headline">
             <div>
               <h2 class="game-show__section-title">Patch Feed</h2>
-              <p class="game-show__section-copy">
-                Narrow updates by timeframe and sort order without leaving <%= @game.name %>.
-              </p>
             </div>
             <%= link_to "View all patches", all_patches_path, class: "game-show__section-link" %>
           </div>
@@ -82,20 +76,16 @@
           <div class="game-show__list-offset">
             <div class="game-show__patch-controls">
               <div class="game-show__filter-group">
-                <%= link_to "All time", game_path(@game, clear_date_filter_params), class: "filter-btn #{@patch_date_filter == 'all' ? 'active' : ''}" %>
+                <%= link_to "All time", game_path(@game), class: "filter-btn #{@patch_date_filter == 'all' ? 'active' : ''}" %>
                 <% Patch::DATE_FILTERS.except("all").each do |value, label| %>
-                  <%= link_to label, game_path(@game, filter_base_params.merge(date_filter: value, sort: (@patch_sort == "newest" ? nil : @patch_sort)).compact), class: "filter-btn #{@patch_date_filter == value ? 'active' : ''}" %>
+                  <%= link_to label, game_path(@game, date_filter: value), class: "filter-btn #{@patch_date_filter == value ? 'active' : ''}" %>
                 <% end %>
-              </div>
-              <div class="game-show__filter-group">
-                <%= link_to "Newest", game_path(@game, clear_sort_params), class: "filter-btn #{@patch_sort == 'newest' ? 'active' : ''}" %>
-                <%= link_to "Oldest", game_path(@game, { date_filter: (@patch_date_filter == 'all' ? nil : @patch_date_filter), sort: 'oldest' }.compact), class: "filter-btn #{@patch_sort == 'oldest' ? 'active' : ''}" %>
               </div>
             </div>
 
             <div class="game-show__section-meta">
               <span><%= pluralize(@patches.size, "patch") %> in this view</span>
-              <% unless @patch_date_filter == "all" && @patch_sort == "newest" %>
+              <% unless @patch_date_filter == "all" %>
                 <%= link_to "Reset filters", game_path(@game), class: "game-show__reset-link" %>
               <% end %>
             </div>
@@ -128,9 +118,6 @@
           <div class="game-show__section-headline">
             <div>
               <h2 class="game-show__section-title">Upcoming Events</h2>
-              <p class="game-show__section-copy">
-                Track what is coming up next for <%= @game.name %>.
-              </p>
             </div>
           </div>
           <div class="game-show__list-offset game-show__list-offset--empty" aria-hidden="true"></div>
