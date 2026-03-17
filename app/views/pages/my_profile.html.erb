@@ -92,11 +92,7 @@
         <div class="px-3 pt-3 pb-2 d-flex justify-content-between align-items-center">
           <p style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--gb-muted); margin: 0;">FriendHub</p>
           <div class="d-flex gap-2 align-items-center">
-            <%= link_to find_friends_path, class: "compose-btn", style: "background: rgba(124,92,252,0.15) !important; color: #fff !important; border: 1px solid rgba(124,92,252,0.4);" do %>
-              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
-              Find Friends
-            <% end %>
-            <button id="new-post-btn" class="compose-btn" style="background: #7c5cfc !important; color: #fff !important;" onclick="document.getElementById('new-post-form').style.display='block'; this.style.display='none';">
+  <button id="new-post-btn" class="compose-btn" style="background: #7c5cfc !important; color: #fff !important;" onclick="document.getElementById('new-post-form').style.display='block'; this.style.display='none';">
               <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
               Post
             </button>
