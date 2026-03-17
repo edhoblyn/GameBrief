@@ -83,11 +83,11 @@
           <dl class="event-show__facts">
             <div>
               <dt>Date</dt>
-              <dd><%= @event.start_date.strftime("%-d %b %Y") %></dd>
+              <dd><%= @event.start_date&.strftime("%-d %b %Y") || "TBD" %></dd>
             </div>
             <div>
               <dt>Start time</dt>
-              <dd><%= @event.start_date.strftime("%H:%M %Z") %></dd>
+              <dd><%= @event.start_date&.strftime("%H:%M %Z") || "TBD" %></dd>
             </div>
             <div>
               <dt>Reminder</dt>
@@ -110,7 +110,7 @@
             <% @related_events.each do |related_event| %>
               <%= link_to event_path(related_event), class: "event-show__related-card" do %>
                 <div>
-                  <p class="event-show__related-kicker"><%= related_event.start_date.strftime("%-d %b") %></p>
+                  <p class="event-show__related-kicker"><%= related_event.start_date&.strftime("%-d %b") || "TBD" %></p>
                   <h3><%= related_event.title %></h3>
                 </div>
                 <span class="event-show__related-arrow"><i class="fa fa-chevron-right"></i></span>
