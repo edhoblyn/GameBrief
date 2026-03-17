@@ -15,6 +15,31 @@
 
 </div>
 
+<script>
+(function () {
+  var card = document.querySelector('.pub-profile-card-mini');
+  if (card) {
+    var nav = card.querySelector('.pub-profile-tab-nav');
+    if (nav) {
+      var tabs = nav.querySelectorAll('.pub-profile-tab[data-tab]');
+      var panelContainer = card.querySelector('.pub-profile-tab-panels');
+      tabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          var target = tab.dataset.tab;
+          tabs.forEach(function (t) {
+            var active = t.dataset.tab === target;
+            t.style.borderBottomColor = active ? 'var(--gb-accent)' : 'transparent';
+          });
+          panelContainer.querySelectorAll('[data-panel]').forEach(function (p) {
+            p.style.display = p.dataset.panel === target ? '' : 'none';
+          });
+        });
+      });
+    }
+  }
+})();
+</script>
+
 <% if user_signed_in? && current_user != @user %>
 <script>
 (function () {

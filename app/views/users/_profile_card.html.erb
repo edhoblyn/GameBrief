@@ -58,37 +58,85 @@
   <span class="social-profile-handle">@<%= @user.profile_handle %></span>
 </div>
 
-<%# Stats %>
-<div class="social-profile-stats" style="padding: 0 1rem 1rem;">
-  <span class="social-stat">
-    <span class="social-stat__count"><%= @friends_count %></span>
-    <span class="social-stat__label"><%= @friends_count == 1 ? "Friend" : "Friends" %></span>
-  </span>
-  <span class="social-stat">
-    <span class="social-stat__count"><%= @posts_count %></span>
-    <span class="social-stat__label"><%= @posts_count == 1 ? "Post" : "Posts" %></span>
-  </span>
-  <span class="social-stat">
-    <span class="social-stat__count"><%= @games_count %></span>
-    <span class="social-stat__label">Games</span>
-  </span>
+<%# Stats / Tab nav %>
+<div class="pub-profile-tab-nav" style="display: flex; border-bottom: 1px solid var(--gb-border); padding: 0 0.5rem;">
+  <button class="pub-profile-tab pub-profile-tab--active" data-tab="games"
+    style="flex: 1; background: none; border: none; border-bottom: 2px solid var(--gb-accent); color: var(--gb-text); padding: 0.6rem 0.5rem; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 0.1rem;">
+    <span style="font-size: 1rem; font-weight: 700;"><%= @games_count %></span>
+    <span style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--gb-muted);">Games</span>
+  </button>
+  <button class="pub-profile-tab" data-tab="friends"
+    style="flex: 1; background: none; border: none; border-bottom: 2px solid transparent; color: var(--gb-text); padding: 0.6rem 0.5rem; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 0.1rem;">
+    <span style="font-size: 1rem; font-weight: 700;"><%= @friends_count %></span>
+    <span style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--gb-muted);"><%= @friends_count == 1 ? "Friend" : "Friends" %></span>
+  </button>
+  <button class="pub-profile-tab" data-tab="posts"
+    style="flex: 1; background: none; border: none; border-bottom: 2px solid transparent; color: var(--gb-text); padding: 0.6rem 0.5rem; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 0.1rem;">
+    <span style="font-size: 1rem; font-weight: 700;"><%= @posts_count %></span>
+    <span style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--gb-muted);"><%= @posts_count == 1 ? "Post" : "Posts" %></span>
+  </button>
 </div>
 
-<%# Favourite games %>
-<div style="border-top: 1px solid var(--gb-border); padding: 0.75rem 1rem 1rem;">
-  <p style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--gb-muted); margin: 0 0 0.75rem;">
-    Favourite Games
-  </p>
-  <% if @favourite_games.any? %>
-    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-      <% @favourite_games.each do |game| %>
-        <%= link_to game_path(game), class: "profile-rail-feature" do %>
-          <span class="profile-rail-feature__eyebrow"><i class="fa fa-gamepad"></i></span>
-          <h4 class="profile-rail-feature__title"><%= game.name %></h4>
+<%# Tab panels %>
+<div class="pub-profile-tab-panels">
+
+  <%# Games panel (default) %>
+  <div data-panel="games" style="padding: 0.75rem 1rem 1rem;">
+    <% if @favourite_games.any? %>
+      <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+        <% @favourite_games.each do |game| %>
+          <%= link_to game_path(game), class: "profile-rail-feature" do %>
+            <span class="profile-rail-feature__eyebrow"><i class="fa fa-gamepad"></i></span>
+            <h4 class="profile-rail-feature__title"><%= game.name %></h4>
+          <% end %>
         <% end %>
-      <% end %>
-    </div>
-  <% else %>
-    <p style="color: var(--gb-muted); font-size: 0.85rem; margin: 0;">No favourite games yet.</p>
-  <% end %>
+      </div>
+    <% else %>
+      <p style="color: var(--gb-muted); font-size: 0.85rem; margin: 0;">No favourite games yet.</p>
+    <% end %>
+  </div>
+
+  <%# Friends panel %>
+  <div data-panel="friends" style="display: none; padding: 0.75rem 1rem 1rem;">
+    <% if @friends.any? %>
+      <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+        <% @friends.each do |friend| %>
+          <%= link_to user_path(friend), style: "display: flex; align-items: center; gap: 0.6rem; text-decoration: none; color: var(--gb-text); padding: 0.35rem 0; border-bottom: 1px solid var(--gb-border);" do %>
+            <% if friend.avatar_image.attached? %>
+              <%= image_tag friend.avatar_image, style: "width:32px;height:32px;border-radius:50%;object-fit:cover;", alt: friend.display_name %>
+            <% elsif friend.avatar_url.present? %>
+              <%= image_tag friend.avatar_url, style: "width:32px;height:32px;border-radius:50%;object-fit:cover;", alt: friend.display_name %>
+            <% else %>
+              <div style="width:32px;height:32px;border-radius:50%;background:var(--gb-surface-2);display:flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:700;flex-shrink:0;">
+                <%= friend.display_name.first.upcase %>
+              </div>
+            <% end %>
+            <div>
+              <div style="font-size: 0.85rem; font-weight: 600;"><%= friend.display_name %></div>
+              <div style="font-size: 0.75rem; color: var(--gb-muted);">@<%= friend.profile_handle %></div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    <% else %>
+      <p style="color: var(--gb-muted); font-size: 0.85rem; margin: 0;">No friends yet.</p>
+    <% end %>
+  </div>
+
+  <%# Posts panel %>
+  <div data-panel="posts" style="display: none; padding: 0.75rem 1rem 1rem;">
+    <% if @posts.present? && @posts.any? %>
+      <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+        <% @posts.each do |post| %>
+          <div style="border-bottom: 1px solid var(--gb-border); padding-bottom: 0.65rem;">
+            <p style="margin: 0 0 0.3rem; font-size: 0.875rem; color: var(--gb-text); line-height: 1.4;"><%= post.body %></p>
+            <span style="font-size: 0.72rem; color: var(--gb-muted);"><%= time_ago_in_words(post.created_at) %> ago</span>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <p style="color: var(--gb-muted); font-size: 0.85rem; margin: 0;">No posts yet.</p>
+    <% end %>
+  </div>
+
 </div>

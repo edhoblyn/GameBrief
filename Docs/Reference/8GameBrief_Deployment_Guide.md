@@ -103,7 +103,3 @@ heroku run bin/rails console -a gamebrief-eu
 heroku pg:backups:capture -a gamebrief-eu
 heroku ps -a gamebrief-eu
 ```
-
-## Full Migration Runbook
-
-For migrating between Heroku regions or apps, see [Heroku_EU_Migration_Checklist.md](../Heroku_EU_Migration_Checklist.md).
