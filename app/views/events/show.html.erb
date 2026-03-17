@@ -1,12 +1,14 @@
 <div class="event-show">
   <% game = @event.game %>
   <% quick_take = @event.summary.presence || @event.description.presence || "Keep this event on your radar for #{game.name}." %>
-  <% gcal_url = "https://calendar.google.com/calendar/render?" + {
-    action: "TEMPLATE",
-    text: @event.title,
-    dates: "#{@event.start_date.strftime('%Y%m%dT%H%M%SZ')}/#{(@event.start_date + 1.hour).strftime('%Y%m%dT%H%M%SZ')}",
-    details: [@event.description, "Track more game updates on GameBrief."].compact.join("\n\n")
-  }.to_query %>
+  <% if @event.start_date
+       gcal_url = "https://calendar.google.com/calendar/render?" + {
+         action: "TEMPLATE",
+         text: @event.title,
+         dates: "#{@event.start_date.strftime('%Y%m%dT%H%M%SZ')}/#{(@event.start_date + 1.hour).strftime('%Y%m%dT%H%M%SZ')}",
+         details: [@event.description, "Track more game updates on GameBrief."].compact.join("\n\n")
+       }.to_query
+     end %>
 
   <div class="event-show__hero">
     <% if game.cover_image.present? %>
@@ -54,9 +56,11 @@
         </section>
 
         <div class="event-show__hero-actions">
-          <%= link_to gcal_url, target: "_blank", rel: "noopener noreferrer", class: "event-show__action event-show__action--light" do %>
-            <i class="fa fa-calendar-plus-o"></i>
-            Add to Google Calendar
+          <% if gcal_url %>
+            <%= link_to gcal_url, target: "_blank", rel: "noopener noreferrer", class: "event-show__action event-show__action--light" do %>
+              <i class="fa fa-calendar-plus-o"></i>
+              Add to Google Calendar
+            <% end %>
           <% end %>
 
           <% if @reminder %>
