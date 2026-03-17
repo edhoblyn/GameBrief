@@ -62,7 +62,6 @@
             <div>
               <h2 class="game-show__section-title">Patch Feed</h2>
             </div>
-            <%= link_to "View all patches", all_patches_path, class: "game-show__section-link" %>
           </div>
 
           <div class="game-show__list-offset">
@@ -79,22 +78,31 @@
             </div>
           </div>
 
+          <div class="text-end mb-3">
+            <%= link_to "View all patches", all_patches_path, class: "game-show__section-link" %>
+          </div>
+
           <% if @patches.any? %>
-            <% @patches.each do |patch| %>
-              <%= link_to patch_path(patch, return_to: request.fullpath), class: "patch-list-card" do %>
-                <div class="patch-list-card__icon"><i class="fa fa-file-text-o"></i></div>
-                <span class="patch-list-card__title">
-                  <%= patch.title %>
-                  <span class="patch-list-card__meta">
-                    <small class="d-block text-muted mb-0"><%= patch.display_published_at.to_date.to_fs(:long) %></small>
-                    <% if patch.freshly_published? %>
-                      <span class="patch-fresh-badge">New</span>
-                    <% end %>
-                  </span>
-                </span>
-                <span class="patch-list-card__arrow"><i class="fa fa-chevron-right"></i></span>
+            <div class="row row-cols-1 g-3">
+              <% @patches.each do |patch| %>
+                <div class="col">
+                  <%= link_to patch_path(patch, return_to: request.fullpath), class: "text-decoration-none" do %>
+                    <div class="card h-100">
+                      <div class="card-body">
+                        <div class="patches-index__meta">
+                          <% if patch.freshly_published? %>
+                            <span class="patch-fresh-badge">New</span>
+                          <% end %>
+                        </div>
+                        <h5 class="card-title"><%= patch.title %></h5>
+                        <p class="patches-index__date"><%= patch.display_published_at.to_date.to_fs(:long) %></p>
+                        <p class="card-text text-muted small"><%= patch.content.truncate(100) %></p>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
               <% end %>
-            <% end %>
+            </div>
           <% else %>
             <p class="game-show__empty">No patches found for that date range.</p>
           <% end %>
