@@ -3,14 +3,9 @@
 <div class="pub-profile-layout">
 
   <div class="pub-profile-back">
-    <% if user_signed_in? && current_user.admin? %>
-      <%= link_to users_path, class: "ff-back__link" do %>
-        <i class="fa fa-arrow-left"></i> Back to Players
-      <% end %>
-    <% else %>
-      <%= link_to find_friends_path, class: "ff-back__link" do %>
-        <i class="fa fa-arrow-left"></i> Back to Find Friends
-      <% end %>
+    <%= link_to my_profile_path, class: "my-patches-page__action" do %>
+      <i class="fa fa-arrow-left"></i>
+      Back to Profile
     <% end %>
   </div>
 

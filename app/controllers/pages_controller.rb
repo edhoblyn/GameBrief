@@ -41,7 +41,8 @@ class PagesController < ApplicationController
   end
 
   def my_profile
-    @pending_received_count = current_user.received_requests.count
+    @pending_requests = current_user.received_requests.includes(:user)
+    @pending_received_count = @pending_requests.count
     @friends = current_user.friends
     feed_user_ids = [current_user.id] + current_user.friend_ids
     @feed_posts = Post.where(user_id: feed_user_ids)
