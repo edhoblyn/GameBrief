@@ -171,7 +171,8 @@
     background: rgba(251, 191, 36, 0.08);
   }
 
-  &__counter--warning .chatbot__counter-label {
+  &__counter--warning .chatbot__counter-label,
+  &__counter--warning .chatbot__counter-value {
     color: #fbbf24;
   }
 
