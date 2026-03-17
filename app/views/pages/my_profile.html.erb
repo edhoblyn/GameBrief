@@ -134,7 +134,7 @@
                       <%= post.user.display_name.first.upcase %>
                     <% end %>
                   </div>
-                  <span style="font-size: 0.85rem; font-weight: 700; color: var(--gb-text);"><%= post.user.display_name %></span>
+                  <%= link_to post.user.display_name, user_path(post.user), style: "font-size: 0.85rem; font-weight: 700; color: var(--gb-text); text-decoration: none;" %>
                   <span style="color: var(--gb-muted); font-size: 0.72rem; margin-left: auto;"><%= time_ago_in_words(post.created_at) %> ago</span>
                   <% if post.user == current_user %>
                     <%= button_to post_path(post), method: :delete, class: "btn btn-link btn-sm p-0 ms-1", style: "color: rgba(255,255,255,0.2); font-size: 0.72rem; line-height: 1;", form: { data: { turbo_confirm: "Delete this post?" } } do %>

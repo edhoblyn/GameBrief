@@ -25,13 +25,15 @@
           <% friendship = current_user.friendships.find_by(friend_id: friend.id) %>
           <div class="ff-result-card">
             <div class="ff-result-card__inner">
-              <div class="ff-result-card__avatar"><%= (friend.username.presence || friend.email).first.upcase %></div>
-              <div class="ff-result-card__info">
-                <span class="ff-result-card__name"><%= friend.username.presence || friend.email %></span>
-                <% if friend.username.present? %>
-                  <span class="ff-result-card__email"><%= friend.email %></span>
-                <% end %>
-              </div>
+              <%= link_to user_path(friend), class: "ff-result-card__profile-link" do %>
+                <div class="ff-result-card__avatar"><%= (friend.username.presence || friend.email).first.upcase %></div>
+                <div class="ff-result-card__info">
+                  <span class="ff-result-card__name"><%= friend.username.presence || friend.email %></span>
+                  <% if friend.username.present? %>
+                    <span class="ff-result-card__email"><%= friend.email %></span>
+                  <% end %>
+                </div>
+              <% end %>
               <button class="btn-follow btn-follow--active"
                 data-user-id="<%= friend.id %>"
                 data-friendship-id="<%= friendship&.id %>"
@@ -121,11 +123,13 @@
           html +=
             '<div class="ff-result-card">' +
               '<div class="ff-result-card__inner">' +
-                '<div class="ff-result-card__avatar">' + escHtml(u.initial) + '</div>' +
-                '<div class="ff-result-card__info">' +
-                  '<span class="ff-result-card__name">' + escHtml(u.display) + '</span>' +
-                  (u.email ? '<span class="ff-result-card__email">' + escHtml(u.email) + '</span>' : '') +
-                '</div>' +
+                '<a href="/users/' + u.id + '" class="ff-result-card__profile-link">' +
+                  '<div class="ff-result-card__avatar">' + escHtml(u.initial) + '</div>' +
+                  '<div class="ff-result-card__info">' +
+                    '<span class="ff-result-card__name">' + escHtml(u.display) + '</span>' +
+                    (u.email ? '<span class="ff-result-card__email">' + escHtml(u.email) + '</span>' : '') +
+                  '</div>' +
+                '</a>' +
                 '<button class="btn-follow' + (isFriend ? ' btn-follow--active' : '') + '"' +
                   ' data-user-id="' + u.id + '"' +
                   ' data-friendship-id="' + (u.friendship_id || '') + '"' +
