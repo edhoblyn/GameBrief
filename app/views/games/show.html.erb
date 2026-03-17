@@ -24,31 +24,23 @@
               <i class="fa fa-calendar"></i>
               <%= pluralize(@events.count, "upcoming event") %>
             </span>
-            <span class="game-show__stat-pill">
-              <i class="fa fa-users"></i>
-              <%= pluralize(@followers_count, "favourite") %>
-            </span>
+            <% @game.genre_tags.each do |genre| %>
+              <span class="game-show__genre-pill"><%= genre %></span>
+            <% end %>
+            <% if @game.free_to_play? %>
+              <span class="game-show__genre-pill game-show__genre-pill--success">Free to play</span>
+            <% end %>
           </div>
-
-          <% if @game.genre_tags.any? || @game.free_to_play? %>
-            <div class="game-show__taxonomy">
-              <p class="game-show__taxonomy-label">Categories</p>
-              <div class="game-show__taxonomy-row">
-                <% @game.genre_tags.each do |genre| %>
-                  <span class="game-show__genre-pill"><%= genre %></span>
-                <% end %>
-                <% if @game.free_to_play? %>
-                  <span class="game-show__genre-pill game-show__genre-pill--success">Free to play</span>
-                <% end %>
-              </div>
-            </div>
-          <% end %>
         </div>
         <div class="d-flex gap-2 flex-wrap mt-2">
           <% if @favourite %>
-            <%= button_to "★ Favourited", favourite_path(@favourite), method: :delete, class: "btn btn-sm", style: "background: rgba(124,92,252,0.15); color: #7c5cfc; border: 1px solid rgba(124,92,252,0.4); border-radius: 2rem; padding: 0.3rem 1rem; font-weight:600; font-size:0.82rem;" %>
+            <%= button_to favourite_path(@favourite), method: :delete, class: "game-card__follow-btn game-card__follow-btn--active", aria: { label: "Unfavourite #{@game.name}" }, title: "Unfavourite #{@game.name}", form: { data: { controller: "unfollow-animation", action: "submit->unfollow-animation#submit" } } do %>
+              <i class="fa fa-star" aria-hidden="true"></i>
+            <% end %>
           <% else %>
-            <%= button_to "☆ Favourite", favourites_path, params: { game_id: @game.id }, class: "btn btn-sm", style: "background: #16161f; color: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.15); border-radius: 2rem; padding: 0.3rem 1rem; font-weight:600; font-size:0.82rem;", data: { controller: "follow-sound", action: "click->follow-sound#play" } %>
+            <%= button_to favourites_path, params: { game_id: @game.id }, class: "game-card__follow-btn game-card__follow-btn--inactive", aria: { label: "Favourite #{@game.name}" }, title: "Favourite #{@game.name}", data: { controller: "follow-sound", action: "click->follow-sound#play" } do %>
+              <i class="fa fa-star-o" aria-hidden="true"></i>
+            <% end %>
           <% end %>
           <% if current_user&.admin? && @scrape_source_config.present? %>
             <% if @scrape_source_config.fetch(:manual_trigger_enabled, true) %>
@@ -81,12 +73,8 @@
                   <%= link_to label, game_path(@game, date_filter: value), class: "filter-btn #{@patch_date_filter == value ? 'active' : ''}" %>
                 <% end %>
               </div>
-            </div>
-
-            <div class="game-show__section-meta">
-              <span><%= pluralize(@patches.size, "patch") %> in this view</span>
               <% unless @patch_date_filter == "all" %>
-                <%= link_to "Reset filters", game_path(@game), class: "game-show__reset-link" %>
+                <%= link_to "Reset", game_path(@game), class: "game-show__reset-link" %>
               <% end %>
             </div>
           </div>
@@ -120,7 +108,6 @@
               <h2 class="game-show__section-title">Upcoming Events</h2>
             </div>
           </div>
-          <div class="game-show__list-offset game-show__list-offset--empty" aria-hidden="true"></div>
           <% if @events.any? %>
             <% @events.each do |event| %>
               <%= link_to event_path(event), class: "event-list-card" do %>
