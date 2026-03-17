@@ -51,6 +51,7 @@ class PagesController < ApplicationController
 
   def my_games
     @games = @followed_games.order(:name)
+    @favourites_by_game_id = current_user.favourites.index_by(&:game_id)
   end
 
   def my_patches
