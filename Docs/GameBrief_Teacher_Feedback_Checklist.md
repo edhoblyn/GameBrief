@@ -23,7 +23,7 @@
 ## Game Show Page
 
 - [ ] Investigate the Marvel Rivals patch bug
-- [ ] Keep the spacer on the Game Show page
+- [x] Keep the spacer on the Game Show page
 
 ## Events Index
 
@@ -46,15 +46,15 @@
 
 ## Profile Page
 
-- [ ] Remove post count
-- [ ] Make `Friends` link to the full friends list
+- [x] Remove post count
+- [x] Make `Friends` link to the full friends list
 - [ ] Make `Find friends` open a modal instead of a full-page view
 - [x] Change the `Find friends` button to the secondary colour
 - [ ] Keep the `Find friends` button sticky near the Friendhub subheading
 - [ ] Make the post form full width in the left-hand column under posts
-- [ ] Remove modal behaviour from the post form
+- [x] Remove modal behaviour from the post form
 - [ ] Add a clearer placeholder for the post form mentioning upcoming events and latest patches
-- [ ] Remove the hard-coded event and show the latest real event instead
+- [x] Remove the hard-coded event and show the latest real event instead
 - [ ] Improve contrast between user info and content with clearer font weights/background colours
 - [ ] Order posts by `created_at DESC` so newest posts appear closest to the form
 - [ ] Add blue styling in the profile hero/banner area to create cohesion with `My Patches` and `My Events`
@@ -71,10 +71,10 @@
 
 - [ ] Rename `My patches` to `My patch updates`
 - [ ] Add a `Back to my profile` button
-- [ ] Add images to patch cards
-- [ ] Add an `Organise by game` button that displays an accordion of game patches
-- [ ] Default landing view should show all patches
-- [ ] Add a grey bordered div style to match the profile page
+- [x] Add images to patch cards
+- [x] Add an `Organise by game` button that displays an accordion of game patches
+- [x] Default landing view should show all patches
+- [x] Add a grey bordered div style to match the profile page
 
 ## My Events
 
@@ -89,8 +89,8 @@
 ## Spacer
 
 - [ ] Make the spacer bigger
-- [ ] Remove the spacer across the app
-- [ ] Keep the spacer only on the Game Show page and Patch Show page
+- [x] Remove the spacer across the app
+- [x] Keep the spacer only on the Game Show page and Patch Show page
 
 ## Cross-App Consistency
 
