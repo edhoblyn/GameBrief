@@ -289,7 +289,124 @@
   line-height: 1;
 }
 
+// ─── Two-column body wrap ─────────────────────────────────────────────────────
+
+.ff-body-wrap {
+  width: 90vw;
+  max-width: 600px;
+}
+
+.ff-left-col {
+  display: flex;
+  flex-direction: column;
+
+  // Override children widths so they fill the column
+  .ff-friends-section,
+  .ff-search,
+  .ff-results {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.ff-body-wrap--with-panel {
+  max-width: 960px;
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+
+  .ff-left-col {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .ff-right-col {
+    width: 320px;
+    flex-shrink: 0;
+  }
+}
+
+// ─── Result card active state ─────────────────────────────────────────────────
+
+.ff-result-card--active .ff-result-card__inner {
+  border-color: var(--gb-accent);
+  background: linear-gradient(180deg, rgba(124, 92, 252, 0.09), rgba(255, 255, 255, 0.02));
+}
+
+// ─── Profile card mini (injected into panel or rendered standalone) ───────────
+
+.pub-profile-card-mini {
+  position: sticky;
+  top: 5.5rem;
+  border-radius: 20px;
+  border: 1px solid var(--gb-border);
+  background: rgba(8, 10, 18, 0.65);
+  backdrop-filter: blur(12px);
+  overflow: hidden;
+
+  &__close {
+    position: absolute;
+    top: 0.55rem;
+    right: 0.55rem;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0, 0, 0, 0.5);
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    font-size: 0.75rem;
+    font-family: inherit;
+    transition: background 0.15s;
+
+    &:hover { background: rgba(0, 0, 0, 0.75); }
+  }
+
+  &__banner {
+    height: 80px;
+    background: linear-gradient(
+      135deg,
+      rgba(124, 92, 252, 0.75) 0%,
+      rgba(79, 156, 249, 0.55) 45%,
+      rgba(30, 221, 136, 0.35) 100%
+    );
+    background-size: cover;
+    background-position: center;
+  }
+
+  &__top-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0 1rem 0.25rem;
+  }
+
+  &__avatar-wrap {
+    flex-shrink: 0;
+    margin-top: -36px;
+  }
+}
+
 // ─── Mobile ───────────────────────────────────────────────────────────────────
+
+@media (max-width: 760px) {
+  .ff-body-wrap--with-panel {
+    flex-direction: column;
+
+    .ff-right-col {
+      width: 100%;
+    }
+  }
+
+  .pub-profile-card-mini {
+    position: static;
+  }
+}
 
 @media (max-width: 600px) {
   .ff-page {
