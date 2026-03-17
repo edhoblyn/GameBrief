@@ -172,7 +172,7 @@
                 ' data-friendship-id="' + u.friendship_id + '"' +
                 ' data-action="cancel"' +
                 ' title="Cancel request">' +
-                '<i class="fa fa-clock-o"></i>' +
+                '<i class="fa fa-question"></i>' +
               '</button>';
           } else if (u.pending_received) {
             btnHtml =
@@ -255,7 +255,7 @@
           btn.dataset.friendshipId = data.friendship_id;
           btn.dataset.action = 'cancel';
           btn.className = 'btn-follow btn-follow--pending';
-          btn.innerHTML = '<i class="fa fa-clock-o"></i>';
+          btn.innerHTML = '<i class="fa fa-question"></i>';
           btn.title = 'Cancel request';
         });
 
