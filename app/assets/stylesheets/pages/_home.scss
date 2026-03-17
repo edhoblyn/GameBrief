@@ -344,16 +344,16 @@
 
 // ── Games grid ──────────────────────────────────────────────────────────────
 .home-games {
-  padding-top: 5rem;
+  padding-top: 6.5rem;
   padding-bottom: 5rem;
 
   &__search {
-    margin-top: 1.5rem;
-    margin-bottom: 2rem;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
     display: flex;
     justify-content: center;
     gap: 0.5rem;
-    max-width: 680px;
+    max-width: 860px;
     width: 100%;
     margin-left: auto;
     margin-right: auto;
@@ -363,15 +363,18 @@
     flex: 1;
     background: var(--gb-surface);
     border: 1px solid var(--gb-border);
-    border-radius: 0.5rem;
+    border-radius: 0.85rem;
     color: var(--gb-text);
-    padding: 0.75rem 1.1rem;
-    font-size: 1rem;
+    min-height: 3.45rem;
+    padding: 0.95rem 1.2rem;
+    font-size: 1.02rem;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
 
     &::placeholder { color: var(--gb-muted); }
     &:focus {
       outline: none;
       border-color: var(--gb-accent);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--gb-accent) 16%, transparent);
     }
   }
 
@@ -380,10 +383,11 @@
     color: var(--gb-button-text);
     text-shadow: var(--gb-button-text-shadow);
     border: none;
-    border-radius: 0.5rem;
-    padding: 0.75rem 1.4rem;
+    border-radius: 0.85rem;
+    min-height: 3.45rem;
+    padding: 0.95rem 1.55rem;
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
 
     &:hover { box-shadow: 0 0 18px color-mix(in srgb, var(--gb-accent) 42%, transparent); }
@@ -405,6 +409,41 @@
     gap: 0.4rem;
   }
 
+  &__filter-group {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  &__sort-group {
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: auto;
+  }
+
+  &__sort-label {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.4rem;
+    margin-right: 0.1rem;
+    color: var(--gb-muted);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  &__heading-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.85rem;
+    flex-wrap: wrap;
+  }
+
   &__heading {
     font-family: $headers-font;
     font-size: 1.1rem;
@@ -412,7 +451,7 @@
     color: var(--gb-muted);
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    margin-bottom: 1.5rem;
+    margin: 0;
   }
 
   &__grid {
