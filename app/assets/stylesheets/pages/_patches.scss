@@ -130,6 +130,21 @@
 .patch-show {
   padding-bottom: 4rem;
 
+  &__header-inner {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  &__game-cover {
+    width: 64px;
+    height: 85px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    flex-shrink: 0;
+    border: 1px solid $dark-border;
+  }
+
   &__header {
     padding: 2.5rem 0 1rem;
     border-bottom: 1px solid $dark-border;
