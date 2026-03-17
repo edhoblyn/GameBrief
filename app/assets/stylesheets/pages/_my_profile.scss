@@ -520,6 +520,18 @@ $sidebar-width: 260px;
     }
   }
 
+  &--secondary {
+    background: color-mix(in srgb, var(--gb-accent-secondary) 12%, transparent);
+    border-color: color-mix(in srgb, var(--gb-accent-secondary) 40%, transparent);
+    color: var(--gb-accent-secondary);
+
+    &:hover {
+      color: var(--gb-accent-secondary);
+      background: color-mix(in srgb, var(--gb-accent-secondary) 20%, transparent);
+      border-color: var(--gb-accent-secondary);
+    }
+  }
+
   &--full {
     width: 100%;
   }
