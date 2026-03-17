@@ -37,7 +37,7 @@
 
 - [ ] Convert to SPA with Turbo Frames
 - [ ] Add more space between the top div and the navbar
-- [ ] Add friend request notifications
+- [x] Add friend request notifications
 - [ ] Fix missing glow effect on the nav
 - [ ] Keep the `Find friends` button sticky near the Friendhub subheading
 - [ ] Make the post form full width in the left-hand column under posts
