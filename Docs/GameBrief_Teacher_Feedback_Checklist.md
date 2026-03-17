@@ -14,7 +14,7 @@
 
 ## Games Index
 
-- [ ] Make the favourite star `position: absolute` in the bottom-right corner of the game card
+- [x] Make the favourite star `position: absolute` in the bottom-right corner of the game card
 - [x] Make the search bar bigger
 - [x] Reduce the space between the navbar and the search bar
 - [x] Fix the `Most favourited` button bug showing params in the game count
