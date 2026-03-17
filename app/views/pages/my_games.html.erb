@@ -22,22 +22,31 @@
       <% if @games.any? %>
         <div class="my-games-page__grid">
           <% @games.each do |game| %>
-            <%= link_to game_path(game), class: "game-card event-glow-card" do %>
-              <div class="game-card__cover">
-                <% if game.cover_image.present? %>
-                  <%= image_tag game.cover_image, alt: game.name, class: "game-card__img", loading: "lazy" %>
-                <% else %>
-                  <div class="game-card__placeholder">
-                    <i class="fa fa-gamepad"></i>
-                  </div>
-                <% end %>
-                <div class="game-card__overlay"></div>
-              </div>
-              <div class="game-card__body">
-                <h3 class="game-card__name"><%= game.name %></h3>
-                <span class="game-card__cta">View updates <i class="fa fa-arrow-right"></i></span>
-              </div>
-            <% end %>
+            <div class="game-card-wrapper">
+              <%= link_to game_path(game), class: "game-card event-glow-card" do %>
+                <div class="game-card__cover">
+                  <% if game.cover_image.present? %>
+                    <%= image_tag game.cover_image, alt: game.name, class: "game-card__img", loading: "lazy" %>
+                  <% else %>
+                    <div class="game-card__placeholder">
+                      <i class="fa fa-gamepad"></i>
+                    </div>
+                  <% end %>
+                  <div class="game-card__overlay"></div>
+                </div>
+                <div class="game-card__body">
+                  <h3 class="game-card__name"><%= game.name %></h3>
+                  <span class="game-card__cta">View updates <i class="fa fa-arrow-right"></i></span>
+                </div>
+              <% end %>
+              <%= button_to favourite_path(@favourites_by_game_id[game.id]),
+                    method: :delete,
+                    class: "game-card-wrapper__remove",
+                    form: { data: { turbo_confirm: "Remove #{game.name} from your games?" } },
+                    title: "Remove from My Games" do %>
+                <i class="fa fa-times"></i>
+              <% end %>
+            </div>
           <% end %>
         </div>
       <% else %>
@@ -55,5 +64,4 @@
       <% end %>
     </div>
   </main>
-
 </div>

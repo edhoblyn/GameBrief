@@ -37,7 +37,7 @@ Rails.application.routes.draw do
   resources :events, only: [:index, :show]
   resources :favourites, only: [:create, :destroy]
   resources :reminders, only: [:create, :destroy]
-  resources :friendships, only: [:create, :destroy]
+  resources :friendships, only: [:create, :update, :destroy]
 
   resources :users, only: [:index, :show]
 

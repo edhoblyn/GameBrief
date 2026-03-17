@@ -77,8 +77,11 @@
         <div class="social-profile-stats">
           <button type="button" class="social-stat" data-bs-toggle="modal" data-bs-target="#friendsModal">
             <span class="social-stat__count"><%= current_user.friends.count %> <%= current_user.friends.count == 1 ? "Friend" : "Friends" %></span>
+            <% if @pending_received_count > 0 %>
+              <span class="social-stat__count pending-badge"><%= @pending_received_count %></span>
+            <% end %>
           </button>
-<button type="button" class="social-stat" data-bs-toggle="modal" data-bs-target="#findFriendsModal">
+          <button type="button" class="social-stat" data-bs-toggle="modal" data-bs-target="#findFriendsModal">
             <span class="social-stat__count"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg></span>
             <span class="social-stat__count">Find Friends</span>
           </button>
@@ -135,7 +138,7 @@
                       <%= post.user.display_name.first.upcase %>
                     <% end %>
                   </div>
-                  <span style="font-size: 0.85rem; font-weight: 700; color: var(--gb-text);"><%= post.user.display_name %></span>
+                  <%= link_to post.user.display_name, user_path(post.user), style: "font-size: 0.85rem; font-weight: 700; color: var(--gb-text); text-decoration: none;" %>
                   <span style="color: var(--gb-muted); font-size: 0.72rem; margin-left: auto;"><%= time_ago_in_words(post.created_at) %> ago</span>
                   <% if post.user == current_user %>
                     <%= button_to post_path(post), method: :delete, class: "btn btn-link btn-sm p-0 ms-1", style: "color: rgba(255,255,255,0.2); font-size: 0.72rem; line-height: 1;", form: { data: { turbo_confirm: "Delete this post?" } } do %>
@@ -214,6 +217,19 @@
   </main>
 </div>
 
+<script>
+  document.addEventListener('turbo:load', function () {
+    document.querySelectorAll('.like-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        btn.classList.add('heart-pop');
+        btn.querySelector('i').addEventListener('animationend', function () {
+          btn.classList.remove('heart-pop');
+        }, { once: true });
+      });
+    });
+  });
+</script>
+
 <!-- Friends Modal -->
 <div class="modal" id="friendsModal" tabindex="-1" aria-labelledby="friendsModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width: 400px;">
@@ -228,19 +244,21 @@
         <% if @friends.any? %>
           <% @friends.each do |friend| %>
             <div style="display: flex; align-items: center; gap: 12px; padding: 10px 4px; border-bottom: 1px solid rgba(255,255,255,0.05);">
-              <div style="width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, var(--gb-accent, #7c5cfc), #4f9cf9); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 700; color: #fff; flex-shrink: 0; overflow: hidden;">
-                <% if friend.avatar_image.attached? %>
-                  <%= image_tag friend.avatar_image, style: "width: 100%; height: 100%; object-fit: cover;" %>
-                <% elsif friend.avatar_url.present? %>
-                  <%= image_tag friend.avatar_url, style: "width: 100%; height: 100%; object-fit: cover;" %>
-                <% else %>
-                  <%= friend.display_name.first.upcase %>
-                <% end %>
-              </div>
-              <div style="min-width: 0;">
-                <div style="font-size: 0.88rem; font-weight: 700; color: var(--gb-text, #e8eaf6); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><%= friend.display_name %></div>
-                <div style="font-size: 0.75rem; color: var(--gb-muted, #8891b4);">@<%= friend.profile_handle %></div>
-              </div>
+              <%= link_to user_path(friend), style: "display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0; text-decoration: none;" do %>
+                <div style="width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, var(--gb-accent, #7c5cfc), #4f9cf9); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 700; color: #fff; flex-shrink: 0; overflow: hidden;">
+                  <% if friend.avatar_image.attached? %>
+                    <%= image_tag friend.avatar_image, style: "width: 100%; height: 100%; object-fit: cover;" %>
+                  <% elsif friend.avatar_url.present? %>
+                    <%= image_tag friend.avatar_url, style: "width: 100%; height: 100%; object-fit: cover;" %>
+                  <% else %>
+                    <%= friend.display_name.first.upcase %>
+                  <% end %>
+                </div>
+                <div style="min-width: 0;">
+                  <div style="font-size: 0.88rem; font-weight: 700; color: var(--gb-text, #e8eaf6); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><%= friend.display_name %></div>
+                  <div style="font-size: 0.75rem; color: var(--gb-muted, #8891b4);">@<%= friend.profile_handle %></div>
+                </div>
+              <% end %>
             </div>
           <% end %>
         <% else %>
@@ -285,13 +303,11 @@
 
     if (!modal || !input || !results) return;
 
-    // Clear search when modal closes
     modal.addEventListener('hidden.bs.modal', function () {
       input.value = '';
       results.innerHTML = '';
     });
 
-    // Auto-focus input when modal opens
     modal.addEventListener('shown.bs.modal', function () {
       input.focus();
     });
@@ -306,62 +322,55 @@
           headers: { 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' }
         })
         .then(function (r) { return r.json(); })
-        .then(function (users) { renderResults(users, q); });
+        .then(function (users) { renderResults(users); });
       }, 250);
     });
 
-    function renderResults(users, q) {
+    function renderResults(users) {
       if (!users.length) {
-        results.innerHTML = '<p style="font-size:0.82rem;color:var(--gb-muted,#8891b4);text-align:center;padding:16px 0;margin:0;">No users found for &ldquo;' + escHtml(q) + '&rdquo;.</p>';
+        results.innerHTML = '<p style="font-size:0.82rem;color:var(--gb-muted,#8891b4);text-align:center;padding:16px 0;margin:0;">No users found.</p>';
         return;
       }
       var html = '<div style="display:flex;flex-direction:column;gap:4px;">';
       users.forEach(function (u) {
-        var isFriend = u.is_friend;
+        var btnHtml = '';
+        if (u.pending_sent) {
+          btnHtml = '<button class="ff-modal-action-btn" data-user-id="' + u.id + '" data-friendship-id="' + u.friendship_id + '" data-action="cancel" style="border-color:rgba(255,255,255,0.2);color:var(--gb-muted,#8891b4);" title="Cancel request"><i class="fa fa-clock-o"></i></button>';
+        } else if (u.pending_received) {
+          btnHtml =
+            '<button class="ff-modal-action-btn" data-user-id="' + u.id + '" data-friendship-id="' + u.incoming_request_id + '" data-action="accept" style="border-color:var(--gb-accent,#7c5cfc);background:rgba(124,92,252,0.2);color:var(--gb-accent,#7c5cfc);" title="Accept"><i class="fa fa-check"></i></button>' +
+            '<button class="ff-modal-action-btn" data-user-id="' + u.id + '" data-friendship-id="' + u.incoming_request_id + '" data-action="decline" style="border-color:rgba(255,80,80,0.4);color:rgba(255,80,80,0.7);" title="Decline"><i class="fa fa-times"></i></button>';
+        } else if (u.is_friend) {
+          btnHtml = '<button class="ff-modal-action-btn" data-user-id="' + u.id + '" data-friendship-id="' + u.friendship_id + '" data-action="unfriend" style="border-color:var(--gb-accent,#7c5cfc);background:rgba(124,92,252,0.2);color:var(--gb-accent,#7c5cfc);" title="Remove friend"><i class="fa fa-check"></i></button>';
+        } else {
+          btnHtml = '<button class="ff-modal-action-btn" data-user-id="' + u.id + '" data-action="add" style="border-color:rgba(255,255,255,0.2);color:var(--gb-muted,#8891b4);" title="Send friend request"><i class="fa fa-plus"></i></button>';
+        }
         html +=
-          '<div style="display:flex;align-items:center;gap:10px;padding:8px 4px;border-bottom:1px solid rgba(255,255,255,0.05);">' +
-            '<div style="width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--gb-accent,#7c5cfc),#4f9cf9);display:flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:700;color:#fff;flex-shrink:0;">' +
-              escHtml(u.initial) +
-            '</div>' +
-            '<div style="flex:1;min-width:0;">' +
-              '<div style="font-size:0.85rem;font-weight:700;color:var(--gb-text,#e8eaf6);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + escHtml(u.display) + '</div>' +
-              (u.email ? '<div style="font-size:0.73rem;color:var(--gb-muted,#8891b4);">' + escHtml(u.email) + '</div>' : '') +
-            '</div>' +
-            '<button class="ff-modal-follow-btn' + (isFriend ? ' btn-follow--active' : '') + '"' +
-              ' data-user-id="' + u.id + '"' +
-              ' data-friendship-id="' + (u.friendship_id || '') + '"' +
-              ' data-is-friend="' + (isFriend ? '1' : '0') + '"' +
-              ' style="flex-shrink:0;width:30px;height:30px;border-radius:50%;border:1.5px solid ' + (isFriend ? 'var(--gb-accent,#7c5cfc)' : 'rgba(255,255,255,0.2)') + ';background:' + (isFriend ? 'rgba(124,92,252,0.2)' : 'transparent') + ';color:' + (isFriend ? 'var(--gb-accent,#7c5cfc)' : 'var(--gb-muted,#8891b4)') + ';cursor:pointer;display:flex;align-items:center;justify-content:center;">' +
-              (isFriend ? '<i class="fa fa-check"></i>' : '<i class="fa fa-plus"></i>') +
-            '</button>' +
+          '<div style="display:flex;align-items:center;gap:10px;padding:8px 4px;border-bottom:1px solid rgba(255,255,255,0.05);" id="modal-card-' + u.id + '">' +
+            '<a href="/users/' + u.id + '" style="display:flex;align-items:center;gap:10px;flex:1;min-width:0;text-decoration:none;">' +
+              '<div style="width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--gb-accent,#7c5cfc),#4f9cf9);display:flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:700;color:#fff;flex-shrink:0;">' + escHtml(u.initial) + '</div>' +
+              '<div style="flex:1;min-width:0;">' +
+                '<div style="font-size:0.85rem;font-weight:700;color:var(--gb-text,#e8eaf6);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + escHtml(u.display) + '</div>' +
+                (u.email ? '<div style="font-size:0.73rem;color:var(--gb-muted,#8891b4);">' + escHtml(u.email) + '</div>' : '') +
+              '</div>' +
+            '</a>' +
+            '<div style="display:flex;gap:4px;flex-shrink:0;">' + btnHtml + '</div>' +
           '</div>';
       });
       html += '</div>';
       results.innerHTML = html;
 
-      results.querySelectorAll('.ff-modal-follow-btn').forEach(function (btn) {
-        btn.addEventListener('click', function () { toggleFollow(this); });
+      results.querySelectorAll('.ff-modal-action-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () { handleAction(this); });
       });
     }
 
-    function toggleFollow(btn) {
+    function handleAction(btn) {
+      var action       = btn.dataset.action;
       var userId       = btn.dataset.userId;
       var friendshipId = btn.dataset.friendshipId;
-      var isFriend     = btn.dataset.isFriend === '1';
 
-      if (isFriend) {
-        fetch('/friendships/' + friendshipId, {
-          method: 'DELETE',
-          headers: { 'X-CSRF-Token': csrfToken, 'Accept': 'application/json' }
-        }).then(function () {
-          btn.dataset.isFriend = '0';
-          btn.dataset.friendshipId = '';
-          btn.style.borderColor = 'rgba(255,255,255,0.2)';
-          btn.style.background  = 'transparent';
-          btn.style.color       = 'var(--gb-muted,#8891b4)';
-          btn.innerHTML = '<i class="fa fa-plus"></i>';
-        });
-      } else {
+      if (action === 'add') {
         fetch('/friendships', {
           method: 'POST',
           headers: { 'X-CSRF-Token': csrfToken, 'Accept': 'application/json', 'Content-Type': 'application/json' },
@@ -369,12 +378,64 @@
         })
         .then(function (r) { return r.json(); })
         .then(function (data) {
-          btn.dataset.isFriend = '1';
+          btn.dataset.action = 'cancel';
           btn.dataset.friendshipId = data.friendship_id;
-          btn.style.borderColor = 'var(--gb-accent,#7c5cfc)';
-          btn.style.background  = 'rgba(124,92,252,0.2)';
-          btn.style.color       = 'var(--gb-accent,#7c5cfc)';
-          btn.innerHTML = '<i class="fa fa-check"></i>';
+          btn.title = 'Cancel request';
+          btn.innerHTML = '<i class="fa fa-clock-o"></i>';
+          btn.style.borderColor = 'rgba(255,255,255,0.2)';
+          btn.style.color = 'var(--gb-muted,#8891b4)';
+          btn.style.background = 'transparent';
+        });
+
+      } else if (action === 'cancel') {
+        fetch('/friendships/' + friendshipId, {
+          method: 'DELETE',
+          headers: { 'X-CSRF-Token': csrfToken, 'Accept': 'application/json' }
+        }).then(function () {
+          btn.dataset.action = 'add';
+          btn.dataset.friendshipId = '';
+          btn.title = 'Send friend request';
+          btn.innerHTML = '<i class="fa fa-plus"></i>';
+        });
+
+      } else if (action === 'accept') {
+        fetch('/friendships/' + friendshipId, {
+          method: 'PATCH',
+          headers: { 'X-CSRF-Token': csrfToken, 'Accept': 'application/json' }
+        })
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          var wrap = btn.closest('div[style*="flex-shrink"]');
+          if (wrap) {
+            wrap.innerHTML = '<button class="ff-modal-action-btn" data-action="unfriend" data-user-id="' + userId + '" data-friendship-id="' + data.friendship_id + '" style="border-color:var(--gb-accent,#7c5cfc);background:rgba(124,92,252,0.2);color:var(--gb-accent,#7c5cfc);" title="Remove friend"><i class="fa fa-check"></i></button>';
+            wrap.querySelector('.ff-modal-action-btn').addEventListener('click', function () { handleAction(this); });
+          }
+        });
+
+      } else if (action === 'decline') {
+        fetch('/friendships/' + friendshipId, {
+          method: 'DELETE',
+          headers: { 'X-CSRF-Token': csrfToken, 'Accept': 'application/json' }
+        }).then(function () {
+          var wrap = btn.closest('div[style*="flex-shrink"]');
+          if (wrap) {
+            wrap.innerHTML = '<button class="ff-modal-action-btn" data-action="add" data-user-id="' + userId + '" style="border-color:rgba(255,255,255,0.2);color:var(--gb-muted,#8891b4);" title="Send friend request"><i class="fa fa-plus"></i></button>';
+            wrap.querySelector('.ff-modal-action-btn').addEventListener('click', function () { handleAction(this); });
+          }
+        });
+
+      } else if (action === 'unfriend') {
+        fetch('/friendships/' + friendshipId, {
+          method: 'DELETE',
+          headers: { 'X-CSRF-Token': csrfToken, 'Accept': 'application/json' }
+        }).then(function () {
+          btn.dataset.action = 'add';
+          btn.dataset.friendshipId = '';
+          btn.title = 'Send friend request';
+          btn.innerHTML = '<i class="fa fa-plus"></i>';
+          btn.style.borderColor = 'rgba(255,255,255,0.2)';
+          btn.style.color = 'var(--gb-muted,#8891b4)';
+          btn.style.background = 'transparent';
         });
       }
     }
@@ -386,15 +447,19 @@
   })();
 </script>
 
-<script>
-  document.addEventListener('turbo:load', function () {
-    document.querySelectorAll('.like-btn').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        btn.classList.add('heart-pop');
-        btn.querySelector('i').addEventListener('animationend', function () {
-          btn.classList.remove('heart-pop');
-        }, { once: true });
-      });
-    });
-  });
-</script>
+<style>
+  .ff-modal-action-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1.5px solid;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    transition: opacity 0.15s;
+  }
+  .ff-modal-action-btn:hover { opacity: 0.75; }
+</style>

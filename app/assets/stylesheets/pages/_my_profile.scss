@@ -1,6 +1,41 @@
 // My Profile — social feed layout
 $sidebar-width: 260px;
 
+// ── Public Profile ────────────────────────────────────────────────────────────
+.pub-profile-layout {
+  min-height: 100vh;
+  background: var(--gb-bg);
+  padding: 5.5rem 1.5rem 3rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.pub-profile-back {
+  margin-bottom: 1rem;
+}
+
+.pub-profile-card {
+  min-height: unset;
+  overflow: visible;
+
+  .for-you-sidebar {
+    position: static;
+    max-height: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .pub-profile-layout {
+    padding-top: 6.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .pub-profile-layout {
+    padding: 4.5rem 0.75rem 2rem;
+  }
+}
+
 .my-profile-layout {
   display: flex;
   width: 100%;
@@ -262,6 +297,14 @@ $sidebar-width: 260px;
   .my-patches-page,
   .my-events-page {
     padding: 1rem 1rem 3rem !important;
+
+    &__header {
+      margin-top: -1rem;
+      margin-left: -1rem;
+      margin-right: -1rem;
+      padding-left: 4rem;
+      padding-right: 4rem;
+    }
   }
 }
 
@@ -291,11 +334,11 @@ $sidebar-width: 260px;
       pointer-events: none;
     }
 
-    // Thin accent rule at the top
+    // Thin accent rule at the bottom
     &::after {
       content: "";
       position: absolute;
-      inset: 0 0 auto;
+      inset: auto 0 0;
       height: 2px;
       background: linear-gradient(90deg, var(--gb-accent), color-mix(in srgb, var(--gb-accent-secondary) 70%, transparent), transparent);
     }
