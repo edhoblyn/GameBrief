@@ -138,8 +138,8 @@
             <% @events.each do |event| %>
               <%= link_to event_path(event), class: "event-list-card" do %>
                 <div class="event-list-card__date">
-                  <div class="day"><%= event.start_date.strftime("%-d") %></div>
-                  <div class="month"><%= event.start_date.strftime("%b") %></div>
+                  <div class="day"><%= event.start_date&.strftime("%-d") %></div>
+                  <div class="month"><%= event.start_date&.strftime("%b") %></div>
                 </div>
                 <span class="event-list-card__title"><%= event.title %></span>
                 <span class="event-list-card__arrow"><i class="fa fa-chevron-right"></i></span>
