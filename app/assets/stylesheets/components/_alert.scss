@@ -11,6 +11,16 @@
   }
 }
 
+body.page-pages-home .alert {
+  top: 7.25rem;
+}
+
+@media (min-width: 768px) {
+  body.page-pages-home .alert {
+    top: 4.75rem;
+  }
+}
+
 .alert-gb-success {
   background-color: rgba($green, 0.15);
   border: 1px solid rgba($green, 0.4);

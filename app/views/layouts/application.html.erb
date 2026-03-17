@@ -35,7 +35,7 @@
     <%= render "shared/hover_gradient_nav" unless content_for?(:hide_navbar) %>
     <%= render "shared/settings_menu" %>
     <%= render "shared/flashes" %>
-    <div style="height: 4rem;"></div>
+    <%= tag.div class: "app-layout-spacer" unless controller_name == "pages" && action_name == "home" %>
 
     <%= yield %>
 

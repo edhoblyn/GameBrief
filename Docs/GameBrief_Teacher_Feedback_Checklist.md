@@ -6,10 +6,11 @@
 
 ## Homepage
 
-- [ ] Remove the spacer on the homepage only
-- [ ] Move trending games higher so it becomes visible sooner on scroll
-- [ ] Sort or fix the homepage carousel swiper
-- [ ] Move creation flashes/notices lower so they sit beneath the settings icon
+- [x] Remove the spacer on the homepage only
+- [x] Move trending games higher so it becomes visible sooner on scroll
+- [x] Sort or fix the homepage carousel swiper
+- [x] Move creation flashes/notices lower so they sit beneath the settings icon
+- [x] Remove the duplicate homepage logout button because logout is already available in the shared settings menu
 
 ## Games Index
 
