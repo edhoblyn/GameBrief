@@ -33,7 +33,7 @@
         <div class="event-show__hero-stats">
           <div class="event-show__hero-stat">
             <span class="event-show__hero-label">When</span>
-            <strong><%= @event.start_date.strftime("%A, %-d %B %Y") %></strong>
+            <strong><%= @event.start_date&.strftime("%A, %-d %B %Y") || "Date TBD" %></strong>
           </div>
           <div class="event-show__hero-stat">
             <span class="event-show__hero-label">Countdown</span>
