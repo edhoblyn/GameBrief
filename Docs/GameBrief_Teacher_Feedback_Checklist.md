@@ -33,16 +33,16 @@
 
 ## Event Show Page
 
-- [ ] Remove the event snapshot section
-- [ ] Remove the latest patch section
-- [ ] Move the background image into the div where the event snapshot currently is
-- [ ] Change the reminder styling from red background to red border with red text
-- [ ] Only show `Add to Google Calendar` after `Set Reminder` has been pressed
-- [ ] Remove the `This week` / `Happening today` flare from the `What is happening` card
-- [ ] Remove the blurb under the `h1` if it duplicates the event synopsis
-- [ ] Update the hover state of `Add to Google Calendar`
-- [ ] Use blue as the secondary colour for the `Add to Calendar` button
-- [ ] Update countdown text so finished events show `Event over`
+- [x] Remove the event snapshot section
+- [x] Remove the latest patch section
+- [x] Move the background image into the div where the event snapshot currently is
+- [x] Change the reminder styling from red background to red border with red text
+- [x] Only show `Add to Google Calendar` after `Set Reminder` has been pressed
+- [x] Remove the `This week` / `Happening today` flare from the `What is happening` card
+- [x] Remove the blurb under the `h1` if it duplicates the event synopsis
+- [x] Update the hover state of `Add to Google Calendar`
+- [x] Use blue as the secondary colour for the `Add to Calendar` button
+- [x] Update countdown text so finished events show `Event over`
 
 ## Profile Page
 
