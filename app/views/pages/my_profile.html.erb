@@ -16,106 +16,8 @@
 <div class="container my-profile-layout" data-controller="notification-toggles">
 
   <!-- Sidebar -->
-  <aside class="profile-sidebar profile-sidebar--hidden" id="profile-sidebar">
-    <div class="profile-sidebar__user">
-      <div class="profile-sidebar__avatar">
-        <% if current_user.avatar_image.attached? %>
-          <%= image_tag current_user.avatar_image, class: "profile-sidebar__avatar-img" %>
-        <% elsif current_user.avatar_url.present? %>
-          <%= image_tag current_user.avatar_url, class: "profile-sidebar__avatar-img" %>
-        <% else %>
-          <div class="profile-sidebar__avatar-placeholder">
-            <%= current_user.email.first.upcase %>
-          </div>
-        <% end %>
-      </div>
-      <div class="profile-sidebar__name"><%= profile_name %></div>
-      <div class="profile-sidebar__handle">@<%= profile_handle %></div>
-    </div>
-
-    <nav class="profile-sidebar__nav">
-      <a href="<%= root_path %>" class="profile-sidebar__nav-link">
-        <i class="fa fa-home"></i> Home
-      </a>
-      <a href="#" class="profile-sidebar__nav-link profile-sidebar__nav-link--active">
-        <i class="fa fa-user"></i> Profile
-      </a>
-      <a href="<%= my_games_path %>" class="profile-sidebar__nav-link">
-        <i class="fa fa-gamepad"></i> Library
-        <span class="profile-sidebar__count-badge ms-auto"><%= @followed_games.count %></span>
-      </a>
-      <a href="<%= my_patches_path %>" class="profile-sidebar__nav-link">
-        <i class="fa fa-file-text"></i> Updates
-        <span class="profile-sidebar__count-badge ms-auto"><%= @recent_patches.count %></span>
-      </a>
-      <a href="<%= my_events_path %>" class="profile-sidebar__nav-link">
-        <i class="fa fa-calendar"></i> Agenda
-        <span class="profile-sidebar__count-badge ms-auto"><%= @reminders.count %></span>
-      </a>
-      <%= link_to find_friends_path, class: "profile-sidebar__nav-link" do %>
-        <i class="fa fa-users"></i> Find friends
-      <% end %>
-    </nav>
-
-    <section class="profile-sidebar__section">
-      <div class="profile-sidebar__section-header">
-        <h3 class="profile-sidebar__section-title">Notifications</h3>
-        <span class="profile-sidebar__section-badge">Live</span>
-      </div>
-
-      <div class="profile-sidebar__control-list">
-        <button type="button"
-                class="profile-sidebar__control profile-sidebar__control--active"
-                data-action="click->notification-toggles#toggle"
-                data-notification-toggles-target="toggle"
-                data-notification-key="patch-alerts"
-                data-notification-default-state="on"
-                aria-pressed="true">
-          <span class="profile-sidebar__control-copy">
-            <span class="profile-sidebar__control-label">Patch alerts</span>
-            <span class="profile-sidebar__control-meta">Major game updates and fresh patch drops</span>
-          </span>
-          <span class="profile-sidebar__control-state profile-sidebar__control-state--active"
-                data-notification-toggles-target="state">On</span>
-        </button>
-
-        <button type="button"
-                class="profile-sidebar__control profile-sidebar__control--active"
-                data-action="click->notification-toggles#toggle"
-                data-notification-toggles-target="toggle"
-                data-notification-key="event-reminders"
-                data-notification-default-state="on"
-                aria-pressed="true">
-          <span class="profile-sidebar__control-copy">
-            <span class="profile-sidebar__control-label">Event reminders</span>
-            <span class="profile-sidebar__control-meta">Upcoming events from your favourited games</span>
-          </span>
-          <span class="profile-sidebar__control-state profile-sidebar__control-state--active"
-                data-notification-toggles-target="state">On</span>
-        </button>
-
-        <button type="button"
-                class="profile-sidebar__control"
-                data-action="click->notification-toggles#toggle"
-                data-notification-toggles-target="toggle"
-                data-notification-key="recommendation-updates"
-                data-notification-default-state="off"
-                aria-pressed="false">
-          <span class="profile-sidebar__control-copy">
-            <span class="profile-sidebar__control-label">Recommendation updates</span>
-            <span class="profile-sidebar__control-meta">Suggestions based on your activity</span>
-          </span>
-          <span class="profile-sidebar__control-state"
-                data-notification-toggles-target="state">Off</span>
-        </button>
-      </div>
-    </section>
-
-    <div class="profile-sidebar__footer">
-      <%= link_to "Sign out", destroy_user_session_path, data: { "turbo-method": :delete }, class: "profile-sidebar__signout" %>
-    </div>
-  </aside>
-
+  <%= render "shared/profile_sidebar", active: :profile %>
+  
   <!-- Social main -->
   <main class="social-main" data-controller="social-feed">
 
@@ -174,38 +76,87 @@
         </div>
         <div class="social-profile-stats">
           <a href="<%= find_friends_path(friends_only: 1) %>" class="social-stat">
-            <span class="social-stat__count"><%= current_user.friends.count %></span>
-            <span class="social-stat__label"><%= pluralize(current_user.friends.count, "Friend").split.first == "1" ? "Friend" : "Friends" %></span>
-          </a>
-          <a href="#" class="social-stat">
-            <span class="social-stat__count"><%= current_user.posts.count%></span>
-            <span class="social-stat__label"><%= pluralize(current_user.posts.count, "Post").split.first == "1" ? "Post" : "Posts" %></span>
+            <span class="social-stat__count"><%= current_user.friends.count %> <%= current_user.friends.count == 1 ? "Friend" : "Friends" %></span>
+            <span class="social-stat__count" style="margin: 0 4px; opacity: 0.3;">|</span>
+            <span class="social-stat__count"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg></span>
+            <span class="social-stat__count">Find Friends</span>
           </a>
         </div>
       </div>
     </div>
 
-
     <div class="for-you-layout">
       <div class="for-you-feed">
+
+        <%# Top actions bar %>
+        <div class="px-3 pt-3 pb-2 d-flex justify-content-between align-items-center">
+          <p style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--gb-muted); margin: 0;">FriendHub</p>
+          <button id="new-post-btn" class="compose-btn" style="background: #7c5cfc !important; color: #fff !important;" onclick="document.getElementById('new-post-form').style.display='block'; this.style.display='none';">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            Post
+          </button>
+        </div>
+
+        <%# New post form (hidden by default) %>
+        <div id="new-post-form" class="compose-form-wrapper" style="display: none;">
+          <%= form_with url: posts_path, scope: :post do |f| %>
+            <div class="compose-form__avatar">
+              <% if current_user.avatar_image.attached? %>
+                <%= image_tag current_user.avatar_image, class: "compose-form__avatar-img" %>
+              <% else %>
+                <div class="compose-form__avatar-placeholder"><%= current_user.display_name.first.upcase %></div>
+              <% end %>
+            </div>
+            <div class="compose-form__body">
+              <%= f.text_area :body, placeholder: "What's on your mind?", rows: 2, class: "compose-form__textarea", autofocus: true %>
+              <div class="compose-form__actions">
+                <button type="button" class="compose-form__cancel" onclick="document.getElementById('new-post-form').style.display='none'; document.getElementById('new-post-btn').style.display='inline-flex';">Cancel</button>
+                <%= f.submit "Post", class: "compose-form__submit" %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+
+        <%# Posts feed %>
         <div class="p-3" style="display: flex; flex-direction: column; gap: 10px;">
-          <p style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--gb-muted); margin-bottom: 4px;">FriendHub</p>
           <% if @feed_posts.any? %>
             <% @feed_posts.each do |post| %>
-              <div style="padding: 14px 16px; border-radius: 18px 18px 18px 4px; background: linear-gradient(135deg, rgba(124,92,252,0.12), rgba(79,156,249,0.07)); border: 1px solid rgba(124,92,252,0.25); transition: border-color 0.15s, transform 0.15s;">
-                <div class="d-flex align-items-center gap-2 mb-2">
-                  <div style="width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg, var(--gb-accent), var(--gb-accent-strong)); display: flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 700; color: #fff; flex-shrink: 0;">
-                    <%= post.user.display_name.first.upcase %>
+              <% liked = post.likes.exists?(user: current_user) %>
+              <div style="border-radius: 18px; border: 1px solid rgba(124,92,252,0.25); overflow: hidden; background: rgba(255,255,255,0.02);">
+                <%# Post header %>
+                <div style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: linear-gradient(135deg, rgba(124,92,252,0.15), rgba(79,156,249,0.08)); border-bottom: 1px solid rgba(255,255,255,0.06);">
+                  <div style="width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg, var(--gb-accent), var(--gb-accent-strong)); display: flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 700; color: #fff; flex-shrink: 0; overflow: hidden;">
+                    <% if post.user.avatar_image.attached? %>
+                      <%= image_tag post.user.avatar_image, style: "width: 100%; height: 100%; object-fit: cover;" %>
+                    <% else %>
+                      <%= post.user.display_name.first.upcase %>
+                    <% end %>
                   </div>
-                  <span style="font-size: 0.85rem; font-weight: 600; color: var(--gb-text);"><%= post.user.display_name %></span>
-                  <span style="color: var(--gb-muted); font-size: 0.75rem; margin-left: auto;"><%= time_ago_in_words(post.created_at) %> ago</span>
+                  <span style="font-size: 0.85rem; font-weight: 700; color: var(--gb-text);"><%= post.user.display_name %></span>
+                  <span style="color: var(--gb-muted); font-size: 0.72rem; margin-left: auto;"><%= time_ago_in_words(post.created_at) %> ago</span>
                   <% if post.user == current_user %>
-                    <%= button_to post_path(post), method: :delete, class: "btn btn-link btn-sm p-0", style: "color: rgba(255,255,255,0.25); font-size: 0.75rem; line-height: 1;", form: { data: { turbo_confirm: "Delete this post?" } } do %>
+                    <%= button_to post_path(post), method: :delete, class: "btn btn-link btn-sm p-0 ms-1", style: "color: rgba(255,255,255,0.2); font-size: 0.72rem; line-height: 1;", form: { data: { turbo_confirm: "Delete this post?" } } do %>
                       <i class="fa fa-trash"></i>
                     <% end %>
                   <% end %>
                 </div>
-                <p style="margin: 0; font-size: 0.88rem; color: var(--gb-text); line-height: 1.55;"><%= post.body %></p>
+                <%# Post body %>
+                <div style="padding: 12px 14px 8px;">
+                  <p style="margin: 0 0 10px; font-size: 0.88rem; color: var(--gb-text); line-height: 1.6;"><%= post.body %></p>
+                  <%# Rocket reaction %>
+                  <div style="display: flex; align-items: center; gap: 4px;">
+                    <% if liked %>
+                      <%= button_to post_like_path(post, post.likes.find_by(user: current_user)), method: :delete, class: "like-btn liked", title: "Un-rocket" do %>
+                        <i class="fa fa-rocket"></i>
+                      <% end %>
+                    <% else %>
+                      <%= button_to post_likes_path(post), method: :post, class: "like-btn", title: "Rocket!" do %>
+                        <i class="fa fa-rocket"></i>
+                      <% end %>
+                    <% end %>
+                    <span class="like-count"><%= post.likes.count %></span>
+                  </div>
+                </div>
               </div>
             <% end %>
           <% else %>
@@ -279,3 +230,16 @@
 
   </main>
 </div>
+
+<script>
+  document.addEventListener('turbo:load', function () {
+    document.querySelectorAll('.like-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        btn.classList.add('heart-pop');
+        btn.querySelector('i').addEventListener('animationend', function () {
+          btn.classList.remove('heart-pop');
+        }, { once: true });
+      });
+    });
+  });
+</script>

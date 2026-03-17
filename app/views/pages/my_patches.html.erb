@@ -15,14 +15,13 @@
     </div>
   </div>
 
-  <div class="my-patches-page__filters">
-    <%= form_with url: my_patches_path, method: :get, local: true, class: "my-patches-page__filter-form" do %>
-      <div class="my-patches-page__filter-group">
-        <%= label_tag :date_filter, "Date range", class: "my-patches-page__filter-label" %>
-        <%= select_tag :date_filter,
-              options_for_select(Patch::DATE_FILTERS.map { |value, label| [label, value] }, @date_filter),
-              class: "my-patches-page__filter-select",
-              onchange: "this.form.requestSubmit()" %>
+  <main class="social-main">
+    <div class="my-patches-page">
+      <div class="my-patches-page__header">
+        <div>
+          <h1 class="my-patches-page__title">My Patches</h1>
+          <p class="my-patches-page__subtitle">Recent patch notes from your favourited games.</p>
+        </div>
       </div>
 
       <div class="my-patches-page__sort-group">
@@ -32,8 +31,6 @@
           </button>
         <% end %>
       </div>
-    <% end %>
-  </div>
 
   <% if @patches.any? %>
     <div class="profile-rail-card" style="padding: 1.25rem;">

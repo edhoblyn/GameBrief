@@ -256,6 +256,114 @@ $sidebar-width: 260px;
   }
 }
 
+// ── Sub-pages inside social-main ─────────────────────────────────────────────
+.social-main {
+  .my-games-page,
+  .my-patches-page,
+  .my-events-page {
+    padding: 1rem 1rem 3rem !important;
+  }
+}
+
+// ── My Games / Patches / Events page header ──────────────────────────────────
+.my-games-page,
+.my-patches-page,
+.my-events-page {
+  &__header {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 2rem 3rem;
+    border-bottom: 1px solid var(--gb-border);
+    overflow: hidden;
+
+    // Subtle accent gradient wash
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 120% at 0% 50%, color-mix(in srgb, var(--gb-accent) 12%, transparent), transparent 70%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.025) 0%, transparent 100%);
+      pointer-events: none;
+    }
+
+    // Thin accent rule at the top
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gb-accent), color-mix(in srgb, var(--gb-accent-secondary) 70%, transparent), transparent);
+    }
+  }
+
+  &__heading {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  &__title {
+    margin: 0;
+    font-family: $headers-font;
+    font-size: clamp(1.4rem, 3vw, 1.85rem);
+    font-weight: 800;
+    color: var(--gb-text);
+    line-height: 1.15;
+  }
+
+  &__subtitle {
+    margin: 0;
+    color: var(--gb-muted);
+    font-size: 0.88rem;
+  }
+
+  &__actions {
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1.25rem;
+    padding: 2rem 3rem;
+  }
+
+  &__empty {
+    padding: 2rem 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .my-games-page,
+  .my-patches-page,
+  .my-events-page {
+    &__header {
+      flex-wrap: wrap;
+      padding: 1.25rem 1.25rem 1rem;
+      gap: 1rem;
+    }
+
+    &__grid {
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      padding: 1.25rem;
+      gap: 1rem;
+    }
+
+    &__empty {
+      padding: 1.25rem;
+    }
+  }
+}
+
 // ── Social Main ──────────────────────────────────────────────────────────────
 .social-main {
   flex: 1 1 auto;
@@ -1408,4 +1516,209 @@ $sidebar-width: 260px;
 .social-profile-action--full {
   width: 100%;
   margin-top: 12px;
+}
+
+// ─── Compose button ──────────────────────────────────────────────────────────
+
+.compose-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.38rem 1rem;
+  border: none;
+  border-radius: 999px;
+  background: #7c5cfc;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: background 0.15s;
+
+  svg { flex-shrink: 0; }
+
+  &:hover {
+    background: #9070fd;
+    transform: none;
+    box-shadow: none;
+  }
+
+  &:focus,
+  &:focus-visible {
+    transform: none;
+    box-shadow: none;
+    outline: none;
+  }
+
+  &:active { opacity: 0.85; }
+}
+
+// ─── Compose form ─────────────────────────────────────────────────────────────
+
+.compose-form-wrapper {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 0 12px 12px;
+
+  form {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    width: 100%;
+  }
+}
+
+.compose-form {
+  &__avatar {
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  &__avatar-img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1.5px solid rgba($accent-purple, 0.5);
+  }
+
+  &__avatar-placeholder {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, $accent-purple, $accent-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #fff;
+    border: 1.5px solid rgba($accent-purple, 0.4);
+  }
+
+  &__body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba($accent-purple, 0.2);
+    border-radius: 14px;
+    padding: 10px 12px;
+    transition: border-color 0.2s;
+
+    &:focus-within {
+      border-color: rgba($accent-purple, 0.5);
+    }
+  }
+
+  &__textarea {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--gb-text);
+    font-size: 0.9rem;
+    line-height: 1.55;
+    resize: none;
+    width: 100%;
+    padding: 0;
+
+    &::placeholder { color: var(--gb-muted); }
+    &:focus { box-shadow: none; }
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding-top: 8px;
+  }
+
+  &__cancel {
+    background: none;
+    border: none;
+    color: var(--gb-muted);
+    font-size: 0.78rem;
+    cursor: pointer;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    transition: color 0.15s;
+
+    &:hover { color: var(--gb-text); }
+  }
+
+  &__submit {
+    padding: 0.3rem 1rem;
+    border: none;
+    border-radius: 999px;
+    background: #7c5cfc;
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s;
+
+    &:hover {
+      background: #9070fd;
+      transform: none;
+      box-shadow: none;
+    }
+
+    &:focus,
+    &:focus-visible {
+      transform: none;
+      box-shadow: none;
+      outline: none;
+    }
+
+    &:active { opacity: 0.85; }
+  }
+}
+
+// ─── Like button ─────────────────────────────────────────────────────────────
+
+@keyframes rocket-launch {
+  0%   { transform: scale(1)    translateY(0); }
+  30%  { transform: scale(1.4)  translateY(-6px) rotate(-15deg); }
+  60%  { transform: scale(0.9)  translateY(-10px) rotate(-20deg); }
+  100% { transform: scale(1)    translateY(0) rotate(0deg); }
+}
+
+.like-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.3);
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+
+  i { display: block; font-size: 0.95rem; transition: transform 0.15s; }
+
+  &:hover {
+    background: rgba(124, 92, 252, 0.15);
+    color: var(--gb-accent);
+  }
+
+  &.liked {
+    color: var(--gb-accent);
+  }
+
+  &.heart-pop i {
+    animation: rocket-launch 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards;
+  }
+}
+
+.like-count {
+  font-size: 0.72rem;
+  color: var(--gb-muted);
+  min-width: 12px;
 }

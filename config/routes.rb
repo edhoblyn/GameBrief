@@ -41,7 +41,9 @@ Rails.application.routes.draw do
 
   resources :users, only: [:index, :show]
 
-  resources :posts, only: [:create, :destroy]
+  resources :posts, only: [:create, :destroy] do
+    resources :likes, only: [:create, :destroy]
+  end
 
   namespace :admin do
     resource :dashboard, only: [:show], controller: :dashboard

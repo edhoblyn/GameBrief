@@ -15,6 +15,37 @@
     <p class="ff-hero__sub">Search for players to connect with</p>
   </div>
 
+  <%# Current friends list -%>
+  <% current_friends = current_user.friends %>
+  <% if current_friends.any? %>
+    <div class="ff-friends-section" id="ffFriendsSection">
+      <p class="ff-friends-section__title">Your Friends (<%= current_friends.count %>)</p>
+      <div class="ff-results__grid">
+        <% current_friends.each do |friend| %>
+          <% friendship = current_user.friendships.find_by(friend_id: friend.id) %>
+          <div class="ff-result-card">
+            <div class="ff-result-card__inner">
+              <div class="ff-result-card__avatar"><%= (friend.username.presence || friend.email).first.upcase %></div>
+              <div class="ff-result-card__info">
+                <span class="ff-result-card__name"><%= friend.username.presence || friend.email %></span>
+                <% if friend.username.present? %>
+                  <span class="ff-result-card__email"><%= friend.email %></span>
+                <% end %>
+              </div>
+              <button class="btn-follow btn-follow--active"
+                data-user-id="<%= friend.id %>"
+                data-friendship-id="<%= friendship&.id %>"
+                data-is-friend="1"
+                title="Remove friend">
+                <i class="fa fa-check"></i>
+              </button>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
   <%# Search bar -%>
   <div class="ff-search" id="ffSearch">
     <input
@@ -41,6 +72,11 @@
     var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
     if (!page || !input || !results) return;
+
+    // Wire up static friends list buttons
+    document.querySelectorAll('.ff-friends-section .btn-follow').forEach(function (btn) {
+      btn.addEventListener('click', function () { toggleFollow(this); });
+    });
 
     // Move search bar to top on focus, restore if empty on blur
     input.addEventListener('focus', function () {

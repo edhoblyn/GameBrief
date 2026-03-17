@@ -56,7 +56,9 @@
       "Bash(RAILS_ENV=development bundle exec rails assets:precompile)",
       "Bash(grep -o \"games-grid[^}]*}\" public/assets/application-*.css)",
       "Bash(grep \"games-grid\\\\|admin-game-card\" public/assets/application-*.css)",
-      "Bash(bin/rails assets:clobber)"
+      "Bash(bin/rails assets:clobber)",
+      "Bash(bin/rails generate:*)",
+      "Bash(bin/rails assets:precompile 2>&1 | tail -5)"
     ],
     "deny": []
   }
