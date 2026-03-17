@@ -301,6 +301,29 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
     assert_select "button[aria-label='Unfavourite #{game.name}'].game-card__follow-btn--active .fa-star", count: 1
   end
 
+  test "shows a plain result count when sorted by most favourited" do
+    first_game = Game.create!(name: "Apex Legends", slug: "apex-legends")
+    second_game = Game.create!(name: "Fortnite", slug: "fortnite")
+    @user.favourites.create!(game: first_game)
+    @user.favourites.create!(game: second_game)
+
+    get games_url, params: { sort: "followed" }
+
+    assert_response :success
+    assert_select ".home-games__results-count", text: "2 Games"
+    assert_select ".home-games__sort-group", text: /Sort by/
+  end
+
+  test "shows query result count using the filtered total" do
+    Game.create!(name: "Apex Legends", slug: "apex-legends")
+    Game.create!(name: "Fortnite", slug: "fortnite")
+
+    get games_url, params: { query: "Apex" }
+
+    assert_response :success
+    assert_select ".home-games__results-count", text: "1 Game"
+  end
+
   test "creates a game suggestion from the games page" do
     assert_difference("GameSuggestion.count", 1) do
       assert_difference("ActionMailer::Base.deliveries.size", 1) do

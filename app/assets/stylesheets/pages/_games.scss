@@ -6,15 +6,16 @@
 
   &__header {
     position: relative;
-    min-height: 280px;
+    min-height: 380px;
     display: flex;
     align-items: flex-end;
-    padding: 2rem 0 0;
+    padding: 0;
+    margin-top: -4rem;
     margin-bottom: 2.5rem;
     overflow: hidden;
 
     @media (max-width: 768px) {
-      min-height: 200px;
+      min-height: 280px;
     }
   }
 
@@ -33,6 +34,7 @@
     display: flex;
     align-items: flex-end;
     gap: 1.5rem;
+    padding-top: 5rem;
     padding-bottom: 1.5rem;
     width: 100%;
 

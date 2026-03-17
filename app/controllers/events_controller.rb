@@ -100,6 +100,8 @@ class EventsController < ApplicationController
   end
 
   def event_status_for(start_date, now)
+    return { label: "Upcoming", tone: "upcoming" } if start_date.nil?
+
     event_date = start_date.to_date
     today = now.to_date
 
@@ -115,10 +117,12 @@ class EventsController < ApplicationController
   end
 
   def countdown_label_for(start_date, now)
+    return "Date TBD" if start_date.nil?
+
     distance = ActionController::Base.helpers.distance_of_time_in_words(now, start_date)
 
     if start_date < now
-      "Started #{distance} ago"
+      "Event over"
     else
       "Starts in #{distance}"
     end

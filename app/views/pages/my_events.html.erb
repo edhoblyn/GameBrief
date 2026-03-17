@@ -1,29 +1,102 @@
-<% content_for :title, "My Events" %>
+<% content_for :title, "Event Reminders" %>
 
-<div class="container my-profile-layout" data-controller="notification-toggles">
+<div class="my-events-page container">
+  <div class="my-events-page__header">
+    <div>
+      <p class="my-events-page__eyebrow">Profile</p>
+      <h1 class="my-events-page__title">Event Reminders</h1>
+      <p class="my-events-page__subtitle">Upcoming reminders for the events you want to keep track of.</p>
+    </div>
+    <div class="my-events-page__actions">
+      <%= link_to my_profile_path, class: "my-events-page__action" do %>
+        <i class="fa fa-arrow-left"></i>
+        Back to Profile
+      <% end %>
+    </div>
+  </div>
 
-  <%= render "shared/profile_sidebar", active: :agenda %>
-
-  <main class="social-main">
-    <div class="my-events-page">
-      <div class="my-events-page__header">
-        <div>
-          <h1 class="my-events-page__title">My Events</h1>
-          <p class="my-events-page__subtitle">Upcoming reminders for the events you want to keep track of.</p>
-        </div>
-        <div class="my-events-page__actions">
-          <%= link_to events_path, class: "my-events-page__action my-events-page__action--primary" do %>
-            <i class="fa fa-calendar"></i>
-            Browse Events
-          <% end %>
-        </div>
+  <div class="my-events-page__filters">
+    <div class="my-events-page__filter-row">
+      <div class="my-events-page__sort-group">
+        <%= link_to "Upcoming", my_events_path(sort: nil, view: params[:view].presence), class: "filter-btn #{@sort == 'upcoming' ? 'active' : ''}" %>
+        <%= link_to "Latest", my_events_path(sort: "latest", view: params[:view].presence), class: "filter-btn #{@sort == 'latest' ? 'active' : ''}" %>
       </div>
+      <%= link_to my_events_path(sort: params[:sort].presence, view: @view == "grouped" ? nil : "grouped"),
+            class: "filter-btn #{@view == 'grouped' ? 'active' : ''}" do %>
+        <i class="fa fa-th-list"></i>
+        Organise by game
+      <% end %>
+    </div>
+  </div>
 
-      <div class="my-events-page__summary">
-        <div class="my-events-page__summary-card">
-          <span class="my-events-page__summary-value"><%= @events.count %></span>
-          <span class="my-events-page__summary-label">Saved reminders</span>
-        </div>
+  <% if @events.any? %>
+    <% if @view == "grouped" %>
+      <div class="patch-show__accordions">
+        <% @events.group_by { |r| r.event.game }.each do |game, reminders| %>
+          <details class="patch-show__accordion">
+            <summary class="patch-show__accordion-summary">
+              <span class="patch-show__accordion-title"><%= game.name %></span>
+              <span class="patch-show__accordion-preview"><%= pluralize(reminders.count, "event") %></span>
+            </summary>
+            <div class="patch-show__accordion-body">
+              <% reminders.each do |reminder| %>
+                <% event = reminder.event %>
+                <%= link_to event_path(event), class: "my-events-page__card" do %>
+                  <div class="my-events-page__date">
+                    <span class="my-events-page__day"><%= event.start_date.strftime("%-d") %></span>
+                    <span class="my-events-page__month"><%= event.start_date.strftime("%b") %></span>
+                  </div>
+                  <div class="my-events-page__body">
+                    <div class="my-events-page__meta">
+                      <span class="my-events-page__game"><%= event.game.name %></span>
+                      <span class="my-events-page__status">Reminder set</span>
+                    </div>
+                    <h2 class="my-events-page__card-title"><%= event.title %></h2>
+                    <p class="my-events-page__card-copy">
+                      <i class="fa fa-calendar"></i>
+                      <%= event.start_date.strftime("%-d %B %Y") %>
+                    </p>
+                  </div>
+                  <span class="my-events-page__arrow">
+                    <i class="fa fa-arrow-right"></i>
+                  </span>
+                <% end %>
+              <% end %>
+            </div>
+          </details>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="my-events-page__timeline">
+        <% @events.each do |reminder| %>
+          <% event = reminder.event %>
+          <%= link_to event_path(event), class: "my-events-page__card" do %>
+            <div class="my-events-page__date">
+              <span class="my-events-page__day"><%= event.start_date.strftime("%-d") %></span>
+              <span class="my-events-page__month"><%= event.start_date.strftime("%b") %></span>
+            </div>
+            <div class="my-events-page__body">
+              <div class="my-events-page__meta">
+                <span class="my-events-page__game"><%= event.game.name %></span>
+                <span class="my-events-page__status">Reminder set</span>
+              </div>
+              <h2 class="my-events-page__card-title"><%= event.title %></h2>
+              <p class="my-events-page__card-copy">
+                <i class="fa fa-calendar"></i>
+                <%= event.start_date.strftime("%-d %B %Y") %>
+              </p>
+            </div>
+            <span class="my-events-page__arrow">
+              <i class="fa fa-arrow-right"></i>
+            </span>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="my-events-page__empty">
+      <div class="my-events-page__empty-icon">
+        <i class="fa fa-calendar"></i>
       </div>
 
       <% if @events.any? %>

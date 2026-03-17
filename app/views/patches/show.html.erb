@@ -1,9 +1,16 @@
 <div class="patch-show">
   <div class="patch-show__header container">
-    <div class="patch-show__header__breadcrumb">
-      <%= link_to @patch.game.name, game_path(@patch.game) %> &rsaquo; Patches
+    <div class="patch-show__header-inner">
+      <% if @patch.game.cover_image.present? %>
+        <%= image_tag @patch.game.cover_image, alt: @patch.game.name, class: "patch-show__game-cover" %>
+      <% end %>
+      <div>
+        <div class="patch-show__header__breadcrumb">
+          <%= link_to @patch.game.name, game_path(@patch.game) %> &rsaquo; Patches
+        </div>
+        <h1><%= @patch.title %></h1>
+      </div>
     </div>
-    <h1><%= @patch.title %></h1>
   </div>
 
   <div class="container">

@@ -1,17 +1,15 @@
 <div class="event-show">
   <% game = @event.game %>
-  <% quick_take = @event.summary.presence || @event.description.presence || "Keep this event on your radar for #{game.name}." %>
-  <% gcal_url = "https://calendar.google.com/calendar/render?" + {
-    action: "TEMPLATE",
-    text: @event.title,
-    dates: "#{@event.start_date.strftime('%Y%m%dT%H%M%SZ')}/#{(@event.start_date + 1.hour).strftime('%Y%m%dT%H%M%SZ')}",
-    details: [@event.description, "Track more game updates on GameBrief."].compact.join("\n\n")
-  }.to_query %>
+  <% if @event.start_date
+       gcal_url = "https://calendar.google.com/calendar/render?" + {
+         action: "TEMPLATE",
+         text: @event.title,
+         dates: "#{@event.start_date.strftime('%Y%m%dT%H%M%SZ')}/#{(@event.start_date + 1.hour).strftime('%Y%m%dT%H%M%SZ')}",
+         details: [@event.description, "Track more game updates on GameBrief."].compact.join("\n\n")
+       }.to_query
+     end %>
 
   <div class="event-show__hero">
-    <% if game.cover_image.present? %>
-      <div class="event-show__hero-art" style="background-image: url('<%= game.cover_image %>')"></div>
-    <% end %>
 
     <div class="container event-show__hero-inner">
       <div class="event-show__hero-copy">
@@ -26,12 +24,14 @@
         </div>
 
         <h1 class="event-show__title"><%= @event.title %></h1>
-        <p class="event-show__subtitle"><%= quick_take %></p>
+        <% if @event.summary.present? && @event.summary != @event.description %>
+          <p class="event-show__subtitle"><%= @event.summary %></p>
+        <% end %>
 
         <div class="event-show__hero-stats">
           <div class="event-show__hero-stat">
             <span class="event-show__hero-label">When</span>
-            <strong><%= @event.start_date.strftime("%A, %-d %B %Y") %></strong>
+            <strong><%= @event.start_date&.strftime("%A, %-d %B %Y") || "Date TBD" %></strong>
           </div>
           <div class="event-show__hero-stat">
             <span class="event-show__hero-label">Countdown</span>
@@ -46,7 +46,6 @@
         <section class="event-show__section event-show__section--compact">
           <div class="event-show__section-head">
             <h2>What is happening</h2>
-            <span><%= @event_status[:label] %></span>
           </div>
           <p class="event-show__copy">
             <%= @event.description.presence || "Details have not been added for this event yet, but the start date is already being tracked." %>
@@ -54,15 +53,16 @@
         </section>
 
         <div class="event-show__hero-actions">
-          <%= link_to gcal_url, target: "_blank", rel: "noopener noreferrer", class: "event-show__action event-show__action--light" do %>
-            <i class="fa fa-calendar-plus-o"></i>
-            Add to Google Calendar
-          <% end %>
-
           <% if @reminder %>
             <%= button_to reminder_path(@reminder), method: :delete, class: "event-show__action event-show__action--danger" do %>
               <i class="fa fa-bell-slash"></i>
               Remove Reminder
+            <% end %>
+            <% if gcal_url %>
+              <%= link_to gcal_url, target: "_blank", rel: "noopener noreferrer", class: "event-show__action event-show__action--light" do %>
+                <i class="fa fa-calendar-plus-o"></i>
+                Add to Google Calendar
+              <% end %>
             <% end %>
           <% else %>
             <%= button_to reminders_path(event_id: @event.id), method: :post, class: "event-show__action event-show__action--primary" do %>
@@ -74,69 +74,30 @@
       </div>
 
       <aside class="event-show__hero-panel">
-        <div class="event-show__panel-card">
-          <p class="event-show__panel-title">Event Snapshot</p>
-          <dl class="event-show__facts">
-            <div>
-              <dt>Date</dt>
-              <dd><%= @event.start_date.strftime("%-d %b %Y") %></dd>
-            </div>
-            <div>
-              <dt>Start time</dt>
-              <dd><%= @event.start_date.strftime("%H:%M %Z") %></dd>
-            </div>
-            <div>
-              <dt>Reminder</dt>
-              <dd><%= @reminder.present? ? "Saved" : "Not set" %></dd>
-            </div>
-            <div>
-              <dt>Game</dt>
-              <dd><%= game.name %></dd>
-            </div>
-          </dl>
-        </div>
+        <% if game.cover_image.present? %>
+          <div class="event-show__cover-panel" style="background-image: url('<%= game.cover_image %>')"></div>
+        <% end %>
         <section class="event-show__sidebar-card">
-        <div class="event-show__section-head event-show__section-head--compact">
-          <h2>More from <%= game.name %></h2>
-          <%= link_to "Game page", game_path(game) %>
-        </div>
-
-        <% if @related_events.any? %>
-          <div class="event-show__related-list">
-            <% @related_events.each do |related_event| %>
-              <%= link_to event_path(related_event), class: "event-show__related-card" do %>
-                <div>
-                  <p class="event-show__related-kicker"><%= related_event.start_date.strftime("%-d %b") %></p>
-                  <h3><%= related_event.title %></h3>
-                </div>
-                <span class="event-show__related-arrow"><i class="fa fa-chevron-right"></i></span>
-              <% end %>
-            <% end %>
+          <div class="event-show__section-head event-show__section-head--compact">
+            <h2>More from <%= game.name %></h2>
+            <%= link_to "Game page", game_path(game) %>
           </div>
-        <% else %>
-          <p class="event-show__sidebar-copy">No other upcoming events are scheduled for this game yet.</p>
-        <% end %>
-        </section>
 
-        <section class="event-show__sidebar-card">
-        <div class="event-show__section-head event-show__section-head--compact">
-          <h2>Latest patch</h2>
-          <% if @latest_patch %>
-            <%= link_to "Open patch", patch_path(@latest_patch) %>
+          <% if @related_events.any? %>
+            <div class="event-show__related-list">
+              <% @related_events.each do |related_event| %>
+                <%= link_to event_path(related_event), class: "event-show__related-card" do %>
+                  <div>
+                    <p class="event-show__related-kicker"><%= related_event.start_date&.strftime("%-d %b") || "TBD" %></p>
+                    <h3><%= related_event.title %></h3>
+                  </div>
+                  <span class="event-show__related-arrow"><i class="fa fa-chevron-right"></i></span>
+                <% end %>
+              <% end %>
+            </div>
+          <% else %>
+            <p class="event-show__sidebar-copy">No other upcoming events are scheduled for this game yet.</p>
           <% end %>
-        </div>
-
-        <% if @latest_patch %>
-          <%= link_to patch_path(@latest_patch), class: "event-show__patch-card" do %>
-            <p class="event-show__related-kicker">
-              <%= @latest_patch.display_published_at&.to_date&.strftime("%-d %b %Y") || "Recent update" %>
-            </p>
-            <h3><%= @latest_patch.title %></h3>
-            <p>Check the latest patch notes for context around this event and what changed recently.</p>
-          <% end %>
-        <% else %>
-          <p class="event-show__sidebar-copy">No patch notes are available for this game yet.</p>
-        <% end %>
         </section>
       </aside>
     </div>

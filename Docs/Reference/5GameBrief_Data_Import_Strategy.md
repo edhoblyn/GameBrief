@@ -1,70 +1,88 @@
 # GameBrief — Data Import Strategy
 
+> Last updated: 2026-03-17
+
 ## Purpose
-Define how GameBrief obtains and stores external data such as games, patches, and live events.
+
+Document how GameBrief obtains and stores external data: games, patches, and live events.
 
 ## Data Sources
 
 ### Game Data
-Source: IGDB API
 
-Imported fields:
-- name
-- slug
-- cover_image_url
-- genres
-- platforms
-- release date
+Source: **IGDB API** (via Twitch credentials)
 
-Games are periodically synced using a rake task or background job.
+Imported fields: name, slug, cover_image, free_to_play, single_player, multiplayer, genre
+
+Import is handled by `IgdbClient` (`app/services/igdb_client.rb`) and called during `db:seed`.
 
 ### Patch Notes
 
-Possible sources:
-- Official developer websites
-- RSS feeds
-- Manual admin input
-- Scraping tools (future)
+Source: **Automated scrapers** (29 scrapers across 25+ games)
 
-Initial MVP approach:
-Admin manually adds patch notes using an admin interface.
+Each game has a dedicated `Scrapers::*` class and a `PatchImporters::*` class. De-duplication is by `source_url`. The shared `PatchScrapeRunner` service orchestrates all scrapers.
 
-Stored fields:
-- version
-- title
-- raw_content
-- source_url
-- published_at
+Blocked sources (Fortnite, Helldivers 2, Minecraft, Destiny 2) fall back to manually seeded placeholder data.
+
+Stored fields: title, content, source_url, published_at, game_id
 
 ### Events
 
-Sources:
-- Official game news pages
-- Community event calendars
-- Developer announcements
+Source: **Automated event importers** (18 importers) + **manual seeds**
 
-MVP approach:
-Manual admin entry.
+Each game has a dedicated `EventScrapers::*` class and an `EventImporters::*` class. The shared `EventImportRunner` orchestrates all importers.
 
-Fields:
-- title
-- description
-- starts_at
-- ends_at
+Many games use a hybrid approach: automated scrapers for live/active events, manual seeds for known future milestones (annual events, championships).
+
+Stored fields: title, description, start_date, game_id
 
 ## Import Flow
 
-External Source → Import Script → Rails Models → Database
+```text
+External source → Scraper/Importer service → Rails model → database → app UI
+```
 
-## Heroku Notes
+## Running Imports
 
-Because the app is deploying to **Heroku**:
-- store API credentials in Heroku Config Vars
-- test imports in production
-- check logs if imports fail
+```bash
+# Patch scraping (all sources)
+bin/rake patches:scrape_all
 
-## Future Improvements
+# Single game
+bin/rake patches:scrape_valorant
 
-- Automated RSS ingestion
-- Scheduled patch crawlers
-- API integrations with developer endpoints
+# Event importing (all sources)
+bin/rake events:import_all
+
+# Single game
+bin/rake events:import_league_of_legends
+```
+
+Full task lists: [11GameBrief_Scraping_Guide.md](11GameBrief_Scraping_Guide.md)
+
+Admin dashboard also provides UI-based triggers at `/admin/dashboard`.
+
+## Production Import Flow on Heroku
+
+```bash
+heroku run bin/rails db:migrate
+heroku run bin/rails db:seed
+heroku run bin/rake patches:scrape_all
+heroku run bin/rake events:import_all
+```
+
+Recurring imports are scheduled via **Heroku Scheduler**:
+
+- `bin/rake patches:scrape_all` — daily
+- `bin/rake events:import_all` — daily
+
+## Seeding Strategy
+
+`db/seeds.rb` handles:
+
+1. Wipes and recreates the demo user and featured gamer profiles
+2. Imports games from IGDB
+3. Seeds patches — preserves real scraped data where it exists; removes placeholder patches for those games
+4. Seeds events — uses `seed_live_events` (calls importer) and `seed_event_series` (manual future milestones)
+
+The seed file is safe to re-run but is a full reset — do not run `db:seed` in production unless you want to wipe existing user data.

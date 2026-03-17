@@ -163,6 +163,28 @@
             <p class="text-muted" style="font-size: 0.85rem;">No posts yet.</p>
           <% end %>
         </div>
+
+        <div class="px-3 pb-3 d-flex justify-content-between align-items-center">
+          <div>
+            <button id="new-post-btn" onclick="document.getElementById('new-post-form').style.display='flex'; this.style.display='none';" class="social-profile-action social-profile-action--primary">
+              <i class="fa fa-pencil me-1"></i> Post
+            </button>
+
+            <div id="new-post-form" style="display: none; padding: 14px 16px; border-radius: 16px; background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02)); border: 1px solid rgba(255,255,255,0.1);">
+              <%= form_with url: posts_path, scope: :post, class: "d-flex flex-column gap-2" do |f| %>
+                <%= f.text_area :body, placeholder: "What's on your mind?", rows: 2, class: "form-control", style: "background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 10px; font-size: 0.95rem; resize: none; line-height: 1.5;" %>
+                <div class="d-flex gap-2 justify-content-end">
+                  <button type="button" onclick="document.getElementById('new-post-form').style.display='none'; document.getElementById('new-post-btn').style.display='inline-flex';" class="btn btn-sm" style="border-radius: 999px; font-size: 0.78rem; color: var(--gb-muted);">Cancel</button>
+                  <%= f.submit "Post", class: "social-profile-action social-profile-action--primary" %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+
+          <%= link_to find_friends_path, class: "social-profile-action social-profile-action--secondary" do %>
+            <i class="fa fa-users me-1"></i> Find Friends
+          <% end %>
+        </div>
       </div>
 
       <aside class="for-you-sidebar">

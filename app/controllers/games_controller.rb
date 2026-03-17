@@ -35,22 +35,29 @@ class GamesController < ApplicationController
 
   def load_games_index
     @active_game_filters = active_game_filters
-    @games = Game.all
-    @games = @games.search_by_name(params[:query])
-    @games = @games.with_genre(params[:genre])
-    @games = @games.free_to_play_only(params[:free_to_play])
-    @games = @games.single_player_only(params[:single_player])
-    @games = @games.multiplayer_only(params[:multiplayer])
+    filtered_games = Game.all
+    filtered_games = filtered_games.search_by_name(params[:query])
+    filtered_games = filtered_games.with_genre(params[:genre])
+    filtered_games = filtered_games.free_to_play_only(params[:free_to_play])
+    filtered_games = filtered_games.single_player_only(params[:single_player])
+    filtered_games = filtered_games.multiplayer_only(params[:multiplayer])
+
+    @games_count = filtered_games.distinct.count(:id)
     @games = case params[:sort]
-             when "name"     then @games.order(name: :asc)
-             when "followed" then @games.left_joins(:favourites).group("games.id").order("COUNT(favourites.id) DESC")
-             else @games
+             when "name"
+               filtered_games.order(name: :asc)
+             when "followed"
+               filtered_games.left_joins(:favourites)
+                             .group("games.id")
+                             .order(Arel.sql("COUNT(favourites.id) DESC, games.name ASC"))
+             else
+               filtered_games
              end
     @favourites_by_game_id = current_user&.favourites&.where(game_id: @games.select(:id))&.index_by(&:game_id) || {}
   end
 
   def active_game_filters
-    params.slice(:genre, :free_to_play, :single_player, :multiplayer).values.any?(&:present?)
+    params.slice(:genre, :free_to_play, :single_player, :multiplayer, :query, :sort).values.any?(&:present?)
   end
 
   def game_suggestion_params

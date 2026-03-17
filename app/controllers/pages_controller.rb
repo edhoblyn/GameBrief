@@ -2,7 +2,10 @@ class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:home]
 
   def home
-    @trending_games = Game.joins(:patches).group(:id).order("COUNT(patches.id) DESC").limit(12)
+    @trending_games = Game.joins(:patches)
+                          .group(:id)
+                          .order(Arel.sql("COUNT(patches.id) DESC, games.name ASC"))
+                          .limit(12)
   end
 
   def find_friends
@@ -56,6 +59,9 @@ class PagesController < ApplicationController
   end
 
   def my_events
-    @events = @reminders
+    @sort = params[:sort].presence_in(%w[upcoming latest]) || "upcoming"
+    @view = params[:view].presence_in(%w[grouped]) || "flat"
+
+    @events = @sort == "latest" ? @reminders.reorder("events.start_date desc") : @reminders
   end
 end
