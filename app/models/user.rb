@@ -14,7 +14,11 @@ class User < ApplicationRecord
   has_many :reminders, dependent: :destroy
 
   has_many :friendships, dependent: :destroy
-  has_many :friends, through: :friendships
+  has_many :accepted_friendships, -> { accepted }, class_name: "Friendship", dependent: :destroy
+  has_many :friends, through: :accepted_friendships
+
+  has_many :sent_requests,     -> { pending }, class_name: "Friendship", dependent: :destroy
+  has_many :received_requests, -> { pending }, class_name: "Friendship", foreign_key: :friend_id, dependent: :destroy
 
   has_many :posts, dependent: :destroy
   has_many :likes, dependent: :destroy

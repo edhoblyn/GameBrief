@@ -40,18 +40,42 @@
               <%# guest: no action %>
             <% elsif current_user == @user %>
               <%= link_to "Edit Profile", edit_user_registration_path, class: "btn-edit-profile" %>
-            <% else %>
-              <button
-                id="profile-friend-btn"
-                class="social-profile-action <%= @existing_friendship ? '' : 'social-profile-action--primary' %>"
+            <% elsif @incoming_request %>
+              <%# They sent us a request — show accept + decline %>
+              <div style="display: flex; gap: 0.5rem;">
+                <button id="profile-accept-btn"
+                  class="social-profile-action social-profile-action--primary"
+                  data-friendship-id="<%= @incoming_request.id %>">
+                  <i class="fa fa-check me-1"></i> Accept
+                </button>
+                <button id="profile-decline-btn"
+                  class="social-profile-action"
+                  data-friendship-id="<%= @incoming_request.id %>">
+                  Decline
+                </button>
+              </div>
+            <% elsif @existing_friendship&.status == "pending" %>
+              <%# We sent them a request — show pending / cancel %>
+              <button id="profile-friend-btn"
+                class="social-profile-action"
+                data-friendship-id="<%= @existing_friendship.id %>"
+                data-action="cancel">
+                <i class="fa fa-clock-o me-1"></i> Pending
+              </button>
+            <% elsif @existing_friendship&.status == "accepted" %>
+              <button id="profile-friend-btn"
+                class="social-profile-action"
                 data-user-id="<%= @user.id %>"
-                data-friendship-id="<%= @existing_friendship&.id || '' %>"
-                data-is-friend="<%= @existing_friendship ? '1' : '0' %>">
-                <% if @existing_friendship %>
-                  <i class="fa fa-check me-1"></i> Friends
-                <% else %>
-                  <i class="fa fa-plus me-1"></i> Add Friend
-                <% end %>
+                data-friendship-id="<%= @existing_friendship.id %>"
+                data-action="unfriend">
+                <i class="fa fa-check me-1"></i> Friends
+              </button>
+            <% else %>
+              <button id="profile-friend-btn"
+                class="social-profile-action social-profile-action--primary"
+                data-user-id="<%= @user.id %>"
+                data-action="add">
+                <i class="fa fa-plus me-1"></i> Add Friend
               </button>
             <% end %>
           </div>
@@ -149,41 +173,109 @@
 <% if user_signed_in? && current_user != @user %>
 <script>
 (function () {
-  var btn = document.getElementById('profile-friend-btn');
-  if (!btn) return;
-
   var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-  btn.addEventListener('click', function () {
-    var userId       = btn.dataset.userId;
-    var friendshipId = btn.dataset.friendshipId;
-    var isFriend     = btn.dataset.isFriend === '1';
+  var btn         = document.getElementById('profile-friend-btn');
+  var acceptBtn   = document.getElementById('profile-accept-btn');
+  var declineBtn  = document.getElementById('profile-decline-btn');
 
-    if (isFriend) {
+  if (btn) {
+    btn.addEventListener('click', function () {
+      var action       = btn.dataset.action;
+      var userId       = btn.dataset.userId;
+      var friendshipId = btn.dataset.friendshipId;
+
+      if (action === 'add') {
+        fetch('/friendships', {
+          method: 'POST',
+          headers: { 'X-CSRF-Token': csrfToken, 'Accept': 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify({ friend_id: userId })
+        })
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          btn.dataset.action = 'cancel';
+          btn.dataset.friendshipId = data.friendship_id;
+          btn.classList.remove('social-profile-action--primary');
+          btn.innerHTML = '<i class="fa fa-clock-o me-1"></i> Pending';
+        });
+
+      } else if (action === 'cancel') {
+        fetch('/friendships/' + friendshipId, {
+          method: 'DELETE',
+          headers: { 'X-CSRF-Token': csrfToken, 'Accept': 'application/json' }
+        }).then(function () {
+          btn.dataset.action = 'add';
+          btn.dataset.friendshipId = '';
+          btn.classList.add('social-profile-action--primary');
+          btn.innerHTML = '<i class="fa fa-plus me-1"></i> Add Friend';
+        });
+
+      } else if (action === 'unfriend') {
+        fetch('/friendships/' + friendshipId, {
+          method: 'DELETE',
+          headers: { 'X-CSRF-Token': csrfToken, 'Accept': 'application/json' }
+        }).then(function () {
+          btn.dataset.action = 'add';
+          btn.dataset.friendshipId = '';
+          btn.dataset.userId = '<%= @user.id %>';
+          btn.classList.add('social-profile-action--primary');
+          btn.innerHTML = '<i class="fa fa-plus me-1"></i> Add Friend';
+        });
+      }
+    });
+  }
+
+  if (acceptBtn) {
+    acceptBtn.addEventListener('click', function () {
+      var friendshipId = acceptBtn.dataset.friendshipId;
+      fetch('/friendships/' + friendshipId, {
+        method: 'PATCH',
+        headers: { 'X-CSRF-Token': csrfToken, 'Accept': 'application/json' }
+      })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        // Replace the accept/decline pair with a single Friends button
+        var wrap = acceptBtn.closest('div');
+        wrap.innerHTML =
+          '<button id="profile-friend-btn" class="social-profile-action"' +
+            ' data-action="unfriend"' +
+            ' data-friendship-id="' + data.friendship_id + '">' +
+            '<i class="fa fa-check me-1"></i> Friends' +
+          '</button>';
+        // Re-wire the new button
+        var newBtn = document.getElementById('profile-friend-btn');
+        if (newBtn) newBtn.addEventListener('click', function () {
+          fetch('/friendships/' + newBtn.dataset.friendshipId, {
+            method: 'DELETE',
+            headers: { 'X-CSRF-Token': csrfToken, 'Accept': 'application/json' }
+          }).then(function () {
+            newBtn.dataset.action = 'add';
+            newBtn.dataset.friendshipId = '';
+            newBtn.classList.add('social-profile-action--primary');
+            newBtn.innerHTML = '<i class="fa fa-plus me-1"></i> Add Friend';
+          });
+        });
+      });
+    });
+  }
+
+  if (declineBtn) {
+    declineBtn.addEventListener('click', function () {
+      var friendshipId = declineBtn.dataset.friendshipId;
       fetch('/friendships/' + friendshipId, {
         method: 'DELETE',
         headers: { 'X-CSRF-Token': csrfToken, 'Accept': 'application/json' }
       }).then(function () {
-        btn.dataset.isFriend     = '0';
-        btn.dataset.friendshipId = '';
-        btn.classList.add('social-profile-action--primary');
-        btn.innerHTML = '<i class="fa fa-plus me-1"></i> Add Friend';
+        var wrap = declineBtn.closest('div');
+        wrap.innerHTML =
+          '<button id="profile-friend-btn" class="social-profile-action social-profile-action--primary"' +
+            ' data-action="add"' +
+            ' data-user-id="<%= @user.id %>">' +
+            '<i class="fa fa-plus me-1"></i> Add Friend' +
+          '</button>';
       });
-    } else {
-      fetch('/friendships', {
-        method: 'POST',
-        headers: { 'X-CSRF-Token': csrfToken, 'Accept': 'application/json', 'Content-Type': 'application/json' },
-        body: JSON.stringify({ friend_id: userId })
-      })
-      .then(function (r) { return r.json(); })
-      .then(function (data) {
-        btn.dataset.isFriend     = '1';
-        btn.dataset.friendshipId = data.friendship_id;
-        btn.classList.remove('social-profile-action--primary');
-        btn.innerHTML = '<i class="fa fa-check me-1"></i> Friends';
-      });
-    }
-  });
+    });
+  }
 })();
 </script>
 <% end %>

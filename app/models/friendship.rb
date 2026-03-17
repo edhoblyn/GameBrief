@@ -2,6 +2,9 @@ class Friendship < ApplicationRecord
   belongs_to :user
   belongs_to :friend, class_name: "User"
 
+  scope :accepted, -> { where(status: "accepted") }
+  scope :pending,  -> { where(status: "pending") }
+
   validates :user_id, uniqueness: { scope: :friend_id }
   validate :cannot_befriend_self
 

@@ -9,6 +9,7 @@ class PagesController < ApplicationController
   end
 
   def find_friends
+    @pending_requests = current_user.received_requests.includes(:user)
     @users = params[:friends_only].present? ? current_user.friends : User.where.not(id: current_user.id)
     @users = @users.where("username ILIKE :q OR email ILIKE :q", q: "#{params[:q]}%") if params[:q].present?
     @users = @users.order(:username, :email)
@@ -16,23 +17,31 @@ class PagesController < ApplicationController
     respond_to do |format|
       format.html
       format.json do
-        friendship_map = current_user.friendships
-                                     .where(friend_id: @users.map(&:id))
-                                     .index_by(&:friend_id)
+        user_ids    = @users.map(&:id)
+        sent_map    = current_user.friendships.where(friend_id: user_ids).index_by(&:friend_id)
+        received_map = Friendship.where(friend_id: current_user.id, user_id: user_ids).index_by(&:user_id)
+
         render json: @users.map { |u|
-          friendship = friendship_map[u.id]
-          { id: u.id,
-            display: u.username.presence || u.email,
-            email: u.username.present? ? u.email : nil,
-            initial: (u.username.presence || u.email).first.upcase,
-            is_friend: friendship.present?,
-            friendship_id: friendship&.id }
+          sent     = sent_map[u.id]
+          received = received_map[u.id]
+          {
+            id:                  u.id,
+            display:             u.username.presence || u.email,
+            email:               u.username.present? ? u.email : nil,
+            initial:             (u.username.presence || u.email).first.upcase,
+            is_friend:           sent&.status == "accepted",
+            friendship_id:       sent&.id,
+            pending_sent:        sent&.status == "pending",
+            pending_received:    received&.status == "pending",
+            incoming_request_id: (received&.status == "pending") ? received.id : nil
+          }
         }
       end
     end
   end
 
   def my_profile
+    @pending_received_count = current_user.received_requests.count
     feed_user_ids = [current_user.id] + current_user.friend_ids
     @feed_posts = Post.where(user_id: feed_user_ids)
                       .left_joins(:likes)

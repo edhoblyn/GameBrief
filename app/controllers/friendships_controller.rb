@@ -2,20 +2,40 @@ class FriendshipsController < ApplicationController
   def create
     friend = User.find(params[:friend_id])
 
-    # Bidirectional: create both sides of the friendship
-    friendship = current_user.friendships.create!(friend: friend)
-    friend.friendships.create!(friend: current_user)
+    # Guard: don't create if a record already exists in either direction
+    existing = Friendship.find_by(user: current_user, friend: friend) ||
+               Friendship.find_by(user: friend, friend: current_user)
 
-    render json: { friendship_id: friendship.id }
+    if existing
+      return render json: { error: "already exists" }, status: :unprocessable_entity
+    end
+
+    friendship = Friendship.create!(user: current_user, friend: friend, status: "pending")
+    render json: { friendship_id: friendship.id, status: "pending" }
+  end
+
+  def update
+    # Only the recipient can accept
+    friendship = Friendship.find_by!(id: params[:id], friend: current_user, status: "pending")
+    friendship.update!(status: "accepted")
+    reverse = Friendship.create!(user: current_user, friend: friendship.user, status: "accepted")
+
+    render json: { friendship_id: reverse.id, status: "accepted" }
   end
 
   def destroy
-    friendship = current_user.friendships.find(params[:id])
-    friend = friendship.friend
+    # Allow either party to cancel/decline/unfriend
+    friendship = Friendship.where(id: params[:id])
+                           .where("user_id = ? OR friend_id = ?", current_user.id, current_user.id)
+                           .first
 
-    # Remove both sides
-    current_user.friendships.where(friend: friend).destroy_all
-    friend.friendships.where(friend: current_user).destroy_all
+    return head :not_found unless friendship
+
+    other = friendship.user == current_user ? friendship.friend : friendship.user
+
+    # Remove both sides (unfriend) or just this record (cancel/decline a pending request)
+    Friendship.where(user: current_user, friend: other).destroy_all
+    Friendship.where(user: other, friend: current_user).destroy_all
 
     head :ok
   end

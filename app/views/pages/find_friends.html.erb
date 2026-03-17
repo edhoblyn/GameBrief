@@ -15,6 +15,46 @@
     <p class="ff-hero__sub">Search for players to connect with</p>
   </div>
 
+  <%# Incoming friend requests -%>
+  <% if @pending_requests.any? %>
+    <div class="ff-friends-section" id="ffPendingSection">
+      <p class="ff-friends-section__title">Friend Requests (<%= @pending_requests.count %>)</p>
+      <div class="ff-results__grid">
+        <% @pending_requests.each do |req| %>
+          <div class="ff-result-card" id="pending-card-<%= req.id %>">
+            <div class="ff-result-card__inner">
+              <%= link_to user_path(req.user), class: "ff-result-card__profile-link" do %>
+                <div class="ff-result-card__avatar"><%= (req.user.username.presence || req.user.email).first.upcase %></div>
+                <div class="ff-result-card__info">
+                  <span class="ff-result-card__name"><%= req.user.username.presence || req.user.email %></span>
+                  <% if req.user.username.present? %>
+                    <span class="ff-result-card__email"><%= req.user.email %></span>
+                  <% end %>
+                </div>
+              <% end %>
+              <div class="ff-request-actions">
+                <button class="btn-follow btn-follow--active"
+                  data-friendship-id="<%= req.id %>"
+                  data-action="accept"
+                  data-card="pending-card-<%= req.id %>"
+                  title="Accept friend request">
+                  <i class="fa fa-check"></i>
+                </button>
+                <button class="btn-follow btn-follow--decline"
+                  data-friendship-id="<%= req.id %>"
+                  data-action="decline"
+                  data-card="pending-card-<%= req.id %>"
+                  title="Decline">
+                  <i class="fa fa-times"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
   <%# Current friends list -%>
   <% current_friends = current_user.friends %>
   <% if current_friends.any? %>
@@ -22,7 +62,7 @@
       <p class="ff-friends-section__title">Your Friends (<%= current_friends.count %>)</p>
       <div class="ff-results__grid">
         <% current_friends.each do |friend| %>
-          <% friendship = current_user.friendships.find_by(friend_id: friend.id) %>
+          <% friendship = current_user.accepted_friendships.find_by(friend_id: friend.id) %>
           <div class="ff-result-card">
             <div class="ff-result-card__inner">
               <%= link_to user_path(friend), class: "ff-result-card__profile-link" do %>
@@ -37,7 +77,7 @@
               <button class="btn-follow btn-follow--active"
                 data-user-id="<%= friend.id %>"
                 data-friendship-id="<%= friendship&.id %>"
-                data-is-friend="1"
+                data-action="unfriend"
                 title="Remove friend">
                 <i class="fa fa-check"></i>
               </button>
@@ -75,9 +115,14 @@
 
     if (!page || !input || !results) return;
 
+    // Wire up static pending request buttons
+    document.querySelectorAll('#ffPendingSection .btn-follow').forEach(function (btn) {
+      btn.addEventListener('click', function () { handleAction(this); });
+    });
+
     // Wire up static friends list buttons
-    document.querySelectorAll('.ff-friends-section .btn-follow').forEach(function (btn) {
-      btn.addEventListener('click', function () { toggleFollow(this); });
+    document.querySelectorAll('#ffFriendsSection .btn-follow').forEach(function (btn) {
+      btn.addEventListener('click', function () { handleAction(this); });
     });
 
     // Move search bar to top on focus, restore if empty on blur
@@ -118,10 +163,56 @@
 
       if (count > 0) {
         html += '<div class="ff-results__grid">';
-        users.forEach(function (u, i) {
-          var isFriend = u.is_friend;
+        users.forEach(function (u) {
+          var btnHtml = '';
+          if (u.pending_sent) {
+            btnHtml =
+              '<button class="btn-follow btn-follow--pending"' +
+                ' data-user-id="' + u.id + '"' +
+                ' data-friendship-id="' + u.friendship_id + '"' +
+                ' data-action="cancel"' +
+                ' title="Cancel request">' +
+                '<i class="fa fa-clock-o"></i>' +
+              '</button>';
+          } else if (u.pending_received) {
+            btnHtml =
+              '<div class="ff-request-actions">' +
+                '<button class="btn-follow btn-follow--active"' +
+                  ' data-user-id="' + u.id + '"' +
+                  ' data-friendship-id="' + u.incoming_request_id + '"' +
+                  ' data-action="accept"' +
+                  ' title="Accept">' +
+                  '<i class="fa fa-check"></i>' +
+                '</button>' +
+                '<button class="btn-follow btn-follow--decline"' +
+                  ' data-user-id="' + u.id + '"' +
+                  ' data-friendship-id="' + u.incoming_request_id + '"' +
+                  ' data-action="decline"' +
+                  ' title="Decline">' +
+                  '<i class="fa fa-times"></i>' +
+                '</button>' +
+              '</div>';
+          } else if (u.is_friend) {
+            btnHtml =
+              '<button class="btn-follow btn-follow--active"' +
+                ' data-user-id="' + u.id + '"' +
+                ' data-friendship-id="' + u.friendship_id + '"' +
+                ' data-action="unfriend"' +
+                ' title="Remove friend">' +
+                '<i class="fa fa-check"></i>' +
+              '</button>';
+          } else {
+            btnHtml =
+              '<button class="btn-follow"' +
+                ' data-user-id="' + u.id + '"' +
+                ' data-action="add"' +
+                ' title="Send friend request">' +
+                '<i class="fa fa-plus"></i>' +
+              '</button>';
+          }
+
           html +=
-            '<div class="ff-result-card">' +
+            '<div class="ff-result-card" id="search-card-' + u.id + '">' +
               '<div class="ff-result-card__inner">' +
                 '<a href="/users/' + u.id + '" class="ff-result-card__profile-link">' +
                   '<div class="ff-result-card__avatar">' + escHtml(u.initial) + '</div>' +
@@ -130,13 +221,7 @@
                     (u.email ? '<span class="ff-result-card__email">' + escHtml(u.email) + '</span>' : '') +
                   '</div>' +
                 '</a>' +
-                '<button class="btn-follow' + (isFriend ? ' btn-follow--active' : '') + '"' +
-                  ' data-user-id="' + u.id + '"' +
-                  ' data-friendship-id="' + (u.friendship_id || '') + '"' +
-                  ' data-is-friend="' + (isFriend ? '1' : '0') + '"' +
-                  ' title="' + (isFriend ? 'Remove friend' : 'Add friend') + '">' +
-                  (isFriend ? '<i class="fa fa-check"></i>' : '<i class="fa fa-plus"></i>') +
-                '</button>' +
+                btnHtml +
               '</div>' +
             '</div>';
         });
@@ -147,29 +232,18 @@
 
       results.innerHTML = html;
 
-      // Wire up follow buttons
       results.querySelectorAll('.btn-follow').forEach(function (btn) {
-        btn.addEventListener('click', function () { toggleFollow(this); });
+        btn.addEventListener('click', function () { handleAction(this); });
       });
     }
 
-    function toggleFollow(btn) {
+    function handleAction(btn) {
+      var action       = btn.dataset.action;
       var userId       = btn.dataset.userId;
       var friendshipId = btn.dataset.friendshipId;
-      var isFriend     = btn.dataset.isFriend === '1';
+      var cardId       = btn.dataset.card;
 
-      if (isFriend) {
-        fetch('/friendships/' + friendshipId, {
-          method: 'DELETE',
-          headers: { 'X-CSRF-Token': csrfToken, 'Accept': 'application/json' }
-        }).then(function () {
-          btn.dataset.isFriend = '0';
-          btn.dataset.friendshipId = '';
-          btn.className = 'btn-follow';
-          btn.innerHTML = '<i class="fa fa-plus"></i>';
-          btn.title = 'Add friend';
-        });
-      } else {
+      if (action === 'add') {
         fetch('/friendships', {
           method: 'POST',
           headers: { 'X-CSRF-Token': csrfToken, 'Accept': 'application/json', 'Content-Type': 'application/json' },
@@ -177,11 +251,78 @@
         })
         .then(function (r) { return r.json(); })
         .then(function (data) {
-          btn.dataset.isFriend = '1';
+          // Show pending state
           btn.dataset.friendshipId = data.friendship_id;
-          btn.className = 'btn-follow btn-follow--active';
-          btn.innerHTML = '<i class="fa fa-check"></i>';
-          btn.title = 'Remove friend';
+          btn.dataset.action = 'cancel';
+          btn.className = 'btn-follow btn-follow--pending';
+          btn.innerHTML = '<i class="fa fa-clock-o"></i>';
+          btn.title = 'Cancel request';
+        });
+
+      } else if (action === 'cancel') {
+        fetch('/friendships/' + friendshipId, {
+          method: 'DELETE',
+          headers: { 'X-CSRF-Token': csrfToken, 'Accept': 'application/json' }
+        }).then(function () {
+          btn.dataset.friendshipId = '';
+          btn.dataset.action = 'add';
+          btn.className = 'btn-follow';
+          btn.innerHTML = '<i class="fa fa-plus"></i>';
+          btn.title = 'Send friend request';
+        });
+
+      } else if (action === 'accept') {
+        fetch('/friendships/' + friendshipId, {
+          method: 'PATCH',
+          headers: { 'X-CSRF-Token': csrfToken, 'Accept': 'application/json' }
+        })
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          // Remove the card (from pending section or search results)
+          var card = cardId ? document.getElementById(cardId) : btn.closest('.ff-result-card');
+          if (card) card.remove();
+          // Update pending count badge
+          var section = document.getElementById('ffPendingSection');
+          if (section) {
+            var remaining = section.querySelectorAll('.ff-result-card').length;
+            if (remaining === 0) {
+              section.remove();
+            } else {
+              var title = section.querySelector('.ff-friends-section__title');
+              if (title) title.textContent = 'Friend Requests (' + remaining + ')';
+            }
+          }
+        });
+
+      } else if (action === 'decline') {
+        fetch('/friendships/' + friendshipId, {
+          method: 'DELETE',
+          headers: { 'X-CSRF-Token': csrfToken, 'Accept': 'application/json' }
+        }).then(function () {
+          var card = cardId ? document.getElementById(cardId) : btn.closest('.ff-result-card');
+          if (card) card.remove();
+          var section = document.getElementById('ffPendingSection');
+          if (section) {
+            var remaining = section.querySelectorAll('.ff-result-card').length;
+            if (remaining === 0) {
+              section.remove();
+            } else {
+              var title = section.querySelector('.ff-friends-section__title');
+              if (title) title.textContent = 'Friend Requests (' + remaining + ')';
+            }
+          }
+        });
+
+      } else if (action === 'unfriend') {
+        fetch('/friendships/' + friendshipId, {
+          method: 'DELETE',
+          headers: { 'X-CSRF-Token': csrfToken, 'Accept': 'application/json' }
+        }).then(function () {
+          btn.dataset.friendshipId = '';
+          btn.dataset.action = 'add';
+          btn.className = 'btn-follow';
+          btn.innerHTML = '<i class="fa fa-plus"></i>';
+          btn.title = 'Send friend request';
         });
       }
     }
