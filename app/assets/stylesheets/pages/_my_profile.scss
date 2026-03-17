@@ -1527,7 +1527,7 @@ $sidebar-width: 260px;
   padding: 0.38rem 1rem;
   border: none;
   border-radius: 999px;
-  background: #7c5cfc;
+  background: var(--gb-accent);
   color: #fff;
   font-size: 0.8rem;
   font-weight: 600;
@@ -1538,7 +1538,7 @@ $sidebar-width: 260px;
   svg { flex-shrink: 0; }
 
   &:hover {
-    background: #9070fd;
+    background: var(--gb-accent-strong);
     transform: none;
     box-shadow: none;
   }
@@ -1551,6 +1551,13 @@ $sidebar-width: 260px;
   }
 
   &:active { opacity: 0.85; }
+
+  &--ghost {
+    background: color-mix(in srgb, var(--gb-accent) 15%, transparent);
+    border: 1px solid color-mix(in srgb, var(--gb-accent) 40%, transparent);
+
+    &:hover { background: color-mix(in srgb, var(--gb-accent) 28%, transparent); }
+  }
 }
 
 // ─── Compose form ─────────────────────────────────────────────────────────────
@@ -1654,7 +1661,7 @@ $sidebar-width: 260px;
     padding: 0.3rem 1rem;
     border: none;
     border-radius: 999px;
-    background: #7c5cfc;
+    background: var(--gb-accent);
     color: #fff;
     font-size: 0.78rem;
     font-weight: 600;
@@ -1662,7 +1669,7 @@ $sidebar-width: 260px;
     transition: background 0.15s;
 
     &:hover {
-      background: #9070fd;
+      background: var(--gb-accent-strong);
       transform: none;
       box-shadow: none;
     }
