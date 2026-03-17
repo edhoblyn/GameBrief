@@ -12,7 +12,16 @@
         </div>
       <% end %>
       <div class="game-show__meta">
-        <%= link_to "← All games", games_path, class: "d-block mb-2", style: "font-size:0.82rem; color: rgba(255,255,255,0.45); text-decoration:none;" %>
+        <%
+          safe_back = params[:return_to].presence if params[:return_to].to_s.start_with?('/') && !params[:return_to].to_s.start_with?('//')
+          back_label = case safe_back
+                       when my_profile_path then "← My Profile"
+                       when ->(p) { p&.match?(%r{\A/users/\d+}) } then "← Profile"
+                       else "← All games"
+                       end
+          back_url = safe_back || games_path
+        %>
+        <%= link_to back_label, back_url, class: "d-block mb-2", style: "font-size:0.82rem; color: rgba(255,255,255,0.45); text-decoration:none;" %>
         <h1><%= @game.name %></h1>
         <div class="game-show__meta-grid">
           <div class="game-show__stat-row">

@@ -50,6 +50,8 @@ class PagesController < ApplicationController
                       .group(:id)
                       .order(Arel.sql("EXTRACT(EPOCH FROM posts.created_at) + COUNT(likes.id) * 3600 DESC"))
     @friends = current_user.friends
+    @games = @followed_games.order(:name)
+    @favourites_by_game_id = current_user.favourites.index_by(&:game_id)
   end
 
   def my_games

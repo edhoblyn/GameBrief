@@ -6,7 +6,7 @@
   profile_name   = current_user.display_name
   profile_handle = current_user.profile_handle
   profile_highlights = [
-    { label: "Favourited games", value: @followed_games.count, icon: "fa-gamepad",   url: my_games_path },
+    { label: "Favourited games", value: @followed_games.count, icon: "fa-gamepad",   url: my_games_path, toggle_games: true },
     { label: "Patch drops",      value: @recent_patches.count, icon: "fa-file-text", url: my_patches_path },
     { label: "Event reminders",  value: @reminders.count,      icon: "fa-calendar",  url: my_events_path }
   ]
@@ -64,14 +64,26 @@
         <p class="social-profile-bio">Casual gamer. Patch notes enthusiast. Always one update behind.</p>
         <div class="social-profile-highlights">
           <% profile_highlights.each do |item| %>
-            <%= link_to item[:url], class: "profile-highlight-card profile-highlight-card--link" do %>
-              <div class="profile-highlight-card__icon">
-                <i class="fa <%= item[:icon] %>"></i>
-              </div>
-              <div class="profile-highlight-card__body">
-                <span class="profile-highlight-card__value"><%= item[:value] %></span>
-                <span class="profile-highlight-card__label"><%= item[:label] %></span>
-              </div>
+            <% if item[:toggle_games] %>
+              <button type="button" id="games-tab-btn" class="profile-highlight-card profile-highlight-card--link" data-games-tab-toggle>
+                <div class="profile-highlight-card__icon">
+                  <i class="fa <%= item[:icon] %>"></i>
+                </div>
+                <div class="profile-highlight-card__body">
+                  <span class="profile-highlight-card__value"><%= item[:value] %></span>
+                  <span class="profile-highlight-card__label"><%= item[:label] %></span>
+                </div>
+              </button>
+            <% else %>
+              <%= link_to item[:url], class: "profile-highlight-card profile-highlight-card--link" do %>
+                <div class="profile-highlight-card__icon">
+                  <i class="fa <%= item[:icon] %>"></i>
+                </div>
+                <div class="profile-highlight-card__body">
+                  <span class="profile-highlight-card__value"><%= item[:value] %></span>
+                  <span class="profile-highlight-card__label"><%= item[:label] %></span>
+                </div>
+              <% end %>
             <% end %>
           <% end %>
         </div>
@@ -90,6 +102,7 @@
       </div>
     </div>
 
+    <div id="social-panel">
     <div class="for-you-layout">
       <div class="for-you-feed">
 
@@ -214,12 +227,107 @@
         </section>
       </aside>
     </div>
+    </div><%# /social-panel %>
+
+    <%# Games panel — shown when Favourited Games button is clicked %>
+    <div id="games-panel" style="display: none;">
+      <div class="px-3 pt-3 pb-2 d-flex align-items-center gap-2" style="border-bottom: 1px solid rgba(255,255,255,0.08);">
+        <button type="button" id="games-panel-back" style="display: inline-flex; align-items: center; gap: 6px; background: none; border: none; color: var(--gb-muted); font-size: 0.82rem; cursor: pointer; padding: 0; font-family: inherit; transition: color 0.15s;" onmouseover="this.style.color='var(--gb-text)'" onmouseout="this.style.color='var(--gb-muted)'">
+          <i class="fa fa-arrow-left"></i> Back to Feed
+        </button>
+      </div>
+      <div class="my-games-page">
+        <div class="my-games-page__header">
+          <div class="my-games-page__heading">
+            <h1 class="my-games-page__title">My Games</h1>
+            <p class="my-games-page__subtitle">Favourited games, all in one place.</p>
+          </div>
+        </div>
+
+        <% if @games.any? %>
+          <div class="my-games-page__grid">
+            <% @games.each do |game| %>
+              <div class="game-card-wrapper">
+                <%= link_to game_path(game, return_to: my_profile_path), class: "game-card event-glow-card" do %>
+                  <div class="game-card__cover">
+                    <% if game.cover_image.present? %>
+                      <%= image_tag game.cover_image, alt: game.name, class: "game-card__img", loading: "lazy" %>
+                    <% else %>
+                      <div class="game-card__placeholder">
+                        <i class="fa fa-gamepad"></i>
+                      </div>
+                    <% end %>
+                    <div class="game-card__overlay"></div>
+                  </div>
+                  <div class="game-card__body">
+                    <h3 class="game-card__name"><%= game.name %></h3>
+                    <span class="game-card__cta">View updates <i class="fa fa-arrow-right"></i></span>
+                  </div>
+                <% end %>
+                <%= button_to favourite_path(@favourites_by_game_id[game.id]),
+                      method: :delete,
+                      class: "game-card-wrapper__remove",
+                      form: { data: { turbo_confirm: "Remove #{game.name} from your games?" } },
+                      title: "Remove from My Games" do %>
+                  <i class="fa fa-times"></i>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        <% else %>
+          <div class="my-games-page__empty">
+            <div class="my-games-page__empty-icon">
+              <i class="fa fa-gamepad"></i>
+            </div>
+            <h2 class="my-games-page__empty-title">You have not favourited any games yet</h2>
+            <p class="my-games-page__empty-copy">Favourite games to build your personal dashboard for patches, events, and reminders.</p>
+            <%= link_to games_path, class: "my-games-page__action my-games-page__action--primary" do %>
+              <i class="fa fa-search"></i>
+              Browse Games
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div><%# /games-panel %>
 
   </main>
 </div>
 
 <script>
   document.addEventListener('turbo:load', function () {
+    // ── Games panel toggle ─────────────────────────────────────────────────────
+    var gamesTabBtn  = document.querySelector('[data-games-tab-toggle]');
+    var socialPanel  = document.getElementById('social-panel');
+    var gamesPanel   = document.getElementById('games-panel');
+    var backBtn      = document.getElementById('games-panel-back');
+    var gamesActive  = false;
+
+    function showGames() {
+      gamesActive = true;
+      socialPanel.style.display = 'none';
+      gamesPanel.style.display  = 'block';
+      gamesTabBtn.style.outline = '2px solid var(--gb-accent, #7c5cfc)';
+      gamesTabBtn.style.outlineOffset = '2px';
+    }
+
+    function showFeed() {
+      gamesActive = false;
+      socialPanel.style.display = '';
+      gamesPanel.style.display  = 'none';
+      gamesTabBtn.style.outline = '';
+      gamesTabBtn.style.outlineOffset = '';
+    }
+
+    if (gamesTabBtn && socialPanel && gamesPanel) {
+      gamesTabBtn.addEventListener('click', function () {
+        gamesActive ? showFeed() : showGames();
+      });
+    }
+
+    if (backBtn) {
+      backBtn.addEventListener('click', showFeed);
+    }
+
     document.querySelectorAll('.like-btn').forEach(function (btn) {
       btn.addEventListener('click', function () {
         btn.classList.add('heart-pop');
@@ -714,4 +822,76 @@
     transition: opacity 0.15s;
   }
   .ff-modal-action-btn:hover { opacity: 0.75; }
+
+  /* ── Games panel — scoped layout overrides ─────────────────────── */
+  #games-panel .my-games-page {
+    padding: 0 0 2rem !important;
+  }
+  #games-panel .my-games-page__header {
+    margin: 0 !important;
+    padding: 1.25rem 1.5rem !important;
+  }
+  #games-panel .my-games-page__grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)) !important;
+    padding: 1.25rem 1.5rem !important;
+    gap: 1rem !important;
+  }
+  #games-panel .my-games-page__empty {
+    padding: 1.5rem !important;
+  }
+
+  /* ── Game card — uniform height ─────────────────────────────────── */
+  #games-panel .game-card {
+    display: block;
+    position: relative;
+  }
+  #games-panel .game-card__cover {
+    position: relative;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    border-radius: inherit;
+  }
+  #games-panel .game-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  #games-panel .game-card__placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--gb-muted);
+    font-size: 2.25rem;
+  }
+  #games-panel .game-card__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.78) 0%, rgba(0, 0, 0, 0.1) 50%, transparent 100%);
+    pointer-events: none;
+  }
+  #games-panel .game-card__body {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0.6rem 0.75rem 0.7rem;
+    z-index: 2;
+  }
+  #games-panel .game-card__name {
+    margin: 0 0 0.2rem;
+    color: #fff;
+    font-size: 0.82rem;
+    font-weight: 700;
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  #games-panel .game-card__cta {
+    display: none;
+  }
 </style>
