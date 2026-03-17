@@ -9,6 +9,7 @@ class UsersController < ApplicationController
   def show
     @user            = User.find(params[:id])
     @favourite_games = @user.favourite_games.order(:name)
+    @friends         = @user.friends.limit(20)
     @friends_count   = @user.friends.count
     @posts_count     = @user.posts.count
     @games_count     = @favourite_games.count
@@ -23,9 +24,11 @@ class UsersController < ApplicationController
   def card
     @user            = User.find(params[:id])
     @favourite_games = @user.favourite_games.order(:name)
+    @friends         = @user.friends.limit(20)
     @friends_count   = @user.friends.count
     @posts_count     = @user.posts.count
     @games_count     = @favourite_games.count
+    @posts           = @user.posts.order(created_at: :desc).limit(20)
 
     if user_signed_in? && current_user != @user
       @existing_friendship = current_user.friendships.find_by(friend: @user)

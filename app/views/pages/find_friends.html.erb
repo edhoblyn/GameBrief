@@ -191,6 +191,29 @@
       panel.querySelectorAll('.card-friend-btn').forEach(function (btn) {
         btn.addEventListener('click', function () { handleCardFriendAction(btn); });
       });
+
+      // Profile card tabs
+      wireProfileCardTabs(panel);
+    }
+
+    function wireProfileCardTabs(container) {
+      var nav = container.querySelector('.pub-profile-tab-nav');
+      if (!nav) return;
+      var tabs = nav.querySelectorAll('.pub-profile-tab[data-tab]');
+      var panelContainer = container.querySelector('.pub-profile-tab-panels');
+      if (!panelContainer) return;
+      tabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          var target = tab.dataset.tab;
+          tabs.forEach(function (t) {
+            var active = t.dataset.tab === target;
+            t.style.borderBottomColor = active ? 'var(--gb-accent)' : 'transparent';
+          });
+          panelContainer.querySelectorAll('[data-panel]').forEach(function (p) {
+            p.style.display = p.dataset.panel === target ? '' : 'none';
+          });
+        });
+      });
     }
 
     function handleCardFriendAction(btn) {
