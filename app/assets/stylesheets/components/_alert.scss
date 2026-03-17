@@ -5,6 +5,10 @@
   bottom: auto;
   z-index: 1000;
 
+  @media (min-width: 577px) {
+    right: 3.75rem;
+  }
+
   @media (max-width: 576px) {
     top: auto;
     bottom: 16px;
