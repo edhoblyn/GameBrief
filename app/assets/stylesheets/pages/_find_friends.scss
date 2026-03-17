@@ -165,6 +165,12 @@
     }
   }
 
+  &__profile-link {
+    display: contents;
+    color: inherit;
+    text-decoration: none;
+  }
+
   &__avatar {
     flex-shrink: 0;
     width: 44px;
