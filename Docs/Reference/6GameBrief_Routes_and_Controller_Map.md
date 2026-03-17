@@ -47,6 +47,9 @@ GET  /users/:id                users#show
 POST /posts                    posts#create
 DELETE /posts/:id              posts#destroy
 
+POST /posts/:post_id/likes         likes#create
+DELETE /posts/:post_id/likes/:id   likes#destroy
+
 namespace :admin do
   GET    /admin/dashboard             admin/dashboard#show
   DELETE /admin/chat_history          admin/chat_histories#destroy
@@ -130,10 +133,15 @@ Error pages:
 - `create` — create a social post
 - `destroy` — delete a social post
 
+### LikesController
+
+- `create` — like a post (find_or_create; idempotent per user)
+- `destroy` — remove a like
+
 ### UsersController
 
 - `index` — all users (admin only)
-- `show` — individual player profile
+- `show` — individual player profile (public; no login required)
 
 ### OmniauthCallbacksController (`users/omniauth_callbacks`)
 

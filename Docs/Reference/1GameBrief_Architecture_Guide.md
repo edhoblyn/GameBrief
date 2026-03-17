@@ -60,9 +60,10 @@ Two AI providers are used:
 
 - `User` → has_many `Favourite` → has_many `Game` (through favourites)
 - `User` → has_many `Reminder` → has_many `Event` (through reminders)
-- `User` → has_many `Friendship` (bidirectional), has_many `Post`, has_many `Chat`
+- `User` → has_many `Friendship` (bidirectional), has_many `Post`, has_many `Like`, has_many `Chat`
 - `Game` → has_many `Patch`, has_many `Event`
 - `Patch` → has_many `PatchSummary`, has_many `Chat`
+- `Post` → has_many `Like`
 - `Chat` → has_many `Message`
 
 ## Services

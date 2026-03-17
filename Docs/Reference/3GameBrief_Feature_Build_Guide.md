@@ -69,7 +69,8 @@
 - Friendships: add and remove friends from `Find Friends` page
 - User search by username or email
 - Posts: create and delete social posts
-- Individual player profile pages
+- Post likes: like and unlike posts (`LikesController`, one like per user per post)
+- Individual player profile pages (public — no login required)
 - Players index (admin only)
 
 ### 11. Profile
