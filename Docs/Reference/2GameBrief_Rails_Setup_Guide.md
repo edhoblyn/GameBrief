@@ -1,56 +1,105 @@
 # GameBrief — Rails Setup Guide
 
-## 1. Create the Rails App
+> Last updated: 2026-03-17
 
-Create a new Rails project with PostgreSQL.
+## Stack
 
-## 2. Add Gems
+- Ruby on Rails 8.1 + PostgreSQL
+- Devise (email/password auth)
+- OmniAuth + omniauth-google-oauth2 (Google OAuth)
+- Bootstrap 5, Simple Form, Sass
+- Hotwire (Turbo + Stimulus)
+- Solid Cache / Solid Queue / Solid Cable
+- Kaminari (pagination)
+- Redcarpet (markdown rendering)
+- Nokogiri (web scraping)
+- `anthropic` gem (Claude Opus 4.6)
+- `ruby_llm` gem (GPT-4o)
+- dotenv-rails (local env vars)
 
-Core gems:
-- devise
-- omniauth
-- omniauth-google-oauth2
-- dotenv-rails
+## Environment Variables
 
-## 3. Authentication Setup
+Local `.env` file:
 
-Use Devise with Google OAuth.
+```bash
+GOOGLE_OAUTH_CLIENT_ID=...
+GOOGLE_OAUTH_CLIENT_SECRET=...
+TWITCH_CLIENT_ID=...
+TWITCH_CLIENT_SECRET=...
+OPENAI_API_KEY=...
+ANTHROPIC_API_KEY=...
+```
 
-You will need:
-- GOOGLE_CLIENT_ID
-- GOOGLE_CLIENT_SECRET
+`RAILS_MASTER_KEY` lives in `config/master.key` (not in `.env`).
 
-## 4. IGDB Setup
+## Common Commands
 
-You will also need:
-- TWITCH_CLIENT_ID
-- TWITCH_CLIENT_SECRET
+```bash
+# Start the server
+bin/rails server
 
-Store these in `.env` locally.
+# Database
+bin/rails db:migrate
+bin/rails db:seed        # Wipes and re-seeds with demo data (demo@test.com / 123456)
 
-## 5. Database
+# Console
+bin/rails console
 
-Use PostgreSQL locally and in production.
+# Linting / security
+bundle exec rubocop
+bundle exec brakeman
+bundle exec bundler-audit
 
-Production target:
-- **Heroku Postgres**
+# Patch scraping
+bin/rake patches:scrape_all
 
-## 6. Heroku Setup
+# Event importing
+bin/rake events:import_all
+```
+
+## Authentication Setup
+
+Devise is installed and configured with:
+
+- Email/password (standard Devise)
+- Google OAuth via `users/omniauth_callbacks_controller`
+- Custom `users/registrations_controller` to allow profile updates without password re-entry
+
+Required env vars: `GOOGLE_OAUTH_CLIENT_ID`, `GOOGLE_OAUTH_CLIENT_SECRET`
+
+The Google OAuth callback URL pattern:
+
+```text
+https://your-domain.com/users/auth/google_oauth2/callback
+```
+
+`OmniAuth.config.full_host` is hardcoded in `config/initializers/devise.rb` to `https://gamebrief.live`. Update this if the production hostname changes.
+
+## IGDB Setup
+
+IGDB uses Twitch for auth. Required env vars: `TWITCH_CLIENT_ID`, `TWITCH_CLIENT_SECRET`
+
+The `IgdbClient` service at `app/services/igdb_client.rb` handles API requests and game import.
+
+## AI Setup
+
+Two providers are used:
+
+- **Claude Opus 4.6** via the `anthropic` gem — requires `ANTHROPIC_API_KEY`
+- **GPT-4o** via the `ruby_llm` gem — requires `OPENAI_API_KEY`
+
+## Database
+
+PostgreSQL locally and in production. Use `bin/rails db:create db:migrate` for initial setup.
+
+## Heroku Setup
 
 Before deployment:
 
-- create a Heroku app
-- add Heroku Postgres
-- set Config Vars
-- make sure `RAILS_MASTER_KEY` is set
-- update Google OAuth with the Heroku callback URL
+1. Create a Heroku app (EU region: `heroku create APP_NAME --region eu`)
+2. Add Heroku Postgres: `heroku addons:create heroku-postgresql:essential-0`
+3. Set all Config Vars (see above, plus `RAILS_MASTER_KEY`)
+4. Update Google OAuth callback URL in Google Cloud Console
+5. Push code and run `heroku run bin/rails db:migrate`
 
-## 7. Recommended Setup Order
-
-1. Rails app
-2. Devise
-3. Google OAuth
-4. Models and migrations
-5. IGDB service
-6. Core pages
-7. Heroku deployment
+Full deployment runbook: [8GameBrief_Deployment_Guide.md](8GameBrief_Deployment_Guide.md)
