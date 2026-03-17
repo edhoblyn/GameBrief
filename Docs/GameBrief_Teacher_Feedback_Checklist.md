@@ -1,6 +1,6 @@
 # GameBrief — Teacher Feedback Checklist
 
-> Last updated: 2026-03-18
+> Last updated: 2026-03-17
 
 ---
 
@@ -49,7 +49,7 @@
 - [ ] Remove post count
 - [ ] Make `Friends` link to the full friends list
 - [ ] Make `Find friends` open a modal instead of a full-page view
-- [ ] Change the `Find friends` button to the secondary colour
+- [x] Change the `Find friends` button to the secondary colour
 - [ ] Keep the `Find friends` button sticky near the Friendhub subheading
 - [ ] Make the post form full width in the left-hand column under posts
 - [ ] Remove modal behaviour from the post form
