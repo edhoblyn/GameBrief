@@ -711,15 +711,28 @@
     }
 
     &--light {
-      background: #ebedf3;
-      color: #111827;
-      border-color: transparent;
+      background: color-mix(in srgb, var(--gb-accent-secondary) 14%, transparent);
+      color: var(--gb-accent-secondary);
+      border-color: color-mix(in srgb, var(--gb-accent-secondary) 35%, transparent);
+
+      &:hover {
+        color: var(--gb-accent-secondary);
+        background: color-mix(in srgb, var(--gb-accent-secondary) 22%, transparent);
+        border-color: var(--gb-accent-secondary);
+        transform: translateY(-1px);
+      }
     }
 
     &--danger {
-      border-color: transparent;
-      background: linear-gradient(135deg, #dc2626, #b91c1c);
-      color: #fff;
+      border-color: #dc2626;
+      background: transparent;
+      color: #dc2626;
+
+      &:hover {
+        color: #dc2626;
+        background: rgba(220, 38, 38, 0.08);
+        border-color: #dc2626;
+      }
     }
   }
 
@@ -853,6 +866,14 @@
   &__related-arrow {
     color: var(--gb-muted);
     font-size: 0.9rem;
+  }
+
+  &__cover-panel {
+    height: 190px;
+    border-radius: 18px;
+    border: 1px solid var(--gb-border);
+    background-position: center;
+    background-size: cover;
   }
 
 }

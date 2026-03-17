@@ -1,23 +1,24 @@
 # GameBrief — Teacher Feedback Checklist
 
-> Last updated: 2026-03-17
+> Last updated: 2026-03-18
 
 ---
 
 ## Homepage
 
-- [ ] Remove the spacer on the homepage only
-- [ ] Move trending games higher so it becomes visible sooner on scroll
-- [ ] Sort or fix the homepage carousel swiper
-- [ ] Move creation flashes/notices lower so they sit beneath the settings icon
+- [x] Remove the spacer on the homepage only
+- [x] Move trending games higher so it becomes visible sooner on scroll
+- [x] Sort or fix the homepage carousel swiper
+- [x] Move creation flashes/notices lower so they sit beneath the settings icon
+- [x] Remove the duplicate homepage logout button because logout is already available in the shared settings menu
 
 ## Games Index
 
-- [ ] Make the favourite star `position: absolute` in the bottom-right corner of the game card
-- [ ] Make the search bar bigger
-- [ ] Reduce the space between the navbar and the search bar
-- [ ] Fix the `Most favourited` button bug showing params in the game count
-- [ ] Add a `Sort by` label to the left of the `A-Z` / `Most favourited` buttons
+- [x] Make the favourite star `position: absolute` in the bottom-right corner of the game card
+- [x] Make the search bar bigger
+- [x] Reduce the space between the navbar and the search bar
+- [x] Fix the `Most favourited` button bug showing params in the game count
+- [x] Add a `Sort by` label to the left of the `A-Z` / `Most favourited` buttons
 
 ## Game Show Page
 
@@ -26,22 +27,22 @@
 
 ## Events Index
 
-- [ ] Remove the `Browse games` button
-- [ ] Remove the `My events` button
-- [ ] Update the hero card copy so it clearly explains this is the general events index page
+- [x] Remove the `Browse games` button
+- [x] Remove the `My events` button
+- [x] Update the hero card copy so it clearly explains this is the general events index page
 
 ## Event Show Page
 
-- [ ] Remove the event snapshot section
-- [ ] Remove the latest patch section
-- [ ] Move the background image into the div where the event snapshot currently is
-- [ ] Change the reminder styling from red background to red border with red text
-- [ ] Only show `Add to Google Calendar` after `Set Reminder` has been pressed
-- [ ] Remove the `This week` / `Happening today` flare from the `What is happening` card
-- [ ] Remove the blurb under the `h1` if it duplicates the event synopsis
-- [ ] Update the hover state of `Add to Google Calendar`
-- [ ] Use blue as the secondary colour for the `Add to Calendar` button
-- [ ] Update countdown text so finished events show `Event over`
+- [x] Remove the event snapshot section
+- [x] Remove the latest patch section
+- [x] Move the background image into the div where the event snapshot currently is
+- [x] Change the reminder styling from red background to red border with red text
+- [x] Only show `Add to Google Calendar` after `Set Reminder` has been pressed
+- [x] Remove the `This week` / `Happening today` flare from the `What is happening` card
+- [x] Remove the blurb under the `h1` if it duplicates the event synopsis
+- [x] Update the hover state of `Add to Google Calendar`
+- [x] Use blue as the secondary colour for the `Add to Calendar` button
+- [x] Update countdown text so finished events show `Event over`
 
 ## Profile Page
 
@@ -77,13 +78,13 @@
 
 ## My Events
 
-- [ ] Rename `My events` to `Event reminders`
-- [ ] Match the UX closely to `My Patches`
-- [ ] Add a similar search bar to `My Patches`
-- [ ] Add a similar `Organise by game` button
-- [ ] Remove the `Browse events` button
-- [ ] Remove the saved reminders div
-- [ ] Add a grey bordered div style to match the profile page
+- [x] Rename `My events` to `Event reminders`
+- [x] Match the UX closely to `My Patches`
+- [x] Add a similar search bar to `My Patches`
+- [x] Add a similar `Organise by game` button
+- [x] Remove the `Browse events` button
+- [x] Remove the saved reminders div
+- [x] Add a grey bordered div style to match the profile page
 
 ## Spacer
 

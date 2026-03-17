@@ -31,22 +31,23 @@
       <%= link_to "Single player", games_path(single_player_params), class: "filter-btn #{params[:single_player] == 'true' ? 'active' : ''}" %>
       <%= link_to "Multiplayer", games_path(multiplayer_params), class: "filter-btn #{params[:multiplayer] == 'true' ? 'active' : ''}" %>
     </div>
-    <div class="home-games__sort-group">
-      <% az_params = params[:sort] == "name" ? clear_sort_params : { genre: params[:genre], query: params[:query], sort: "name", free_to_play: params[:free_to_play], single_player: params[:single_player], multiplayer: params[:multiplayer] }.compact %>
-      <% followed_params = params[:sort] == "followed" ? clear_sort_params : { genre: params[:genre], query: params[:query], sort: "followed", free_to_play: params[:free_to_play], single_player: params[:single_player], multiplayer: params[:multiplayer] }.compact %>
-      <%= link_to "A–Z", games_path(az_params), class: "filter-btn #{params[:sort] == 'name' ? 'active' : ''}" %>
-      <%= link_to "Most Favourited", games_path(followed_params), class: "filter-btn #{params[:sort] == 'followed' ? 'active' : ''}" %>
-    </div>
   </div>
 
   <div class="home-games__heading-row">
     <h2 class="home-games__heading">
       <% if @active_game_filters %>
-        <span class="home-games__results-count"><%= pluralize(@games.size, "Game") %></span>
+        <span class="home-games__results-count"><%= pluralize(@games_count, "Game") %></span>
       <% else %>
         All Games
       <% end %>
     </h2>
+    <div class="home-games__sort-group">
+      <span class="home-games__sort-label">Sort by</span>
+      <% az_params = params[:sort] == "name" ? clear_sort_params : { genre: params[:genre], query: params[:query], sort: "name", free_to_play: params[:free_to_play], single_player: params[:single_player], multiplayer: params[:multiplayer] }.compact %>
+      <% followed_params = params[:sort] == "followed" ? clear_sort_params : { genre: params[:genre], query: params[:query], sort: "followed", free_to_play: params[:free_to_play], single_player: params[:single_player], multiplayer: params[:multiplayer] }.compact %>
+      <%= link_to "A–Z", games_path(az_params), class: "filter-btn #{params[:sort] == 'name' ? 'active' : ''}" %>
+      <%= link_to "Most Favourited", games_path(followed_params), class: "filter-btn #{params[:sort] == 'followed' ? 'active' : ''}" %>
+    </div>
   </div>
   <div class="home-games__grid">
     <% @games.each do |game| %>

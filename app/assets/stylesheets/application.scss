@@ -98,6 +98,10 @@ body {
   color: var(--gb-text);
 }
 
+.app-layout-spacer {
+  height: 4rem;
+}
+
 body.page-events-index {
   background-color: var(--gb-bg);
   background-image: var(--gb-theme-gradient);

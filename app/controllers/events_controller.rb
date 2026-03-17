@@ -122,7 +122,7 @@ class EventsController < ApplicationController
     distance = ActionController::Base.helpers.distance_of_time_in_words(now, start_date)
 
     if start_date < now
-      "Started #{distance} ago"
+      "Event over"
     else
       "Starts in #{distance}"
     end
