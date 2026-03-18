@@ -599,7 +599,7 @@ $sidebar-width: 260px;
     border-bottom: none;
     background: none;
     color: var(--gb-muted);
-    font-size: 1.05rem;
+    font-size: 0.9rem;
     font-weight: 600;
     font-family: inherit;
     cursor: pointer;
@@ -1515,6 +1515,11 @@ $sidebar-width: 260px;
     justify-content: center;
     padding: 0.65rem 0.45rem;
     text-align: center;
+  }
+
+  .profile-subnav {
+    margin-left: -1rem;
+    margin-right: -1rem;
   }
 
   .social-tabs-nav {

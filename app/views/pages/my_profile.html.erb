@@ -407,27 +407,40 @@
           </div>
 
           <div id="profile-events-flat">
-            <div class="my-events-page__timeline">
+            <div class="events-index__group-list">
               <% @reminders.each do |reminder| %>
                 <% event = reminder.event %>
-                <%= link_to event_path(event), class: "my-events-page__card" do %>
-                  <div class="my-events-page__date">
-                    <span class="my-events-page__day"><%= event.start_date.strftime("%-d") %></span>
-                    <span class="my-events-page__month"><%= event.start_date.strftime("%b") %></span>
-                  </div>
-                  <div class="my-events-page__body">
-                    <div class="my-events-page__meta">
-                      <span class="my-events-page__game"><%= event.game.name %></span>
-                      <span class="my-events-page__status">Reminder set</span>
+                <article class="game-card event-glow-card" data-start-date="<%= event.start_date&.iso8601 %>">
+                  <%= link_to event_path(event), class: "game-card__link", aria: { label: "View #{event.title}" } do %>
+                    <span class="visually-hidden">View <%= event.title %></span>
+                  <% end %>
+                  <div class="game-card__cover">
+                    <% if event.game.cover_image.present? %>
+                      <%= image_tag event.game.cover_image, alt: event.game.name, class: "game-card__img", loading: "lazy" %>
+                    <% else %>
+                      <div class="game-card__placeholder">
+                        <i class="fa fa-gamepad"></i>
+                      </div>
+                    <% end %>
+                    <div class="game-card__overlay"></div>
+                    <% if @followed_games.map(&:id).include?(event.game_id) %>
+                      <span class="event-card__badge">Following</span>
+                    <% end %>
+                    <div class="event-card__date-overlay">
+                      <% if event.start_date.present? %>
+                        <span class="event-card__date-num"><%= ordinal_day(event.start_date) %></span>
+                        <span class="event-card__date-label"><%= event.start_date.strftime("%b %Y") %></span>
+                      <% else %>
+                        <span class="event-card__date-num">TBD</span>
+                      <% end %>
                     </div>
-                    <h2 class="my-events-page__card-title"><%= event.title %></h2>
-                    <p class="my-events-page__card-copy">
-                      <i class="fa fa-calendar"></i>
-                      <%= event.start_date.strftime("%-d %B %Y") %>
-                    </p>
                   </div>
-                  <span class="my-events-page__arrow"><i class="fa fa-arrow-right"></i></span>
-                <% end %>
+                  <div class="game-card__body">
+                    <p class="event-card__game-label"><%= event.game.name %></p>
+                    <h3 class="game-card__name"><%= event.title %></h3>
+                    <span class="game-card__cta">View event</span>
+                  </div>
+                </article>
               <% end %>
             </div>
           </div>
@@ -441,27 +454,42 @@
                     <span class="patch-show__accordion-preview"><%= pluralize(reminders.count, "event") %></span>
                   </summary>
                   <div class="patch-show__accordion-body">
+                    <div class="events-index__group-list">
                     <% reminders.each do |reminder| %>
                       <% event = reminder.event %>
-                      <%= link_to event_path(event), class: "my-events-page__card" do %>
-                        <div class="my-events-page__date">
-                          <span class="my-events-page__day"><%= event.start_date.strftime("%-d") %></span>
-                          <span class="my-events-page__month"><%= event.start_date.strftime("%b") %></span>
-                        </div>
-                        <div class="my-events-page__body">
-                          <div class="my-events-page__meta">
-                            <span class="my-events-page__game"><%= event.game.name %></span>
-                            <span class="my-events-page__status">Reminder set</span>
+                      <article class="game-card event-glow-card">
+                        <%= link_to event_path(event), class: "game-card__link", aria: { label: "View #{event.title}" } do %>
+                          <span class="visually-hidden">View <%= event.title %></span>
+                        <% end %>
+                        <div class="game-card__cover">
+                          <% if event.game.cover_image.present? %>
+                            <%= image_tag event.game.cover_image, alt: event.game.name, class: "game-card__img", loading: "lazy" %>
+                          <% else %>
+                            <div class="game-card__placeholder">
+                              <i class="fa fa-gamepad"></i>
+                            </div>
+                          <% end %>
+                          <div class="game-card__overlay"></div>
+                          <% if @followed_games.map(&:id).include?(event.game_id) %>
+                            <span class="event-card__badge">Following</span>
+                          <% end %>
+                          <div class="event-card__date-overlay">
+                            <% if event.start_date.present? %>
+                              <span class="event-card__date-num"><%= ordinal_day(event.start_date) %></span>
+                              <span class="event-card__date-label"><%= event.start_date.strftime("%b %Y") %></span>
+                            <% else %>
+                              <span class="event-card__date-num">TBD</span>
+                            <% end %>
                           </div>
-                          <h2 class="my-events-page__card-title"><%= event.title %></h2>
-                          <p class="my-events-page__card-copy">
-                            <i class="fa fa-calendar"></i>
-                            <%= event.start_date.strftime("%-d %B %Y") %>
-                          </p>
                         </div>
-                        <span class="my-events-page__arrow"><i class="fa fa-arrow-right"></i></span>
-                      <% end %>
+                        <div class="game-card__body">
+                          <p class="event-card__game-label"><%= event.game.name %></p>
+                          <h3 class="game-card__name"><%= event.title %></h3>
+                          <span class="game-card__cta">View event</span>
+                        </div>
+                      </article>
                     <% end %>
+                    </div>
                   </div>
                 </details>
               <% end %>
@@ -501,18 +529,18 @@
   function sortProfileEvents(order) {
     var flat   = document.getElementById('profile-events-flat');
     var byGame = document.getElementById('profile-events-by-game');
-    var cards  = Array.from(flat.querySelectorAll('.my-events-page__card'));
+    var cards  = Array.from(flat.querySelectorAll('.game-card[data-start-date]'));
     var upcomingBtn = document.getElementById('profile-events-upcoming-btn');
     var latestBtn   = document.getElementById('profile-events-latest-btn');
 
     cards.sort(function(a, b) {
-      var dA = new Date(a.querySelector('.my-events-page__card-copy').textContent.trim());
-      var dB = new Date(b.querySelector('.my-events-page__card-copy').textContent.trim());
+      var dA = new Date(a.dataset.startDate);
+      var dB = new Date(b.dataset.startDate);
       return order === 'latest' ? dB - dA : dA - dB;
     });
 
-    var timeline = flat.querySelector('.my-events-page__timeline');
-    cards.forEach(function(c) { timeline.appendChild(c); });
+    var grid = flat.querySelector('.events-index__group-list');
+    cards.forEach(function(c) { grid.appendChild(c); });
 
     upcomingBtn.classList.toggle('active', order === 'upcoming');
     latestBtn.classList.toggle('active', order === 'latest');

@@ -121,7 +121,7 @@
         </div>
       </div>
 
-      <div class="col-lg-5" data-controller="event-modal">
+      <div class="col-lg-5">
         <div class="game-show__section">
           <div class="game-show__section-headline">
             <div>
@@ -129,20 +129,40 @@
             </div>
           </div>
           <% if @events.any? %>
-            <% @events.each do |event| %>
-              <%= link_to event_path(event), class: "event-list-card", data: { action: "click->event-modal#open" } do %>
-                <div class="event-list-card__date">
-                  <% if event.start_date.present? %>
-                    <div class="day"><%= event.start_date.strftime("%-d") %></div>
-                    <div class="month"><%= event.start_date.strftime("%b") %></div>
-                  <% else %>
-                    <div class="day" style="font-size:0.7rem;">TBD</div>
+            <div class="events-index__group-list">
+              <% @events.each do |event| %>
+                <article class="game-card event-glow-card">
+                  <%= link_to event_path(event), class: "game-card__link", aria: { label: "View #{event.title}" } do %>
+                    <span class="visually-hidden">View <%= event.title %></span>
                   <% end %>
-                </div>
-                <span class="event-list-card__title"><%= event.title %></span>
-                <span class="event-list-card__arrow"><i class="fa fa-chevron-right"></i></span>
+                  <div class="game-card__cover">
+                    <% if event.game.cover_image.present? %>
+                      <%= image_tag event.game.cover_image, alt: event.game.name, class: "game-card__img", loading: "lazy" %>
+                    <% else %>
+                      <div class="game-card__placeholder">
+                        <i class="fa fa-gamepad"></i>
+                      </div>
+                    <% end %>
+                    <div class="game-card__overlay"></div>
+                    <% if @favourite %>
+                      <span class="event-card__badge">Following</span>
+                    <% end %>
+                    <div class="event-card__date-overlay">
+                      <% if event.start_date.present? %>
+                        <span class="event-card__date-num"><%= event.start_date.strftime("%-d") %></span>
+                        <span class="event-card__date-label"><%= event.start_date.strftime("%b %Y") %></span>
+                      <% else %>
+                        <span class="event-card__date-num">TBD</span>
+                      <% end %>
+                    </div>
+                  </div>
+                  <div class="game-card__body">
+                    <h3 class="game-card__name"><%= event.title %></h3>
+                    <span class="game-card__cta">View event</span>
+                  </div>
+                </article>
               <% end %>
-            <% end %>
+            </div>
           <% else %>
             <p class="game-show__empty">No upcoming events.</p>
           <% end %>

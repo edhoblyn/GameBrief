@@ -75,14 +75,7 @@ class EventsController < ApplicationController
   end
 
   def order_events(scope)
-    if @followed_game_ids.any?
-      scope.order(
-        Arel.sql("CASE WHEN game_id IN (#{@followed_game_ids.join(',')}) THEN 0 ELSE 1 END"),
-        start_date: :asc
-      )
-    else
-      scope.order(start_date: :asc)
-    end
+    scope.order(start_date: :asc)
   end
 
   def timeline_group_for(date, today)
@@ -93,7 +86,7 @@ class EventsController < ApplicationController
     elsif date <= today.end_of_month
       "This Month"
     else
-      "Later"
+      date.year == today.year ? date.strftime("%B") : date.strftime("%B %Y")
     end
   end
 

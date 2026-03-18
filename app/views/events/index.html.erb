@@ -86,7 +86,7 @@
                     <% end %>
                     <div class="event-card__date-overlay">
                       <% if event.start_date.present? %>
-                        <span class="event-card__date-num"><%= event.start_date.strftime("%-d") %></span>
+                        <span class="event-card__date-num"><%= ordinal_day(event.start_date) %></span>
                         <span class="event-card__date-label"><%= event.start_date.strftime("%b %Y") %></span>
                       <% else %>
                         <span class="event-card__date-num">TBD</span>

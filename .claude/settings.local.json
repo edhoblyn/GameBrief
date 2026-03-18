@@ -61,7 +61,11 @@
       "Bash(bin/rails assets:precompile 2>&1 | tail -5)",
       "Bash(git restore:*)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "WebFetch(domain:www.igdb.com)",
+      "WebFetch(domain:www.steamgriddb.com)",
+      "WebFetch(domain:www.mobygames.com)",
+      "WebFetch(domain:battlefieldchronicles.com)"
     ],
     "deny": []
   }

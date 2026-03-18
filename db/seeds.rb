@@ -70,7 +70,9 @@ puts "Creating users..."
 
 user = upsert_user(
   email: "demo@test.com",
-  password: "123456"
+  password: "123456",
+  username: "gamebrief_demo",
+  bio: "Casual gamer. Patch notes enthusiast. Always one update behind."
 )
 
 puts "Creating featured gamers..."
@@ -98,14 +100,14 @@ puts "Importing games from IGDB..."
 
 client = IgdbClient.new
 
-def import_game(client, query, name: nil, slug: nil, free_to_play: false, single_player: false, multiplayer: false)
+def import_game(client, query, name: nil, slug: nil, cover_image: nil, free_to_play: false, single_player: false, multiplayer: false)
   results = client.search_games(query)
   match = results.find { |g| g["name"]&.downcase == query.downcase && g["cover"] }
   match ||= results.find { |g| g["cover"] }
   match ||= results.first
 
   if match
-    cover_url = match["cover"] ? "https:#{match["cover"]["url"].gsub("t_thumb", "t_cover_big")}" : nil
+    cover_url = cover_image || (match["cover"] ? "https:#{match["cover"]["url"].gsub("t_thumb", "t_cover_big")}" : nil)
     resolved_slug = slug || match["slug"]
 
     game = Game.where("LOWER(name) = ?", (name || query).downcase).first
@@ -133,7 +135,7 @@ def import_game(client, query, name: nil, slug: nil, free_to_play: false, single
     game.update!(
       name: resolved_name,
       slug: resolved_slug,
-      cover_image: nil,
+      cover_image: cover_image,
       free_to_play: free_to_play,
       single_player: single_player,
       multiplayer: multiplayer
@@ -160,7 +162,6 @@ re_requiem    = import_game(client, "Resident Evil Requiem", free_to_play: false
 cod_black_ops_7 = import_game(client, "Call of Duty: Black Ops 7", free_to_play: false, single_player: true, multiplayer: true)
 battlefront2  = import_game(client, "Star Wars Battlefront II", free_to_play: false, single_player: true, multiplayer: true)
 horizon_fw    = import_game(client, "Horizon Forbidden West", free_to_play: false, single_player: true)
-ff7_rebirth   = import_game(client, "Final Fantasy VII Rebirth", free_to_play: false, single_player: true)
 spiderman2    = import_game(client, "Marvel's Spider-Man 2", free_to_play: false, single_player: true)
 gta_online    = import_game(client, "Grand Theft Auto V", name: "GTA 5: Online", slug: "gta-5-online", free_to_play: false, single_player: false, multiplayer: true)
 lol           = import_game(client, "League of Legends", free_to_play: true, multiplayer: true)
@@ -172,7 +173,7 @@ cs2           = import_game(client, "Counter-Strike 2", free_to_play: true, mult
 dota2         = import_game(client, "Dota 2", free_to_play: true, multiplayer: true)
 baldurs_gate3 = import_game(client, "Baldur's Gate 3", name: "Baldur's Gate 3", slug: "baldurs-gate-3", free_to_play: false, single_player: true, multiplayer: true)
 pubg          = import_game(client, "PUBG: Battlegrounds", free_to_play: true, multiplayer: true)
-battlefield6  = import_game(client, "Battlefield 6", free_to_play: false, single_player: true, multiplayer: true)
+battlefield6  = import_game(client, "Battlefield 6", cover_image: "https://battlefieldchronicles.com/content/images/size/w1200/2025/07/cover-1.png", free_to_play: false, single_player: true, multiplayer: true)
 
 puts "Setting game genres..."
 
@@ -194,7 +195,6 @@ genre_map = {
   cod_black_ops_7 => ["Shooter", "Action"],
   battlefront2    => ["Shooter", "Action"],
   horizon_fw    => ["Action", "RPG"],
-  ff7_rebirth   => ["RPG", "Action"],
   spiderman2    => ["Action", "Adventure"],
   gta_online    => ["Action", "Sandbox"],
   lol           => ["Strategy", "MOBA"],
@@ -727,7 +727,6 @@ if cod_black_ops_7.present? && cod_black_ops_7.patches.where.not(source_url: nil
 end
 
 seed_live_patches("star_wars_battlefront_ii")
-seed_live_patches("ff7_rebirth")
 
 genshin_patch = seed_placeholder_patch(
   game: genshin,
@@ -975,18 +974,6 @@ seed_event_series(
 
 battlefront2&.events&.destroy_all
 
-ff7_rebirth&.events&.destroy_all
-seed_event_series(
-  game: ff7_rebirth,
-  events: [
-    {
-      title: "Final Fantasy VII — 30th Anniversary",
-      description: "Final Fantasy VII celebrates its 30th anniversary — Square Enix typically marks major FF7 milestones with special announcements, retrospectives, and news about the ongoing Remake trilogy.",
-      start_date: DateTime.new(2027, 1, 31, 12, 0, 0)
-    }
-  ]
-)
-
 seed_live_events(game: gta_online, importer_class: EventImporters::GtaOnlineEventImporter)
 
 seed_live_events(game: lol, importer_class: EventImporters::LeagueOfLegendsEventImporter)
@@ -1116,5 +1103,84 @@ seed_event_series(
 )
 
 spiderman2&.events&.destroy_all
+
+puts "Setting up demo account..."
+
+demo_user = User.find_by(email: "demo@test.com")
+
+if demo_user
+  # Favourites: Warzone, Valorant, Fortnite, Apex Legends, Helldivers 2
+  demo_game_names = ["Call of Duty: Warzone", "Valorant", "Fortnite", "Apex Legends", "Helldivers 2"]
+  demo_game_names.each do |name|
+    game = Game.find_by(name: name)
+    Favourite.find_or_create_by!(user: demo_user, game: game) if game
+  end
+
+  # Reminders: one this month, one further out, one for Marvel Rivals Season 7
+  demo_event_titles = ["Season 2 Launch", "VCT 2026: China Stage 1", "Season 7 Launch"]
+  demo_event_titles.each do |title|
+    event = Event.find_by(title: title)
+    Reminder.find_or_create_by!(user: demo_user, event: event) if event
+  end
+
+  # Accepted friends with posts for the FriendHub feed
+  friends_data = [
+    {
+      email: "edhomey@gamebrief.gg",
+      games: ["Call of Duty: Warzone", "Apex Legends", "Helldivers 2"],
+      posts: [
+        { body: "Warzone Season 02 Reloaded just dropped and the new Black Ops Royale mode is genuinely the most fun I have had in the game in months. If you haven't tried it yet, log in tonight.", created_at: 2.days.ago },
+        { body: "Anyone else notice snipers feel completely different since the last patch? My Kar98 is hitting way harder. GameBrief summary actually flagged it — glad I checked.", created_at: 5.days.ago }
+      ]
+    },
+    {
+      email: "biancastar@gamebrief.gg",
+      games: ["Valorant", "Fortnite", "Marvel Rivals"],
+      posts: [
+        { body: "Marvel Rivals Season 7 launches April 10th and the hero reworks look massive. If the patch notes are anything like Season 6 it will be a wall of text — thank god for GameBrief.", created_at: 6.hours.ago },
+        { body: "The Fortnite Chapter 6 update moved half the named locations. Spent 20 minutes relearning the north side of the map. At least the loot pool feels fresh again.", created_at: 1.day.ago },
+        { body: "VCT 2026 China Stage 1 starts end of March and I am so ready. Valorant is at its best during tournament season — the meta always shifts and ranked gets way more interesting.", created_at: 3.days.ago }
+      ]
+    },
+    {
+      email: "snipersage@gamebrief.gg",
+      games: ["Call of Duty: Warzone", "Valorant", "Apex Legends"],
+      posts: [
+        { body: "Hot take: patch notes are only useful if someone translates them into plain English. Which is exactly why I've been using GameBrief every drop. Ask Briffy one question and you're done.", created_at: 12.hours.ago },
+        { body: "Helldivers 2 balance patch this week quietly made the rail cannon actually viable. Spent an hour reading the notes trying to find the catch. There isn't one. Just a straight buff.", created_at: 2.days.ago },
+        { body: "Apex finally fixed the ranked matchmaking desync. Took three patches but it's actually playable again. Diamond lobbies are sweaty as ever though.", created_at: 4.days.ago }
+      ]
+    }
+  ]
+
+  friends_data.each do |fd|
+    friend = User.find_by(email: fd[:email])
+    next unless friend
+
+    fs = Friendship.find_or_initialize_by(user: demo_user, friend: friend)
+    fs.update!(status: "accepted")
+
+    fd[:games].each do |name|
+      game = Game.find_by(name: name)
+      Favourite.find_or_create_by!(user: friend, game: game) if game
+    end
+
+    fd[:posts].each do |p|
+      post = Post.find_or_initialize_by(user: friend, body: p[:body])
+      post.created_at = p[:created_at]
+      post.save!
+    end
+  end
+
+  # Pending friend requests into the demo inbox (from other seeded users)
+  requesters = User.where(email: ["pixelqueenv@gamebrief.gg", "vortexking@gamebrief.gg", "glitchhunter@gamebrief.gg"])
+  requesters.each do |requester|
+    Friendship.find_or_create_by!(user: requester, friend: demo_user) do |f|
+      f.status = "pending"
+    end
+  end
+
+  puts "Demo account ready — #{demo_user.favourites.count} favourites, #{demo_user.reminders.count} reminders, #{demo_user.friends.count} friends, #{Friendship.where(friend: demo_user, status: 'pending').count} pending requests."
+end
 
 puts "Seeds finished!"
