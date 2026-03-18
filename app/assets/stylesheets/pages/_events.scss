@@ -396,7 +396,7 @@
     padding: 0.2rem 0.5rem;
     border-radius: 999px;
     background: color-mix(in srgb, var(--gb-accent) 82%, transparent);
-    color: #fff;
+    color: var(--gb-button-text);
     font-size: 0.6rem;
     font-weight: 700;
     letter-spacing: 0.05em;
