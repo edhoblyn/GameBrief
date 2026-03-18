@@ -934,6 +934,16 @@ seed_event_series(
 )
 
 seed_live_events(game: valorant, importer_class: EventImporters::ValorantEventImporter)
+seed_event_series(
+  game: valorant,
+  events: [
+    {
+      title: "VCT 2026: China Stage 1",
+      description: "VCT 2026 China Stage 1 — the first major Valorant Champions Tour regional event of the year, featuring China's top teams competing for circuit points and a spot at international.",
+      start_date: DateTime.new(2026, 3, 31, 12, 0, 0)
+    }
+  ]
+)
 
 marvel&.events&.destroy_all
 seed_event_series(
@@ -1109,8 +1119,8 @@ puts "Setting up demo account..."
 demo_user = User.find_by(email: "demo@test.com")
 
 if demo_user
-  # Favourites: Warzone, Valorant, Fortnite, Apex Legends, Helldivers 2
-  demo_game_names = ["Call of Duty: Warzone", "Valorant", "Fortnite", "Apex Legends", "Helldivers 2"]
+  # Favourites: Marvel Rivals, Warzone, Battlefield 6, Minecraft, Fortnite
+  demo_game_names = ["Marvel Rivals", "Call of Duty: Warzone", "Battlefield 6", "Minecraft", "Fortnite"]
   demo_game_names.each do |name|
     game = Game.find_by(name: name)
     Favourite.find_or_create_by!(user: demo_user, game: game) if game
