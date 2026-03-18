@@ -118,7 +118,7 @@
         </div>
       </div>
 
-      <div class="col-lg-5">
+      <div class="col-lg-5" data-controller="event-modal">
         <div class="game-show__section">
           <div class="game-show__section-headline">
             <div>
@@ -127,7 +127,7 @@
           </div>
           <% if @events.any? %>
             <% @events.each do |event| %>
-              <%= link_to event_path(event), class: "event-list-card" do %>
+              <%= link_to event_path(event), class: "event-list-card", data: { action: "click->event-modal#open" } do %>
                 <div class="event-list-card__date">
                   <div class="day"><%= event.start_date&.strftime("%-d") %></div>
                   <div class="month"><%= event.start_date&.strftime("%b") %></div>
@@ -139,6 +139,14 @@
           <% else %>
             <p class="game-show__empty">No upcoming events.</p>
           <% end %>
+        </div>
+
+        <div class="modal fade" id="event-modal" tabindex="-1" aria-hidden="true">
+          <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content gb-modal">
+              <div class="modal-body p-0" data-event-modal-target="body"></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

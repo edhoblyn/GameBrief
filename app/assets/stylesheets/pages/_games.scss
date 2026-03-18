@@ -219,6 +219,17 @@
     font-style: italic;
     font-size: 0.9rem;
   }
+
+  // Patch card hover effect
+  .text-decoration-none .card {
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .text-decoration-none:hover .card {
+    border-color: var(--gb-accent);
+    background: rgba(255, 255, 255, 0.03);
+    cursor: pointer;
+  }
 }
 
 .home-games {
