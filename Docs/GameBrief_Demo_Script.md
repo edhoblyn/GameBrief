@@ -107,7 +107,7 @@ That's the problem GameBrief fixes. Patch notes, plain English."
 🔴 **ED:** Point to the **Briffy chatbot panel**.
 > "Briffy has the full patch loaded as context. So instead of reading anything, I just ask."
 
-⭐ **BIANCA:** Type *"Did they nerf any supports?"* or *"What changed for my main?"* and wait for the response.
+⭐ **BIANCA:** Type *"Did they nerf any supports?"* or *"What changed for my tanks?"* and wait for the response.
 
 🔴 **ED:**
 > "Straight answer, no digging through the notes myself. And because the conversation is saved, I can follow up without having to repeat myself."
