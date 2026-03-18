@@ -70,7 +70,9 @@ puts "Creating users..."
 
 user = upsert_user(
   email: "demo@test.com",
-  password: "123456"
+  password: "123456",
+  username: "gamebrief_demo",
+  bio: "Casual gamer. Patch notes enthusiast. Always one update behind."
 )
 
 puts "Creating featured gamers..."
@@ -1116,5 +1118,76 @@ seed_event_series(
 )
 
 spiderman2&.events&.destroy_all
+
+puts "Setting up demo account..."
+
+demo_user = User.find_by(email: "demo@test.com")
+
+if demo_user
+  # Favourites: Warzone, Valorant, Fortnite, Apex Legends, Helldivers 2
+  demo_game_names = ["Call of Duty: Warzone", "Valorant", "Fortnite", "Apex Legends", "Helldivers 2"]
+  demo_game_names.each do |name|
+    game = Game.find_by(name: name)
+    Favourite.find_or_create_by!(user: demo_user, game: game) if game
+  end
+
+  # Reminders: one this week, one this month, one further out
+  demo_event_titles = ["Festival of Seasons: Spring", "Season 2 Launch", "VCT 2026: China Stage 1"]
+  demo_event_titles.each do |title|
+    event = Event.find_by(title: title)
+    Reminder.find_or_create_by!(user: demo_user, event: event) if event
+  end
+
+  # Accepted friends with posts for the FriendHub feed
+  friends_data = [
+    {
+      email: "edhomey@gamebrief.gg",
+      posts: [
+        { body: "Warzone Season 02 Reloaded just dropped and the new Black Ops Royale mode is genuinely the most fun I have had in the game in months. If you haven't tried it yet, log in tonight.", created_at: 2.days.ago },
+        { body: "Anyone else notice snipers feel completely different since the last patch? My Kar98 is hitting way harder. GameBrief summary actually flagged it — glad I checked.", created_at: 5.days.ago }
+      ]
+    },
+    {
+      email: "biancastar@gamebrief.gg",
+      posts: [
+        { body: "Reminder that the Pokémon Pokopia Festival of Seasons event kicks off in two days. The cherry blossom spawns last year were incredible — set your reminder if you haven't already.", created_at: 6.hours.ago },
+        { body: "The Fortnite Chapter 6 update moved half the named locations. Spent 20 minutes relearning the north side of the map. At least the loot pool feels fresh again.", created_at: 1.day.ago },
+        { body: "VCT 2026 China Stage 1 starts end of March and I am so ready. Valorant is at its best during tournament season — the meta always shifts and ranked gets way more interesting.", created_at: 3.days.ago }
+      ]
+    },
+    {
+      email: "snipersage@gamebrief.gg",
+      posts: [
+        { body: "Hot take: patch notes are only useful if someone translates them into plain English. Which is exactly why I've been using GameBrief every drop. Ask Briffy one question and you're done.", created_at: 12.hours.ago },
+        { body: "Helldivers 2 balance patch this week quietly made the rail cannon actually viable. Spent an hour reading the notes trying to find the catch. There isn't one. Just a straight buff.", created_at: 2.days.ago },
+        { body: "Apex finally fixed the ranked matchmaking desync. Took three patches but it's actually playable again. Diamond lobbies are sweaty as ever though.", created_at: 4.days.ago }
+      ]
+    }
+  ]
+
+  friends_data.each do |fd|
+    friend = User.find_by(email: fd[:email])
+    next unless friend
+
+    fs = Friendship.find_or_initialize_by(user: demo_user, friend: friend)
+    fs.update!(status: "accepted")
+
+    fd[:posts].each do |p|
+      post = Post.find_or_initialize_by(user: friend, body: p[:body])
+      post.created_at = p[:created_at]
+      post.save!
+    end
+  end
+
+  # Pending friend requests into the demo inbox (from other seeded users)
+  requesters = User.where(email: ["pixelqueenv@gamebrief.gg", "vortexking@gamebrief.gg", "glitchhunter@gamebrief.gg"])
+  requesters.each do |requester|
+    Friendship.find_or_create_by!(user: requester, friend: demo_user) do |f|
+      f.status = "pending"
+    end
+  end
+
+  puts "Demo account ready — #{demo_user.favourites.count} favourites, #{demo_user.reminders.count} reminders, #{demo_user.friends.count} friends, #{Friendship.where(friend: demo_user, status: 'pending').count} pending requests."
+end
 
 puts "Seeds finished!"
