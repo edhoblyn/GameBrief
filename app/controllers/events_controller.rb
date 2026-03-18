@@ -47,6 +47,10 @@ class EventsController < ApplicationController
                            .order(start_date: :asc)
                            .limit(3)
     @latest_patch = @event.game.patches.known_newest_first.first
+
+    if params[:modal]
+      render partial: "events/modal", layout: false
+    end
   end
 
   private
