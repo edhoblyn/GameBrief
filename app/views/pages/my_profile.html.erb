@@ -769,14 +769,22 @@
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body" style="padding: 16px;">
-        <div style="position: relative; margin-bottom: 12px;">
-          <input type="text" id="ffModalInput" placeholder="Search by username…" autocomplete="off"
-            style="width: 100%; background: rgba(255,255,255,0.06); border: 1px solid rgba(124,92,252,0.3); border-radius: 999px; padding: 10px 40px 10px 16px; color: var(--gb-text, #e8eaf6); font-size: 0.88rem; outline: none;">
-          <span style="position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: var(--gb-muted, #8891b4); pointer-events: none;">
-            <i class="fa fa-search"></i>
-          </span>
+        <div id="ffModalSearchPane">
+          <div style="position: relative; margin-bottom: 12px;">
+            <input type="text" id="ffModalInput" placeholder="Search by username…" autocomplete="off"
+              style="width: 100%; background: rgba(255,255,255,0.06); border: 1px solid rgba(124,92,252,0.3); border-radius: 999px; padding: 10px 40px 10px 16px; color: var(--gb-text, #e8eaf6); font-size: 0.88rem; outline: none;">
+            <span style="position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: var(--gb-muted, #8891b4); pointer-events: none;">
+              <i class="fa fa-search"></i>
+            </span>
+          </div>
+          <div id="ffModalResults"></div>
         </div>
-        <div id="ffModalResults"></div>
+        <div id="ffModalCardPane" style="display: none;">
+          <button id="ffModalCardBack" type="button" style="background:none;border:none;color:var(--gb-muted,#8891b4);font-size:0.82rem;cursor:pointer;padding:0 0 10px 0;display:flex;align-items:center;gap:6px;">
+            <i class="fa fa-arrow-left"></i> Back to results
+          </button>
+          <div id="ffModalCardContent"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -1042,9 +1050,13 @@
   })();
 
   (function () {
-    var modal   = document.getElementById('findFriendsModal');
-    var input   = document.getElementById('ffModalInput');
-    var results = document.getElementById('ffModalResults');
+    var modal       = document.getElementById('findFriendsModal');
+    var input       = document.getElementById('ffModalInput');
+    var results     = document.getElementById('ffModalResults');
+    var searchPane  = document.getElementById('ffModalSearchPane');
+    var cardPane    = document.getElementById('ffModalCardPane');
+    var cardContent = document.getElementById('ffModalCardContent');
+    var cardBack    = document.getElementById('ffModalCardBack');
     var timer   = null;
     var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
@@ -1053,11 +1065,47 @@
     modal.addEventListener('hidden.bs.modal', function () {
       input.value = '';
       results.innerHTML = '';
+      showSearchPane();
     });
 
     modal.addEventListener('shown.bs.modal', function () {
       input.focus();
     });
+
+    if (cardBack) {
+      cardBack.addEventListener('click', showSearchPane);
+    }
+
+    function showSearchPane() {
+      if (cardPane)   cardPane.style.display   = 'none';
+      if (searchPane) searchPane.style.display = '';
+    }
+
+    function showCardPane(userId) {
+      if (searchPane) searchPane.style.display = 'none';
+      if (cardPane)   cardPane.style.display   = '';
+      cardContent.innerHTML =
+        '<div style="padding:2rem;text-align:center;color:var(--gb-muted,#8891b4);">' +
+          '<i class="fa fa-circle-o-notch fa-spin fa-lg"></i>' +
+        '</div>';
+
+      fetch('/users/' + userId + '/card', {
+        headers: { 'Accept': 'text/html', 'X-Requested-With': 'XMLHttpRequest' }
+      })
+      .then(function (r) { return r.text(); })
+      .then(function (html) {
+        var tmp = document.createElement('div');
+        tmp.innerHTML = html;
+        var closeBtn = tmp.querySelector('#ffCardClose');
+        if (closeBtn) closeBtn.remove();
+        cardContent.innerHTML = tmp.innerHTML;
+        wireCardFriendBtns(cardContent);
+        // Friends-in-card → load their card
+        cardContent.querySelectorAll('[data-card-user-id]').forEach(function (el) {
+          el.addEventListener('click', function () { showCardPane(el.dataset.cardUserId); });
+        });
+      });
+    }
 
     input.addEventListener('input', function () {
       clearTimeout(timer);
@@ -1094,13 +1142,13 @@
         }
         html +=
           '<div style="display:flex;align-items:center;gap:10px;padding:8px 4px;border-bottom:1px solid rgba(255,255,255,0.05);" id="modal-card-' + u.id + '">' +
-            '<a href="/users/' + u.id + '" style="display:flex;align-items:center;gap:10px;flex:1;min-width:0;text-decoration:none;">' +
+            '<div data-ff-profile-id="' + u.id + '" style="display:flex;align-items:center;gap:10px;flex:1;min-width:0;cursor:pointer;">' +
               '<div style="width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--gb-accent,#7c5cfc),#4f9cf9);display:flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:700;color:#fff;flex-shrink:0;">' + escHtml(u.initial) + '</div>' +
               '<div style="flex:1;min-width:0;">' +
                 '<div style="font-size:0.85rem;font-weight:700;color:var(--gb-text,#e8eaf6);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + escHtml(u.display) + '</div>' +
                 (u.email ? '<div style="font-size:0.73rem;color:var(--gb-muted,#8891b4);">' + escHtml(u.email) + '</div>' : '') +
               '</div>' +
-            '</a>' +
+            '</div>' +
             '<div style="display:flex;gap:4px;flex-shrink:0;">' + btnHtml + '</div>' +
           '</div>';
       });
@@ -1109,6 +1157,10 @@
 
       results.querySelectorAll('.ff-modal-action-btn').forEach(function (btn) {
         btn.addEventListener('click', function () { handleAction(this); });
+      });
+
+      results.querySelectorAll('[data-ff-profile-id]').forEach(function (el) {
+        el.addEventListener('click', function () { showCardPane(el.dataset.ffProfileId); });
       });
     }
 

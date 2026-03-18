@@ -15,6 +15,15 @@
 
 </div>
 
+<%# Modal for nested friend profile cards %>
+<div class="modal fade" id="profileCardModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" style="max-width: 420px;">
+    <div class="modal-content" style="background: var(--gb-surface); border: 1px solid var(--gb-border); border-radius: 12px; overflow: hidden;">
+      <div class="modal-body p-0" id="profileCardModalBody"></div>
+    </div>
+  </div>
+</div>
+
 <script>
 (function () {
   var card = document.querySelector('.pub-profile-card-mini');
@@ -36,6 +45,58 @@
         });
       });
     }
+
+    // Friends-in-card → open modal
+    card.querySelectorAll('[data-card-user-id]').forEach(function (el) {
+      el.addEventListener('click', function () { openProfileModal(el.dataset.cardUserId); });
+    });
+  }
+
+  function openProfileModal(userId) {
+    var modalEl  = document.getElementById('profileCardModal');
+    var modalBody = document.getElementById('profileCardModalBody');
+    var modal    = bootstrap.Modal.getOrCreateInstance(modalEl);
+
+    modalBody.innerHTML =
+      '<div style="padding:3rem 1rem;text-align:center;color:var(--gb-muted);">' +
+        '<i class="fa fa-circle-o-notch fa-spin fa-lg"></i>' +
+      '</div>';
+    modal.show();
+
+    fetch('/users/' + userId + '/card', {
+      headers: { 'Accept': 'text/html', 'X-Requested-With': 'XMLHttpRequest' }
+    })
+    .then(function (r) { return r.text(); })
+    .then(function (html) {
+      modalBody.innerHTML = html;
+
+      // Wire tabs
+      var nav = modalBody.querySelector('.pub-profile-tab-nav');
+      if (nav) {
+        var tabs = nav.querySelectorAll('.pub-profile-tab[data-tab]');
+        var panels = modalBody.querySelector('.pub-profile-tab-panels');
+        tabs.forEach(function (tab) {
+          tab.addEventListener('click', function () {
+            var target = tab.dataset.tab;
+            tabs.forEach(function (t) {
+              t.style.borderBottomColor = t.dataset.tab === target ? 'var(--gb-accent)' : 'transparent';
+            });
+            panels.querySelectorAll('[data-panel]').forEach(function (p) {
+              p.style.display = p.dataset.panel === target ? '' : 'none';
+            });
+          });
+        });
+      }
+
+      // Wire close button
+      var closeBtn = modalBody.querySelector('#ffCardClose');
+      if (closeBtn) closeBtn.addEventListener('click', function () { modal.hide(); });
+
+      // Wire nested friend clicks
+      modalBody.querySelectorAll('[data-card-user-id]').forEach(function (el) {
+        el.addEventListener('click', function () { openProfileModal(el.dataset.cardUserId); });
+      });
+    });
   }
 })();
 </script>
