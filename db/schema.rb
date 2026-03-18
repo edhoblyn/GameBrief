@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_17_130000) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_18_104655) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -95,7 +95,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_17_130000) do
     t.string "cover_image"
     t.datetime "created_at", null: false
     t.boolean "free_to_play", default: false, null: false
-    t.string "genre", default: [], array: true
+    t.string "genre"
     t.boolean "multiplayer", default: false, null: false
     t.string "name"
     t.boolean "single_player", default: false, null: false
@@ -169,6 +169,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_17_130000) do
 
   create_table "users", force: :cascade do |t|
     t.string "avatar_url"
+    t.string "bio", limit: 160
     t.datetime "created_at", null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
