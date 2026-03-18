@@ -40,8 +40,8 @@ class MessagesController < ApplicationController
   end
 
   def build_conversation_history
-    @chat.messages.each do |message|
-      @ruby_llm_chat.add_message(message)
+    @chat.messages.where.not(id: @message.id).each do |message|
+      @ruby_llm_chat.add_message(role: message.role, content: message.content)
     end
   end
 
