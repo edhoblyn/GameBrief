@@ -61,7 +61,7 @@
           <h2 class="social-profile-name"><%= profile_name %></h2>
           <span class="social-profile-handle">@<%= profile_handle %></span>
         </div>
-        <p class="social-profile-bio">Casual gamer. Patch notes enthusiast. Always one update behind.</p>
+        <p class="social-profile-bio">Casual gamer. Patch notes enthusiast. Always one update ahead.</p>
         <div class="social-profile-highlights">
           <% profile_highlights.each do |item| %>
             <% if item[:toggle_games] %>
@@ -199,7 +199,7 @@
               <h4 class="profile-rail-feature__title"><%= next_reminder.event.title %></h4>
               <p class="profile-rail-feature__meta">
                 <i class="fa fa-calendar"></i>
-                <%= next_reminder.event.start_date.strftime("%-d %b %Y") %>
+                <%= next_reminder.event.start_date&.strftime("%-d %b %Y") || "Date TBD" %>
               </p>
             <% end %>
           <% else %>

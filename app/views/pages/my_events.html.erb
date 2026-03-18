@@ -40,8 +40,12 @@
                 <% event = reminder.event %>
                 <%= link_to event_path(event), class: "my-events-page__card" do %>
                   <div class="my-events-page__date">
-                    <span class="my-events-page__day"><%= event.start_date.strftime("%-d") %></span>
-                    <span class="my-events-page__month"><%= event.start_date.strftime("%b") %></span>
+                    <% if event.start_date.present? %>
+                      <span class="my-events-page__day"><%= event.start_date.strftime("%-d") %></span>
+                      <span class="my-events-page__month"><%= event.start_date.strftime("%b") %></span>
+                    <% else %>
+                      <span class="my-events-page__day" style="font-size:0.7rem;">TBD</span>
+                    <% end %>
                   </div>
                   <div class="my-events-page__body">
                     <div class="my-events-page__meta">
@@ -51,7 +55,7 @@
                     <h2 class="my-events-page__card-title"><%= event.title %></h2>
                     <p class="my-events-page__card-copy">
                       <i class="fa fa-calendar"></i>
-                      <%= event.start_date.strftime("%-d %B %Y") %>
+                      <%= event.start_date&.strftime("%-d %B %Y") || "Date TBD" %>
                     </p>
                   </div>
                   <span class="my-events-page__arrow">
@@ -69,8 +73,12 @@
           <% event = reminder.event %>
           <%= link_to event_path(event), class: "my-events-page__card" do %>
             <div class="my-events-page__date">
-              <span class="my-events-page__day"><%= event.start_date.strftime("%-d") %></span>
-              <span class="my-events-page__month"><%= event.start_date.strftime("%b") %></span>
+              <% if event.start_date.present? %>
+                <span class="my-events-page__day"><%= event.start_date.strftime("%-d") %></span>
+                <span class="my-events-page__month"><%= event.start_date.strftime("%b") %></span>
+              <% else %>
+                <span class="my-events-page__day" style="font-size:0.7rem;">TBD</span>
+              <% end %>
             </div>
             <div class="my-events-page__body">
               <div class="my-events-page__meta">
@@ -80,7 +88,7 @@
               <h2 class="my-events-page__card-title"><%= event.title %></h2>
               <p class="my-events-page__card-copy">
                 <i class="fa fa-calendar"></i>
-                <%= event.start_date.strftime("%-d %B %Y") %>
+                <%= event.start_date&.strftime("%-d %B %Y") || "Date TBD" %>
               </p>
             </div>
             <span class="my-events-page__arrow">

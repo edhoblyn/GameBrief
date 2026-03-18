@@ -28,12 +28,7 @@
       </div>
     </div>
 
-    <div data-chat-stream-target="counter" class="<%= limit_reached ? 'chatbot__counter chatbot__counter--limit' : 'chatbot__counter' %>">
-      <span class="chatbot__counter-label">Questions</span>
-      <span class="chatbot__counter-value" data-chat-stream-target="counterValue"><%= user_message_count %>/<%= Message::MAX_USER_MESSAGES %></span>
-    </div>
-
-    <p data-chat-stream-target="limitMessage" class="chatbot__limit-reached" <%= limit_reached ? "" : "hidden" %>>
+<p data-chat-stream-target="limitMessage" class="chatbot__limit-reached" <%= limit_reached ? "" : "hidden" %>>
       You have reached the <%= Message::MAX_USER_MESSAGES %>-question limit for this chat.
     </p>
   </div>

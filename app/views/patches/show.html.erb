@@ -31,8 +31,9 @@
                  data-chat-stream-stream-url-value="<%= stream_patch_chat_path(@patch, @chat) %>"
                  data-chat-stream-max-messages-value="<%= Message::MAX_USER_MESSAGES %>"
                  data-chat-stream-user-message-count-value="<%= @chat.user_message_count %>">
-              <div class="chatbot__header">
-                Ask about this patch
+              <div class="chatbot__header" style="display:flex; align-items:center; justify-content:space-between;">
+                <span>Ask about this patch</span>
+                <span data-chat-stream-target="counterValue" class="chatbot__counter-value" style="font-size:0.75rem; opacity:0.6;"><%= @chat.user_message_count %>/<%= Message::MAX_USER_MESSAGES %></span>
               </div>
 
               <div id="messages" class="chatbot__messages" data-chat-stream-target="messages">
