@@ -86,7 +86,7 @@ class EventsController < ApplicationController
     elsif date <= today.end_of_month
       "This Month"
     else
-      "Later"
+      date.year == today.year ? date.strftime("%B") : date.strftime("%B %Y")
     end
   end
 
