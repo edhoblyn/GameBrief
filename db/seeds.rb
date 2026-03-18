@@ -86,7 +86,7 @@ upsert_user(email: "shadowrex99@gamebrief.gg",  password: "password123", usernam
 upsert_user(email: "novasprint@gamebrief.gg",   password: "password123", username: "NovaSprint",    avatar_url: "https://randomuser.me/api/portraits/men/22.jpg",    follower_count: 19400)
 upsert_user(email: "nightowlnova@gamebrief.gg", password: "password123", username: "NightOwlNova",  avatar_url: "https://randomuser.me/api/portraits/women/28.jpg",  follower_count: 17800)
 upsert_user(email: "turbojack@gamebrief.gg",    password: "password123", username: "TurboJack",     avatar_url: "https://randomuser.me/api/portraits/men/32.jpg",    follower_count: 15200)
-upsert_user(email: "grindsetgo@gamebrief.gg",   password: "password123", username: "GrindsetGo",    avatar_url: "https://randomuser.me/api/portraits/men/55.jpg",    follower_count: 12600)
+upsert_user(email: "grindsetgo@gamebrief.gg",   password: "password123", username: "FragMaster99",    avatar_url: "https://randomuser.me/api/portraits/men/55.jpg",    follower_count: 12600)
 upsert_user(email: "crystalrift@gamebrief.gg",  password: "password123", username: "CrystalRift",   avatar_url: "https://randomuser.me/api/portraits/women/50.jpg",  follower_count: 10900)
 upsert_user(email: "apexdaddy@gamebrief.gg",    password: "password123", username: "ApexDaddy",     avatar_url: "https://randomuser.me/api/portraits/men/65.jpg",    follower_count: 8500)
 

@@ -40,12 +40,10 @@ The account is set up with:
 
 🔴 **ED:** Point to the tagline and speak.
 > "So my main games right now are Marvel Rivals and Arc Raiders. The thing is, keeping up with what's actually changed is harder than it sounds. I've hopped on Marvel Rivals before, gone straight into ranked, and the character I was playing just felt off. Turned out they'd had a pretty significant nerf and I had no idea.
->
 🔴 **ED:**
-And it's not just that — I'll come back to a game I haven't touched in a in ages, like Minecraft, and it feels like a completely different game. There's been loads added, and it's just a bit overwhelming trying to figure out what's new.
->
+> And it's not just that — I'll come back to a game I haven't touched in a in ages, like Minecraft, and it feels like a completely different game. There's been loads added, and it's just a bit overwhelming trying to figure out what's new.
 🔴 **ED:**
-That's the problem GameBrief fixes. Patch notes, plain English."
+> That's the problem GameBrief fixes. Patch notes, plain English."
 
 🔴 **ED:** Point to the stats bar — 200+ Active Now, 300+ Patch Notes Summarised, 30+ Games Tracked.
 > "Everything here is pulled from real patch notes and summarised by AI — so I'm getting the important stuff without the wall of text."
@@ -60,12 +58,12 @@ That's the problem GameBrief fixes. Patch notes, plain English."
 ⭐ **BIANCA:** Navigate to **Games** in the nav.
 
 🔴 **ED:**
-> "So first thing I want to do is find the games I actually play. There are 30 tracked here — let me narrow it down."
+> "So first thing I want to do is find the games I actually play. There are 30 tracked here — let me narrow it down. There are some really good free to play games out at the moment "
 
-⭐ **BIANCA:** Click **Free-to-play**. *(Ed plays free-to-play games)*
+⭐ **BIANCA:** Click **Free-to-play**.
 
 🔴 **ED:**
-> "That cuts it down already. Now a genre."
+> "That cuts it down already. Now a genre, i typically player shooters so lets go with that."
 
 ⭐ **BIANCA:** Click **Shooter**. *(Make sure no games are favourited before this step)*
 
@@ -148,7 +146,7 @@ That's the problem GameBrief fixes. Patch notes, plain English."
 🔴 **ED:** Point to the **Add to Google Calendar** button that appears after setting the reminder.
 > "And now it's saved I can push it to Google Calendar — so it shows up wherever I actually track my schedule."
 
-⭐ **BIANCA:** Hit **Back to events** + click **Add to Google Calendar**
+⭐ **BIANCA:** Hit **Back to events** + click **Add to Google Calendar** (cmd + click to open in new tab)
 
 ---
 
@@ -162,7 +160,7 @@ That's the problem GameBrief fixes. Patch notes, plain English."
 🔴 **ED:**
 > "I'll change the theme while I'm here — put it on something I actually like."
 
-⭐ **BIANCA:** Open the **theme switcher** in the navbar and click through a couple of themes — for example Purple, then Green.
+⭐ **BIANCA:** Open the **theme switcher** in the navbar and click through a couple of themes — for example Purple, then Ember.
 
 ⭐ **BIANCA:** Pick a theme and leave it on. Scroll to the **FriendHub** post feed.
 
@@ -178,7 +176,7 @@ That's the problem GameBrief fixes. Patch notes, plain English."
 🔴 **ED:**
 > "That badge is letting me know I've got requests waiting."
 
-*The modal opens showing 3 pending requests — ShadowRex99, TurboJack, GrindsetGo.*
+*The modal opens showing 3 pending requests — ShadowRex99, TurboJack, FragMaster99.*
 
 🔴 **ED:**
 > "I'll accept one of these now — and they'll start showing up in my feed."
