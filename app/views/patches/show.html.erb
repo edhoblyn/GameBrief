@@ -31,28 +31,9 @@
                  data-chat-stream-stream-url-value="<%= stream_patch_chat_path(@patch, @chat) %>"
                  data-chat-stream-max-messages-value="<%= Message::MAX_USER_MESSAGES %>"
                  data-chat-stream-user-message-count-value="<%= @chat.user_message_count %>">
-              <div class="chatbot__header">
-                <div class="chatbot__mascot-avatar">
-                  <svg width="40" height="40" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <circle class="briffy-bg briffy-border" cx="21" cy="21" r="20" stroke-width="1.5"/>
-                    <polygon class="briffy-ear" points="12,11 7,2 17,8"/>
-                    <polygon class="briffy-ear" points="30,11 35,2 25,8"/>
-                    <circle cx="15" cy="20" r="6.5" fill="white"/>
-                    <circle cx="27" cy="20" r="6.5" fill="white"/>
-                    <circle class="briffy-iris" cx="15" cy="20" r="4.5"/>
-                    <circle class="briffy-iris" cx="27" cy="20" r="4.5"/>
-                    <circle cx="15.8" cy="19.2" r="2.2" fill="#0d0d14"/>
-                    <circle cx="27.8" cy="19.2" r="2.2" fill="#0d0d14"/>
-                    <circle cx="16.8" cy="18.2" r="1" fill="white" opacity="0.9"/>
-                    <circle cx="28.8" cy="18.2" r="1" fill="white" opacity="0.9"/>
-                    <polygon points="21,25 19,28.5 23,28.5" fill="#fbbf24"/>
-                    <path class="briffy-smile" d="M14,33 Q21,38 28,33" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-                  </svg>
-                </div>
-                <div class="chatbot__header-text">
-                  <span class="chatbot__mascot-name">Chat with Briffy</span>
-                  <span class="chatbot__header-sub">Ask about this patch</span>
-                </div>
+              <div class="chatbot__header" style="display:flex; align-items:center; justify-content:space-between;">
+                <span>Ask about this patch</span>
+                <span data-chat-stream-target="counterValue" class="chatbot__counter-value" style="font-size:0.75rem; opacity:0.6;"><%= @chat.user_message_count %>/<%= Message::MAX_USER_MESSAGES %></span>
               </div>
 
               <div id="messages" class="chatbot__messages" data-chat-stream-target="messages">

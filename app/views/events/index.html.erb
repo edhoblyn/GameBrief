@@ -98,8 +98,12 @@
               <% events.each do |event| %>
                 <%= link_to event_path(event), class: "events-index__event-card" do %>
                   <div class="events-index__date-block">
-                    <span class="events-index__date-day"><%= event.start_date.strftime("%-d") %></span>
-                    <span class="events-index__date-month"><%= event.start_date.strftime("%b") %></span>
+                    <% if event.start_date.present? %>
+                      <span class="events-index__date-day"><%= event.start_date.strftime("%-d") %></span>
+                      <span class="events-index__date-month"><%= event.start_date.strftime("%b") %></span>
+                    <% else %>
+                      <span class="events-index__date-day" style="font-size:0.7rem;">TBD</span>
+                    <% end %>
                   </div>
 
                   <div class="events-index__event-body">
@@ -114,7 +118,7 @@
 
                     <p class="events-index__event-copy">
                       <i class="fa fa-calendar"></i>
-                      <%= event.start_date.strftime("%A, %-d %B %Y") %>
+                      <%= event.start_date&.strftime("%A, %-d %B %Y") || "Date TBD" %>
                       <% if event.summary.present? %>
                         <span class="events-index__event-divider">•</span>
                         <%= truncate(event.summary, length: 120) %>

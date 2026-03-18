@@ -21,7 +21,10 @@
                        end
           back_url = safe_back || games_path
         %>
-        <%= link_to back_label, back_url, class: "d-block mb-2", style: "font-size:0.82rem; color: rgba(255,255,255,0.45); text-decoration:none;" %>
+        <%= link_to back_url, class: "my-patches-page__action mb-2" do %>
+          <i class="fa fa-arrow-left"></i>
+          <%= back_label.delete_prefix("← ") %>
+        <% end %>
         <h1><%= @game.name %></h1>
         <div class="game-show__meta-grid">
           <div class="game-show__stat-row">
@@ -129,8 +132,12 @@
             <% @events.each do |event| %>
               <%= link_to event_path(event), class: "event-list-card", data: { action: "click->event-modal#open" } do %>
                 <div class="event-list-card__date">
-                  <div class="day"><%= event.start_date&.strftime("%-d") %></div>
-                  <div class="month"><%= event.start_date&.strftime("%b") %></div>
+                  <% if event.start_date.present? %>
+                    <div class="day"><%= event.start_date.strftime("%-d") %></div>
+                    <div class="month"><%= event.start_date.strftime("%b") %></div>
+                  <% else %>
+                    <div class="day" style="font-size:0.7rem;">TBD</div>
+                  <% end %>
                 </div>
                 <span class="event-list-card__title"><%= event.title %></span>
                 <span class="event-list-card__arrow"><i class="fa fa-chevron-right"></i></span>
