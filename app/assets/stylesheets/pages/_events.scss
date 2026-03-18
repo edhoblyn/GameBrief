@@ -418,6 +418,13 @@
     font-weight: 800;
     color: #fff;
     line-height: 1;
+
+    .ordinal-sup {
+      font-size: 0.42em;
+      font-weight: 700;
+      vertical-align: super;
+      line-height: 0;
+    }
   }
 
   &__group-list .event-card__date-label {
