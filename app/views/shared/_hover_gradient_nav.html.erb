@@ -25,13 +25,6 @@
           <a href="<%= my_profile_path %>" class="hn-front<%= ' hn-front--active' if loadout_section_active? %>">Gaming Hub</a>
         </div>
       </li>
-      <% if current_user.admin? %>
-        <li class="hn-item">
-          <div class="hn-card">
-            <a href="<%= admin_dashboard_path %>" class="hn-front">Admin</a>
-          </div>
-        </li>
-      <% end %>
     <% else %>
       <li class="hn-item">
         <div class="hn-card">

@@ -758,6 +758,22 @@ $sidebar-width: 260px;
   }
 }
 
+.profile-action-btns {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+.btn-admin-panel {
+  border-color: var(--gb-accent);
+  color: var(--gb-accent);
+
+  &:hover {
+    background: rgba(var(--gb-accent-rgb, 255, 100, 50), 0.1);
+  }
+}
+
 // ── Tab Navigation ───────────────────────────────────────────────────────────
 .social-tabs-nav {
   display: flex;
