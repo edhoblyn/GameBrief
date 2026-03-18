@@ -100,14 +100,14 @@ puts "Importing games from IGDB..."
 
 client = IgdbClient.new
 
-def import_game(client, query, name: nil, slug: nil, free_to_play: false, single_player: false, multiplayer: false)
+def import_game(client, query, name: nil, slug: nil, cover_image: nil, free_to_play: false, single_player: false, multiplayer: false)
   results = client.search_games(query)
   match = results.find { |g| g["name"]&.downcase == query.downcase && g["cover"] }
   match ||= results.find { |g| g["cover"] }
   match ||= results.first
 
   if match
-    cover_url = match["cover"] ? "https:#{match["cover"]["url"].gsub("t_thumb", "t_cover_big")}" : nil
+    cover_url = cover_image || (match["cover"] ? "https:#{match["cover"]["url"].gsub("t_thumb", "t_cover_big")}" : nil)
     resolved_slug = slug || match["slug"]
 
     game = Game.where("LOWER(name) = ?", (name || query).downcase).first
@@ -135,7 +135,7 @@ def import_game(client, query, name: nil, slug: nil, free_to_play: false, single
     game.update!(
       name: resolved_name,
       slug: resolved_slug,
-      cover_image: nil,
+      cover_image: cover_image,
       free_to_play: free_to_play,
       single_player: single_player,
       multiplayer: multiplayer
@@ -162,7 +162,6 @@ re_requiem    = import_game(client, "Resident Evil Requiem", free_to_play: false
 cod_black_ops_7 = import_game(client, "Call of Duty: Black Ops 7", free_to_play: false, single_player: true, multiplayer: true)
 battlefront2  = import_game(client, "Star Wars Battlefront II", free_to_play: false, single_player: true, multiplayer: true)
 horizon_fw    = import_game(client, "Horizon Forbidden West", free_to_play: false, single_player: true)
-ff7_rebirth   = import_game(client, "Final Fantasy VII Rebirth", free_to_play: false, single_player: true)
 spiderman2    = import_game(client, "Marvel's Spider-Man 2", free_to_play: false, single_player: true)
 gta_online    = import_game(client, "Grand Theft Auto V", name: "GTA 5: Online", slug: "gta-5-online", free_to_play: false, single_player: false, multiplayer: true)
 lol           = import_game(client, "League of Legends", free_to_play: true, multiplayer: true)
@@ -174,7 +173,7 @@ cs2           = import_game(client, "Counter-Strike 2", free_to_play: true, mult
 dota2         = import_game(client, "Dota 2", free_to_play: true, multiplayer: true)
 baldurs_gate3 = import_game(client, "Baldur's Gate 3", name: "Baldur's Gate 3", slug: "baldurs-gate-3", free_to_play: false, single_player: true, multiplayer: true)
 pubg          = import_game(client, "PUBG: Battlegrounds", free_to_play: true, multiplayer: true)
-battlefield6  = import_game(client, "Battlefield 6", free_to_play: false, single_player: true, multiplayer: true)
+battlefield6  = import_game(client, "Battlefield 6", cover_image: "https://battlefieldchronicles.com/content/images/size/w1200/2025/07/cover-1.png", free_to_play: false, single_player: true, multiplayer: true)
 
 puts "Setting game genres..."
 
@@ -196,7 +195,6 @@ genre_map = {
   cod_black_ops_7 => ["Shooter", "Action"],
   battlefront2    => ["Shooter", "Action"],
   horizon_fw    => ["Action", "RPG"],
-  ff7_rebirth   => ["RPG", "Action"],
   spiderman2    => ["Action", "Adventure"],
   gta_online    => ["Action", "Sandbox"],
   lol           => ["Strategy", "MOBA"],
@@ -729,7 +727,6 @@ if cod_black_ops_7.present? && cod_black_ops_7.patches.where.not(source_url: nil
 end
 
 seed_live_patches("star_wars_battlefront_ii")
-seed_live_patches("ff7_rebirth")
 
 genshin_patch = seed_placeholder_patch(
   game: genshin,
@@ -976,18 +973,6 @@ seed_event_series(
 )
 
 battlefront2&.events&.destroy_all
-
-ff7_rebirth&.events&.destroy_all
-seed_event_series(
-  game: ff7_rebirth,
-  events: [
-    {
-      title: "Final Fantasy VII — 30th Anniversary",
-      description: "Final Fantasy VII celebrates its 30th anniversary — Square Enix typically marks major FF7 milestones with special announcements, retrospectives, and news about the ongoing Remake trilogy.",
-      start_date: DateTime.new(2027, 1, 31, 12, 0, 0)
-    }
-  ]
-)
 
 seed_live_events(game: gta_online, importer_class: EventImporters::GtaOnlineEventImporter)
 
