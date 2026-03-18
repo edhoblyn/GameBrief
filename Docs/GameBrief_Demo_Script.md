@@ -6,12 +6,15 @@
 
 Use `demo@test.com` / `123456`.
 
-Before presenting, make sure the demo account has:
+The demo account is pre-configured and ready to go. If the database has been reseeded, run `bin/rails db:seed` — the seed file will restore everything automatically.
 
-- 4–5 favourited games including Warzone — so all 3 profile panels show real content
-- At least 1 saved event reminder — so the Event Reminders panel is not empty
-- 3 pending friend requests already in the inbox (edwardhoblyn, Dev Ed, gamebrief805 are seeded)
-- Patch 65 (Warzone Season 02 Reloaded) has AI-structured notes already generated
+The account is set up with:
+
+- **Username:** `gamebrief_demo`
+- **5 favourited games:** Warzone, Valorant, Fortnite, Apex Legends, Helldivers 2
+- **3 event reminders:** Festival of Seasons: Spring (20 Mar), Season 2 Launch (26 Mar), VCT 2026: China Stage 1 (31 Mar)
+- **3 accepted friends** — Ed Homey, Bianca Star, SniperSage — each with posts in the FriendHub feed
+- **3 pending friend requests** waiting in the inbox to accept live during the demo
 
 ---
 
