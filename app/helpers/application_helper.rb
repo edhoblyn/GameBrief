@@ -21,6 +21,12 @@ module ApplicationHelper
     classes.join(" ")
   end
 
+  def ordinal_day(date)
+    day = date.day
+    suffix = day.ordinalize.sub(day.to_s, "")
+    safe_join([day.to_s, content_tag(:sup, suffix, class: "ordinal-sup")])
+  end
+
   def render_markdown(text)
     renderer = Redcarpet::Render::HTML.new(hard_wrap: true)
     markdown = Redcarpet::Markdown.new(renderer, autolink: true, tables: true, fenced_code_blocks: true)
