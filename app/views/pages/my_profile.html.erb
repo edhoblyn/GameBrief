@@ -79,52 +79,6 @@
             <span class="profile-subnav__badge"><%= @reminders.count %></span>
           </button>
         </nav>
-
-        <div class="social-profile-highlights">
-          <% profile_highlights.each do |item| %>
-            <% if item[:toggle_games] %>
-              <button type="button" id="games-tab-btn" class="profile-highlight-card profile-highlight-card--link" data-games-tab-toggle>
-                <div class="profile-highlight-card__icon">
-                  <i class="fa <%= item[:icon] %>"></i>
-                </div>
-                <div class="profile-highlight-card__body">
-                  <span class="profile-highlight-card__value"><%= item[:value] %></span>
-                  <span class="profile-highlight-card__label"><%= item[:label] %></span>
-                </div>
-              </button>
-            <% elsif item[:toggle_patches] %>
-              <button type="button" id="patches-tab-btn" class="profile-highlight-card profile-highlight-card--link" data-patches-tab-toggle>
-                <div class="profile-highlight-card__icon">
-                  <i class="fa <%= item[:icon] %>"></i>
-                </div>
-                <div class="profile-highlight-card__body">
-                  <span class="profile-highlight-card__value"><%= item[:value] %></span>
-                  <span class="profile-highlight-card__label"><%= item[:label] %></span>
-                </div>
-              </button>
-            <% elsif item[:toggle_events] %>
-              <button type="button" id="events-tab-btn" class="profile-highlight-card profile-highlight-card--link" data-events-tab-toggle>
-                <div class="profile-highlight-card__icon">
-                  <i class="fa <%= item[:icon] %>"></i>
-                </div>
-                <div class="profile-highlight-card__body">
-                  <span class="profile-highlight-card__value"><%= item[:value] %></span>
-                  <span class="profile-highlight-card__label"><%= item[:label] %></span>
-                </div>
-              </button>
-            <% else %>
-              <%= link_to item[:url], class: "profile-highlight-card profile-highlight-card--link" do %>
-                <div class="profile-highlight-card__icon">
-                  <i class="fa <%= item[:icon] %>"></i>
-                </div>
-                <div class="profile-highlight-card__body">
-                  <span class="profile-highlight-card__value"><%= item[:value] %></span>
-                  <span class="profile-highlight-card__label"><%= item[:label] %></span>
-                </div>
-              <% end %>
-            <% end %>
-          <% end %>
-        </div>
         <div class="social-profile-stats">
           <button type="button" class="social-stat" data-bs-toggle="modal" data-bs-target="#friendsModal">
             <span class="social-stat__count"><%= current_user.friends.count %> <%= current_user.friends.count == 1 ? "Friend" : "Friends" %></span>
