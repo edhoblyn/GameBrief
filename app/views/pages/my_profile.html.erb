@@ -54,7 +54,12 @@
               <i class="fa fa-pencil"></i>
             </label>
           </div>
-          <%= link_to "Edit Profile", edit_user_registration_path, class: "btn-edit-profile" %>
+          <div class="profile-action-btns">
+            <%= link_to "Edit Profile", edit_user_registration_path, class: "btn-edit-profile" %>
+            <% if current_user.admin? %>
+              <%= link_to "Admin", admin_dashboard_path, class: "btn-edit-profile btn-admin-panel" %>
+            <% end %>
+          </div>
         </div>
 
         <div class="social-profile-identity">
