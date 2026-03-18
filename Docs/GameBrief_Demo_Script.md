@@ -32,15 +32,15 @@ The account is set up with:
 
 ---
 
-### 1. Homepage (~ 30 sec)
+### 1. Homepage (~ 45 sec)
 
-Start on the **homepage**, not logged in.
-
-> "I play a few games — Warzone, Valorant, whatever my friends are on. The problem is I'm always the last to know when something changes. A weapon gets nerfed, a new event starts, and I miss it. I just want one place that keeps me in the loop without reading a wall of text every time."
+Start on the **homepage**, already logged in.
 
 Let the video background play. Point to the tagline.
 
-> "That's GameBrief. Patch notes, plain English."
+> "I play a few games — Warzone, Valorant, whatever my friends are on. The problem is I'm always the last to know when something changes. A weapon gets nerfed, a new event starts, and I miss it. I just want one place that keeps me in the loop without reading a wall of text every time.
+>
+> That's GameBrief. Patch notes, plain English."
 
 Point to the stats bar — 200+ Active Now, 300+ Patch Notes Summarised, 30+ Games Tracked.
 
@@ -48,9 +48,11 @@ Point to the stats bar — 200+ Active Now, 300+ Patch Notes Summarised, 30+ Gam
 
 Gesture to the trending games carousel.
 
-> "Even before I log in, I can already see which games are most active right now."
+> "I can already see which games are most active right now."
 
-Click **Get Started** — log in with the demo account.
+Open the **theme switcher** in the navbar.
+
+> "And the app has a few different themes — so you can change the look to whatever suits you."
 
 ---
 
@@ -58,11 +60,11 @@ Click **Get Started** — log in with the demo account.
 
 Navigate to **Games** in the nav.
 
-> "First thing I want to do is find the games I play. There are 30 tracked here so let me narrow it down."
+> "First I want to find the games I play. There are 30 tracked here so let me narrow it down."
 
 Click **Free-to-play**.
 
-> "That already cuts the list down. Now let me add a genre."
+> "That already cuts the list. Now a genre."
 
 Click **Shooter**.
 
@@ -70,11 +72,11 @@ Click **Shooter**.
 
 Hover over a couple of cards to show the hover effect, then click the **heart/favourite button** on Warzone, Valorant, and one or two others directly from the grid.
 
-> "I can favourite straight from the grid — I don't need to go into each game. As soon as I do that, the app starts building my personal dashboard."
+> "I can favourite straight from the grid — no need to open each game. The moment I do that, the app starts building my personal feed."
 
 Scroll to the bottom and point to the **Suggest a game** button.
 
-> "And if something I play isn't tracked yet, I can suggest it."
+> "And if something I play isn't tracked yet, I can request it."
 
 ---
 
@@ -82,7 +84,7 @@ Scroll to the bottom and point to the **Suggest a game** button.
 
 Click into **Call of Duty: Warzone**.
 
-> "Opening a game gives me everything at a glance. Tags, how many patches are tracked, upcoming events."
+> "Opening a game gives me everything at a glance — tags, how many patches are tracked, upcoming events."
 
 Point to the patch feed and the **date filters** above it.
 
@@ -90,11 +92,11 @@ Point to the patch feed and the **date filters** above it.
 
 Click the **most recent patch** — Season 02 Reloaded.
 
-> "Opening a patch is where GameBrief earns its name. Real Warzone patch notes run to multiple pages. What you're seeing here is the AI-structured version — broken into sections automatically so I can go straight to what I care about."
+> "This is where GameBrief earns its name. Real Warzone patch notes run to multiple pages. What you're seeing is the AI-structured version — broken into sections automatically, so I can go straight to what I care about."
 
 Click open one of the **accordion sections** — for example New Game Mode or New Weapons.
 
-> "I expand the section I want, skip the rest. But if I don't even want to read that, I have Briffy."
+> "I expand the section I want, skip the rest. But if I don't even want to read that, there's Briffy."
 
 Point to the **Briffy chatbot panel**.
 
@@ -104,13 +106,13 @@ Type a question — *"Did anything change for snipers?"* or *"Is it worth loggin
 
 Wait for the response.
 
-> "Direct answer, no digging. And because the history is saved, I can follow up without repeating myself."
+> "Direct answer, no digging. And because the conversation is saved, I can follow up without repeating myself."
 
 Hit **Back to game** to return to the Warzone page.
 
 Point to the **Upcoming Events** section at the bottom.
 
-> "Back on the game page, I can also see what's coming up — not just what already changed."
+> "Back on the game page I can also see what's coming up — not just what's already changed."
 
 ---
 
@@ -118,13 +120,13 @@ Point to the **Upcoming Events** section at the bottom.
 
 Click **Events** in the nav.
 
-> "The Events page gives me the full picture across every game. Everything is grouped by time period, so I can see at a glance what's on this week and what's coming up in April or May."
+> "The Events page shows the full picture across every game. Everything is grouped by time period, so I can see what's on this week and what's coming up in April or May."
 
 Point to the time groupings — **Later This Week**, **This Month**, **April**, **May**, etc.
 
 Use the **time filter** — click **This week**.
 
-> "I can also filter down if I only want to see what's happening right now."
+> "I can filter down if I only want to see what's happening right now."
 
 Click back to **All upcoming**.
 
@@ -135,6 +137,10 @@ Scroll to **April** and open **Marvel Rivals Season 7 Launch**.
 Click **Set Reminder**.
 
 > "Setting a reminder saves it to my profile so I don't have to remember the date myself."
+
+Point to the **Add to Google Calendar** button that appears after setting the reminder.
+
+> "Once the reminder is set, I also get the option to add it straight to Google Calendar — so it shows up wherever I actually track my schedule."
 
 Hit **Back to events**.
 
@@ -152,15 +158,15 @@ Point to the **bio and stats** area.
 
 Scroll to the **FriendHub** post feed.
 
-> "The feed shows posts from me and my friends. It's where the social side of the app lives — I can share what I'm playing, react to updates, keep up with what my network is talking about."
+> "The feed shows posts from me and my friends. It's where the social side of the app lives — sharing what I'm playing, reacting to updates, keeping up with what my network is talking about."
 
 Click on **Ed Homey's name** in one of his posts.
 
-> "Every person in the feed has a public profile. I can see what games they follow, how many friends they have, and what they've been posting about."
+> "Everyone in the feed has a public profile. I can see what games they follow, how many friends they have, and what they've been posting about."
 
 Point to Ed Homey's **3 favourited games** and his **Posts** count.
 
-> "Profiles are public — even someone who isn't my friend yet can have a presence on the platform."
+> "Profiles are public — even someone who isn't my friend yet has a presence on the platform."
 
 Hit **Back** to return to the profile.
 
@@ -170,7 +176,7 @@ Hit **Back** to return to the profile.
 
 Click the **Favourited games** button in the profile nav strip.
 
-> "Clicking Favourited Games opens My Games — everything I follow, all in one place. I don't have to search again, I just come here."
+> "My Games shows everything I follow in one place. No searching — just straight to it."
 
 ---
 
@@ -178,11 +184,11 @@ Click the **Favourited games** button in the profile nav strip.
 
 Click the **Patch drops** button.
 
-> "Patch drops shows me the latest updates from only the games I follow. This is probably where I'd spend the most time — it's already filtered to what's relevant to me."
+> "Patch drops shows the latest updates from only the games I follow. This is probably where I'd spend the most time — it's already filtered to what's relevant to me."
 
 Point to any **New badge** on a patch card if visible.
 
-> "The freshness indicators tell me at a glance what I haven't seen yet."
+> "The freshness indicators show me at a glance what I haven't read yet."
 
 ---
 
@@ -190,7 +196,7 @@ Point to any **New badge** on a patch card if visible.
 
 Click the **Event reminders** button.
 
-> "And Event Reminders shows everything I've saved. No hunting through the calendar, no hoping I remember. It's just here."
+> "Event Reminders shows everything I've saved. No hunting through a calendar, no hoping I remember. It's just here."
 
 ---
 
@@ -237,3 +243,21 @@ Navigate back to the **homepage**.
 | Gaming Hub / My Profile | `/my-profile` |
 | Ed Homey's public profile | `/users/13` |
 | Find Friends | `/find-friends` |
+
+---
+
+## Suggested Demo Length
+
+Based on the section timings, the full demo should take roughly **5–6 minutes** at a comfortable pace:
+
+| Section | Time |
+| --- | --- |
+| Homepage | ~45 sec |
+| Games page | ~1 min |
+| Individual game page | ~1 min |
+| Events page | ~45 sec |
+| Profile page | ~2 min |
+| Close | ~15 sec |
+| **Total** | **~5 min 45 sec** |
+
+Allow a little extra buffer for questions or if the AI response from Briffy takes a moment to stream in.
