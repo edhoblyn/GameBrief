@@ -67,6 +67,21 @@
           <span class="social-profile-handle">@<%= profile_handle %></span>
         </div>
         <p class="social-profile-bio">Casual gamer. Patch notes enthusiast. Always one update behind.</p>
+        <div class="social-profile-stats">
+          <button type="button" class="social-stat" data-bs-toggle="modal" data-bs-target="#friendsModal">
+            <span class="social-stat__count"><%= current_user.friends.count %> <%= current_user.friends.count == 1 ? "Friend" : "Friends" %></span>
+            <% if @pending_received_count > 0 %>
+              <span class="pending-badge"><%= @pending_received_count %></span>
+            <% end %>
+          </button>
+          <button type="button" class="social-stat" data-bs-toggle="modal" data-bs-target="#findFriendsModal">
+            <span class="social-stat__count"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg></span>
+            <span class="social-stat__count">Find Friends</span>
+          </button>
+        </div>
+        <button type="button" id="back-to-feed-btn" style="display:none; align-items: center; gap: 6px; background: none; border: none; color: var(--gb-muted); font-size: 0.82rem; cursor: pointer; padding: 0 0 0.5rem; font-family: inherit; transition: color 0.15s;" onmouseover="this.style.color='var(--gb-text)'" onmouseout="this.style.color='var(--gb-muted)'">
+          <i class="fa fa-arrow-left"></i> Back to Feed
+        </button>
         <nav class="profile-subnav">
           <button type="button" id="games-tab-btn" class="profile-subnav__tab" data-games-tab-toggle>
             <i class="fa fa-gamepad"></i>
@@ -84,18 +99,6 @@
             <span class="profile-subnav__badge"><%= @reminders.count %></span>
           </button>
         </nav>
-        <div class="social-profile-stats">
-          <button type="button" class="social-stat" data-bs-toggle="modal" data-bs-target="#friendsModal">
-            <span class="social-stat__count"><%= current_user.friends.count %> <%= current_user.friends.count == 1 ? "Friend" : "Friends" %></span>
-            <% if @pending_received_count > 0 %>
-              <span class="pending-badge"><%= @pending_received_count %></span>
-            <% end %>
-          </button>
-          <button type="button" class="social-stat" data-bs-toggle="modal" data-bs-target="#findFriendsModal">
-            <span class="social-stat__count"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg></span>
-            <span class="social-stat__count">Find Friends</span>
-          </button>
-        </div>
       </div>
     </div>
 
@@ -228,11 +231,6 @@
 
     <%# Games panel — shown when Favourited Games button is clicked %>
     <div id="games-panel" style="display: none;">
-      <div class="px-3 pt-3 pb-2 d-flex align-items-center gap-2" style="border-bottom: 1px solid rgba(255,255,255,0.08);">
-        <button type="button" id="games-panel-back" style="display: inline-flex; align-items: center; gap: 6px; background: none; border: none; color: var(--gb-muted); font-size: 0.82rem; cursor: pointer; padding: 0; font-family: inherit; transition: color 0.15s;" onmouseover="this.style.color='var(--gb-text)'" onmouseout="this.style.color='var(--gb-muted)'">
-          <i class="fa fa-arrow-left"></i> Back to Feed
-        </button>
-      </div>
       <div class="my-games-page">
         <div class="my-games-page__header">
           <div class="my-games-page__heading">
@@ -289,11 +287,6 @@
 
     <%# Patches panel — shown when Patch Drops button is clicked %>
     <div id="patches-panel" style="display: none;">
-      <div class="px-3 pt-3 pb-2 d-flex align-items-center gap-2" style="border-bottom: 1px solid rgba(255,255,255,0.08);">
-        <button type="button" id="patches-panel-back" style="display: inline-flex; align-items: center; gap: 6px; background: none; border: none; color: var(--gb-muted); font-size: 0.82rem; cursor: pointer; padding: 0; font-family: inherit; transition: color 0.15s;" onmouseover="this.style.color='var(--gb-text)'" onmouseout="this.style.color='var(--gb-muted)'">
-          <i class="fa fa-arrow-left"></i> Back to Feed
-        </button>
-      </div>
       <div class="my-patches-page">
         <div class="my-patches-page__header">
           <div class="my-patches-page__heading">
@@ -394,11 +387,6 @@
 
     <%# Events panel — shown when Event Reminders button is clicked %>
     <div id="events-panel" style="display: none;">
-      <div class="px-3 pt-3 pb-2 d-flex align-items-center gap-2" style="border-bottom: 1px solid rgba(255,255,255,0.08);">
-        <button type="button" id="events-panel-back" style="display: inline-flex; align-items: center; gap: 6px; background: none; border: none; color: var(--gb-muted); font-size: 0.82rem; cursor: pointer; padding: 0; font-family: inherit; transition: color 0.15s;" onmouseover="this.style.color='var(--gb-text)'" onmouseout="this.style.color='var(--gb-muted)'">
-          <i class="fa fa-arrow-left"></i> Back to Feed
-        </button>
-      </div>
       <div class="my-events-page">
         <div class="my-events-page__header">
           <div class="my-events-page__heading">
@@ -546,10 +534,10 @@
     var gamesPanel     = document.getElementById('games-panel');
     var patchesPanel   = document.getElementById('patches-panel');
     var eventsPanel    = document.getElementById('events-panel');
+    var backToFeedBtn  = document.getElementById('back-to-feed-btn');
 
     // ── Games panel toggle ─────────────────────────────────────────────────────
     var gamesTabBtn  = document.querySelector('[data-games-tab-toggle]');
-    var backBtn      = document.getElementById('games-panel-back');
     var gamesActive  = false;
 
     function setActiveTab(btn) {
@@ -566,6 +554,7 @@
       patchesPanel.style.display = 'none';
       eventsPanel.style.display  = 'none';
       setActiveTab(gamesTabBtn);
+      if (backToFeedBtn) backToFeedBtn.style.display = 'inline-flex';
     }
 
     function showFeed() {
@@ -575,6 +564,7 @@
       patchesPanel.style.display = 'none';
       eventsPanel.style.display  = 'none';
       setActiveTab(null);
+      if (backToFeedBtn) backToFeedBtn.style.display = 'none';
     }
 
     if (gamesTabBtn && socialPanel && gamesPanel) {
@@ -583,14 +573,9 @@
       });
     }
 
-    if (backBtn) {
-      backBtn.addEventListener('click', showFeed);
-    }
-
     // ── Patches panel toggle ───────────────────────────────────────────────────
-    var patchesTabBtn  = document.querySelector('[data-patches-tab-toggle]');
-    var patchesBackBtn = document.getElementById('patches-panel-back');
-    var patchesActive  = false;
+    var patchesTabBtn = document.querySelector('[data-patches-tab-toggle]');
+    var patchesActive = false;
 
     function showPatches() {
       patchesActive = true; gamesActive = false; eventsActive = false;
@@ -599,6 +584,7 @@
       patchesPanel.style.display  = 'block';
       eventsPanel.style.display   = 'none';
       setActiveTab(patchesTabBtn);
+      if (backToFeedBtn) backToFeedBtn.style.display = 'inline-flex';
     }
 
     if (patchesTabBtn && socialPanel && patchesPanel) {
@@ -607,14 +593,9 @@
       });
     }
 
-    if (patchesBackBtn) {
-      patchesBackBtn.addEventListener('click', showFeed);
-    }
-
     // ── Events panel toggle ────────────────────────────────────────────────────
-    var eventsTabBtn  = document.querySelector('[data-events-tab-toggle]');
-    var eventsBackBtn = document.getElementById('events-panel-back');
-    var eventsActive  = false;
+    var eventsTabBtn = document.querySelector('[data-events-tab-toggle]');
+    var eventsActive = false;
 
     function showEvents() {
       eventsActive = true; gamesActive = false; patchesActive = false;
@@ -623,6 +604,7 @@
       patchesPanel.style.display  = 'none';
       eventsPanel.style.display   = 'block';
       setActiveTab(eventsTabBtn);
+      if (backToFeedBtn) backToFeedBtn.style.display = 'inline-flex';
     }
 
     if (eventsTabBtn && socialPanel && eventsPanel) {
@@ -631,8 +613,8 @@
       });
     }
 
-    if (eventsBackBtn) {
-      eventsBackBtn.addEventListener('click', showFeed);
+    if (backToFeedBtn) {
+      backToFeedBtn.addEventListener('click', showFeed);
     }
 
     document.querySelectorAll('.like-btn').forEach(function (btn) {
