@@ -12,7 +12,14 @@
       <%= hidden_field_tag :free_to_play, params[:free_to_play] if params[:free_to_play].present? %>
       <%= hidden_field_tag :single_player, params[:single_player] if params[:single_player].present? %>
       <%= hidden_field_tag :multiplayer, params[:multiplayer] if params[:multiplayer].present? %>
-      <%= f.text_field :query, placeholder: "Search games...", value: params[:query], class: "home-games__search-input" %>
+      <div class="home-games__search-wrap">
+        <%= f.text_field :query, placeholder: "Search games...", value: params[:query], class: "home-games__search-input" %>
+        <% if params[:query].present? %>
+          <%= link_to games_path({ genre: params[:genre], sort: params[:sort], free_to_play: params[:free_to_play], single_player: params[:single_player], multiplayer: params[:multiplayer] }.compact), class: "home-games__search-clear", aria: { label: "Clear search" } do %>
+            <i class="fa fa-times" aria-hidden="true"></i>
+          <% end %>
+        <% end %>
+      </div>
       <%= f.submit "Search", class: "home-games__search-btn" %>
     <% end %>
   </div>

@@ -207,6 +207,31 @@
   padding: 0.7rem 0.8rem;
 }
 
+.edit-profile-form__textarea {
+  resize: vertical;
+  min-height: 80px;
+  border-radius: 16px;
+}
+
+.edit-profile-form__label {
+  display: block;
+  margin-bottom: 0.45rem;
+  color: #f8faff;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.edit-profile-form__hint {
+  margin-top: 0.45rem;
+  font-size: 0.84rem;
+  color: rgba(243, 246, 255, 0.58);
+}
+
+.edit-profile-form__char-count--limit {
+  color: #ff6b6b;
+  font-weight: 700;
+}
+
 .edit-profile-form input[type="file"]::file-selector-button {
   margin-right: 0.9rem;
   border: none;

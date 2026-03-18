@@ -509,7 +509,7 @@
   &__hero {
     position: relative;
     overflow: hidden;
-    padding: 6.6rem 0 1.2rem;
+    padding: 9rem 0 1.2rem;
     background:
       radial-gradient(circle at top left, color-mix(in srgb, var(--gb-accent-secondary) 20%, transparent), transparent 30%),
       linear-gradient(180deg, rgba(5, 7, 15, 0.94), rgba(8, 11, 20, 0.98));
@@ -529,7 +529,7 @@
     z-index: 1;
     display: grid;
     grid-template-columns: minmax(0, 1.65fr) minmax(260px, 0.95fr);
-    gap: 1rem;
+    gap: 1.5rem;
   }
 
   &__hero-copy,
@@ -544,7 +544,7 @@
   }
 
   &__hero-copy {
-    padding: 1.2rem;
+    padding: 1.75rem;
   }
 
   &__hero-panel {
@@ -575,7 +575,7 @@
 
   &__eyebrow-row {
     gap: 0.45rem;
-    margin-bottom: 0.7rem;
+    margin-bottom: 1rem;
   }
 
   &__status-pill {
@@ -614,7 +614,7 @@
   }
 
   &__title {
-    margin: 0 0 0.4rem;
+    margin: 0 0 0.75rem;
     color: var(--gb-text);
     font-size: clamp(1.55rem, 3vw, 2.4rem);
     font-weight: 800;
@@ -633,14 +633,14 @@
 
   &__subtitle {
     max-width: 58ch;
-    margin: 0 0 0.8rem;
+    margin: 0 0 1.25rem;
     font-size: 0.88rem;
     line-height: 1.55;
   }
 
   &__hero-stats {
     gap: 0.65rem;
-    margin-bottom: 0.75rem;
+    margin-bottom: 1.4rem;
   }
 
   &__hero-stat {
@@ -765,18 +765,18 @@
 
   &__section,
   &__sidebar-card {
-    padding: 0.95rem 1rem;
+    padding: 1.5rem;
   }
 
   &__section--compact {
-    margin-bottom: 0.8rem;
+    margin-bottom: 1.25rem;
   }
 
   &__section-head {
     justify-content: space-between;
     align-items: center;
     gap: 0.7rem;
-    margin-bottom: 0.6rem;
+    margin-bottom: 1rem;
 
     h2 {
       margin: 0;
@@ -806,7 +806,7 @@
 
   &__related-list {
     display: grid;
-    gap: 0.65rem;
+    gap: 0.85rem;
   }
 
   &__inline-action {
