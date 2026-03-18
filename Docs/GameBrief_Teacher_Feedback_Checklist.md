@@ -68,3 +68,7 @@
 
 - [ ] Run a Lighthouse accessibility check
 - [ ] Review font colours and contrast based on Lighthouse feedback
+
+## Cloudinary
+
+- [ ] Get images working properly with cloudinary
