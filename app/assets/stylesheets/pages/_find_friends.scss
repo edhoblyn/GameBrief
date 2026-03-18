@@ -278,15 +278,17 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 3px;
   min-width: 18px;
   height: 18px;
-  padding: 0 5px;
+  padding: 0 6px;
   border-radius: 999px;
-  background: var(--gb-accent);
-  color: var(--gb-button-text);
+  background: var(--gb-notification);
+  color: var(--gb-notification-text);
   font-size: 0.68rem;
   font-weight: 700;
   line-height: 1;
+  cursor: default;
 }
 
 // ─── Two-column body wrap ─────────────────────────────────────────────────────

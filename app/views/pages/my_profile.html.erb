@@ -82,7 +82,10 @@
           <button type="button" class="social-stat" data-bs-toggle="modal" data-bs-target="#friendsModal">
             <span class="social-stat__count"><%= current_user.friends.count %> <%= current_user.friends.count == 1 ? "Friend" : "Friends" %></span>
             <% if @pending_received_count > 0 %>
-              <span class="pending-badge"><%= @pending_received_count %></span>
+              <span class="pending-badge" title="<%= @pending_received_count %> pending friend <%= @pending_received_count == 1 ? 'request' : 'requests' %>">
+                <i class="fa fa-user-plus" style="font-size: 0.6rem;"></i>
+                <%= @pending_received_count %>
+              </span>
             <% end %>
           </button>
           <button type="button" class="social-stat" data-bs-toggle="modal" data-bs-target="#findFriendsModal">
