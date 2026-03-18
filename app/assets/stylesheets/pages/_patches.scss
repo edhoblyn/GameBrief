@@ -334,6 +334,9 @@
   &__sidebar {
     position: sticky;
     top: var(--gb-sticky-offset);
+    max-height: calc(100vh - var(--gb-sticky-offset) - 1.5rem);
+    display: flex;
+    flex-direction: column;
   }
 
   &__notes-heading {
@@ -365,6 +368,7 @@
   .patch-show {
     &__sidebar {
       position: static;
+      max-height: none;
     }
   }
 }

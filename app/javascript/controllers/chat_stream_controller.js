@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
+import { marked } from "marked"
 
 export default class extends Controller {
   static targets = ["messages", "form", "input", "submit", "counter", "counterValue", "limitMessage"]
@@ -72,6 +73,8 @@ export default class extends Controller {
     this.streamCompleted = true
 
     if (this.pendingAssistantBubble) {
+      const raw = this.pendingAssistantBubble.textContent
+      this.pendingAssistantBubble.innerHTML = marked.parse(raw)
       this.pendingAssistantBubble.classList.remove("chatbot__bubble--streaming")
     }
 

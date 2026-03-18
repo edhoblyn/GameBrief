@@ -66,7 +66,10 @@
                     <span class="chatbot__header-sub">Chat with me!</span>
                   </div>
                 </div>
-                <span data-chat-stream-target="counterValue" class="chatbot__counter-value" style="font-size:0.75rem; opacity:0.6;"><%= @chat.user_message_count %>/<%= Message::MAX_USER_MESSAGES %></span>
+                <span class="chatbot__counter-value" title="Messages used" style="font-size:0.75rem; opacity:0.6; text-align:right;">
+                  <span style="display:block; font-size:0.65rem; opacity:0.7; letter-spacing:0.03em; text-transform:uppercase;">Messages</span>
+                  <span data-chat-stream-target="counterValue"><%= @chat.user_message_count %>/<%= Message::MAX_USER_MESSAGES %></span>
+                </span>
               </div>
 
               <div id="messages" class="chatbot__messages" data-chat-stream-target="messages">
