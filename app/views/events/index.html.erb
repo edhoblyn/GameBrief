@@ -1,34 +1,6 @@
 <% content_for :title, "Events" %>
-<style>
-  body.page-events-index {
-    background-color: var(--gb-bg) !important;
-    background-image: var(--gb-theme-gradient) !important;
-    background-repeat: no-repeat !important;
-    background-position: top center !important;
-    background-size: 100% 144rem !important;
-    background-attachment: fixed !important;
-  }
-</style>
 <div class="events-index">
   <div class="container">
-    <div class="events-index__hero">
-      <div class="events-index__hero-copy">
-        <p class="events-index__eyebrow">Events</p>
-        <h1 class="events-index__title">Upcoming events across all games on GameBrief.</h1>
-        <p class="events-index__subtitle">
-          Browse every scheduled event in one place. Filter by time or game to find what is coming up next.
-        </p>
-      </div>
-    </div>
-
-    <div class="events-index__summary">
-      <% @summary_cards.each do |card| %>
-        <div class="events-index__summary-card">
-          <span class="events-index__summary-value"><%= card[:value] %></span>
-          <span class="events-index__summary-label"><%= card[:label] %></span>
-        </div>
-      <% end %>
-    </div>
 
     <div class="events-index__controls">
       <div class="events-index__filters-row">
@@ -96,40 +68,37 @@
 
             <div class="events-index__group-list">
               <% events.each do |event| %>
-                <%= link_to event_path(event), class: "events-index__event-card" do %>
-                  <div class="events-index__date-block">
-                    <% if event.start_date.present? %>
-                      <span class="events-index__date-day"><%= event.start_date.strftime("%-d") %></span>
-                      <span class="events-index__date-month"><%= event.start_date.strftime("%b") %></span>
+                <article class="game-card event-glow-card">
+                  <%= link_to event_path(event), class: "game-card__link", aria: { label: "View #{event.title}" } do %>
+                    <span class="visually-hidden">View <%= event.title %></span>
+                  <% end %>
+                  <div class="game-card__cover">
+                    <% if event.game.cover_image.present? %>
+                      <%= image_tag event.game.cover_image, alt: event.game.name, class: "game-card__img", loading: "lazy" %>
                     <% else %>
-                      <span class="events-index__date-day" style="font-size:0.7rem;">TBD</span>
+                      <div class="game-card__placeholder">
+                        <i class="fa fa-gamepad"></i>
+                      </div>
                     <% end %>
-                  </div>
-
-                  <div class="events-index__event-body">
-                    <div class="events-index__event-meta">
-                      <span class="events-index__game"><%= event.game.name %></span>
-                      <% if @followed_game_ids.include?(event.game_id) %>
-                        <span class="events-index__badge">Following</span>
+                    <div class="game-card__overlay"></div>
+                    <% if @followed_game_ids.include?(event.game_id) %>
+                      <span class="event-card__badge">Following</span>
+                    <% end %>
+                    <div class="event-card__date-overlay">
+                      <% if event.start_date.present? %>
+                        <span class="event-card__date-num"><%= event.start_date.strftime("%-d") %></span>
+                        <span class="event-card__date-label"><%= event.start_date.strftime("%b %Y") %></span>
+                      <% else %>
+                        <span class="event-card__date-num">TBD</span>
                       <% end %>
                     </div>
-
-                    <h3 class="events-index__event-title"><%= event.title %></h3>
-
-                    <p class="events-index__event-copy">
-                      <i class="fa fa-calendar"></i>
-                      <%= event.start_date&.strftime("%A, %-d %B %Y") || "Date TBD" %>
-                      <% if event.summary.present? %>
-                        <span class="events-index__event-divider">•</span>
-                        <%= truncate(event.summary, length: 120) %>
-                      <% end %>
-                    </p>
                   </div>
-
-                  <span class="events-index__event-arrow" aria-hidden="true">
-                    <i class="fa fa-arrow-right"></i>
-                  </span>
-                <% end %>
+                  <div class="game-card__body">
+                    <p class="event-card__game-label"><%= event.game.name %></p>
+                    <h3 class="game-card__name"><%= event.title %></h3>
+                    <span class="game-card__cta">View event</span>
+                  </div>
+                </article>
               <% end %>
             </div>
           </section>
@@ -152,5 +121,6 @@
         </div>
       </div>
     <% end %>
+
   </div>
 </div>

@@ -337,9 +337,12 @@
 
   &__group-title {
     margin: 0;
-    color: var(--gb-text);
-    font-size: 1.15rem;
+    font-family: $headers-font;
+    color: var(--gb-muted);
+    font-size: 1rem;
     font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
   }
 
   &__group-count {
@@ -351,118 +354,80 @@
   }
 
   &__group-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.65rem;
-  }
-
-  &__event-card {
     display: grid;
-    grid-template-columns: 62px minmax(0, 1fr) auto;
-    gap: 0.8rem;
-    align-items: center;
-    padding: 0.72rem 0.85rem;
-    border: 1px solid var(--gb-border);
-    border-radius: 18px;
-    background: var(--gb-card);
-    color: inherit;
-    text-decoration: none;
-    transition: transform 0.15s, border-color 0.15s, background 0.15s;
-
-    &:hover {
-      color: inherit;
-      text-decoration: none;
-      border-color: var(--gb-accent-secondary);
-      background: color-mix(in srgb, var(--gb-card) 90%, white 10%);
-      transform: translateY(-2px);
-    }
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 1rem;
   }
 
-  &__date-block {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 0.6rem 0.35rem;
-    border-radius: 14px;
-    background: color-mix(in srgb, var(--gb-accent-secondary) 14%, transparent);
-    border: 1px solid color-mix(in srgb, var(--gb-accent-secondary) 24%, transparent);
+  // ── Event card cover overrides ────────────────────────────────────────────
+  // Landscape crop + dimmed art so the date overlay reads clearly
+
+  &__group-list .game-card__cover {
+    aspect-ratio: 3 / 2;
   }
 
-  &__date-day {
-    color: var(--gb-text);
-    font-size: 1.2rem;
-    font-weight: 800;
-    line-height: 1;
+  &__group-list .game-card__img {
+    filter: brightness(0.38) saturate(0.6);
   }
 
-  &__date-month {
-    margin-top: 0.1rem;
-    color: var(--gb-accent-secondary);
-    font-size: 0.64rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
+  &__group-list .game-card__placeholder {
+    aspect-ratio: 3 / 2;
   }
 
-  &__event-body {
-    min-width: 0;
-  }
+  // ── Event card elements (game-card variant) ───────────────────────────────
 
-  &__event-meta {
-    display: flex;
-    align-items: center;
-    gap: 0.45rem;
-    flex-wrap: wrap;
-    margin-bottom: 0.2rem;
-  }
-
-  &__game {
+  &__group-list .event-card__game-label {
+    margin: 0 0 0.2rem;
     color: var(--gb-accent-secondary);
     font-size: 0.68rem;
     font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__group-list .event-card__badge {
+    position: absolute;
+    top: 0.6rem;
+    left: 0.6rem;
+    z-index: 2;
+    padding: 0.2rem 0.5rem;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--gb-accent) 82%, transparent);
+    color: #fff;
+    font-size: 0.6rem;
+    font-weight: 700;
     letter-spacing: 0.05em;
     text-transform: uppercase;
+    backdrop-filter: blur(4px);
   }
 
-  &__badge {
-    padding: 0.12rem 0.42rem;
-    border-radius: 999px;
-    background: color-mix(in srgb, var(--gb-accent) 18%, transparent);
-    color: var(--gb-accent-strong);
-    font-size: 0.62rem;
+  &__group-list .event-card__date-overlay {
+    position: absolute;
+    bottom: 0.6rem;
+    left: 0.75rem;
+    z-index: 2;
+    line-height: 1;
+  }
+
+  &__group-list .event-card__date-num {
+    display: block;
+    font-size: 1.9rem;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1;
+  }
+
+  &__group-list .event-card__date-label {
+    display: block;
+    margin-top: 0.15rem;
+    font-size: 0.65rem;
     font-weight: 700;
-    letter-spacing: 0.04em;
     text-transform: uppercase;
-  }
-
-  &__event-title {
-    margin: 0 0 0.18rem;
-    color: var(--gb-text);
-    font-size: 0.9rem;
-    font-weight: 700;
-    line-height: 1.3;
-  }
-
-  &__event-copy {
-    margin: 0;
-    color: var(--gb-muted);
-    font-size: 0.76rem;
-    line-height: 1.4;
-
-    i {
-      margin-right: 0.35rem;
-    }
-  }
-
-  &__event-divider {
-    margin: 0 0.35rem;
-    color: color-mix(in srgb, var(--gb-muted) 75%, transparent);
-  }
-
-  &__event-arrow {
-    color: var(--gb-muted);
-    font-size: 0.95rem;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.6);
   }
 
   &__empty {
@@ -972,17 +937,8 @@
       flex-direction: column;
     }
 
-    &__event-card {
-      grid-template-columns: 1fr;
-      text-align: left;
-    }
-
-    &__date-block {
-      width: 62px;
-    }
-
-    &__event-arrow {
-      display: none;
+    &__group-list {
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 
