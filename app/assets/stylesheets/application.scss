@@ -102,7 +102,8 @@ body {
   height: 4rem;
 }
 
-body.page-events-index {
+body.page-events-index,
+body.page-patches-show {
   background-color: var(--gb-bg);
   background-image: var(--gb-theme-gradient);
   background-repeat: no-repeat;
