@@ -326,7 +326,7 @@
         </div>
 
         <% if @recent_patches.any? %>
-          <div class="my-patches-page__sort-group">
+          <div style="display: flex; justify-content: flex-end; padding: 0 0 0.5rem;">
             <button type="button" class="filter-btn" id="profile-organise-btn" onclick="toggleProfilePatchView()">
               <i class="fa fa-filter"></i> Organise by game
             </button>
@@ -431,16 +431,14 @@
         </div>
 
         <% if @reminders.any? %>
-          <div class="my-events-page__filters">
-            <div class="my-events-page__filter-row">
-              <div class="my-events-page__sort-group">
-                <button type="button" class="filter-btn active" id="profile-events-upcoming-btn" onclick="sortProfileEvents('upcoming')">Upcoming</button>
-                <button type="button" class="filter-btn" id="profile-events-latest-btn" onclick="sortProfileEvents('latest')">Latest</button>
-              </div>
-              <button type="button" class="filter-btn" id="profile-events-organise-btn" onclick="toggleProfileEventView()">
-                <i class="fa fa-th-list"></i> Organise by game
-              </button>
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 0 0 0.5rem;">
+            <div class="my-events-page__sort-group">
+              <button type="button" class="filter-btn active" id="profile-events-upcoming-btn" onclick="sortProfileEvents('upcoming')">Upcoming</button>
+              <button type="button" class="filter-btn" id="profile-events-latest-btn" onclick="sortProfileEvents('latest')">Latest</button>
             </div>
+            <button type="button" class="filter-btn" id="profile-events-organise-btn" onclick="toggleProfileEventView()">
+              <i class="fa fa-th-list"></i> Organise by game
+            </button>
           </div>
 
           <div id="profile-events-flat">
