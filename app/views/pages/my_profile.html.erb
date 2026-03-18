@@ -685,6 +685,15 @@
           <div style="margin: 12px 4px 8px; border-top: 1px solid rgba(255,255,255,0.06);"></div>
           <p style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--gb-muted, #8891b4); margin: 8px 4px 8px;">Friends (<%= @friends.count %>)</p>
         <% end %>
+        <div id="modal-friends-search" style="padding: 4px 0 8px;">
+          <div style="position: relative;">
+            <i class="fa fa-search" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--gb-muted, #8891b4); font-size: 0.8rem; pointer-events: none;"></i>
+            <input id="friendsSearchInput" type="text" placeholder="Search friends…"
+                   style="width: 100%; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 7px 10px 7px 30px; color: var(--gb-text, #e8eaf6); font-size: 0.85rem; outline: none; box-sizing: border-box;"
+                   autocomplete="off">
+          </div>
+        </div>
+
         <%# Card pane — shown when a friend row is clicked -%>
         <div id="modal-card-pane" style="display: none;">
           <button id="modal-card-back" type="button" style="display: inline-flex; align-items: center; gap: 6px; background: none; border: none; color: var(--gb-muted, #8891b4); font-size: 0.82rem; cursor: pointer; padding: 0 0 12px; font-family: inherit;">
@@ -757,11 +766,37 @@
 
     if (!friendsList || !cardPane || !cardContent || !backBtn) return;
 
+    var searchWrap = document.getElementById('modal-friends-search');
+    var searchInput = document.getElementById('friendsSearchInput');
+
     // Reset to list view whenever the modal opens
     document.getElementById('friendsModal').addEventListener('show.bs.modal', function () {
       cardPane.style.display    = 'none';
       friendsList.style.display = 'block';
+      if (searchWrap) searchWrap.style.display = 'block';
+      if (searchInput) { searchInput.value = ''; filterFriends(''); }
     });
+
+    // Live search filter
+    if (searchInput) {
+      searchInput.addEventListener('input', function () { filterFriends(this.value); });
+    }
+
+    function filterFriends(query) {
+      var q = query.trim().toLowerCase();
+      var rows = friendsList.querySelectorAll('[data-profile-id]');
+      var anyVisible = false;
+      rows.forEach(function (row) {
+        var parent = row.closest('div[style*="display: flex"]') || row.parentElement;
+        var name   = (row.querySelector('[style*="font-weight: 700"]') || {}).textContent || '';
+        var handle = (row.querySelector('[style*="color: var(--gb-muted"]') || {}).textContent || '';
+        var match  = !q || name.toLowerCase().includes(q) || handle.toLowerCase().includes(q);
+        parent.style.display = match ? '' : 'none';
+        if (match) anyVisible = true;
+      });
+      var noFriends = document.getElementById('modal-no-friends');
+      if (noFriends) noFriends.style.display = (!anyVisible && q) ? 'block' : '';
+    }
 
     // Delegate clicks on friend rows
     document.getElementById('friendsModal').addEventListener('click', function (e) {
@@ -772,6 +807,7 @@
 
       // Show loading state in card pane
       friendsList.style.display = 'none';
+      if (searchWrap) searchWrap.style.display = 'none';
       cardPane.style.display    = 'block';
       cardContent.innerHTML =
         '<div style="padding: 2rem; text-align: center; color: var(--gb-muted, #8891b4);">' +
@@ -797,6 +833,7 @@
     backBtn.addEventListener('click', function () {
       cardPane.style.display    = 'none';
       friendsList.style.display = 'block';
+      if (searchWrap) searchWrap.style.display = 'block';
     });
 
     function wireCardFriendBtns(scope) {
