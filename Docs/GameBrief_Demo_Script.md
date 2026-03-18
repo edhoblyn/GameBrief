@@ -11,9 +11,9 @@ The demo account is pre-configured and ready to go. If the database has been res
 The account is set up with:
 
 - **Username:** `gamebrief_demo`
-- **5 favourited games:** Warzone, Valorant, Fortnite, Apex Legends, Helldivers 2
+- **5 favourited games:** Marvel Rivals, Warzone, Battlefield 6, Minecraft, Fortnite
 - **3 event reminders:** Marvel Rivals Season 7 Launch (10 Apr), Season 2 Launch — Black Ops 7 (26 Mar), VCT 2026: China Stage 1 (31 Mar)
-- **3 accepted friends** — Ed Homey, Bianca Star, SniperSage — each with posts in the FriendHub feed
+- **3 accepted friends** — PixelPete, CosmicKai, NovaSprint — each with posts in the FriendHub feed
 - **3 pending friend requests** waiting in the inbox to accept live during the demo
 
 ---
@@ -22,7 +22,7 @@ The account is set up with:
 
 1. Homepage
 2. Games page
-3. Individual game page
+3. Individual game page — Marvel Rivals
 4. Events page
 5. Profile page — My Games panel → My Patches panel → My Events panel → Friend requests
 
@@ -34,197 +34,194 @@ The account is set up with:
 
 ### 1. Homepage (~ 45 sec)
 
-Start on the **homepage**, already logged in.
+**BIANCA:** Start on the **homepage**, already logged in. Let the video background play.
 
-Let the video background play. Point to the tagline.
-
-> "I play a few games — Warzone, Valorant, whatever my friends are on. The problem is I'm always the last to know when something changes. A weapon gets nerfed, a new event starts, and I miss it. I just want one place that keeps me in the loop without reading a wall of text every time.
+**ED:** Point to the tagline and speak.
+> "So my main games right now are Marvel Rivals and Arc Raiders — and I play with a mate pretty regularly. The thing is, keeping up with what's actually changed is harder than it sounds. I've hopped on Marvel Rivals before, gone straight into ranked, and my character just felt off. Turned out they'd had a pretty significant nerf and I had no idea.
 >
-> That's GameBrief. Patch notes, plain English."
+> And it's not just that — I'll come back to a game I haven't touched in a while, like Minecraft or Battlefield, and it feels like a completely different game. There's been loads added, and it's just a bit overwhelming trying to figure out what's new.
+>
+> That's the problem GameBrief fixes. Patch notes, plain English."
 
-Point to the stats bar — 200+ Active Now, 300+ Patch Notes Summarised, 30+ Games Tracked.
+**ED:** Point to the stats bar — 200+ Active Now, 300+ Patch Notes Summarised, 30+ Games Tracked.
+> "Everything here is pulled from real patch notes and summarised by AI — so I'm getting the important stuff without the wall of text."
 
-> "Everything here is pulled from real patch notes, structured and summarised by AI."
-
-Gesture to the trending games carousel.
-
-> "I can already see which games are most active right now."
-
-Open the **theme switcher** in the navbar.
-
-> "And the app has a few different themes — so you can change the look to whatever suits you."
+**ED:** Gesture to the trending games carousel.
+> "And straight away I can see which games have been blowing up lately."
 
 ---
 
 ### 2. Games Page (~ 1 min)
 
-Navigate to **Games** in the nav.
+**BIANCA:** Navigate to **Games** in the nav.
 
-> "First I want to find the games I play. There are 30 tracked here so let me narrow it down."
+**ED:**
+> "So first thing I want to do is find the games I actually play. There are 30 tracked here — let me narrow it down."
 
-Click **Free-to-play**.
+**BIANCA:** Click **Free-to-play**.
 
-> "That already cuts the list. Now a genre."
+**ED:**
+> "That cuts it down already. Now a genre."
 
-Click **Shooter**.
+**BIANCA:** Click **Shooter**.
 
-> "Now I'm only looking at games that are relevant to me."
+**ED:**
+> "Now I'm only seeing games that are actually relevant to me."
 
-Hover over a couple of cards to show the hover effect, then click the **heart/favourite button** on Warzone, Valorant, and one or two others directly from the grid.
+**BIANCA:** Hover over a couple of cards to show the hover effect, then click the **heart/favourite button** on Marvel Rivals, Warzone, and one or two others directly from the grid.
 
-> "I can favourite straight from the grid — no need to open each game. The moment I do that, the app starts building my personal feed."
+**ED:**
+> "I'll just favourite these straight from here — no need to go into each one. Done."
 
-Scroll to the bottom and point to the **Suggest a game** button.
+**BIANCA:** Scroll to the bottom.
 
-> "And if something I play isn't tracked yet, I can request it."
+**ED:** Point to the **Suggest a game** button.
+> "And if something I play isn't on here yet — Arc Raiders for example — I can just request it."
 
 ---
 
-### 3. Individual Game Page — Warzone (~ 1 min)
+### 3. Individual Game Page — Marvel Rivals (~ 1 min)
 
-Click into **Call of Duty: Warzone**.
+**BIANCA:** Click into **Marvel Rivals**.
 
-> "Opening a game gives me everything at a glance — tags, how many patches are tracked, upcoming events."
+**ED:**
+> "So this is the Marvel Rivals page. Patches, upcoming events, all in one place."
 
-Point to the patch feed and the **date filters** above it.
+**ED:** Point to the patch feed and the **date filters** above it.
+> "Every patch is here going back through the seasons. If I've been away for a bit I'll just filter to the last 7 or 30 days so I'm not scrolling through everything."
 
-> "The patch feed goes back through every season. If I only care about recent changes I can filter to the last 7 or 30 days."
+**BIANCA:** Click the **most recent patch**.
 
-Click the **most recent patch** — Season 02 Reloaded.
+**ED:**
+> "Real Marvel Rivals patch notes are a proper read. This is the AI-structured version — already broken into sections, so I just go straight to what I care about."
 
-> "This is where GameBrief earns its name. Real Warzone patch notes run to multiple pages. What you're seeing is the AI-structured version — broken into sections automatically, so I can go straight to what I care about."
+**BIANCA:** Click open one of the **accordion sections** — for example Hero Adjustments or Balance Changes.
 
-Click open one of the **accordion sections** — for example New Game Mode or New Weapons.
+**ED:**
+> "I just expand the section I want and ignore the rest. But honestly, if I don't even want to do that, there's Briffy."
 
-> "I expand the section I want, skip the rest. But if I don't even want to read that, there's Briffy."
+**ED:** Point to the **Briffy chatbot panel**.
+> "Briffy has the full patch loaded as context. So instead of reading anything, I just ask."
 
-Point to the **Briffy chatbot panel**.
+**BIANCA:** Type *"Did they nerf any supports?"* or *"What changed for my main?"* and wait for the response.
 
-> "Briffy has the full patch as context. So instead of reading anything, I just ask."
+**ED:**
+> "Straight answer, no digging through the notes myself. And because the conversation is saved, I can follow up without having to repeat myself."
 
-Type a question — *"Did anything change for snipers?"* or *"Is it worth logging in this week?"*
+**BIANCA:** Hit **Back to game** to return to the Marvel Rivals page.
 
-Wait for the response.
-
-> "Direct answer, no digging. And because the conversation is saved, I can follow up without repeating myself."
-
-Hit **Back to game** to return to the Warzone page.
-
-Point to the **Upcoming Events** section at the bottom.
-
-> "Back on the game page I can also see what's coming up — not just what's already changed."
+**ED:** Point to the **Upcoming Events** section at the bottom.
+> "And there's upcoming events down here too, which is handy."
 
 ---
 
 ### 4. Events Page (~ 45 sec)
 
-Click **Events** in the nav.
+**BIANCA:** Click **Events** in the nav.
 
-> "The Events page shows the full picture across every game. Everything is grouped by time period, so I can see what's on this week and what's coming up in April or May."
+**ED:**
+> "Events is probably the thing I've missed the most over the years. Double XP weekends in CoD, limited-time modes — they'd come and go and I'd only find out after. And the big one for me — Fortnite concerts. I was actually at the first ever in-game concert they did, which was genuinely unreal. But I stopped playing Fortnite as much after that, so I wasn't keeping up with what was happening. They did more concerts after and I missed all of them. And the thing is, I would have gone back on just for those — it's free, so why not. I just never knew they were on.
+>
+> Having it all in one place, grouped by when things are actually happening — that's what I needed."
 
-Point to the time groupings — **Later This Week**, **This Month**, **April**, **May**, etc.
+**ED:** Point to the time groupings — **Later This Week**, **This Month**, **April**, **May**, etc.
 
-Use the **time filter** — click **This week**.
+**BIANCA:** Click the **This week** filter.
 
-> "I can filter down if I only want to see what's happening right now."
+**ED:**
+> "If I just want to see what's on right now I'll filter it down."
 
-Click back to **All upcoming**.
+**BIANCA:** Click back to **All upcoming**. Scroll to **April** and open **Marvel Rivals Season 7 Launch**.
 
-Scroll to **April** and open **Marvel Rivals Season 7 Launch**.
+**ED:**
+> "So there's the date, a countdown, and a summary of what's actually happening."
 
-> "Opening an event shows me the date, a countdown, and what's actually happening."
+**BIANCA:** Click **Set Reminder**.
 
-Click **Set Reminder**.
+**ED:**
+> "Setting a reminder saves it straight to my profile — I don't have to remember the date myself."
 
-> "Setting a reminder saves it to my profile so I don't have to remember the date myself."
+**ED:** Point to the **Add to Google Calendar** button that appears after setting the reminder.
+> "And once it's saved, I can push it straight to Google Calendar so it shows up wherever I actually track my schedule."
 
-Point to the **Add to Google Calendar** button that appears after setting the reminder.
-
-> "Once the reminder is set, I also get the option to add it straight to Google Calendar — so it shows up wherever I actually track my schedule."
-
-Hit **Back to events**.
+**BIANCA:** Hit **Back to events**.
 
 ---
 
-### 5. Profile Page (~ 2 min)
+### 5. Profile Page (~ 2 min 30 sec)
 
-Click **Gaming Hub** in the nav.
+**BIANCA:** Click **Gaming Hub** in the nav.
 
-> "Everything I've done — favouriting games, setting reminders — comes together on my profile."
+**ED:**
+> "So this is my profile — everything's here, games I follow, reminders I've set, all of it."
 
-Point to the **bio and stats** area.
+**ED:** Point to the **bio and stats** area.
+> "Bio, stats, recent activity."
 
-> "This is my gaming identity. At a glance I can see my favourited games, my patch drops, and my event reminders."
+**BIANCA:** Open the **theme switcher** in the navbar and click through a couple of themes — for example Purple, then Green.
 
-Scroll to the **FriendHub** post feed.
+**ED:**
+> "The profile is probably where the themes are most noticeable — the cards, the buttons, the whole colour scheme changes. I'll put it on something I actually like."
 
-> "The feed shows posts from me and my friends. It's where the social side of the app lives — sharing what I'm playing, reacting to updates, keeping up with what my network is talking about."
+**BIANCA:** Pick a theme and leave it on. Scroll to the **FriendHub** post feed.
 
-Click on **Ed Homey's name** in one of his posts.
-
-> "Everyone in the feed has a public profile. I can see what games they follow, how many friends they have, and what they've been posting about."
-
-Point to Ed Homey's **3 favourited games** and his **Posts** count.
-
-> "Profiles are public — even someone who isn't my friend yet has a presence on the platform."
-
-Hit **Back** to return to the profile.
+**ED:**
+> "And this is the feed — me and my mates posting about what we're playing, reacting to updates, that kind of thing."
 
 ---
 
 #### My Games panel
 
-Click the **Favourited games** button in the profile nav strip.
+**BIANCA:** Click the **Favourited games** button in the profile nav strip.
 
-> "My Games shows everything I follow in one place. No searching — just straight to it."
+**ED:**
+> "All the games I follow, right here. No searching."
 
 ---
 
 #### My Patches panel
 
-Click the **Patch drops** button.
+**BIANCA:** Click the **Patch drops** button.
 
-> "Patch drops shows the latest updates from only the games I follow. This is probably where I'd spend the most time — it's already filtered to what's relevant to me."
+**ED:**
+> "This is probably where I'd spend most of my time honestly. Only patches from games I actually follow — I'm not wading through stuff that's got nothing to do with me."
 
-Point to any **New badge** on a patch card if visible.
-
-> "The freshness indicators show me at a glance what I haven't read yet."
+**ED:** Point to any **New badge** on a patch card if visible.
+> "Those little badges tell me what I haven't read yet."
 
 ---
 
 #### My Events panel
 
-Click the **Event reminders** button.
+**BIANCA:** Click the **Event reminders** button.
 
-> "Event Reminders shows everything I've saved. No hunting through a calendar, no hoping I remember. It's just here."
+**ED:**
+> "And all my reminders are here. No hoping I remember the date — it's just saved."
 
 ---
 
 #### Friend Requests
 
-Click **Back to Feed** to return to the main profile view.
+**BIANCA:** Click **Back to Feed** to return to the main profile view. Click the **Friends button** — the one showing the pending request count (e.g. "0 Friends · 3").
 
-Click the **Friends button** — the one showing the pending request count (e.g. "0 Friends · 3").
+**ED:**
+> "The badge tells me I've got requests waiting."
 
-> "The badge on Friends tells me I have requests waiting. Opening it shows me who wants to connect."
+*The modal opens showing 3 pending requests — ShadowRex99, TurboJack, GrindsetGo.*
 
-The modal opens showing 3 pending requests — edwardhoblyn, Dev Ed, gamebrief805.
+**ED:**
+> "I'll accept one of these now — and they'll start showing up in my feed."
 
-> "I can see their profile, accept or decline right from here."
-
-Click the **accept button** (✓) on one of the requests.
-
-> "Once I accept, their posts start showing up in my FriendHub feed and we can see each other's activity."
-
-Close the modal.
+**BIANCA:** Click the **accept button** (✓) on one of the requests. Close the modal.
 
 ---
 
 ### Close (~ 15 sec)
 
-Navigate back to the **homepage**.
+**BIANCA:** Navigate back to the **homepage**.
 
-> "For me, GameBrief solves something simple. I used to miss patches, miss events, or end up reading through walls of notes just to find one line that mattered. Now I don't have to.
+**ED:**
+> "For me it comes back to that feeling of logging in and realising you've missed something — a nerf, an event, a whole update. GameBrief is just one place that keeps you in the loop, without making it a chore.
 >
 > Patch notes. Plain English."
 
@@ -236,13 +233,14 @@ Navigate back to the **homepage**.
 | --- | --- |
 | Homepage | `/` |
 | Games index | `/games` |
-| Warzone game page | `/games/48` |
-| Warzone Season 02 Reloaded patch | `/patches/65` |
+| Marvel Rivals game page | `/games/[id]` |
+| Marvel Rivals latest patch | `/patches/[id]` |
 | Events index | `/events` |
 | Marvel Rivals Season 7 Launch | `/events/945` |
 | Gaming Hub / My Profile | `/my-profile` |
-| Ed Homey's public profile | `/users/13` |
 | Find Friends | `/find-friends` |
+
+> **Note:** Confirm the Marvel Rivals game and patch IDs before the demo and update the URLs above.
 
 ---
 
@@ -256,8 +254,8 @@ Based on the section timings, the full demo should take roughly **5–6 minutes*
 | Games page | ~1 min |
 | Individual game page | ~1 min |
 | Events page | ~45 sec |
-| Profile page | ~2 min |
+| Profile page | ~2 min 30 sec |
 | Close | ~15 sec |
-| **Total** | **~5 min 45 sec** |
+| **Total** | **~6 min 15 sec** |
 
 Allow a little extra buffer for questions or if the AI response from Briffy takes a moment to stream in.
