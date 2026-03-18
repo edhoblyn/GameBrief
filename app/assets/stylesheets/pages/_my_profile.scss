@@ -603,6 +603,8 @@ $sidebar-width: 260px;
   display: flex;
   gap: 0.25rem;
   margin-bottom: 1rem;
+  margin-left: -1.5rem;
+  margin-right: -1.5rem;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   padding-bottom: 0;
@@ -618,7 +620,7 @@ $sidebar-width: 260px;
     border-bottom: 2px solid transparent;
     background: none;
     color: var(--gb-muted);
-    font-size: 1.05rem;
+    font-size: 0.9rem;
     font-weight: 600;
     font-family: inherit;
     cursor: pointer;
@@ -717,6 +719,7 @@ $sidebar-width: 260px;
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+  margin-bottom: 1rem;
 }
 
 .social-stat {
@@ -1523,6 +1526,11 @@ $sidebar-width: 260px;
     justify-content: center;
     padding: 0.65rem 0.45rem;
     text-align: center;
+  }
+
+  .profile-subnav {
+    margin-left: -1rem;
+    margin-right: -1rem;
   }
 
   .social-tabs-nav {
