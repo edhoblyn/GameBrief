@@ -31,8 +31,41 @@
                  data-chat-stream-stream-url-value="<%= stream_patch_chat_path(@patch, @chat) %>"
                  data-chat-stream-max-messages-value="<%= Message::MAX_USER_MESSAGES %>"
                  data-chat-stream-user-message-count-value="<%= @chat.user_message_count %>">
-              <div class="chatbot__header" style="display:flex; align-items:center; justify-content:space-between;">
-                <span>Ask about this patch</span>
+              <div class="chatbot__header">
+                <div class="chatbot__header-identity">
+                  <div class="chatbot__mascot-avatar">
+                    <svg width="40" height="40" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <ellipse class="briffy-bg" cx="32" cy="55" rx="16" ry="9"/>
+                      <circle class="briffy-bg briffy-border" cx="32" cy="28" r="22" stroke-width="1.5"/>
+                      <polygon class="briffy-ear" points="17,12 8,0 24,9"/>
+                      <polygon class="briffy-ear" points="11,15 3,5 17,12" opacity="0.55"/>
+                      <polygon class="briffy-ear" points="47,12 56,0 40,9"/>
+                      <polygon class="briffy-ear" points="53,15 61,5 47,12" opacity="0.55"/>
+                      <path class="briffy-smile" d="M10,18 Q20,10 29,17" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                      <path class="briffy-smile" d="M35,17 Q44,10 54,18" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                      <g class="briffy-eye-left">
+                        <circle cx="21" cy="28" r="10" fill="white"/>
+                        <circle class="briffy-iris" cx="21" cy="28" r="7"/>
+                        <circle cx="22.5" cy="26" r="4.5" fill="#06060f"/>
+                        <circle cx="25" cy="23.5" r="2" fill="white" opacity="0.9"/>
+                        <circle cx="20" cy="32" r="0.9" fill="white" opacity="0.45"/>
+                      </g>
+                      <g class="briffy-eye-right">
+                        <circle cx="43" cy="28" r="10" fill="white"/>
+                        <circle class="briffy-iris" cx="43" cy="28" r="7"/>
+                        <circle cx="44.5" cy="26" r="4" fill="#06060f"/>
+                        <circle cx="47" cy="23.5" r="1.8" fill="white" opacity="0.9"/>
+                        <circle cx="42" cy="32" r="0.9" fill="white" opacity="0.45"/>
+                      </g>
+                      <polygon points="32,36 28,43 36,43" fill="#fbbf24"/>
+                      <path class="briffy-smile" d="M18,49 Q32,59 46,49" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                  <div class="chatbot__header-text">
+                    <span class="chatbot__mascot-name">Briffy</span>
+                    <span class="chatbot__header-sub">Chat with me!</span>
+                  </div>
+                </div>
                 <span data-chat-stream-target="counterValue" class="chatbot__counter-value" style="font-size:0.75rem; opacity:0.6;"><%= @chat.user_message_count %>/<%= Message::MAX_USER_MESSAGES %></span>
               </div>
 
