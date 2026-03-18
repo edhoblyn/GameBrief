@@ -64,9 +64,20 @@
 
         <div class="social-profile-identity">
           <h2 class="social-profile-name"><%= profile_name %></h2>
-          <span class="social-profile-handle">@<%= profile_handle %></span>
+          <div class="social-profile-meta">
+            <span class="social-profile-handle">@<%= profile_handle %></span>
+            <% if current_user.hometown.present? %>
+              <span class="social-profile-meta__sep"></span>
+              <span class="social-profile-meta__hometown">
+                <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <%= current_user.hometown %>
+              </span>
+            <% end %>
+          </div>
         </div>
-        <p class="social-profile-bio">Casual gamer. Patch notes enthusiast. Always one update behind.</p>
+        <% if current_user.bio.present? %>
+          <p class="social-profile-bio"><%= current_user.bio %></p>
+        <% end %>
         <div class="social-profile-stats">
           <button type="button" class="social-stat" data-bs-toggle="modal" data-bs-target="#friendsModal">
             <span class="social-stat__count"><%= current_user.friends.count %> <%= current_user.friends.count == 1 ? "Friend" : "Friends" %></span>

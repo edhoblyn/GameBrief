@@ -553,6 +553,33 @@ $sidebar-width: 260px;
   margin: 0 0 0.15rem;
 }
 
+.social-profile-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+
+  &__sep {
+    width: 1px;
+    height: 12px;
+    background: var(--gb-border);
+    border-radius: 1px;
+    flex-shrink: 0;
+  }
+
+  &__hometown {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.83rem;
+    font-weight: 500;
+    color: var(--gb-accent);
+    letter-spacing: 0.01em;
+
+    svg { flex-shrink: 0; opacity: 0.85; }
+  }
+}
+
 .social-profile-handle {
   color: var(--gb-muted);
   font-size: 0.88rem;
@@ -720,14 +747,22 @@ $sidebar-width: 260px;
   font-size: 0.85rem;
   padding: 0.55rem 0.8rem;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.03);
-  border: none;
+  background: color-mix(in srgb, var(--gb-accent) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--gb-accent) 35%, transparent);
   cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
 
-  &:hover { color: $dark-text; text-decoration: none; }
+  &:hover {
+    text-decoration: none;
+    background: color-mix(in srgb, var(--gb-accent) 16%, transparent);
+    border-color: var(--gb-accent);
+    color: var(--gb-accent);
+
+    .social-stat__count { color: var(--gb-accent); }
+  }
 
   &__count {
-    color: $dark-text;
+    color: var(--gb-accent);
     font-weight: 700;
     font-size: 0.9rem;
   }

@@ -65,7 +65,8 @@
       "WebFetch(domain:www.igdb.com)",
       "WebFetch(domain:www.steamgriddb.com)",
       "WebFetch(domain:www.mobygames.com)",
-      "WebFetch(domain:battlefieldchronicles.com)"
+      "WebFetch(domain:battlefieldchronicles.com)",
+      "Bash(grep -r \"card-friend\\\\|Add Friend\\\\|friendship\" /home/baptistesardou/GameBrief/app --include=*.js --include=*.erb)"
     ],
     "deny": []
   }

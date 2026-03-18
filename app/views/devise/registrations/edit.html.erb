@@ -86,6 +86,12 @@
                         input_html: { class: "edit-profile-form__input", placeholder: "https://example.com/avatar.png" },
                         wrapper_html: { class: "edit-profile-form__field edit-profile-form__field--full" } %>
 
+            <%= f.input :hometown,
+                        required: false,
+                        hint: "The city or region you call home.",
+                        input_html: { class: "edit-profile-form__input", placeholder: "e.g. Paris, Montreal, Tokyo…" },
+                        wrapper_html: { class: "edit-profile-form__field" } %>
+
             <div class="edit-profile-form__field edit-profile-form__field--full" data-controller="bio-counter">
               <label class="edit-profile-form__label" for="user_bio">Bio</label>
               <%= f.text_area :bio,
