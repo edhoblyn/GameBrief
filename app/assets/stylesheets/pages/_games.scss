@@ -533,14 +533,14 @@
   &__follow {
     pointer-events: auto;
     position: absolute;
-    bottom: 0.75rem;
-    right: 0.75rem;
+    bottom: 0.6rem;
+    right: 0.6rem;
     z-index: 3;
   }
 
   &__follow-btn {
-    width: 1.9rem;
-    height: 1.9rem;
+    width: 1.5rem;
+    height: 1.5rem;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -548,11 +548,11 @@
     border: 1px solid rgba(255, 255, 255, 0.3);
     background: rgba(14, 16, 24, 0.88);
     color: rgba(255, 255, 255, 0.72);
-    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.28);
     transition: transform 0.18s ease, color 0.18s ease, background 0.18s ease, border-color 0.18s ease;
 
     &:hover {
-      transform: translateY(-1px) scale(1.1);
+      transform: translateY(-1px) scale(1.15);
       color: #ffd761;
       background: rgba(22, 24, 34, 0.96);
       border-color: rgba(255, 215, 97, 0.5);
@@ -564,7 +564,7 @@
     }
 
     i {
-      font-size: 1rem;
+      font-size: 0.72rem;
     }
   }
 
