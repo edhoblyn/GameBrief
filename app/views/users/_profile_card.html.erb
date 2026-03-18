@@ -101,7 +101,7 @@
     <% if @friends.any? %>
       <div style="display: flex; flex-direction: column; gap: 0.5rem;">
         <% @friends.each do |friend| %>
-          <%= link_to user_path(friend), style: "display: flex; align-items: center; gap: 0.6rem; text-decoration: none; color: var(--gb-text); padding: 0.35rem 0; border-bottom: 1px solid var(--gb-border);" do %>
+          <div data-card-user-id="<%= friend.id %>" style="display: flex; align-items: center; gap: 0.6rem; cursor: pointer; color: var(--gb-text); padding: 0.35rem 0; border-bottom: 1px solid var(--gb-border);">
             <% if friend.avatar_image.attached? %>
               <%= image_tag friend.avatar_image, style: "width:32px;height:32px;border-radius:50%;object-fit:cover;", alt: friend.display_name %>
             <% elsif friend.avatar_url.present? %>
@@ -115,7 +115,7 @@
               <div style="font-size: 0.85rem; font-weight: 600;"><%= friend.display_name %></div>
               <div style="font-size: 0.75rem; color: var(--gb-muted);">@<%= friend.profile_handle %></div>
             </div>
-          <% end %>
+          </div>
         <% end %>
       </div>
     <% else %>

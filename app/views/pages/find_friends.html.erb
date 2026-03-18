@@ -192,6 +192,13 @@
         btn.addEventListener('click', function () { handleCardFriendAction(btn); });
       });
 
+      // Friends-inside-card → load their card in the panel
+      panel.querySelectorAll('[data-card-user-id]').forEach(function (el) {
+        el.addEventListener('click', function () {
+          loadProfileCard(el.dataset.cardUserId);
+        });
+      });
+
       // Profile card tabs
       wireProfileCardTabs(panel);
     }
