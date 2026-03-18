@@ -82,7 +82,7 @@ class EventsController < ApplicationController
     if date == today
       "Today"
     elsif date <= today.end_of_week
-      "Later This Week"
+      "This Week"
     elsif date <= today.end_of_month
       "This Month"
     else
