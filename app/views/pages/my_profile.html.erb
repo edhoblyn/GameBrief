@@ -8,7 +8,7 @@
   profile_highlights = [
     { label: "Favourited games", value: @followed_games.count, icon: "fa-gamepad",   url: my_games_path, toggle_games: true },
     { label: "Patch drops",      value: @recent_patches.count, icon: "fa-file-text", url: my_patches_path, toggle_patches: true },
-    { label: "Event reminders",  value: @reminders.count,      icon: "fa-calendar",  url: my_events_path }
+    { label: "Event reminders",  value: @reminders.count,      icon: "fa-calendar",  url: my_events_path, toggle_events: true }
   ]
   next_reminder = @reminders.first
   latest_patch = @recent_patches.first
@@ -76,6 +76,16 @@
               </button>
             <% elsif item[:toggle_patches] %>
               <button type="button" id="patches-tab-btn" class="profile-highlight-card profile-highlight-card--link" data-patches-tab-toggle>
+                <div class="profile-highlight-card__icon">
+                  <i class="fa <%= item[:icon] %>"></i>
+                </div>
+                <div class="profile-highlight-card__body">
+                  <span class="profile-highlight-card__value"><%= item[:value] %></span>
+                  <span class="profile-highlight-card__label"><%= item[:label] %></span>
+                </div>
+              </button>
+            <% elsif item[:toggle_events] %>
+              <button type="button" id="events-tab-btn" class="profile-highlight-card profile-highlight-card--link" data-events-tab-toggle>
                 <div class="profile-highlight-card__icon">
                   <i class="fa <%= item[:icon] %>"></i>
                 </div>
@@ -405,10 +415,146 @@
       </div>
     </div><%# /patches-panel %>
 
+    <%# Events panel — shown when Event Reminders button is clicked %>
+    <div id="events-panel" style="display: none;">
+      <div class="px-3 pt-3 pb-2 d-flex align-items-center gap-2" style="border-bottom: 1px solid rgba(255,255,255,0.08);">
+        <button type="button" id="events-panel-back" style="display: inline-flex; align-items: center; gap: 6px; background: none; border: none; color: var(--gb-muted); font-size: 0.82rem; cursor: pointer; padding: 0; font-family: inherit; transition: color 0.15s;" onmouseover="this.style.color='var(--gb-text)'" onmouseout="this.style.color='var(--gb-muted)'">
+          <i class="fa fa-arrow-left"></i> Back to Feed
+        </button>
+      </div>
+      <div class="my-events-page">
+        <div class="my-events-page__header">
+          <div>
+            <h1 class="my-events-page__title">Event Reminders</h1>
+            <p class="my-events-page__subtitle">Upcoming reminders for the events you want to keep track of.</p>
+          </div>
+        </div>
+
+        <% if @reminders.any? %>
+          <div class="my-events-page__filters">
+            <div class="my-events-page__filter-row">
+              <div class="my-events-page__sort-group">
+                <button type="button" class="filter-btn active" id="profile-events-upcoming-btn" onclick="sortProfileEvents('upcoming')">Upcoming</button>
+                <button type="button" class="filter-btn" id="profile-events-latest-btn" onclick="sortProfileEvents('latest')">Latest</button>
+              </div>
+              <button type="button" class="filter-btn" id="profile-events-organise-btn" onclick="toggleProfileEventView()">
+                <i class="fa fa-th-list"></i> Organise by game
+              </button>
+            </div>
+          </div>
+
+          <div id="profile-events-flat">
+            <div class="my-events-page__timeline">
+              <% @reminders.each do |reminder| %>
+                <% event = reminder.event %>
+                <%= link_to event_path(event), class: "my-events-page__card" do %>
+                  <div class="my-events-page__date">
+                    <span class="my-events-page__day"><%= event.start_date.strftime("%-d") %></span>
+                    <span class="my-events-page__month"><%= event.start_date.strftime("%b") %></span>
+                  </div>
+                  <div class="my-events-page__body">
+                    <div class="my-events-page__meta">
+                      <span class="my-events-page__game"><%= event.game.name %></span>
+                      <span class="my-events-page__status">Reminder set</span>
+                    </div>
+                    <h2 class="my-events-page__card-title"><%= event.title %></h2>
+                    <p class="my-events-page__card-copy">
+                      <i class="fa fa-calendar"></i>
+                      <%= event.start_date.strftime("%-d %B %Y") %>
+                    </p>
+                  </div>
+                  <span class="my-events-page__arrow"><i class="fa fa-arrow-right"></i></span>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+
+          <div id="profile-events-by-game" style="display:none;">
+            <div class="patch-show__accordions">
+              <% @reminders.group_by { |r| r.event.game }.each do |game, reminders| %>
+                <details class="patch-show__accordion">
+                  <summary class="patch-show__accordion-summary">
+                    <span class="patch-show__accordion-title"><%= game.name %></span>
+                    <span class="patch-show__accordion-preview"><%= pluralize(reminders.count, "event") %></span>
+                  </summary>
+                  <div class="patch-show__accordion-body">
+                    <% reminders.each do |reminder| %>
+                      <% event = reminder.event %>
+                      <%= link_to event_path(event), class: "my-events-page__card" do %>
+                        <div class="my-events-page__date">
+                          <span class="my-events-page__day"><%= event.start_date.strftime("%-d") %></span>
+                          <span class="my-events-page__month"><%= event.start_date.strftime("%b") %></span>
+                        </div>
+                        <div class="my-events-page__body">
+                          <div class="my-events-page__meta">
+                            <span class="my-events-page__game"><%= event.game.name %></span>
+                            <span class="my-events-page__status">Reminder set</span>
+                          </div>
+                          <h2 class="my-events-page__card-title"><%= event.title %></h2>
+                          <p class="my-events-page__card-copy">
+                            <i class="fa fa-calendar"></i>
+                            <%= event.start_date.strftime("%-d %B %Y") %>
+                          </p>
+                        </div>
+                        <span class="my-events-page__arrow"><i class="fa fa-arrow-right"></i></span>
+                      <% end %>
+                    <% end %>
+                  </div>
+                </details>
+              <% end %>
+            </div>
+          </div>
+
+          <%= link_to my_events_path, class: "d-block text-center mt-3", style: "font-size: 0.8rem; color: var(--gb-accent);" do %>
+            View all events <i class="fa fa-arrow-right"></i>
+          <% end %>
+        <% else %>
+          <div class="my-events-page__empty">
+            <div class="my-events-page__empty-icon"><i class="fa fa-calendar"></i></div>
+            <h2 class="my-events-page__empty-title">You do not have any saved event reminders yet</h2>
+            <p class="my-events-page__empty-copy">Browse upcoming events and save reminders to build your personal event list.</p>
+            <%= link_to events_path, class: "my-events-page__action my-events-page__action--primary" do %>
+              <i class="fa fa-search"></i> Browse Events
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div><%# /events-panel %>
+
   </main>
 </div>
 
 <script>
+  function toggleProfileEventView() {
+    var flat   = document.getElementById('profile-events-flat');
+    var byGame = document.getElementById('profile-events-by-game');
+    var btn    = document.getElementById('profile-events-organise-btn');
+    var isGrouped = byGame.style.display !== 'none';
+    flat.style.display   = isGrouped ? '' : 'none';
+    byGame.style.display = isGrouped ? 'none' : '';
+    btn.classList.toggle('active', !isGrouped);
+  }
+
+  function sortProfileEvents(order) {
+    var flat   = document.getElementById('profile-events-flat');
+    var byGame = document.getElementById('profile-events-by-game');
+    var cards  = Array.from(flat.querySelectorAll('.my-events-page__card'));
+    var upcomingBtn = document.getElementById('profile-events-upcoming-btn');
+    var latestBtn   = document.getElementById('profile-events-latest-btn');
+
+    cards.sort(function(a, b) {
+      var dA = new Date(a.querySelector('.my-events-page__card-copy').textContent.trim());
+      var dB = new Date(b.querySelector('.my-events-page__card-copy').textContent.trim());
+      return order === 'latest' ? dB - dA : dA - dB;
+    });
+
+    var timeline = flat.querySelector('.my-events-page__timeline');
+    cards.forEach(function(c) { timeline.appendChild(c); });
+
+    upcomingBtn.classList.toggle('active', order === 'upcoming');
+    latestBtn.classList.toggle('active', order === 'latest');
+  }
+
   function toggleProfilePatchView() {
     var flat   = document.getElementById('profile-patches-flat');
     var byGame = document.getElementById('profile-patches-by-game');
@@ -424,6 +570,7 @@
     var socialPanel    = document.getElementById('social-panel');
     var gamesPanel     = document.getElementById('games-panel');
     var patchesPanel   = document.getElementById('patches-panel');
+    var eventsPanel    = document.getElementById('events-panel');
 
     // ── Games panel toggle ─────────────────────────────────────────────────────
     var gamesTabBtn  = document.querySelector('[data-games-tab-toggle]');
@@ -431,24 +578,26 @@
     var gamesActive  = false;
 
     function showGames() {
-      gamesActive = true;
-      patchesActive = false;
+      gamesActive = true; patchesActive = false; eventsActive = false;
       socialPanel.style.display  = 'none';
       gamesPanel.style.display   = 'block';
       patchesPanel.style.display = 'none';
+      eventsPanel.style.display  = 'none';
       gamesTabBtn.style.outline  = '2px solid var(--gb-accent, #7c5cfc)';
       gamesTabBtn.style.outlineOffset = '2px';
       if (patchesTabBtn) { patchesTabBtn.style.outline = ''; patchesTabBtn.style.outlineOffset = ''; }
+      if (eventsTabBtn)  { eventsTabBtn.style.outline  = ''; eventsTabBtn.style.outlineOffset  = ''; }
     }
 
     function showFeed() {
-      gamesActive   = false;
-      patchesActive = false;
+      gamesActive = false; patchesActive = false; eventsActive = false;
       socialPanel.style.display  = '';
       gamesPanel.style.display   = 'none';
       patchesPanel.style.display = 'none';
-      if (gamesTabBtn)   { gamesTabBtn.style.outline = '';   gamesTabBtn.style.outlineOffset = ''; }
+      eventsPanel.style.display  = 'none';
+      if (gamesTabBtn)   { gamesTabBtn.style.outline   = ''; gamesTabBtn.style.outlineOffset   = ''; }
       if (patchesTabBtn) { patchesTabBtn.style.outline = ''; patchesTabBtn.style.outlineOffset = ''; }
+      if (eventsTabBtn)  { eventsTabBtn.style.outline  = ''; eventsTabBtn.style.outlineOffset  = ''; }
     }
 
     if (gamesTabBtn && socialPanel && gamesPanel) {
@@ -467,14 +616,15 @@
     var patchesActive  = false;
 
     function showPatches() {
-      patchesActive = true;
-      gamesActive   = false;
+      patchesActive = true; gamesActive = false; eventsActive = false;
       socialPanel.style.display   = 'none';
       gamesPanel.style.display    = 'none';
       patchesPanel.style.display  = 'block';
+      eventsPanel.style.display   = 'none';
       patchesTabBtn.style.outline = '2px solid var(--gb-accent, #7c5cfc)';
       patchesTabBtn.style.outlineOffset = '2px';
-      if (gamesTabBtn) { gamesTabBtn.style.outline = ''; gamesTabBtn.style.outlineOffset = ''; }
+      if (gamesTabBtn)  { gamesTabBtn.style.outline  = ''; gamesTabBtn.style.outlineOffset  = ''; }
+      if (eventsTabBtn) { eventsTabBtn.style.outline  = ''; eventsTabBtn.style.outlineOffset = ''; }
     }
 
     if (patchesTabBtn && socialPanel && patchesPanel) {
@@ -485,6 +635,33 @@
 
     if (patchesBackBtn) {
       patchesBackBtn.addEventListener('click', showFeed);
+    }
+
+    // ── Events panel toggle ────────────────────────────────────────────────────
+    var eventsTabBtn  = document.querySelector('[data-events-tab-toggle]');
+    var eventsBackBtn = document.getElementById('events-panel-back');
+    var eventsActive  = false;
+
+    function showEvents() {
+      eventsActive = true; gamesActive = false; patchesActive = false;
+      socialPanel.style.display   = 'none';
+      gamesPanel.style.display    = 'none';
+      patchesPanel.style.display  = 'none';
+      eventsPanel.style.display   = 'block';
+      eventsTabBtn.style.outline  = '2px solid var(--gb-accent, #7c5cfc)';
+      eventsTabBtn.style.outlineOffset = '2px';
+      if (gamesTabBtn)   { gamesTabBtn.style.outline   = ''; gamesTabBtn.style.outlineOffset   = ''; }
+      if (patchesTabBtn) { patchesTabBtn.style.outline = ''; patchesTabBtn.style.outlineOffset = ''; }
+    }
+
+    if (eventsTabBtn && socialPanel && eventsPanel) {
+      eventsTabBtn.addEventListener('click', function () {
+        eventsActive ? showFeed() : showEvents();
+      });
+    }
+
+    if (eventsBackBtn) {
+      eventsBackBtn.addEventListener('click', showFeed);
     }
 
     document.querySelectorAll('.like-btn').forEach(function (btn) {
