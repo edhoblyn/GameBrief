@@ -256,14 +256,32 @@
     list-style: none;
     cursor: pointer;
     padding: 1rem 1.15rem;
+    padding-right: 2.75rem;
     display: flex;
     flex-direction: column;
     gap: 0.35rem;
     background: rgba(255, 255, 255, 0.02);
+    position: relative;
 
     &::-webkit-details-marker {
       display: none;
     }
+
+    &::after {
+      content: '›';
+      position: absolute;
+      right: 1.15rem;
+      top: 50%;
+      transform: translateY(-50%) rotate(0deg);
+      color: rgba(255, 255, 255, 0.35);
+      font-size: 1.3rem;
+      line-height: 1;
+      transition: transform 0.2s ease;
+    }
+  }
+
+  &__accordion[open] &__accordion-summary::after {
+    transform: translateY(-50%) rotate(90deg);
   }
 
   &__accordion-title {
@@ -279,7 +297,7 @@
   }
 
   &__accordion-body {
-    padding: 0 1.15rem 1.15rem;
+    padding: 1rem 1.15rem 1.15rem;
   }
 
   &__ai-status {
