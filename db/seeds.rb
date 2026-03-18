@@ -77,16 +77,16 @@ user = upsert_user(
 
 puts "Creating featured gamers..."
 
-upsert_user(email: "edhomey@gamebrief.gg",      password: "password123", username: "Ed Homey",      avatar_url: "https://randomuser.me/api/portraits/men/46.jpg",    follower_count: 84200)
-upsert_user(email: "biancastar@gamebrief.gg",   password: "password123", username: "Bianca Star",   avatar_url: "https://randomuser.me/api/portraits/women/73.jpg",  follower_count: 61500)
+upsert_user(email: "pixelpete@gamebrief.gg",     password: "password123", username: "PixelPete",      avatar_url: "https://randomuser.me/api/portraits/men/46.jpg",    follower_count: 84200)
+upsert_user(email: "cosmickai@gamebrief.gg",    password: "password123", username: "CosmicKai",     avatar_url: "https://randomuser.me/api/portraits/women/73.jpg",  follower_count: 61500)
 upsert_user(email: "hortgamer@gamebrief.gg",    password: "password123", username: "Hort Gamer",    avatar_url: "https://randomuser.me/api/portraits/women/44.jpg",  follower_count: 43900)
 upsert_user(email: "baptistex@gamebrief.gg",    password: "password123", username: "BaptisteX",     avatar_url: "https://randomuser.me/api/portraits/men/78.jpg",    follower_count: 29300)
 upsert_user(email: "zerolagguru@gamebrief.gg",  password: "password123", username: "ZeroLagGuru",   avatar_url: "https://randomuser.me/api/portraits/men/11.jpg",    follower_count: 25100)
-upsert_user(email: "pixelqueenv@gamebrief.gg",  password: "password123", username: "PixelQueenV",   avatar_url: "https://randomuser.me/api/portraits/women/15.jpg",  follower_count: 22700)
-upsert_user(email: "snipersage@gamebrief.gg",   password: "password123", username: "SniperSage",    avatar_url: "https://randomuser.me/api/portraits/men/22.jpg",    follower_count: 19400)
+upsert_user(email: "shadowrex99@gamebrief.gg",  password: "password123", username: "ShadowRex99",   avatar_url: "https://randomuser.me/api/portraits/women/15.jpg",  follower_count: 22700)
+upsert_user(email: "novasprint@gamebrief.gg",   password: "password123", username: "NovaSprint",    avatar_url: "https://randomuser.me/api/portraits/men/22.jpg",    follower_count: 19400)
 upsert_user(email: "nightowlnova@gamebrief.gg", password: "password123", username: "NightOwlNova",  avatar_url: "https://randomuser.me/api/portraits/women/28.jpg",  follower_count: 17800)
-upsert_user(email: "vortexking@gamebrief.gg",   password: "password123", username: "VortexKing",    avatar_url: "https://randomuser.me/api/portraits/men/32.jpg",    follower_count: 15200)
-upsert_user(email: "glitchhunter@gamebrief.gg", password: "password123", username: "GlitchHunter",  avatar_url: "https://randomuser.me/api/portraits/men/55.jpg",    follower_count: 12600)
+upsert_user(email: "turbojack@gamebrief.gg",    password: "password123", username: "TurboJack",     avatar_url: "https://randomuser.me/api/portraits/men/32.jpg",    follower_count: 15200)
+upsert_user(email: "grindsetgo@gamebrief.gg",   password: "password123", username: "GrindsetGo",    avatar_url: "https://randomuser.me/api/portraits/men/55.jpg",    follower_count: 12600)
 upsert_user(email: "crystalrift@gamebrief.gg",  password: "password123", username: "CrystalRift",   avatar_url: "https://randomuser.me/api/portraits/women/50.jpg",  follower_count: 10900)
 upsert_user(email: "apexdaddy@gamebrief.gg",    password: "password123", username: "ApexDaddy",     avatar_url: "https://randomuser.me/api/portraits/men/65.jpg",    follower_count: 8500)
 
@@ -1126,29 +1126,29 @@ if demo_user
   # Accepted friends with posts for the FriendHub feed
   friends_data = [
     {
-      email: "edhomey@gamebrief.gg",
-      games: ["Call of Duty: Warzone", "Apex Legends", "Helldivers 2"],
+      email: "pixelpete@gamebrief.gg",
+      games: ["Marvel Rivals", "Call of Duty: Warzone", "Apex Legends"],
       posts: [
-        { body: "Warzone Season 02 Reloaded just dropped and the new Black Ops Royale mode is genuinely the most fun I have had in the game in months. If you haven't tried it yet, log in tonight.", created_at: 2.days.ago },
-        { body: "Anyone else notice snipers feel completely different since the last patch? My Kar98 is hitting way harder. GameBrief summary actually flagged it — glad I checked.", created_at: 5.days.ago }
+        { body: "Just played a ranked session on Marvel Rivals and the new support changes are actually broken. Luna Snow feels completely different — check the patch notes if you haven't already.", created_at: 2.days.ago },
+        { body: "Anyone else grinding ranked in Marvel Rivals this week? Hit Diamond last night. The meta is shifting fast — keeping up with patches is basically mandatory at this point.", created_at: 5.days.ago }
       ]
     },
     {
-      email: "biancastar@gamebrief.gg",
-      games: ["Valorant", "Fortnite", "Marvel Rivals"],
+      email: "cosmickai@gamebrief.gg",
+      games: ["Minecraft", "Fortnite", "Marvel Rivals"],
       posts: [
         { body: "Marvel Rivals Season 7 launches April 10th and the hero reworks look massive. If the patch notes are anything like Season 6 it will be a wall of text — thank god for GameBrief.", created_at: 6.hours.ago },
-        { body: "The Fortnite Chapter 6 update moved half the named locations. Spent 20 minutes relearning the north side of the map. At least the loot pool feels fresh again.", created_at: 1.day.ago },
-        { body: "VCT 2026 China Stage 1 starts end of March and I am so ready. Valorant is at its best during tournament season — the meta always shifts and ranked gets way more interesting.", created_at: 3.days.ago }
+        { body: "Came back to Minecraft after a few months away and genuinely had no idea what half the new stuff was. The amount that gets added between updates is wild.", created_at: 1.day.ago },
+        { body: "Fortnite Chapter 6 moved half the named locations. Spent ages relearning the map. At least the loot pool feels fresh again.", created_at: 3.days.ago }
       ]
     },
     {
-      email: "snipersage@gamebrief.gg",
-      games: ["Call of Duty: Warzone", "Valorant", "Apex Legends"],
+      email: "novasprint@gamebrief.gg",
+      games: ["Call of Duty: Warzone", "Apex Legends", "Battlefield 6"],
       posts: [
         { body: "Hot take: patch notes are only useful if someone translates them into plain English. Which is exactly why I've been using GameBrief every drop. Ask Briffy one question and you're done.", created_at: 12.hours.ago },
-        { body: "Helldivers 2 balance patch this week quietly made the rail cannon actually viable. Spent an hour reading the notes trying to find the catch. There isn't one. Just a straight buff.", created_at: 2.days.ago },
-        { body: "Apex finally fixed the ranked matchmaking desync. Took three patches but it's actually playable again. Diamond lobbies are sweaty as ever though.", created_at: 4.days.ago }
+        { body: "Battlefield 6 dropped a big content patch this week. If you haven't been on in a while it genuinely feels like a different game — loads added.", created_at: 2.days.ago },
+        { body: "Apex ranked matchmaking feels way better since the latest fix. Diamond lobbies are still sweaty as ever though.", created_at: 4.days.ago }
       ]
     }
   ]
@@ -1173,7 +1173,7 @@ if demo_user
   end
 
   # Pending friend requests into the demo inbox (from other seeded users)
-  requesters = User.where(email: ["pixelqueenv@gamebrief.gg", "vortexking@gamebrief.gg", "glitchhunter@gamebrief.gg"])
+  requesters = User.where(email: ["shadowrex99@gamebrief.gg", "turbojack@gamebrief.gg", "grindsetgo@gamebrief.gg"])
   requesters.each do |requester|
     Friendship.find_or_create_by!(user: requester, friend: demo_user) do |f|
       f.status = "pending"
