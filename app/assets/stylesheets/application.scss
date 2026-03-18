@@ -30,6 +30,8 @@ html[data-theme="nebula"] {
   --gb-theme-gradient: radial-gradient(circle at top, rgba(124, 92, 252, 0.16), transparent 34%);
   --gb-button-text: #ffffff;
   --gb-button-text-shadow: 0 1px 0 rgba(8, 10, 18, 0.72), 0 0 1px rgba(8, 10, 18, 0.65);
+  --gb-notification: #e05c5c;
+  --gb-notification-text: #ffffff;
 }
 
 html[data-theme="ion"] {
@@ -48,6 +50,8 @@ html[data-theme="ion"] {
   --gb-theme-gradient: radial-gradient(circle at top, rgba(53, 184, 255, 0.18), transparent 36%);
   --gb-button-text: #031018;
   --gb-button-text-shadow: none;
+  --gb-notification: #35b8ff;
+  --gb-notification-text: #031018;
 }
 
 html[data-theme="toxic"] {
@@ -66,6 +70,8 @@ html[data-theme="toxic"] {
   --gb-theme-gradient: radial-gradient(circle at top, rgba(125, 255, 107, 0.16), transparent 34%);
   --gb-button-text: #061209;
   --gb-button-text-shadow: none;
+  --gb-notification: #7dff6b;
+  --gb-notification-text: #061209;
 }
 
 html[data-theme="ember"] {
@@ -84,6 +90,8 @@ html[data-theme="ember"] {
   --gb-theme-gradient: radial-gradient(circle at top, rgba(255, 123, 84, 0.16), transparent 34%);
   --gb-button-text: #1c0805;
   --gb-button-text-shadow: none;
+  --gb-notification: #ff7b54;
+  --gb-notification-text: #1c0805;
 }
 
 html,
