@@ -6,9 +6,9 @@
   profile_name   = current_user.display_name
   profile_handle = current_user.profile_handle
   profile_highlights = [
-    { label: "Favourited games", value: @followed_games.count, icon: "fa-gamepad",   url: my_games_path, toggle_games: true },
-    { label: "Patch drops",      value: @recent_patches.count, icon: "fa-file-text", url: my_patches_path, toggle_patches: true },
-    { label: "Event reminders",  value: @reminders.count,      icon: "fa-calendar",  url: my_events_path, toggle_events: true }
+    { label: "Favourited games", value: @followed_games.count, icon: "fa-gamepad",   url: my_profile_path, toggle_games: true },
+    { label: "Patch drops",      value: @recent_patches.count, icon: "fa-file-text", url: my_profile_path, toggle_patches: true },
+    { label: "Event reminders",  value: @reminders.count,      icon: "fa-calendar",  url: my_profile_path, toggle_events: true }
   ]
   next_reminder = @reminders.first
   latest_patch = @recent_patches.first
@@ -61,52 +61,24 @@
           <h2 class="social-profile-name"><%= profile_name %></h2>
           <span class="social-profile-handle">@<%= profile_handle %></span>
         </div>
-        <p class="social-profile-bio">Casual gamer. Patch notes enthusiast. Always one update ahead.</p>
-        <div class="social-profile-highlights">
-          <% profile_highlights.each do |item| %>
-            <% if item[:toggle_games] %>
-              <button type="button" id="games-tab-btn" class="profile-highlight-card profile-highlight-card--link" data-games-tab-toggle>
-                <div class="profile-highlight-card__icon">
-                  <i class="fa <%= item[:icon] %>"></i>
-                </div>
-                <div class="profile-highlight-card__body">
-                  <span class="profile-highlight-card__value"><%= item[:value] %></span>
-                  <span class="profile-highlight-card__label"><%= item[:label] %></span>
-                </div>
-              </button>
-            <% elsif item[:toggle_patches] %>
-              <button type="button" id="patches-tab-btn" class="profile-highlight-card profile-highlight-card--link" data-patches-tab-toggle>
-                <div class="profile-highlight-card__icon">
-                  <i class="fa <%= item[:icon] %>"></i>
-                </div>
-                <div class="profile-highlight-card__body">
-                  <span class="profile-highlight-card__value"><%= item[:value] %></span>
-                  <span class="profile-highlight-card__label"><%= item[:label] %></span>
-                </div>
-              </button>
-            <% elsif item[:toggle_events] %>
-              <button type="button" id="events-tab-btn" class="profile-highlight-card profile-highlight-card--link" data-events-tab-toggle>
-                <div class="profile-highlight-card__icon">
-                  <i class="fa <%= item[:icon] %>"></i>
-                </div>
-                <div class="profile-highlight-card__body">
-                  <span class="profile-highlight-card__value"><%= item[:value] %></span>
-                  <span class="profile-highlight-card__label"><%= item[:label] %></span>
-                </div>
-              </button>
-            <% else %>
-              <%= link_to item[:url], class: "profile-highlight-card profile-highlight-card--link" do %>
-                <div class="profile-highlight-card__icon">
-                  <i class="fa <%= item[:icon] %>"></i>
-                </div>
-                <div class="profile-highlight-card__body">
-                  <span class="profile-highlight-card__value"><%= item[:value] %></span>
-                  <span class="profile-highlight-card__label"><%= item[:label] %></span>
-                </div>
-              <% end %>
-            <% end %>
-          <% end %>
-        </div>
+        <p class="social-profile-bio">Casual gamer. Patch notes enthusiast. Always one update behind.</p>
+        <nav class="profile-subnav">
+          <button type="button" id="games-tab-btn" class="profile-subnav__tab" data-games-tab-toggle>
+            <i class="fa fa-gamepad"></i>
+            Favourited games
+            <span class="profile-subnav__badge"><%= @followed_games.count %></span>
+          </button>
+          <button type="button" id="patches-tab-btn" class="profile-subnav__tab" data-patches-tab-toggle>
+            <i class="fa fa-file-text"></i>
+            Patch drops
+            <span class="profile-subnav__badge"><%= @recent_patches.count %></span>
+          </button>
+          <button type="button" id="events-tab-btn" class="profile-subnav__tab" data-events-tab-toggle>
+            <i class="fa fa-calendar"></i>
+            Event reminders
+            <span class="profile-subnav__badge"><%= @reminders.count %></span>
+          </button>
+        </nav>
         <div class="social-profile-stats">
           <button type="button" class="social-stat" data-bs-toggle="modal" data-bs-target="#friendsModal">
             <span class="social-stat__count"><%= current_user.friends.count %> <%= current_user.friends.count == 1 ? "Friend" : "Friends" %></span>
@@ -211,7 +183,7 @@
         <section id="my-events" class="profile-rail-card">
           <div class="profile-rail-card__header">
             <h3 class="profile-rail-card__title">Upcoming Event</h3>
-            <%= link_to "All events", my_events_path, class: "profile-rail-card__link" %>
+            <%= link_to "All events", my_profile_path, class: "profile-rail-card__link" %>
           </div>
           <% if next_reminder.present? %>
             <%= link_to event_path(next_reminder.event), class: "profile-rail-feature" do %>
@@ -230,7 +202,7 @@
         <section id="my-patches" class="profile-rail-card">
           <div class="profile-rail-card__header">
             <h3 class="profile-rail-card__title">Latest Patch</h3>
-            <%= link_to "View patches", my_patches_path, class: "profile-rail-card__link" %>
+            <%= link_to "View patches", my_profile_path, class: "profile-rail-card__link" %>
           </div>
           <% if latest_patch.present? %>
             <%= link_to patch_path(latest_patch), class: "profile-rail-feature" do %>
@@ -398,7 +370,7 @@
               </div>
             </div>
 
-            <%= link_to my_patches_path, class: "d-block text-center mt-3", style: "font-size: 0.8rem; color: var(--gb-accent);" do %>
+            <%= link_to my_profile_path, class: "d-block text-center mt-3", style: "font-size: 0.8rem; color: var(--gb-accent);" do %>
               View all patches <i class="fa fa-arrow-right"></i>
             <% end %>
           </div>
@@ -503,7 +475,7 @@
             </div>
           </div>
 
-          <%= link_to my_events_path, class: "d-block text-center mt-3", style: "font-size: 0.8rem; color: var(--gb-accent);" do %>
+          <%= link_to my_profile_path, class: "d-block text-center mt-3", style: "font-size: 0.8rem; color: var(--gb-accent);" do %>
             View all events <i class="fa fa-arrow-right"></i>
           <% end %>
         <% else %>
@@ -575,16 +547,20 @@
     var backBtn      = document.getElementById('games-panel-back');
     var gamesActive  = false;
 
+    function setActiveTab(btn) {
+      [gamesTabBtn, patchesTabBtn, eventsTabBtn].forEach(function(b) {
+        if (b) b.classList.remove('profile-subnav__tab--active');
+      });
+      if (btn) btn.classList.add('profile-subnav__tab--active');
+    }
+
     function showGames() {
       gamesActive = true; patchesActive = false; eventsActive = false;
       socialPanel.style.display  = 'none';
       gamesPanel.style.display   = 'block';
       patchesPanel.style.display = 'none';
       eventsPanel.style.display  = 'none';
-      gamesTabBtn.style.outline  = '2px solid var(--gb-accent, #7c5cfc)';
-      gamesTabBtn.style.outlineOffset = '2px';
-      if (patchesTabBtn) { patchesTabBtn.style.outline = ''; patchesTabBtn.style.outlineOffset = ''; }
-      if (eventsTabBtn)  { eventsTabBtn.style.outline  = ''; eventsTabBtn.style.outlineOffset  = ''; }
+      setActiveTab(gamesTabBtn);
     }
 
     function showFeed() {
@@ -593,9 +569,7 @@
       gamesPanel.style.display   = 'none';
       patchesPanel.style.display = 'none';
       eventsPanel.style.display  = 'none';
-      if (gamesTabBtn)   { gamesTabBtn.style.outline   = ''; gamesTabBtn.style.outlineOffset   = ''; }
-      if (patchesTabBtn) { patchesTabBtn.style.outline = ''; patchesTabBtn.style.outlineOffset = ''; }
-      if (eventsTabBtn)  { eventsTabBtn.style.outline  = ''; eventsTabBtn.style.outlineOffset  = ''; }
+      setActiveTab(null);
     }
 
     if (gamesTabBtn && socialPanel && gamesPanel) {
@@ -619,10 +593,7 @@
       gamesPanel.style.display    = 'none';
       patchesPanel.style.display  = 'block';
       eventsPanel.style.display   = 'none';
-      patchesTabBtn.style.outline = '2px solid var(--gb-accent, #7c5cfc)';
-      patchesTabBtn.style.outlineOffset = '2px';
-      if (gamesTabBtn)  { gamesTabBtn.style.outline  = ''; gamesTabBtn.style.outlineOffset  = ''; }
-      if (eventsTabBtn) { eventsTabBtn.style.outline  = ''; eventsTabBtn.style.outlineOffset = ''; }
+      setActiveTab(patchesTabBtn);
     }
 
     if (patchesTabBtn && socialPanel && patchesPanel) {
@@ -646,10 +617,7 @@
       gamesPanel.style.display    = 'none';
       patchesPanel.style.display  = 'none';
       eventsPanel.style.display   = 'block';
-      eventsTabBtn.style.outline  = '2px solid var(--gb-accent, #7c5cfc)';
-      eventsTabBtn.style.outlineOffset = '2px';
-      if (gamesTabBtn)   { gamesTabBtn.style.outline   = ''; gamesTabBtn.style.outlineOffset   = ''; }
-      if (patchesTabBtn) { patchesTabBtn.style.outline = ''; patchesTabBtn.style.outlineOffset = ''; }
+      setActiveTab(eventsTabBtn);
     }
 
     if (eventsTabBtn && socialPanel && eventsPanel) {

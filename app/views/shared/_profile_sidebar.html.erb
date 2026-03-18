@@ -22,18 +22,6 @@
     <a href="<%= my_profile_path %>" class="profile-sidebar__nav-link <%= 'profile-sidebar__nav-link--active' if active == :profile %>">
       <i class="fa fa-user"></i> Profile
     </a>
-    <a href="<%= my_games_path %>" class="profile-sidebar__nav-link <%= 'profile-sidebar__nav-link--active' if active == :library %>">
-      <i class="fa fa-gamepad"></i> Library
-      <span class="profile-sidebar__count-badge ms-auto"><%= @followed_games.count %></span>
-    </a>
-    <a href="<%= my_patches_path %>" class="profile-sidebar__nav-link <%= 'profile-sidebar__nav-link--active' if active == :updates %>">
-      <i class="fa fa-file-text"></i> Updates
-      <span class="profile-sidebar__count-badge ms-auto"><%= @recent_patches.count %></span>
-    </a>
-    <a href="<%= my_events_path %>" class="profile-sidebar__nav-link <%= 'profile-sidebar__nav-link--active' if active == :agenda %>">
-      <i class="fa fa-calendar"></i> Agenda
-      <span class="profile-sidebar__count-badge ms-auto"><%= @reminders.count %></span>
-    </a>
     <%= link_to find_friends_path, class: "profile-sidebar__nav-link" do %>
       <i class="fa fa-users"></i> Find friends
     <% end %>

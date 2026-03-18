@@ -54,29 +54,4 @@ class PagesController < ApplicationController
     @favourites_by_game_id = current_user.favourites.index_by(&:game_id)
   end
 
-  def my_games
-    @games = @followed_games.order(:name)
-    @favourites_by_game_id = current_user.favourites.index_by(&:game_id)
-  end
-
-  def my_patches
-    @date_filter = params[:date_filter].presence_in(Patch::DATE_FILTERS.keys) || "all"
-    @sort = params[:sort].presence_in(%w[newest oldest]) || "newest"
-
-    @patches = Patch.where(game: @followed_games)
-                    .includes(:game)
-                    .with_date_filter(@date_filter)
-
-    @patches = case @sort
-               when "oldest" then @patches.known_oldest_first
-               else @patches.known_newest_first
-               end
-  end
-
-  def my_events
-    @sort = params[:sort].presence_in(%w[upcoming latest]) || "upcoming"
-    @view = params[:view].presence_in(%w[grouped]) || "flat"
-
-    @events = @sort == "latest" ? @reminders.reorder("events.start_date desc") : @reminders
-  end
 end

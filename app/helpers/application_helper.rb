@@ -3,9 +3,6 @@ module ApplicationHelper
     return false unless user_signed_in?
 
     current_page?(my_profile_path) ||
-      current_page?(my_games_path) ||
-      current_page?(my_patches_path) ||
-      current_page?(my_events_path) ||
       current_page?(find_friends_path) ||
       current_page?(admin_dashboard_path)
   end
