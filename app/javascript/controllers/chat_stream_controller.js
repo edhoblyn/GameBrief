@@ -202,7 +202,7 @@ export default class extends Controller {
 
     const emptyState = document.createElement("p")
     emptyState.className = "chatbot__empty"
-    emptyState.textContent = 'Ask anything about this patch — e.g. "What changed for snipers?" or "Should I log in?"'
+    emptyState.textContent = 'Ask anything about this patch.'
     this.messagesTarget.appendChild(emptyState)
   }
 
