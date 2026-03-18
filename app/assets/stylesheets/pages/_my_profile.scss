@@ -1002,13 +1002,13 @@ $sidebar-width: 260px;
   }
 
   &__link {
-    color: lighten($accent-blue, 10%);
+    color: var(--gb-accent);
     font-size: 0.78rem;
     font-weight: 600;
     text-decoration: none;
 
     &:hover {
-      color: lighten($accent-blue, 18%);
+      color: var(--gb-accent-strong);
       text-decoration: none;
     }
   }
