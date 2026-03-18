@@ -1131,8 +1131,8 @@ if demo_user
     Favourite.find_or_create_by!(user: demo_user, game: game) if game
   end
 
-  # Reminders: one this week, one this month, one further out
-  demo_event_titles = ["Festival of Seasons: Spring", "Season 2 Launch", "VCT 2026: China Stage 1"]
+  # Reminders: one this month, one further out, one for Marvel Rivals Season 7
+  demo_event_titles = ["Season 2 Launch", "VCT 2026: China Stage 1", "Season 7 Launch"]
   demo_event_titles.each do |title|
     event = Event.find_by(title: title)
     Reminder.find_or_create_by!(user: demo_user, event: event) if event
@@ -1142,6 +1142,7 @@ if demo_user
   friends_data = [
     {
       email: "edhomey@gamebrief.gg",
+      games: ["Call of Duty: Warzone", "Apex Legends", "Helldivers 2"],
       posts: [
         { body: "Warzone Season 02 Reloaded just dropped and the new Black Ops Royale mode is genuinely the most fun I have had in the game in months. If you haven't tried it yet, log in tonight.", created_at: 2.days.ago },
         { body: "Anyone else notice snipers feel completely different since the last patch? My Kar98 is hitting way harder. GameBrief summary actually flagged it — glad I checked.", created_at: 5.days.ago }
@@ -1149,14 +1150,16 @@ if demo_user
     },
     {
       email: "biancastar@gamebrief.gg",
+      games: ["Valorant", "Fortnite", "Marvel Rivals"],
       posts: [
-        { body: "Reminder that the Pokémon Pokopia Festival of Seasons event kicks off in two days. The cherry blossom spawns last year were incredible — set your reminder if you haven't already.", created_at: 6.hours.ago },
+        { body: "Marvel Rivals Season 7 launches April 10th and the hero reworks look massive. If the patch notes are anything like Season 6 it will be a wall of text — thank god for GameBrief.", created_at: 6.hours.ago },
         { body: "The Fortnite Chapter 6 update moved half the named locations. Spent 20 minutes relearning the north side of the map. At least the loot pool feels fresh again.", created_at: 1.day.ago },
         { body: "VCT 2026 China Stage 1 starts end of March and I am so ready. Valorant is at its best during tournament season — the meta always shifts and ranked gets way more interesting.", created_at: 3.days.ago }
       ]
     },
     {
       email: "snipersage@gamebrief.gg",
+      games: ["Call of Duty: Warzone", "Valorant", "Apex Legends"],
       posts: [
         { body: "Hot take: patch notes are only useful if someone translates them into plain English. Which is exactly why I've been using GameBrief every drop. Ask Briffy one question and you're done.", created_at: 12.hours.ago },
         { body: "Helldivers 2 balance patch this week quietly made the rail cannon actually viable. Spent an hour reading the notes trying to find the catch. There isn't one. Just a straight buff.", created_at: 2.days.ago },
@@ -1171,6 +1174,11 @@ if demo_user
 
     fs = Friendship.find_or_initialize_by(user: demo_user, friend: friend)
     fs.update!(status: "accepted")
+
+    fd[:games].each do |name|
+      game = Game.find_by(name: name)
+      Favourite.find_or_create_by!(user: friend, game: game) if game
+    end
 
     fd[:posts].each do |p|
       post = Post.find_or_initialize_by(user: friend, body: p[:body])

@@ -12,7 +12,7 @@ The account is set up with:
 
 - **Username:** `gamebrief_demo`
 - **5 favourited games:** Warzone, Valorant, Fortnite, Apex Legends, Helldivers 2
-- **3 event reminders:** Festival of Seasons: Spring (20 Mar), Season 2 Launch (26 Mar), VCT 2026: China Stage 1 (31 Mar)
+- **3 event reminders:** Marvel Rivals Season 7 Launch (10 Apr), Season 2 Launch — Black Ops 7 (26 Mar), VCT 2026: China Stage 1 (31 Mar)
 - **3 accepted friends** — Ed Homey, Bianca Star, SniperSage — each with posts in the FriendHub feed
 - **3 pending friend requests** waiting in the inbox to accept live during the demo
 
@@ -128,7 +128,7 @@ Use the **time filter** — click **This week**.
 
 Click back to **All upcoming**.
 
-Open the first event in the list — for example the Pokémon Pokopia Festival of Seasons.
+Scroll to **April** and open **Marvel Rivals Season 7 Launch**.
 
 > "Opening an event shows me the date, a countdown, and what's actually happening."
 
@@ -153,6 +153,16 @@ Point to the **bio and stats** area.
 Scroll to the **FriendHub** post feed.
 
 > "The feed shows posts from me and my friends. It's where the social side of the app lives — I can share what I'm playing, react to updates, keep up with what my network is talking about."
+
+Click on **Ed Homey's name** in one of his posts.
+
+> "Every person in the feed has a public profile. I can see what games they follow, how many friends they have, and what they've been posting about."
+
+Point to Ed Homey's **3 favourited games** and his **Posts** count.
+
+> "Profiles are public — even someone who isn't my friend yet can have a presence on the platform."
+
+Hit **Back** to return to the profile.
 
 ---
 
@@ -223,6 +233,7 @@ Navigate back to the **homepage**.
 | Warzone game page | `/games/48` |
 | Warzone Season 02 Reloaded patch | `/patches/65` |
 | Events index | `/events` |
-| Pokémon Pokopia Festival event | `/events/98` |
+| Marvel Rivals Season 7 Launch | `/events/945` |
 | Gaming Hub / My Profile | `/my-profile` |
+| Ed Homey's public profile | `/users/13` |
 | Find Friends | `/find-friends` |
