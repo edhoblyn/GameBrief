@@ -59,7 +59,9 @@
       "Bash(bin/rails assets:clobber)",
       "Bash(bin/rails generate:*)",
       "Bash(bin/rails assets:precompile 2>&1 | tail -5)",
-      "Bash(git restore:*)"
+      "Bash(git restore:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ],
     "deny": []
   }
