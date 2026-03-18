@@ -369,7 +369,7 @@
     flex: 1;
     background: var(--gb-surface);
     border: 1px solid var(--gb-border);
-    border-radius: 0.85rem;
+    border-radius: 999px;
     color: var(--gb-text);
     min-height: 2.75rem;
     padding: 0.6rem 1.2rem;
@@ -385,9 +385,8 @@
   }
 
   &__search-btn {
-    background: linear-gradient(135deg, var(--gb-accent), var(--gb-accent-strong));
-    color: var(--gb-button-text);
-    text-shadow: var(--gb-button-text-shadow);
+    background: var(--gb-accent);
+    color: #fff;
     border: none;
     border-radius: 0.85rem;
     padding: 0.6rem 1rem;
@@ -396,7 +395,10 @@
     cursor: pointer;
     align-self: center;
 
-    &:hover { box-shadow: 0 0 18px color-mix(in srgb, var(--gb-accent) 42%, transparent); }
+    &:hover {
+      background: color-mix(in srgb, var(--gb-accent) 85%, white 15%);
+      box-shadow: 0 4px 14px color-mix(in srgb, var(--gb-accent) 35%, transparent);
+    }
   }
 
   &__filters {

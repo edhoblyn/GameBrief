@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!, :add_nav_data
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
   private
 
@@ -12,6 +13,10 @@ class ApplicationController < ActionController::Base
                            .recent_first
                            .limit(10)
                            .includes(:game)
+  end
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:account_update, keys: [:username, :avatar_url, :bio, :avatar_image, :cover_image])
   end
 
   def safe_return_to_path

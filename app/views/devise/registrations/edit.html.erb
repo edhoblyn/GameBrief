@@ -85,6 +85,19 @@
                         hint: "Optional fallback if you want to use a hosted avatar URL instead of uploading.",
                         input_html: { class: "edit-profile-form__input", placeholder: "https://example.com/avatar.png" },
                         wrapper_html: { class: "edit-profile-form__field edit-profile-form__field--full" } %>
+
+            <div class="edit-profile-form__field edit-profile-form__field--full" data-controller="bio-counter">
+              <label class="edit-profile-form__label" for="user_bio">Bio</label>
+              <%= f.text_area :bio,
+                              rows: 3,
+                              maxlength: 160,
+                              placeholder: "Tell the GameBrief community a little about yourself...",
+                              class: "edit-profile-form__input edit-profile-form__textarea",
+                              data: { bio_counter_target: "input", action: "input->bio-counter#update" } %>
+              <p class="edit-profile-form__hint">
+                <span data-bio-counter-target="count"><%= resource.bio.to_s.length %></span>/160 characters
+              </p>
+            </div>
           </div>
         </section>
 

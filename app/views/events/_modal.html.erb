@@ -1,0 +1,77 @@
+<% game = @event.game %>
+<% if @event.start_date
+     gcal_url = "https://calendar.google.com/calendar/render?" + {
+       action: "TEMPLATE",
+       text: @event.title,
+       dates: "#{@event.start_date.strftime('%Y%m%dT%H%M%SZ')}/#{(@event.start_date + 1.hour).strftime('%Y%m%dT%H%M%SZ')}",
+       details: [@event.description, "Track more game updates on GameBrief."].compact.join("\n\n")
+     }.to_query
+   end %>
+
+<div class="event-modal-inner">
+  <div class="event-modal-inner__top">
+    <div class="event-show__eyebrow-row mb-0">
+      <span class="event-show__status-pill event-show__status-pill--<%= @event_status[:tone] %>"><%= @event_status[:label] %></span>
+      <% if @favourite.present? %>
+        <span class="event-show__status-pill">Following <%= game.name %></span>
+      <% end %>
+      <% if @reminder.present? %>
+        <span class="event-show__status-pill">Reminder saved</span>
+      <% end %>
+    </div>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+  </div>
+
+  <h2 class="event-show__title event-modal-inner__title"><%= @event.title %></h2>
+  <% if @event.summary.present? && @event.summary != @event.description %>
+    <p class="event-show__subtitle"><%= @event.summary %></p>
+  <% end %>
+
+  <div class="event-show__hero-stats mb-3">
+    <div class="event-show__hero-stat">
+      <span class="event-show__hero-label">When</span>
+      <strong><%= @event.start_date&.strftime("%A, %-d %B %Y") || "Date TBD" %></strong>
+    </div>
+    <div class="event-show__hero-stat">
+      <span class="event-show__hero-label">Countdown</span>
+      <strong><%= @countdown_label %></strong>
+    </div>
+    <div class="event-show__hero-stat">
+      <span class="event-show__hero-label">Game</span>
+      <strong><%= link_to game.name, game_path(game) %></strong>
+    </div>
+  </div>
+
+  <div class="event-show__section event-show__section--compact">
+    <div class="event-show__section-head">
+      <h3 class="event-modal-inner__section-title">What is happening</h3>
+    </div>
+    <p class="event-show__copy">
+      <%= @event.description.presence || "Details have not been added for this event yet, but the start date is already being tracked." %>
+    </p>
+  </div>
+
+  <div class="event-show__hero-actions">
+    <% if @reminder %>
+      <%= button_to reminder_path(@reminder), method: :delete, class: "event-show__action event-show__action--danger" do %>
+        <i class="fa fa-bell-slash"></i>
+        Remove Reminder
+      <% end %>
+      <% if gcal_url %>
+        <%= link_to gcal_url, target: "_blank", rel: "noopener noreferrer", class: "event-show__action event-show__action--light" do %>
+          <i class="fa fa-calendar-plus-o"></i>
+          Add to Google Calendar
+        <% end %>
+      <% end %>
+    <% else %>
+      <%= button_to reminders_path(event_id: @event.id), method: :post, class: "event-show__action event-show__action--primary" do %>
+        <i class="fa fa-bell"></i>
+        Set Reminder
+      <% end %>
+    <% end %>
+    <%= link_to event_path(@event), class: "event-show__action" do %>
+      <i class="fa fa-external-link"></i>
+      Full page
+    <% end %>
+  </div>
+</div>

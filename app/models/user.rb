@@ -26,6 +26,8 @@ class User < ApplicationRecord
   scope :admins, -> { where(role: "admin") }
 
   validates :role, inclusion: { in: %w[user admin] }
+  validates :bio, length: { maximum: 160, message: "must be 160 characters or less" }, allow_blank: true
+  validate :bio_content_safe, if: -> { bio_changed? && bio.present? }
 
   def admin?
     role == "admin"
@@ -45,5 +47,13 @@ class User < ApplicationRecord
 
   def profile_handle
     display_name.downcase.gsub(/\s+/, "_")
+  end
+
+  private
+
+  def bio_content_safe
+    return if BioModerationService.new(bio).safe?
+
+    errors.add(:bio, "contains content that is not allowed")
   end
 end
