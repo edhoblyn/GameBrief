@@ -39,7 +39,7 @@ The account is set up with:
 **ED:** Point to the tagline and speak.
 > "So my main games right now are Marvel Rivals and Arc Raiders — and I play with a mate pretty regularly. The thing is, keeping up with what's actually changed is harder than it sounds. I've hopped on Marvel Rivals before, gone straight into ranked, and my character just felt off. Turned out they'd had a pretty significant nerf and I had no idea.
 >
-> And it's not just that — I'll come back to a game I haven't touched in a while, like Minecraft or Battlefield, and it feels like a completely different game. There's been loads added, and it's just a bit overwhelming trying to figure out what's new.
+> And it's not just that — I'll come back to a game I haven't touched in a while/in ages, like Minecraft or Battlefield, and it feels like a completely different game. There's been loads added, and it's just a bit overwhelming trying to figure out what's new.
 >
 > That's the problem GameBrief fixes. Patch notes, plain English."
 
@@ -58,17 +58,17 @@ The account is set up with:
 **ED:**
 > "So first thing I want to do is find the games I actually play. There are 30 tracked here — let me narrow it down."
 
-**BIANCA:** Click **Free-to-play**.
+**BIANCA:** Click **Free-to-play**. *(Ed plays free-to-play games)*
 
 **ED:**
 > "That cuts it down already. Now a genre."
 
-**BIANCA:** Click **Shooter**.
+**BIANCA:** Click **Shooter**. *(Make sure no games are favourited before this step)*
 
 **ED:**
 > "Now I'm only seeing games that are actually relevant to me."
 
-**BIANCA:** Hover over a couple of cards to show the hover effect, then click the **heart/favourite button** on Marvel Rivals, Warzone, and one or two others directly from the grid.
+**BIANCA:** Hover over a couple of cards to show the hover effect, then click the **heart/favourite button** on Marvel Rivals, Warzone, Fortnite, APEX
 
 **ED:**
 > "I'll just favourite these straight from here — no need to go into each one. Done."
@@ -76,7 +76,7 @@ The account is set up with:
 **BIANCA:** Scroll to the bottom.
 
 **ED:** Point to the **Suggest a game** button.
-> "And if something I play isn't on here yet — Arc Raiders for example — I can just request it."
+> "And if something I play isn't on here yet — Rainbow 6 Siege for example — I can just request it."
 
 ---
 
@@ -120,7 +120,7 @@ The account is set up with:
 **BIANCA:** Click **Events** in the nav.
 
 **ED:**
-> "Events is probably the thing I've missed the most over the years. Double XP weekends in CoD, limited-time modes — they'd come and go and I'd only find out after. And the big one for me — Fortnite concerts. I was actually at the first ever in-game concert they did, which was genuinely unreal. But I stopped playing Fortnite as much after that, so I wasn't keeping up with what was happening. They did more concerts after and I missed all of them. And the thing is, I would have gone back on just for those — it's free, so why not. I just never knew they were on.
+> "Events is probably the thing I've missed most. Double XP weekends, limited-time modes — they'd come and go and I'd only find out after. Same with Fortnite concerts — I was at the first one, it was genuinely unreal, but I missed every one after because I just wasn't keeping up. I would've gone back on for those, it's free — I just never knew they were on.
 >
 > Having it all in one place, grouped by when things are actually happening — that's what I needed."
 
@@ -144,7 +144,7 @@ The account is set up with:
 **ED:** Point to the **Add to Google Calendar** button that appears after setting the reminder.
 > "And once it's saved, I can push it straight to Google Calendar so it shows up wherever I actually track my schedule."
 
-**BIANCA:** Hit **Back to events**.
+**BIANCA:** Hit **Back to events** + click **Add to Google Calendar**
 
 ---
 
@@ -153,50 +153,17 @@ The account is set up with:
 **BIANCA:** Click **Gaming Hub** in the nav.
 
 **ED:**
-> "So this is my profile — everything's here, games I follow, reminders I've set, all of it."
-
-**ED:** Point to the **bio and stats** area.
-> "Bio, stats, recent activity."
-
-**BIANCA:** Open the **theme switcher** in the navbar and click through a couple of themes — for example Purple, then Green.
+> "So this is my profile — everything's here, games I like, patches for my games and reminders I've set,  all of it."
 
 **ED:**
-> "The profile is probably where the themes are most noticeable — the cards, the buttons, the whole colour scheme changes. I'll put it on something I actually like."
+> "The profile is probably where the themes are most noticeable. I'll put it on something I actually like."
+
+**BIANCA:** Open the **theme switcher** in the navbar and click through a couple of themes — for example Purple, then Green.
 
 **BIANCA:** Pick a theme and leave it on. Scroll to the **FriendHub** post feed.
 
 **ED:**
 > "And this is the feed — me and my mates posting about what we're playing, reacting to updates, that kind of thing."
-
----
-
-#### My Games panel
-
-**BIANCA:** Click the **Favourited games** button in the profile nav strip.
-
-**ED:**
-> "All the games I follow, right here. No searching."
-
----
-
-#### My Patches panel
-
-**BIANCA:** Click the **Patch drops** button.
-
-**ED:**
-> "This is probably where I'd spend most of my time honestly. Only patches from games I actually follow — I'm not wading through stuff that's got nothing to do with me."
-
-**ED:** Point to any **New badge** on a patch card if visible.
-> "Those little badges tell me what I haven't read yet."
-
----
-
-#### My Events panel
-
-**BIANCA:** Click the **Event reminders** button.
-
-**ED:**
-> "And all my reminders are here. No hoping I remember the date — it's just saved."
 
 ---
 
@@ -212,7 +179,37 @@ The account is set up with:
 **ED:**
 > "I'll accept one of these now — and they'll start showing up in my feed."
 
-**BIANCA:** Click the **accept button** (✓) on one of the requests. Close the modal.
+**BIANCA:** Click the **accept button** (✓) on one of the requests. Close the modal.  Hover over the pending friend request icon
+
+---
+
+#### My Games panel
+
+**BIANCA:** Click the **Favourited games** button in the profile nav strip.
+
+**ED:**
+> "All the games I favorited, right here. No searching."
+
+---
+
+#### My Patches panel
+
+**BIANCA:** Click the **Patch drops** button.
+
+**ED:**
+> "This is probably where I'd spend most of my time honestly. Only patches from games I actually follow — I'm not wading through stuff that's got nothing to do with me."
+
+**ED:** Point to any **New badge** on a patch card if visible.
+> "Those little badges show me what's new this week."
+
+---
+
+#### My Events panel
+
+**BIANCA:** Click the **Event reminders** button.
+
+**ED:**
+> "And all my reminders are here. No hoping I remember the date — it's just saved."
 
 ---
 
@@ -246,7 +243,7 @@ The account is set up with:
 
 ## Suggested Demo Length
 
-Based on the section timings, the full demo should take roughly **5–6 minutes** at a comfortable pace:
+Based on the section timings, the full demo should take roughly **6–6.5 minutes** at a comfortable pace:
 
 | Section | Time |
 | --- | --- |
@@ -259,3 +256,10 @@ Based on the section timings, the full demo should take roughly **5–6 minutes*
 | **Total** | **~6 min 15 sec** |
 
 Allow a little extra buffer for questions or if the AI response from Briffy takes a moment to stream in.
+
+## Features not mentioned here
+
+- Posting
+- Reacting to posts
+
+> **Note:** Remove Marvel Rivals patch notes from Nov 2025 before the demo.
