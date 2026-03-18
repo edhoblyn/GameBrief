@@ -12,7 +12,7 @@
   <div class="chatbot__composer">
     <div class="chatbot__input-row">
       <%= f.text_field :content,
-            placeholder: "Ask a question about this patch...",
+            placeholder: "Briffy, what happened to snipers?",
             class: "chatbot__input",
             required: true,
             autocomplete: "off",
@@ -20,9 +20,8 @@
             data: { chat_stream_target: "input" } %>
 
       <div class="chatbot__actions">
-        <%= f.submit "Ask Chat",
-            class: "btn btn-primary btn-sm",
-            style: "color: #fff;",
+        <%= f.submit "Ask me",
+            class: "chatbot__submit",
             disabled: limit_reached,
             data: { chat_stream_target: "submit" } %>
       </div>

@@ -1,6 +1,6 @@
 .chatbot {
-  background: rgba(24, 24, 32, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--gb-card);
+  border: 1px solid var(--gb-border-soft);
   border-radius: 1rem;
   overflow: hidden;
   width: 100%;
@@ -8,14 +8,61 @@
   box-shadow: 0 22px 40px rgba(0, 0, 0, 0.28);
 
   &__header {
-    padding: 1rem 1.25rem;
+    padding: 0.85rem 1.25rem;
     font-weight: 700;
     font-size: 0.95rem;
-    color: #e4e4e7;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    background: linear-gradient(135deg, rgba(124, 92, 252, 0.2), rgba(59, 130, 246, 0.12));
+    color: var(--gb-text);
+    border-bottom: 1px solid var(--gb-border-soft);
+    background: linear-gradient(135deg, color-mix(in srgb, var(--gb-accent) 20%, transparent), color-mix(in srgb, var(--gb-accent-secondary) 12%, transparent));
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
 
-    i { color: $accent-purple; margin-right: 0.4rem; }
+    i { color: var(--gb-accent); margin-right: 0.4rem; }
+  }
+
+  &__mascot-avatar--inline {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    align-self: flex-start;
+    margin-top: 0.2rem;
+    filter: drop-shadow(0 0 4px color-mix(in srgb, var(--gb-accent) 40%, transparent));
+  }
+
+  &__mascot-avatar {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    animation: briffy-float 3s ease-in-out infinite;
+    filter: drop-shadow(0 0 6px color-mix(in srgb, var(--gb-accent) 60%, transparent));
+
+    // SVG parts themed via CSS
+    .briffy-iris   { fill: var(--gb-accent); }
+    .briffy-border { stroke: color-mix(in srgb, var(--gb-accent) 45%, transparent); }
+    .briffy-smile  { stroke: color-mix(in srgb, var(--gb-accent) 35%, transparent); }
+    .briffy-ear    { fill: color-mix(in srgb, var(--gb-accent) 25%, #0d0d14); }
+    .briffy-bg     { fill: color-mix(in srgb, var(--gb-accent) 10%, #0d0d14); }
+  }
+
+  &__header-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+
+  &__mascot-name {
+    font-weight: 800;
+    font-size: 1rem;
+    color: #fff;
+    letter-spacing: 0.02em;
+  }
+
+  &__header-sub {
+    font-weight: 400;
+    font-size: 0.75rem;
+    color: color-mix(in srgb, var(--gb-text) 45%, transparent);
+    letter-spacing: 0.01em;
   }
 
   &__messages {
@@ -29,7 +76,7 @@
   }
 
   &__empty {
-    color: #52525b;
+    color: var(--gb-muted);
     font-size: 0.85rem;
     font-style: italic;
     text-align: center;
@@ -56,14 +103,14 @@
     }
 
     .chatbot__message--user & {
-      background: $accent-purple;
-      color: #fff;
+      background: var(--gb-accent);
+      color: var(--gb-button-text);
       border-bottom-right-radius: 0.25rem;
     }
 
     .chatbot__message--assistant & {
-      background: rgba(255, 255, 255, 0.06);
-      color: #d4d4d8;
+      background: var(--gb-surface);
+      color: var(--gb-text);
       border-bottom-left-radius: 0.25rem;
     }
   }
@@ -79,14 +126,14 @@
     height: 1em;
     margin-left: 0.2rem;
     vertical-align: text-bottom;
-    background: rgba(124, 92, 252, 0.9);
+    background: var(--gb-accent);
     border-radius: 999px;
     animation: chatbot-caret 1s steps(1, end) infinite;
   }
 
   &__form {
     padding: 1rem 1.25rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-top: 1px solid var(--gb-border-soft);
   }
 
   &__composer {
@@ -97,7 +144,7 @@
   &__input-row {
     display: flex;
     gap: 0.5rem;
-    align-items: flex-start;
+    align-items: center;
   }
 
   &__actions {
@@ -110,29 +157,29 @@
 
   &__input {
     flex: 1;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: color-mix(in srgb, var(--gb-accent) 5%, var(--gb-surface));
+    border: 1px solid var(--gb-border-soft);
     border-radius: 0.5rem;
-    color: #e4e4e7;
+    color: var(--gb-text);
     padding: 0.5rem 0.75rem;
     font-size: 0.875rem;
 
-    &::placeholder { color: #52525b; }
+    &::placeholder { color: var(--gb-muted); }
     &:focus {
       outline: none;
-      border-color: $accent-purple;
-      background: rgba(255, 255, 255, 0.07);
+      border-color: var(--gb-accent);
+      background: color-mix(in srgb, var(--gb-accent) 8%, var(--gb-surface));
     }
   }
 
   &__submit {
     border: none;
-    border-radius: 0.75rem;
-    background: $accent-purple;
-    color: #fff;
-    font-size: 0.85rem;
+    border-radius: 0.5rem;
+    background: var(--gb-accent);
+    color: var(--gb-button-text);
+    font-size: 0.875rem;
     font-weight: 700;
-    padding: 0.7rem 1rem;
+    padding: 0.5rem 0.75rem;
     white-space: nowrap;
   }
 
@@ -140,10 +187,10 @@
     margin: 0;
     min-width: 7.4rem;
     padding: 0.42rem 0.65rem;
-    border: 1px solid rgba(124, 92, 252, 0.18);
+    border: 1px solid color-mix(in srgb, var(--gb-accent) 18%, transparent);
     border-radius: 0.8rem;
-    background: rgba(255, 255, 255, 0.04);
-    color: #c9c4e9;
+    background: color-mix(in srgb, var(--gb-accent) 4%, transparent);
+    color: var(--gb-text);
     display: inline-flex;
     align-items: center;
     justify-content: space-between;
@@ -156,13 +203,13 @@
     font-weight: 600;
     letter-spacing: 0.04em;
     text-transform: uppercase;
-    color: #8c8ca8;
+    color: var(--gb-muted);
   }
 
   &__counter-value {
     font-size: 0.82rem;
     font-weight: 800;
-    color: #f5f3ff;
+    color: var(--gb-text);
     letter-spacing: 0.02em;
   }
 
@@ -203,4 +250,9 @@
   50% {
     opacity: 0;
   }
+}
+
+@keyframes briffy-float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-4px); }
 }
