@@ -675,8 +675,8 @@
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width: 400px;">
     <div class="modal-content" style="background: var(--gb-surface, #13162a); border: 1px solid rgba(124,92,252,0.25); border-radius: 18px; color: var(--gb-text, #e8eaf6);">
       <div class="modal-header" style="border-bottom: 1px solid rgba(255,255,255,0.08); padding: 16px 20px;">
-        <h5 class="modal-title" id="friendsModalLabel" style="font-size: 1rem; font-weight: 700;">
-          Friends · <%= current_user.friends.count %>
+        <h5 class="modal-title" id="friendsModalLabel" style="font-size: 1.05rem; font-weight: 700; letter-spacing: 0.01em;">
+          Friends
         </h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -1019,6 +1019,12 @@
           if (p.textContent.includes('Requests') || p.textContent.includes('Friends (')) p.remove();
         });
         modal.querySelectorAll('.modal-body > div[style*="border-top"]').forEach(function (d) { d.remove(); });
+      } else {
+        modal.querySelectorAll('.modal-body > p').forEach(function (p) {
+          if (p.textContent.includes('Requests')) {
+            p.textContent = 'Requests (' + remaining + ')';
+          }
+        });
       }
       // Update the pending badge on the stat button
       var badge = document.querySelector('.pending-badge');
@@ -1051,12 +1057,6 @@
     }
 
     function updateFriendCount(delta) {
-      // Update modal title
-      var title = document.getElementById('friendsModalLabel');
-      if (title) {
-        var current = parseInt(title.textContent.match(/\d+/) || [0], 10);
-        title.textContent = 'Friends \u00b7 ' + (current + delta);
-      }
       // Update the stat button on the profile
       var statBtn = document.querySelector('[data-bs-target="#friendsModal"] .social-stat__count');
       if (statBtn) {
