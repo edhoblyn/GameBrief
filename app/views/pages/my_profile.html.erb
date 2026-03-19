@@ -733,10 +733,12 @@
 
         <div id="modal-friends-list">
           <% if @friends.any? %>
-            <% @friends.each do |friend| %>
-              <div style="display: flex; align-items: center; gap: 12px; padding: 10px 4px; border-bottom: 1px solid rgba(255,255,255,0.05);">
-                <div class="modal-friend-row" data-profile-id="<%= friend.id %>" style="display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0; cursor: pointer;">
-                  <div style="width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, var(--gb-accent, #7c5cfc), #4f9cf9); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 700; color: #fff; flex-shrink: 0; overflow: hidden;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
+              <% @friends.each do |friend| %>
+                <div class="modal-friend-row" data-profile-id="<%= friend.id %>"
+                     style="display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 8px; border-radius: 10px; background: rgba(255,255,255,0.04); cursor: pointer; text-align: center; min-width: 0; transition: background 0.15s;"
+                     onmouseover="this.style.background='rgba(124,92,252,0.12)'" onmouseout="this.style.background='rgba(255,255,255,0.04)'">
+                  <div style="width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, var(--gb-accent, #7c5cfc), #4f9cf9); display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: 700; color: #fff; flex-shrink: 0; overflow: hidden;">
                     <% if friend.avatar_image.attached? %>
                       <%= image_tag friend.avatar_image, style: "width: 100%; height: 100%; object-fit: cover;" %>
                     <% elsif friend.avatar_url.present? %>
@@ -745,13 +747,13 @@
                       <%= friend.display_name.first.upcase %>
                     <% end %>
                   </div>
-                  <div style="min-width: 0;">
-                    <div style="font-size: 0.88rem; font-weight: 700; color: var(--gb-text, #e8eaf6); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><%= friend.display_name %></div>
-                    <div style="font-size: 0.75rem; color: var(--gb-muted, #8891b4);">@<%= friend.profile_handle %></div>
+                  <div style="min-width: 0; width: 100%;">
+                    <div style="font-size: 0.82rem; font-weight: 700; color: var(--gb-text, #e8eaf6); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><%= friend.display_name %></div>
+                    <div style="font-size: 0.7rem; color: var(--gb-muted, #8891b4); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">@<%= friend.profile_handle %></div>
                   </div>
                 </div>
-              </div>
-            <% end %>
+              <% end %>
+            </div>
           <% else %>
             <p id="modal-no-friends" style="font-size: 0.85rem; color: var(--gb-muted, #8891b4); text-align: center; padding: 24px 0; margin: 0;">
               No friends yet. <%= link_to "Find some!", find_friends_path, style: "color: var(--gb-accent, #7c5cfc);" %>
@@ -1043,17 +1045,26 @@
       // Remove "no friends" placeholder if present
       var placeholder = document.getElementById('modal-no-friends');
       if (placeholder) placeholder.remove();
-      var row = document.createElement('div');
-      row.style.cssText = 'display:flex;align-items:center;gap:12px;padding:10px 4px;border-bottom:1px solid rgba(255,255,255,0.05);';
-      row.innerHTML =
-        '<a href="' + userPath + '" style="display:flex;align-items:center;gap:12px;flex:1;min-width:0;text-decoration:none;">' +
-          '<div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--gb-accent,#7c5cfc),#4f9cf9);display:flex;align-items:center;justify-content:center;font-size:0.85rem;font-weight:700;color:#fff;flex-shrink:0;">' + userInitial + '</div>' +
-          '<div style="min-width:0;">' +
-            '<div style="font-size:0.88rem;font-weight:700;color:var(--gb-text,#e8eaf6);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + userName + '</div>' +
-            '<div style="font-size:0.75rem;color:var(--gb-muted,#8891b4);">@' + userHandle + '</div>' +
-          '</div>' +
-        '</a>';
-      list.appendChild(row);
+      // Find or create the grid wrapper
+      var grid = list.querySelector('[style*="grid-template-columns"]');
+      if (!grid) {
+        grid = document.createElement('div');
+        grid.style.cssText = 'display:grid;grid-template-columns:1fr 1fr;gap:6px;';
+        list.appendChild(grid);
+      }
+      var card = document.createElement('div');
+      card.className = 'modal-friend-row';
+      card.dataset.profileId = userPath.split('/').pop();
+      card.style.cssText = 'display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 8px;border-radius:10px;background:rgba(255,255,255,0.04);cursor:pointer;text-align:center;min-width:0;';
+      card.onmouseover = function() { this.style.background = 'rgba(124,92,252,0.12)'; };
+      card.onmouseout  = function() { this.style.background = 'rgba(255,255,255,0.04)'; };
+      card.innerHTML =
+        '<div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--gb-accent,#7c5cfc),#4f9cf9);display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:700;color:#fff;flex-shrink:0;">' + userInitial + '</div>' +
+        '<div style="min-width:0;width:100%;">' +
+          '<div style="font-size:0.82rem;font-weight:700;color:var(--gb-text,#e8eaf6);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + userName + '</div>' +
+          '<div style="font-size:0.7rem;color:var(--gb-muted,#8891b4);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">@' + userHandle + '</div>' +
+        '</div>';
+      grid.appendChild(card);
     }
 
     function updateFriendCount(delta) {
