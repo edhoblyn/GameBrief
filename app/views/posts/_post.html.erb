@@ -1,0 +1,37 @@
+<% liked = post.likes.exists?(user: viewer) %>
+<div style="border-radius: 18px; border: 1px solid rgba(124,92,252,0.25); overflow: hidden; background: rgba(255,255,255,0.02);">
+  <%# Post header %>
+  <div style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: linear-gradient(135deg, rgba(124,92,252,0.15), rgba(79,156,249,0.08)); border-bottom: 1px solid rgba(255,255,255,0.06);">
+    <div class="feed-profile-trigger" data-profile-id="<%= post.user.id %>" style="width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg, var(--gb-accent), var(--gb-accent-strong)); display: flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 700; color: #fff; flex-shrink: 0; overflow: hidden; cursor: pointer;">
+      <% if post.user.avatar_image.attached? %>
+        <%= image_tag post.user.avatar_image, style: "width: 100%; height: 100%; object-fit: cover;" %>
+      <% else %>
+        <%= post.user.display_name.first.upcase %>
+      <% end %>
+    </div>
+    <span class="feed-profile-trigger" data-profile-id="<%= post.user.id %>" style="font-size: 0.85rem; font-weight: 700; color: var(--gb-text); cursor: pointer;"><%= post.user.display_name %></span>
+    <span style="color: var(--gb-muted); font-size: 0.72rem; margin-left: auto;"><%= time_ago_in_words(post.created_at) %> ago</span>
+    <% if post.user == viewer %>
+      <%= button_to post_path(post), method: :delete, class: "btn btn-link btn-sm p-0 ms-1", style: "color: rgba(255,255,255,0.2); font-size: 0.72rem; line-height: 1;", form: { data: { turbo_confirm: "Delete this post?" } } do %>
+        <i class="fa fa-trash"></i>
+      <% end %>
+    <% end %>
+  </div>
+  <%# Post body %>
+  <div style="padding: 12px 14px 8px;">
+    <p style="margin: 0 0 10px; font-size: 0.88rem; color: var(--gb-text); line-height: 1.6;"><%= post.body %></p>
+    <%# Rocket reaction %>
+    <div style="display: flex; align-items: center; gap: 4px;">
+      <% if liked %>
+        <%= button_to post_like_path(post, post.likes.find_by(user: viewer)), method: :delete, class: "like-btn liked", title: "Un-rocket" do %>
+          <i class="fa fa-rocket"></i>
+        <% end %>
+      <% else %>
+        <%= button_to post_likes_path(post), method: :post, class: "like-btn", title: "Rocket!" do %>
+          <i class="fa fa-rocket"></i>
+        <% end %>
+      <% end %>
+      <span class="like-count"><%= post.likes.count %></span>
+    </div>
+  </div>
+</div>
