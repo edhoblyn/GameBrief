@@ -19,7 +19,7 @@ class Admin::DemoResetsController < Admin::BaseController
       demo_user.reminders.destroy_all
 
       # 3. Clear demo user's chats (cascades to messages)
-      demo_user.chats.destroy_all
+      Chat.where(user: demo_user).destroy_all
 
       # 4. Restore pending friend requests (ShadowRex99, TurboJack, FragMaster99)
       requesters = User.where(email: PENDING_REQUESTER_EMAILS)
