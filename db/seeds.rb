@@ -170,10 +170,10 @@ space_marine2 = import_game(client, "Warhammer 40,000: Space Marine 2", free_to_
 arc_raiders   = import_game(client, "ARC Raiders", free_to_play: false, multiplayer: true)
 genshin       = import_game(client, "Genshin Impact", name: "Genshin Impact", slug: "genshin-impact", free_to_play: true, single_player: true, multiplayer: true)
 cs2           = import_game(client, "Counter-Strike 2", free_to_play: true, multiplayer: true)
-dota2         = import_game(client, "Dota 2", free_to_play: true, multiplayer: true)
-baldurs_gate3 = import_game(client, "Baldur's Gate 3", name: "Baldur's Gate 3", slug: "baldurs-gate-3", free_to_play: false, single_player: true, multiplayer: true)
-pubg          = import_game(client, "PUBG: Battlegrounds", free_to_play: true, multiplayer: true)
-battlefield6  = import_game(client, "Battlefield 6", free_to_play: false, single_player: true, multiplayer: true)
+dota2         = import_game(client, "Dota 2", cover_image: "https://images.igdb.com/igdb/image/upload/t_cover_big/cobfk4.jpg", free_to_play: true, multiplayer: true)
+baldurs_gate3 = import_game(client, "Baldur's Gate 3", name: "Baldur's Gate 3", slug: "baldurs-gate-3", cover_image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co670h.jpg", free_to_play: false, single_player: true, multiplayer: true)
+pubg          = import_game(client, "PUBG: Battlegrounds", cover_image: "https://images.igdb.com/igdb/image/upload/t_cover_big/coaam4.jpg", free_to_play: true, multiplayer: true)
+battlefield6  = import_game(client, "Battlefield 6", cover_image: "https://images.igdb.com/igdb/image/upload/t_cover_big/coa5zt.jpg", free_to_play: false, single_player: true, multiplayer: true)
 
 puts "Setting game genres..."
 
