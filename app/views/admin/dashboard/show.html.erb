@@ -69,7 +69,7 @@
   </section>
 
   <%# Utility row: admin access + demo reset %>
-  <div class="admin-panel-page__utility-grid">
+  <div class="admin-panel-page__utility-grid admin-panel-page__utility-grid--three">
     <section class="admin-panel-page__card">
       <div class="admin-panel-page__section-header">
         <div>
@@ -130,6 +130,35 @@
                       form: {
                         data: {
                           turbo_confirm: "Clear all AI chat history? This will permanently delete every stored chat and message."
+                        }
+                      } %>
+      </div>
+    </section>
+
+    <section class="admin-panel-page__card">
+      <div class="admin-panel-page__section-header">
+        <div>
+          <p class="admin-panel-page__kicker">Demo Reset</p>
+          <h2>Demo profile</h2>
+        </div>
+      </div>
+
+      <p class="admin-panel-page__copy">
+        Reset <strong>demo@test.com</strong> to its pre-demo state so you can run through the script again cleanly.
+      </p>
+
+      <div class="admin-panel-page__note">
+        Clears all favourites, reminders, and chats. Restores the 3 pending friend requests. Accepted friends (feed) are left untouched.
+      </div>
+
+      <div class="admin-panel-page__toolbar">
+        <%= button_to "Reset demo profile",
+                      admin_demo_reset_path,
+                      method: :post,
+                      class: "admin-panel-page__button admin-panel-page__button--danger admin-panel-page__button--wide",
+                      form: {
+                        data: {
+                          turbo_confirm: "Reset the demo profile? This will clear all favourites, reminders, and chats for demo@test.com."
                         }
                       } %>
       </div>
