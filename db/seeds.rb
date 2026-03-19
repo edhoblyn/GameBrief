@@ -71,7 +71,7 @@ puts "Creating users..."
 user = upsert_user(
   email: "demo@test.com",
   password: "123456",
-  username: "gamebrief_demo",
+  username: "NerfedEd",
   bio: "Casual gamer. Patch notes enthusiast. Always one update behind."
 )
 
