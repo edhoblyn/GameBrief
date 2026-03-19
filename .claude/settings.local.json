@@ -68,7 +68,9 @@
       "WebFetch(domain:battlefieldchronicles.com)",
       "Bash(grep -r \"card-friend\\\\|Add Friend\\\\|friendship\" /home/baptistesardou/GameBrief/app --include=*.js --include=*.erb)",
       "Bash(xxd)",
-      "Bash(python3 -c \":*)"
+      "Bash(python3 -c \":*)",
+      "Bash(find app/assets -name *bf6* -o -name *battlefield*)",
+      "Bash(find /Users/edhoblyn/GameBrief -name *bf6* -o -name *Battlefield* -o -name *battlefield*)"
     ],
     "deny": []
   }
