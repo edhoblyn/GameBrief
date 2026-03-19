@@ -41,9 +41,9 @@ The account is set up with:
 🔴 **ED:** Point to the tagline and speak.
 > "So my main games right now are Marvel Rivals and Arc Raiders. The thing is, keeping up with what's actually changed is harder than it sounds. I've hopped on Marvel Rivals before, gone straight into ranked, and the character I was playing just felt off. Turned out they'd had a pretty significant nerf and I had no idea.
 🔴 **ED:**
-> And it's not just that — I'll come back to a game I haven't touched in a in ages, like Minecraft, and it feels like a completely different game. There's been loads added, and it's just a bit overwhelming trying to figure out what's new.
+> And it's not just patches either. Fortnite does these live concerts in-game — proper events. I was there for the Marshmellow one, which was actually brilliant. But then Travis Scott did one and I completely missed it. Ariana Grande did one. Missed that too. These things happen once, they're free, and I just didn't know they were on.
 🔴 **ED:**
-> That's the problem GameBrief fixes. Patch notes, plain English."
+> That's the problem GameBrief fixes. Patch notes, events, all in one place. Plain English."
 
 🔴 **ED:** Point to the stats bar — 200+ Active Now, 300+ Patch Notes Summarised, 30+ Games Tracked.
 > "Everything here is pulled from real patch notes and summarised by AI — so I'm getting the important stuff without the wall of text."
@@ -122,9 +122,7 @@ The account is set up with:
 ⭐ **BIANCA:** Click **Events** in the nav.
 
 🔴 **ED:**
-> "Events is probably the thing I've missed most. Double XP weekends, limited-time modes — they'd come and go and I'd only find out after. Same with Fortnite concerts — I was at the first one, it was really entertaining, but I missed every one after because I just wasn't keeping up. I would've gone back on for those, it's free — I just never knew they were on.
->
-> Having it all in one place, grouped by when things are actually happening — that's what I needed."
+> "And it's not just concerts. Double XP weekends, limited-time modes — they'd come and go and I'd only find out after. Having it all in one place, grouped by when things are actually happening — that's what I needed."
 
 🔴 **ED:** Point to the time groupings — **Later This Week**, **This Month**, **April**, **May**, etc.
 
@@ -148,10 +146,14 @@ The account is set up with:
 🔴 **ED:**
 > "That's saved to my profile now — I don't have to remember the date myself."
 
-🔴 **ED:** Point to the **Add to Google Calendar** button that appears after setting the reminder.
+🔴 **ED:** Point to the **Add to Google Calendar** button that appears after setting the reminder
+
+🔴 **ED:**
 > "And now it's saved I can push it to Google Calendar — so it shows up wherever I actually track my schedule."
 
-⭐ **BIANCA:** Hit **Back to events** + click **Add to Google Calendar** (cmd + click to open in new tab)
+⭐ **BIANCA:** click **Add to Google Calendar** (cmd + click to open in new tab)
+
+⭐ **BIANCA:** Hit **Back to events**
 
 ---
 
@@ -170,7 +172,7 @@ The account is set up with:
 ⭐ **BIANCA:** Pick a theme and leave it on. Scroll to the **FriendHub** post feed.
 
 🔴 **ED:**
-> "Me and my mates post in here about what we're playing, react to updates — that kind of thing." --> to change more natural
+> "Me and my mates post in here — what we're playing, thoughts on updates, that sort of thing."
 
 ---
 
@@ -247,17 +249,17 @@ The account is set up with:
 
 ## Suggested Demo Length
 
-Based on the section timings, the full demo should take roughly **6–6.5 minutes** at a comfortable pace:
+Based on the section timings, the full demo should take roughly **6 minutes** at a comfortable pace:
 
 | Section | Time |
 | --- | --- |
 | Homepage | ~45 sec |
 | Games page | ~1 min |
 | Individual game page | ~1 min |
-| Events page | ~45 sec |
+| Events page | ~30 sec |
 | Profile page | ~2 min 30 sec |
 | Close | ~15 sec |
-| **Total** | **~6 min 15 sec** |
+| **Total** | **~6 min** |
 
 Allow a little extra buffer for questions or if the AI response from Briffy takes a moment to stream in.
 
@@ -265,5 +267,3 @@ Allow a little extra buffer for questions or if the AI response from Briffy take
 
 - Posting
 - Reacting to posts
-
-> **Note:** Remove Marvel Rivals patch notes from Nov 2025 before the demo.
