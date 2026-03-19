@@ -75,7 +75,7 @@ The account is set up with:
 🔴 **ED:**
 > "I'll just favourite these straight from here — no need to go into each one. Done."
 
-⭐ **BIANCA:** Scroll to the bottom.
+⭐ **BIANCA:** Scroll to the bottom. Hover over "suggest a game"
 
 🔴 **ED:** Point to the **Suggest a game** button.
 > "And if something I play isn't on here yet — Rainbow 6 Siege for example — I can just request it."
@@ -103,7 +103,7 @@ The account is set up with:
 > "I just expand the section I want and ignore the rest. But honestly, if I don't even want to do that, there's Briffy."
 
 🔴 **ED:** Point to the **Briffy chatbot panel**.
-> "Briffy has the full patch loaded as context. So instead of reading anything, I just ask."
+> "Briffy has the full patch loaded as context. So instead of reading anything, I just ask "What changed for tanks?"
 
 ⭐ **BIANCA:** Type *"Did they nerf any supports?"* or *"What changed for my tanks?"* and wait for the response.
 
@@ -133,7 +133,12 @@ The account is set up with:
 🔴 **ED:**
 > "If I just want to see what's on right now I'll filter it down."
 
-⭐ **BIANCA:** Click back to **All upcoming**. Scroll to **April** and open **Marvel Rivals Season 7 Launch**.
+⭐ **BIANCA:** Click back to **All upcoming**.
+
+🔴 **ED:**
+> "I want to know about the Season 7 Launch of Marvel Rivals."
+
+⭐ **BIANCA:** Scroll to **April** and open **Marvel Rivals Season 7 Launch**.
 
 🔴 **ED:**
 > "I've got the date, a countdown, a summary — don't need to go hunting for any of it."
@@ -165,13 +170,13 @@ The account is set up with:
 ⭐ **BIANCA:** Pick a theme and leave it on. Scroll to the **FriendHub** post feed.
 
 🔴 **ED:**
-> "Me and my mates post in here about what we're playing, react to updates — that kind of thing."
+> "Me and my mates post in here about what we're playing, react to updates — that kind of thing." --> to change more natural
 
 ---
 
 #### Friend Requests
 
-⭐ **BIANCA:** Click **Back to Feed** to return to the main profile view. Click the **Friends button** — the one showing the pending request count (e.g. "0 Friends · 3").
+⭐ **BIANCA:** Hover over **Friends button** button. Click the **Friends button** — the one showing the pending request count (e.g. "0 Friends · 3").
 
 🔴 **ED:**
 > "That badge is letting me know I've got requests waiting."
@@ -179,7 +184,7 @@ The account is set up with:
 *The modal opens showing 3 pending requests — ShadowRex99, TurboJack, FragMaster99.*
 
 🔴 **ED:**
-> "I'll accept one of these now — and they'll start showing up in my feed."
+> "I'll accept one of these now."
 
 ⭐ **BIANCA:** Click the **accept button** (✓) on one of the requests. Close the modal.  Hover over the pending friend request icon
 
