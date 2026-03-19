@@ -13,7 +13,7 @@ class GamesController < ApplicationController
     @patch_sort = params[:sort].presence_in(PATCH_SORT_OPTIONS) || "newest"
     @patches = @game.patches.with_date_filter(@patch_date_filter)
     @patches = apply_patch_sort(@patches)
-    @events = @game.events.order(start_date: :asc)
+    @events = @game.events.where("start_date >= ?", Time.zone.now.beginning_of_day).order(start_date: :asc)
     @favourite = current_user&.favourites&.find_by(game: @game)
     @scrape_source_config = PatchScrapeRunner.config_for_game(@game)
     @followers_count = @game.favourites.count
