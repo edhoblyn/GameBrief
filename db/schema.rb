@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_18_144118) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_19_155324) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -95,7 +95,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_18_144118) do
     t.string "cover_image"
     t.datetime "created_at", null: false
     t.boolean "free_to_play", default: false, null: false
-    t.string "genre", default: [], array: true
+    t.string "genre"
     t.boolean "multiplayer", default: false, null: false
     t.string "name"
     t.boolean "single_player", default: false, null: false
