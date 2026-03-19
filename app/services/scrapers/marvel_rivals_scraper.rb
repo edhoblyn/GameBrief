@@ -7,6 +7,7 @@ class Scrapers::MarvelRivalsScraper
   BASE_URL = "https://www.marvelrivals.com"
   INDEX_URL = "#{BASE_URL}/gameupdate/"
   HEADERS = { "User-Agent" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36" }
+  MIN_DATE = Date.new(2026, 1, 1)
 
   def call
     patch_links = fetch_patch_links
@@ -31,6 +32,7 @@ class Scrapers::MarvelRivalsScraper
     published_at = extract_detail_date(doc, title) || extract_published_at(doc)
 
     return nil if title.blank? || content.blank?
+    return nil if published_at.present? && published_at.to_date < MIN_DATE
 
     { title: title, content: content, source_url: url, published_at: published_at }
   rescue OpenURI::HTTPError => e
