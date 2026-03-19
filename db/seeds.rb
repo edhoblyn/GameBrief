@@ -86,7 +86,7 @@ upsert_user(email: "shadowrex99@gamebrief.gg",  password: "password123", usernam
 upsert_user(email: "novasprint@gamebrief.gg",   password: "password123", username: "NovaSprint",    avatar_url: "https://randomuser.me/api/portraits/men/22.jpg",    follower_count: 19400)
 upsert_user(email: "nightowlnova@gamebrief.gg", password: "password123", username: "NightOwlNova",  avatar_url: "https://randomuser.me/api/portraits/women/28.jpg",  follower_count: 17800)
 upsert_user(email: "turbojack@gamebrief.gg",    password: "password123", username: "TurboJack",     avatar_url: "https://randomuser.me/api/portraits/men/32.jpg",    follower_count: 15200)
-upsert_user(email: "grindsetgo@gamebrief.gg",   password: "password123", username: "GrindsetGo",    avatar_url: "https://randomuser.me/api/portraits/men/55.jpg",    follower_count: 12600)
+upsert_user(email: "grindsetgo@gamebrief.gg",   password: "password123", username: "FragMaster99",    avatar_url: "https://randomuser.me/api/portraits/men/55.jpg",    follower_count: 12600)
 upsert_user(email: "crystalrift@gamebrief.gg",  password: "password123", username: "CrystalRift",   avatar_url: "https://randomuser.me/api/portraits/women/50.jpg",  follower_count: 10900)
 upsert_user(email: "apexdaddy@gamebrief.gg",    password: "password123", username: "ApexDaddy",     avatar_url: "https://randomuser.me/api/portraits/men/65.jpg",    follower_count: 8500)
 
@@ -173,7 +173,7 @@ cs2           = import_game(client, "Counter-Strike 2", free_to_play: true, mult
 dota2         = import_game(client, "Dota 2", free_to_play: true, multiplayer: true)
 baldurs_gate3 = import_game(client, "Baldur's Gate 3", name: "Baldur's Gate 3", slug: "baldurs-gate-3", free_to_play: false, single_player: true, multiplayer: true)
 pubg          = import_game(client, "PUBG: Battlegrounds", free_to_play: true, multiplayer: true)
-battlefield6  = import_game(client, "Battlefield 6", cover_image: "https://battlefieldchronicles.com/content/images/size/w1200/2025/07/cover-1.png", free_to_play: false, single_player: true, multiplayer: true)
+battlefield6  = import_game(client, "Battlefield 6", free_to_play: false, single_player: true, multiplayer: true)
 
 puts "Setting game genres..."
 
@@ -934,6 +934,16 @@ seed_event_series(
 )
 
 seed_live_events(game: valorant, importer_class: EventImporters::ValorantEventImporter)
+seed_event_series(
+  game: valorant,
+  events: [
+    {
+      title: "VCT 2026: China Stage 1",
+      description: "VCT 2026 China Stage 1 — the first major Valorant Champions Tour regional event of the year, featuring China's top teams competing for circuit points and a spot at international.",
+      start_date: DateTime.new(2026, 3, 31, 12, 0, 0)
+    }
+  ]
+)
 
 marvel&.events&.destroy_all
 seed_event_series(
@@ -1109,8 +1119,8 @@ puts "Setting up demo account..."
 demo_user = User.find_by(email: "demo@test.com")
 
 if demo_user
-  # Favourites: Warzone, Valorant, Fortnite, Apex Legends, Helldivers 2
-  demo_game_names = ["Call of Duty: Warzone", "Valorant", "Fortnite", "Apex Legends", "Helldivers 2"]
+  # Favourites: Marvel Rivals, Warzone, Battlefield 6, Minecraft, Fortnite
+  demo_game_names = ["Marvel Rivals", "Call of Duty: Warzone", "Battlefield 6", "Minecraft", "Fortnite"]
   demo_game_names.each do |name|
     game = Game.find_by(name: name)
     Favourite.find_or_create_by!(user: demo_user, game: game) if game

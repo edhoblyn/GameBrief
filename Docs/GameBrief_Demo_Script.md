@@ -30,128 +30,169 @@ The account is set up with:
 
 ## The Demo
 
+> 🔴 **ED** — speaking &nbsp;&nbsp;&nbsp; ⭐ **BIANCA** — navigating
+
 ---
 
 ### 1. Homepage (~ 45 sec)
 
-**BIANCA:** Start on the **homepage**, already logged in. Let the video background play.
+⭐ **BIANCA:** Start on the **homepage**, already logged in. Let the video background play.
 
+<<<<<<< HEAD
 **ED:** Point to the tagline and speak.
 > "So my main games right now are Marvel Rivals and Arc Raiders — and I play with a mate pretty regularly. The thing is, keeping up with what's actually changed is harder than it sounds. I've hopped on Marvel Rivals before, gone straight into ranked, and my character just felt off. Turned out they'd had a pretty significant nerf and I had no idea.
 >
 > And it's not just that — I'll come back to a game I haven't touched in a while/in ages, like Minecraft or Battlefield, and it feels like a completely different game. There's been loads added, and it's just a bit overwhelming trying to figure out what's new.
 >
+=======
+🔴 **ED:** Point to the tagline and speak.
+> "So my main games right now are Marvel Rivals and Arc Raiders. The thing is, keeping up with what's actually changed is harder than it sounds. I've hopped on Marvel Rivals before, gone straight into ranked, and the character I was playing just felt off. Turned out they'd had a pretty significant nerf and I had no idea.
+🔴 **ED:**
+> And it's not just that — I'll come back to a game I haven't touched in a in ages, like Minecraft, and it feels like a completely different game. There's been loads added, and it's just a bit overwhelming trying to figure out what's new.
+🔴 **ED:**
+>>>>>>> 8414156667d07c366f4671875158a77c31c5b5f9
 > That's the problem GameBrief fixes. Patch notes, plain English."
 
-**ED:** Point to the stats bar — 200+ Active Now, 300+ Patch Notes Summarised, 30+ Games Tracked.
+🔴 **ED:** Point to the stats bar — 200+ Active Now, 300+ Patch Notes Summarised, 30+ Games Tracked.
 > "Everything here is pulled from real patch notes and summarised by AI — so I'm getting the important stuff without the wall of text."
 
-**ED:** Gesture to the trending games carousel.
+🔴 **ED:** Gesture to the trending games carousel.
 > "And straight away I can see which games have been blowing up lately."
 
 ---
 
 ### 2. Games Page (~ 1 min)
 
-**BIANCA:** Navigate to **Games** in the nav.
+⭐ **BIANCA:** Navigate to **Games** in the nav.
 
+<<<<<<< HEAD
 **ED:**
 > "So first thing I want to do is find the games I actually play. There are 30 tracked here — let me narrow it down." I like to play free 2 play games. 
+=======
+🔴 **ED:**
+> "So first thing I want to do is find the games I actually play. There are 30 tracked here — let me narrow it down. There are some really good free to play games out at the moment "
+>>>>>>> 8414156667d07c366f4671875158a77c31c5b5f9
 
-**BIANCA:** Click **Free-to-play**.
+⭐ **BIANCA:** Click **Free-to-play**.
 
+<<<<<<< HEAD
 **ED:**
 > "That cuts it down already. Now a genre." I like shooting games. 
 
 **BIANCA:** Click **Shooter**. Have no games favourited. 
+=======
+🔴 **ED:**
+> "That cuts it down already. Now a genre, i typically player shooters so lets go with that."
 
-**ED:**
+⭐ **BIANCA:** Click **Shooter**. *(Make sure no games are favourited before this step)*
+>>>>>>> 8414156667d07c366f4671875158a77c31c5b5f9
+
+🔴 **ED:**
 > "Now I'm only seeing games that are actually relevant to me."
 
+<<<<<<< HEAD
 **BIANCA:** Hover over a couple of cards to show the hover effect, then click the **heart/favourite button** on Marvel Rivals, Warzone, Fortite, APEX
+=======
+⭐ **BIANCA:** Hover over a couple of cards to show the hover effect, then click the **heart/favourite button** on Marvel Rivals, Warzone, Fortnite, APEX
+>>>>>>> 8414156667d07c366f4671875158a77c31c5b5f9
 
-**ED:**
+🔴 **ED:**
 > "I'll just favourite these straight from here — no need to go into each one. Done."
 
-**BIANCA:** Scroll to the bottom.
+⭐ **BIANCA:** Scroll to the bottom.
 
+<<<<<<< HEAD
 **ED:** Point to the **Suggest a game** button.
 > "And if something I play isn't on here yet — Rainbox 6 siege for example — I can just request it."
+=======
+🔴 **ED:** Point to the **Suggest a game** button.
+> "And if something I play isn't on here yet — Rainbow 6 Siege for example — I can just request it."
+>>>>>>> 8414156667d07c366f4671875158a77c31c5b5f9
 
 ---
 
 ### 3. Individual Game Page — Marvel Rivals (~ 1 min)
 
-**BIANCA:** Click into **Marvel Rivals**.
+⭐ **BIANCA:** Click into **Marvel Rivals**.
 
-**ED:**
-> "So this is the Marvel Rivals page. Patches, upcoming events, all in one place."
+🔴 **ED:**
+> "Everything I need for Marvel Rivals is right here — patches, upcoming events, all together."
 
-**ED:** Point to the patch feed and the **date filters** above it.
+🔴 **ED:** Point to the patch feed and the **date filters** above it.
 > "Every patch is here going back through the seasons. If I've been away for a bit I'll just filter to the last 7 or 30 days so I'm not scrolling through everything."
 
-**BIANCA:** Click the **most recent patch**.
+⭐ **BIANCA:** Click the **most recent patch**.
 
-**ED:**
+🔴 **ED:**
 > "Real Marvel Rivals patch notes are a proper read. This is the AI-structured version — already broken into sections, so I just go straight to what I care about."
 
-**BIANCA:** Click open one of the **accordion sections** — for example Hero Adjustments or Balance Changes.
+⭐ **BIANCA:** Click open one of the **accordion sections** — for example Hero Adjustments or Balance Changes.
 
-**ED:**
+🔴 **ED:**
 > "I just expand the section I want and ignore the rest. But honestly, if I don't even want to do that, there's Briffy."
 
-**ED:** Point to the **Briffy chatbot panel**.
+🔴 **ED:** Point to the **Briffy chatbot panel**.
 > "Briffy has the full patch loaded as context. So instead of reading anything, I just ask."
 
-**BIANCA:** Type *"Did they nerf any supports?"* or *"What changed for my main?"* and wait for the response.
+⭐ **BIANCA:** Type *"Did they nerf any supports?"* or *"What changed for my tanks?"* and wait for the response.
 
-**ED:**
+🔴 **ED:**
 > "Straight answer, no digging through the notes myself. And because the conversation is saved, I can follow up without having to repeat myself."
 
-**BIANCA:** Hit **Back to game** to return to the Marvel Rivals page.
+⭐ **BIANCA:** Hit **Back to game** to return to the Marvel Rivals page.
 
-**ED:** Point to the **Upcoming Events** section at the bottom.
+🔴 **ED:** Point to the **Upcoming Events** section at the bottom.
 > "And there's upcoming events down here too, which is handy."
 
 ---
 
 ### 4. Events Page (~ 45 sec)
 
-**BIANCA:** Click **Events** in the nav.
+⭐ **BIANCA:** Click **Events** in the nav.
 
+<<<<<<< HEAD
 **ED:**
 > "Events is probably the thing I've missed the most over the years. Double XP weekends in CoD, limited-time modes — they'd come and go and I'd only find out after. And the big one for me — Fortnite concerts. I was actually at the first ever in-game concert they did, which was genuinely unreal. But I stopped playing Fortnite as much after that, so I wasn't keeping up with what was happening. They did more concerts after and I missed all of them. And the thing is, I would have gone back on just for those — it's free, so why not. I just never knew they were on. => Make it shorter 
+=======
+🔴 **ED:**
+> "Events is probably the thing I've missed most. Double XP weekends, limited-time modes — they'd come and go and I'd only find out after. Same with Fortnite concerts — I was at the first one, it was really entertaining, but I missed every one after because I just wasn't keeping up. I would've gone back on for those, it's free — I just never knew they were on.
+>>>>>>> 8414156667d07c366f4671875158a77c31c5b5f9
 >
 > Having it all in one place, grouped by when things are actually happening — that's what I needed."
 
-**ED:** Point to the time groupings — **Later This Week**, **This Month**, **April**, **May**, etc.
+🔴 **ED:** Point to the time groupings — **Later This Week**, **This Month**, **April**, **May**, etc.
 
-**BIANCA:** Click the **This week** filter.
+⭐ **BIANCA:** Click the **This week** filter.
 
-**ED:**
+🔴 **ED:**
 > "If I just want to see what's on right now I'll filter it down."
 
-**BIANCA:** Click back to **All upcoming**. Scroll to **April** and open **Marvel Rivals Season 7 Launch**.
+⭐ **BIANCA:** Click back to **All upcoming**. Scroll to **April** and open **Marvel Rivals Season 7 Launch**.
 
-**ED:**
-> "So there's the date, a countdown, and a summary of what's actually happening."
+🔴 **ED:**
+> "I've got the date, a countdown, a summary — don't need to go hunting for any of it."
 
-**BIANCA:** Click **Set Reminder**.
+⭐ **BIANCA:** Click **Set Reminder**.
 
-**ED:**
-> "Setting a reminder saves it straight to my profile — I don't have to remember the date myself."
+🔴 **ED:**
+> "That's saved to my profile now — I don't have to remember the date myself."
 
-**ED:** Point to the **Add to Google Calendar** button that appears after setting the reminder.
-> "And once it's saved, I can push it straight to Google Calendar so it shows up wherever I actually track my schedule."
+🔴 **ED:** Point to the **Add to Google Calendar** button that appears after setting the reminder.
+> "And now it's saved I can push it to Google Calendar — so it shows up wherever I actually track my schedule."
 
+<<<<<<< HEAD
 **BIANCA:** Hit **Back to events** + clic on the "add to google calendar"
+=======
+⭐ **BIANCA:** Hit **Back to events** + click **Add to Google Calendar** (cmd + click to open in new tab)
+>>>>>>> 8414156667d07c366f4671875158a77c31c5b5f9
 
 ---
 
 ### 5. Profile Page (~ 2 min 30 sec)
 
-**BIANCA:** Click **Gaming Hub** in the nav.
+⭐ **BIANCA:** Click **Gaming Hub** in the nav.
 
+<<<<<<< HEAD
 **ED:**
 > "So this is my profile — everything's here, games I like, patches for my games and reminders I've set,  all of it."
 
@@ -212,12 +253,71 @@ The account is set up with:
 
 ---
 
+=======
+🔴 **ED:**
+> "I can see everything I care about in one place here — games I’ve favourited, patches, reminders, all of it."
+
+🔴 **ED:**
+> "I'll change the theme while I'm here — put it on something I actually like."
+
+⭐ **BIANCA:** Open the **theme switcher** in the navbar and click through a couple of themes — for example Purple, then Ember.
+
+⭐ **BIANCA:** Pick a theme and leave it on. Scroll to the **FriendHub** post feed.
+
+🔴 **ED:**
+> "Me and my mates post in here about what we're playing, react to updates — that kind of thing."
+
+---
+
+#### Friend Requests
+
+⭐ **BIANCA:** Click **Back to Feed** to return to the main profile view. Click the **Friends button** — the one showing the pending request count (e.g. "0 Friends · 3").
+
+🔴 **ED:**
+> "That badge is letting me know I've got requests waiting."
+
+*The modal opens showing 3 pending requests — ShadowRex99, TurboJack, FragMaster99.*
+
+🔴 **ED:**
+> "I'll accept one of these now — and they'll start showing up in my feed."
+
+⭐ **BIANCA:** Click the **accept button** (✓) on one of the requests. Close the modal.  Hover over the pending friend request icon
+
+---
+
+#### My Games panel
+
+⭐ **BIANCA:** Click the **Favourited games** button in the profile nav strip.
+
+🔴 **ED:**
+> "All my games are right here — don't have to go digging for them."
+
+---
+
+#### My Patches panel
+
+⭐ **BIANCA:** Click the **Patch drops** button.
+
+🔴 **ED:**
+> "I'd probably spend most of my time in here honestly. It's only showing patches from games I've actually favourited — none of the stuff that's nothing to do with me."
+
+---
+
+#### My Events panel
+
+⭐ **BIANCA:** Click the **Event reminders** button.
+
+🔴 **ED:**
+> "All my reminders in one place — I don't have to hope I remember the date."
+
+---
+>>>>>>> 8414156667d07c366f4671875158a77c31c5b5f9
 
 ### Close (~ 15 sec)
 
-**BIANCA:** Navigate back to the **homepage**.
+⭐ **BIANCA:** Navigate back to the **homepage**.
 
-**ED:**
+🔴 **ED:**
 > "For me it comes back to that feeling of logging in and realising you've missed something — a nerf, an event, a whole update. GameBrief is just one place that keeps you in the loop, without making it a chore.
 >
 > Patch notes. Plain English."
@@ -243,7 +343,7 @@ The account is set up with:
 
 ## Suggested Demo Length
 
-Based on the section timings, the full demo should take roughly **5–6 minutes** at a comfortable pace:
+Based on the section timings, the full demo should take roughly **6–6.5 minutes** at a comfortable pace:
 
 | Section | Time |
 | --- | --- |
@@ -257,8 +357,17 @@ Based on the section timings, the full demo should take roughly **5–6 minutes*
 
 Allow a little extra buffer for questions or if the AI response from Briffy takes a moment to stream in.
 
+<<<<<<< HEAD
 
 ## Features not mentionned here  
 -Posting 
 -Reacting to posts
 -Get rid of marvel rival patch notes from nov 2025
+=======
+## Features not mentioned here
+
+- Posting
+- Reacting to posts
+
+> **Note:** Remove Marvel Rivals patch notes from Nov 2025 before the demo.
+>>>>>>> 8414156667d07c366f4671875158a77c31c5b5f9
