@@ -63,6 +63,7 @@ Rails.application.routes.draw do
       end
     end
     resources :users, only: [:create, :destroy], controller: :users
+    resource :demo_reset, only: [:create], controller: :demo_resets
   end
 
   get "find-friends", to: "pages#find_friends", as: :find_friends
