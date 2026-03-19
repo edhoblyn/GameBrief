@@ -70,7 +70,8 @@
       "Bash(xxd)",
       "Bash(python3 -c \":*)",
       "Bash(find app/assets -name *bf6* -o -name *battlefield*)",
-      "Bash(find /Users/edhoblyn/GameBrief -name *bf6* -o -name *Battlefield* -o -name *battlefield*)"
+      "Bash(find /Users/edhoblyn/GameBrief -name *bf6* -o -name *Battlefield* -o -name *battlefield*)",
+      "Bash(python3:*)"
     ],
     "deny": []
   }
