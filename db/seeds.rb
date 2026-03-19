@@ -173,7 +173,7 @@ cs2           = import_game(client, "Counter-Strike 2", free_to_play: true, mult
 dota2         = import_game(client, "Dota 2", free_to_play: true, multiplayer: true)
 baldurs_gate3 = import_game(client, "Baldur's Gate 3", name: "Baldur's Gate 3", slug: "baldurs-gate-3", free_to_play: false, single_player: true, multiplayer: true)
 pubg          = import_game(client, "PUBG: Battlegrounds", free_to_play: true, multiplayer: true)
-battlefield6  = import_game(client, "Battlefield 6", cover_image: "https://battlefieldchronicles.com/content/images/size/w1200/2025/07/cover-1.png", free_to_play: false, single_player: true, multiplayer: true)
+battlefield6  = import_game(client, "Battlefield 6", free_to_play: false, single_player: true, multiplayer: true)
 
 puts "Setting game genres..."
 
