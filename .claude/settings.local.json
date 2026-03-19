@@ -67,14 +67,10 @@
       "WebFetch(domain:www.mobygames.com)",
       "WebFetch(domain:battlefieldchronicles.com)",
       "Bash(grep -r \"card-friend\\\\|Add Friend\\\\|friendship\" /home/baptistesardou/GameBrief/app --include=*.js --include=*.erb)",
-<<<<<<< HEAD
-      "Bash(identify /home/baptistesardou/GameBrief/public/icon.png)"
-=======
       "Bash(xxd)",
       "Bash(python3 -c \":*)",
       "Bash(find app/assets -name *bf6* -o -name *battlefield*)",
       "Bash(find /Users/edhoblyn/GameBrief -name *bf6* -o -name *Battlefield* -o -name *battlefield*)"
->>>>>>> 8414156667d07c366f4671875158a77c31c5b5f9
     ],
     "deny": []
   }
